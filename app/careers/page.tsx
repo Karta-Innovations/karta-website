@@ -28,8 +28,8 @@ export default function CareersPage() {
             <p>
               Karta hires for ownership and field-grounding. The people who
               build the stack also deploy it. If you have ever wanted what you
-              build to be operationally consequential — not theoretically
-              important — this is the right room.
+              build to be operationally consequential - not theoretically
+              important - this is the right room.
             </p>
             <p>
               We work from a single engineering station, with field operations

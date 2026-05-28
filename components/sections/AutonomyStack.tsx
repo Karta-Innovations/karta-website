@@ -4,7 +4,6 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { DoppelrandCard } from "@/components/primitives/DoppelrandCard";
 import { ArrowUpRight, Pulse } from "@phosphor-icons/react/dist/ssr";
@@ -41,26 +40,16 @@ export function AutonomyStack() {
       className="relative py-32 md:py-48 px-6 md:px-10 bg-ink-2 overflow-hidden"
     >
       <div className="mx-auto max-w-[1400px]">
-        <CoordinateStrip
-          left="KRT.OPS.2026 · 03"
-          center="STACK · ENGAGED"
-          right="EDGE · COMMAND · THEATRE"
-          className="mb-24"
-        />
-
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 mb-24">
           <div>
-            <EyebrowTag className="mb-6">The stack · 03</EyebrowTag>
+            <EyebrowTag className="mb-6">The stack · 04</EyebrowTag>
             <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg max-w-[16ch]">
               One stack. Three altitudes. Three products.
             </h2>
           </div>
           <div className="lg:pt-6">
             <p className="text-fg-muted text-[17px] leading-[1.65] max-w-[60ch]">
-              The Karta autonomy stack runs at three altitudes — on the
-              airframe, at the operator station, and across the theatre. Each
-              altitude is a real shipping product, not a slide layer. The
-              products and the stack are the same thing.
+              The Karta autonomy stack runs at three altitudes - on the airframe, at the operator station, and across the theatre. 
             </p>
             <Link
               href="/stack"
@@ -72,7 +61,7 @@ export function AutonomyStack() {
           </div>
         </div>
 
-        {/* Asymmetric bento — Edge large with live anchor; Command + Theatre stack */}
+        {/* Asymmetric bento - Edge large with live anchor; Command + Theatre stack */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
           <EdgeCard layer={STACK_LAYERS[0]} className="lg:col-span-7 lg:row-span-2" />
           <CommandCard layer={STACK_LAYERS[1]} className="lg:col-span-5" />
@@ -89,7 +78,7 @@ interface LayerCardProps {
 }
 
 /* ------------------------------------------------------------------ */
-/*  L1 Edge — SkyAnchor — live breathing anchor indicator             */
+/*  L1 Edge - SkyAnchor - live breathing anchor indicator             */
 /* ------------------------------------------------------------------ */
 
 function EdgeCard({ layer, className }: LayerCardProps) {
@@ -116,88 +105,114 @@ function EdgeCard({ layer, className }: LayerCardProps) {
       >
         <LayerHeader layer={layer} variant="featured" />
 
-        <p className="text-fg-muted text-[17px] leading-[1.6] mb-8 max-w-[44ch] mt-8">
+        <p className="text-fg-muted text-[17px] leading-[1.6] mt-8 mb-9 max-w-[44ch]">
           {layer.byline}
         </p>
 
-        <ul className="space-y-2.5 pb-8 border-b border-white/[0.06]">
-          {layer.capabilities.slice(0, 4).map((cap) => (
+        {/* Capabilities - hairline-separated engineering rows, not bulleted
+            marketing copy. Reads as documentation in the brand's instrument
+            register; shows all five caps, not the truncated four. */}
+        <ul className="border-t border-white/[0.06]">
+          {layer.capabilities.map((cap) => (
             <li
               key={cap}
-              className="flex items-center gap-3 text-sm text-fg-muted"
+              className="flex items-center gap-3 py-3 border-b border-white/[0.06] text-[14px] text-fg-muted leading-[1.5]"
             >
-              <span aria-hidden className="block size-1 rounded-full bg-amber" />
+              <span aria-hidden className="block size-1 rounded-full bg-amber shrink-0" />
               {cap}
             </li>
           ))}
         </ul>
 
+        {/* Posture spec grid - telemetry-style 2x2 of engineering constraints
+            pulled from layer.posture. Fills what was empty space with real
+            data the buyer actually wants to see. */}
+        <dl className="mt-8 grid grid-cols-2 gap-y-5 gap-x-8">
+          {layer.posture.map((row) => (
+            <div key={row.label} className="border-t border-white/[0.06] pt-3">
+              <dt className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">
+                {row.label}
+              </dt>
+              <dd className="mt-1.5 font-mono text-fg text-[14px] tracking-[0.02em] flex items-baseline gap-1.5">
+                <span>{row.value}</span>
+                {row.unit ? (
+                  <span className="text-fg-tertiary text-[11px] tracking-[0.04em]">
+                    {row.unit}
+                  </span>
+                ) : null}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
         {/* Live indicator panel */}
-        <div className="mt-auto rounded-2xl bg-ink/60 ring-1 ring-white/[0.06] p-6 backdrop-blur-sm">
-          <div className="flex items-center justify-between mb-5">
-            <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">
-              SkyAnchor · live posture
-            </span>
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={state}
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.25 }}
-                className={`font-mono text-[11px] tracking-[0.18em] uppercase ${
-                  state === "anchored" ? "text-ok" : "text-amber"
-                }`}
-              >
-                {state === "anchored" ? "ANCHORED · 0.42m" : "ACQUIRING..."}
-              </motion.span>
-            </AnimatePresence>
-          </div>
-
-          {/* 3D LiDAR return — slow rotating point cloud */}
-          <div className="relative h-[180px] rounded-xl bg-ink/80 ring-1 ring-white/[0.04] mb-5 overflow-hidden">
-            <EdgeLidarScene
-              className="absolute inset-0"
-              fallback={<InstrumentFallback label="LiDAR · STATIC" />}
-            />
-            <div className="absolute top-2.5 left-3 font-mono text-[9px] tracking-[0.22em] uppercase text-fg-tertiary pointer-events-none">
-              VIO · returns
+        <div className="mt-auto pt-9">
+          <div className="rounded-2xl bg-ink/60 ring-1 ring-white/[0.06] p-6 backdrop-blur-sm">
+            <div className="flex items-center justify-between mb-5">
+              <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">
+                SkyAnchor · live posture
+              </span>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={state}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.25 }}
+                  className={`font-mono text-[11px] tracking-[0.18em] uppercase ${
+                    state === "anchored" ? "text-ok" : "text-amber"
+                  }`}
+                >
+                  {state === "anchored" ? "ANCHORED · 0.42m" : "ACQUIRING..."}
+                </motion.span>
+              </AnimatePresence>
             </div>
-            <div className="absolute bottom-2.5 right-3 font-mono text-[9px] tracking-[0.22em] uppercase text-amber pointer-events-none">
-              {state === "anchored" ? "LOCK" : "SCAN"}
-            </div>
-          </div>
 
-          <div className="flex items-center gap-4">
-            <span className="relative inline-flex">
-              <span
-                className={`block size-3 rounded-full ${
-                  state === "anchored" ? "bg-ok" : "bg-amber"
-                }`}
+            {/* 3D LiDAR return - slow rotating point cloud */}
+            <div className="relative h-[200px] rounded-xl bg-ink/80 ring-1 ring-white/[0.04] mb-5 overflow-hidden">
+              <EdgeLidarScene
+                className="absolute inset-0"
+                fallback={<InstrumentFallback label="LiDAR · STATIC" />}
               />
-              <motion.span
-                className={`absolute inset-0 block rounded-full ${
-                  state === "anchored" ? "bg-ok" : "bg-amber"
-                }`}
-                animate={{ scale: [1, 2.4], opacity: [0.55, 0] }}
-                transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
-              />
-            </span>
-            <div className="flex-1 grid grid-cols-2 gap-4 text-sm">
-              <div>
-                <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">
-                  VIO drift
-                </div>
-                <div className="font-mono text-fg text-[13px] mt-1">
-                  {state === "anchored" ? "0.18 m/km" : "—"}
-                </div>
+              <div className="absolute top-2.5 left-3 font-mono text-[9px] tracking-[0.22em] uppercase text-fg-tertiary pointer-events-none">
+                VIO · returns
               </div>
-              <div>
-                <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">
-                  Terrain match
+              <div className="absolute bottom-2.5 right-3 font-mono text-[9px] tracking-[0.22em] uppercase text-amber pointer-events-none">
+                {state === "anchored" ? "LOCK" : "SCAN"}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <span className="relative inline-flex">
+                <span
+                  className={`block size-3 rounded-full ${
+                    state === "anchored" ? "bg-ok" : "bg-amber"
+                  }`}
+                />
+                <motion.span
+                  className={`absolute inset-0 block rounded-full ${
+                    state === "anchored" ? "bg-ok" : "bg-amber"
+                  }`}
+                  animate={{ scale: [1, 2.4], opacity: [0.55, 0] }}
+                  transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
+                />
+              </span>
+              <div className="flex-1 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">
+                    VIO drift
+                  </div>
+                  <div className="font-mono text-fg text-[13px] mt-1">
+                    {state === "anchored" ? "0.18 m/km" : "-"}
+                  </div>
                 </div>
-                <div className="font-mono text-fg text-[13px] mt-1">
-                  {state === "anchored" ? "0.94" : "0.62"}
+                <div>
+                  <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">
+                    Terrain match
+                  </div>
+                  <div className="font-mono text-fg text-[13px] mt-1">
+                    {state === "anchored" ? "0.94" : "0.62"}
+                  </div>
                 </div>
               </div>
             </div>
@@ -209,7 +224,7 @@ function EdgeCard({ layer, className }: LayerCardProps) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  L2 Command — TENERE — intelligent list reordering                 */
+/*  L2 Command - TENERE - intelligent list reordering                 */
 /* ------------------------------------------------------------------ */
 
 interface MissionTask {
@@ -295,7 +310,7 @@ function CommandCard({ layer, className }: LayerCardProps) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  L3 Theatre — Kiksuya — doctrine typewriter                        */
+/*  L3 Theatre - Kiksuya - doctrine typewriter                        */
 /* ------------------------------------------------------------------ */
 
 const THEATRE_PROMPTS = [
@@ -349,7 +364,7 @@ function TheatreCard({ layer, className }: LayerCardProps) {
             <span>0{prompt + 1} / 04</span>
           </div>
 
-          {/* 3D doctrine graph — wireframe geodesic with sparse bloom */}
+          {/* 3D doctrine graph - wireframe geodesic with sparse bloom */}
           <div className="relative h-[140px] rounded-lg bg-ink/70 ring-1 ring-white/[0.04] mb-3 overflow-hidden">
             <TheatreWireframeScene
               className="absolute inset-0"

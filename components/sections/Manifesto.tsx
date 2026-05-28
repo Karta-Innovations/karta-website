@@ -54,7 +54,7 @@ export function Manifesto() {
             <span
               lang="sa"
               className="font-devanagari block text-[44px] leading-[1] text-fg/85"
-              aria-label="Darshan — vision, philosophy"
+              aria-label="Darshan - vision, philosophy"
             >
               दर्शन
             </span>
@@ -91,7 +91,7 @@ export function Manifesto() {
               className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 max-w-[78ch]"
             >
               <p className="text-fg-muted text-[17px] leading-[1.7]">
-                We are focused not just on better drones, but on intelligent
+                We are focused not just on better vehicles, but on intelligent
                 systems that reduce dependence on pilot skill and make confident
                 operation possible at scale.
               </p>

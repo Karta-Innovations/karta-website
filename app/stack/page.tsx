@@ -7,9 +7,9 @@ import { NestedCTA } from "@/components/primitives/NestedCTA";
 import { STACK_LAYERS, type StackLayer } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Stack · Edge · Command · Theatre",
+  title: "Stack",
   description:
-    "Karta's autonomy stack — SkyAnchor at the Edge, TENERE at Command, Kiksuya at Theatre. Three altitudes of decision-making, each shipped as a real product.",
+    "Karta's autonomy stack - SkyAnchor at the Edge, TENERE at Command, Kiksuya at Theatre. Three altitudes of decision-making, each shipped as a real product.",
 };
 
 export default function StackPage() {
@@ -26,7 +26,7 @@ export default function StackPage() {
         intro={
           <>
             <p>
-              The Karta autonomy stack runs at three altitudes — on the
+              The Karta autonomy stack runs at three altitudes: on the
               airframe, at the operator station, and across the theatre. Each
               altitude is a real shipping product, versioned and integrated
               into the vehicles you fly.

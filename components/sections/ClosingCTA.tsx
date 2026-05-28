@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { NestedCTA } from "@/components/primitives/NestedCTA";
 import { AmberSweep } from "@/components/primitives/AmberSweep";
@@ -21,23 +20,16 @@ export function ClosingCTA() {
       </div>
 
       <div className="relative mx-auto max-w-[1400px]">
-        <CoordinateStrip
-          left="KRT.OPS.2026 · 10"
-          center="ENGAGE · OPEN"
-          right="HYDERABAD · INDIA"
-          className="mb-24"
-        />
-
         <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-20 items-end">
           <div>
-            <EyebrowTag className="mb-8">Engage · 10</EyebrowTag>
+            <EyebrowTag className="mb-8">Engage · 06</EyebrowTag>
             <h2 className="font-display text-[clamp(2.5rem,7vw,7rem)] font-medium tracking-[-0.04em] leading-[0.92] text-fg max-w-[14ch]">
               Talk to{" "}
               <span className="text-amber">engineering</span>, not sales.
             </h2>
             <p className="mt-8 text-fg-muted text-[17px] leading-[1.65] max-w-[58ch]">
               For procurement, partnerships, and platform integration. Karta
-              engages directly — our first reply comes from the team that ships
+              engages directly - our first reply comes from the team that ships
               the code, not a funnel.
             </p>
 
@@ -55,19 +47,14 @@ export function ClosingCTA() {
 
           <aside className="space-y-7 lg:pb-6">
             <ContactRow
-              label="General + media"
-              value="hello@kartainnovations.com"
-              href="mailto:hello@kartainnovations.com"
+              label="General + media + Careers"
+              value="info@kartainnovations.com"
+              href="mailto:info@kartainnovations.com"
             />
             <ContactRow
               label="Programmes + procurement"
-              value="programmes@kartainnovations.com"
-              href="mailto:programmes@kartainnovations.com"
-            />
-            <ContactRow
-              label="Careers"
-              value="careers@kartainnovations.com"
-              href="mailto:careers@kartainnovations.com"
+              value="marketing@kartainnovations.com"
+              href="mailto:marketing@kartainnovations.com"
             />
           </aside>
         </div>

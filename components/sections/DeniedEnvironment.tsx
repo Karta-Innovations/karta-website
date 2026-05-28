@@ -3,7 +3,6 @@
 import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
-import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { ScenarioVisual } from "./DeniedEnvironmentVisuals";
 
 interface Scenario {
@@ -20,7 +19,7 @@ const SCENARIOS: Scenario[] = [
     label: "GPS denied",
     title: "Signal vanishes mid-mission.",
     body:
-      "Jamming, urban canyons, or polar latitudes silence the GNSS. The vehicle must keep a metric map of itself, the terrain, and its task — purely from on-board perception.",
+      "Jamming, urban canyons, or polar latitudes silence the GNSS. The vehicle must keep a metric map of itself, the terrain, and its task - purely from on-board perception.",
     telemetry: [
       { k: "GNSS lock", v: "LOST" },
       { k: "Fallback", v: "VIO + TRN" },
@@ -78,15 +77,9 @@ export function DeniedEnvironment() {
       className="relative bg-surface-deep px-6 md:px-10"
     >
       <div className="mx-auto max-w-[1400px] pt-32 md:pt-48">
-        <CoordinateStrip
-          left="KRT.OPS.2026 · 04"
-          center="ENVIRONMENT · CONTESTED"
-          right="04 FAILURE MODES"
-          className="mb-20"
-        />
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-20 mb-20">
           <div>
-            <EyebrowTag className="mb-6">Problem space · 04</EyebrowTag>
+            <EyebrowTag className="mb-6">Problem space · 02</EyebrowTag>
             <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg max-w-[18ch]">
               The denied environment is where{" "}
               <span className="text-amber">autonomy earns its keep</span>.
@@ -95,7 +88,7 @@ export function DeniedEnvironment() {
           <div className="lg:pt-6">
             <p className="text-fg-muted text-[17px] leading-[1.65] max-w-[60ch]">
               Real-world unmanned operations are defined by what fails. GPS,
-              comms, optics, and operator attention all degrade — usually
+              comms, optics, and operator attention all degrade - usually
               together. Karta is engineered against each of these from the first
               line of code.
             </p>
@@ -140,7 +133,7 @@ function ScenarioCard({ scenario, index, progress }: ScenarioCardProps) {
 
   // HUD timestamp + simulated pose drift, scrubbed by scroll progress.
   // Each scenario gets its own 4.2-second clock that ticks as the user scrolls
-  // through that card's range — reads as live telemetry while keeping zero
+  // through that card's range - reads as live telemetry while keeping zero
   // background work when not in view.
   const [timestamp, setTimestamp] = useState("T+0.000s");
   const [drift, setDrift] = useState("000.0m");
@@ -183,7 +176,7 @@ function ScenarioCard({ scenario, index, progress }: ScenarioCardProps) {
           </span>
         </header>
 
-        {/* Per-scenario instrument visualization — fills the middle band that
+        {/* Per-scenario instrument visualization - fills the middle band that
             previously sat empty. Each scenario gets a different SVG/CSS panel
             tied to its failure mode (drift trace, link timeline, sensor stack,
             1:N supervision graph). */}

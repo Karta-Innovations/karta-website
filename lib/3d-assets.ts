@@ -9,7 +9,7 @@
  *      ≤ 500 KB, ≤ 50k triangles, single material).
  *   2. Add the slug to the array below.
  *
- * Removing a slug is also safe — the scene mounts conditionally.
+ * Removing a slug is also safe - the scene mounts conditionally.
  */
 import type { Vehicle } from "./catalog";
 

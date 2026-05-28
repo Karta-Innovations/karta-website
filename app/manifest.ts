@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Karta — Operational autonomy",
+    name: "Karta - Operational autonomy",
     short_name: "Karta",
     description:
       "Karta builds the operational autonomy stack for unmanned systems in GPS- and comms-denied environments.",

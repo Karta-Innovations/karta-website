@@ -24,7 +24,7 @@ export const NOTES: FieldNote[] = [
     slug: "skyanchor-uncertainty",
     title: "Why SkyAnchor publishes uncertainty, not position",
     summary:
-      "A short note on why our on-vehicle pose estimate is exposed with explicit confidence — and what that lets every downstream consumer do correctly.",
+      "A short note on why our on-vehicle pose estimate is exposed with explicit confidence - and what that lets every downstream consumer do correctly.",
     author: "K. Mehrotra",
     role: "Edge stack lead",
     date: "2026-04-18",
@@ -33,11 +33,11 @@ export const NOTES: FieldNote[] = [
     body: [
       {
         type: "p",
-        text: "Every autonomy stack we have looked at — open-source, commercial, defence-supplied — exposes pose as a single number triple. (x, y, z) in some frame. Sometimes a quaternion. Almost never a confidence.",
+        text: "Every autonomy stack we have looked at - open-source, commercial, defence-supplied - exposes pose as a single number triple. (x, y, z) in some frame. Sometimes a quaternion. Almost never a confidence.",
       },
       {
         type: "p",
-        text: "Downstream consumers then act as if the pose is true. They plan against it. They draw on maps. They make commitments. When the underlying estimator silently degrades — drift accumulates, terrain match falls — nothing in the system notices until something goes wrong.",
+        text: "Downstream consumers then act as if the pose is true. They plan against it. They draw on maps. They make commitments. When the underlying estimator silently degrades - drift accumulates, terrain match falls - nothing in the system notices until something goes wrong.",
       },
       {
         type: "h2",
@@ -62,7 +62,7 @@ export const NOTES: FieldNote[] = [
       },
       {
         type: "p",
-        text: "TENERE consumes the posterior, not the mean. Mission graphs can be authored against pose-uncertainty constraints — \"do not commit to the corridor unless lateral 1-sigma is under 6 metres\" — and the planner can hold actions until they would be safe to execute.",
+        text: "TENERE consumes the posterior, not the mean. Mission graphs can be authored against pose-uncertainty constraints - \"do not commit to the corridor unless lateral 1-sigma is under 6 metres\" - and the planner can hold actions until they would be safe to execute.",
       },
       {
         type: "p",
@@ -79,7 +79,7 @@ export const NOTES: FieldNote[] = [
       },
       {
         type: "p",
-        text: "It is more work. Calibrating uncertainty is harder than reporting it. The benefit is that every downstream consumer that uses the posterior is, by construction, safer than one that does not — and the failure modes that used to be silent become loud.",
+        text: "It is more work. Calibrating uncertainty is harder than reporting it. The benefit is that every downstream consumer that uses the posterior is, by construction, safer than one that does not - and the failure modes that used to be silent become loud.",
       },
     ],
   },
@@ -87,7 +87,7 @@ export const NOTES: FieldNote[] = [
     slug: "doctrine-as-code",
     title: "Doctrine as code: what Kiksuya actually does",
     summary:
-      "Why rules of engagement, geometry constraints, and authority gates belong in a versioned runtime — not a slide deck.",
+      "Why rules of engagement, geometry constraints, and authority gates belong in a versioned runtime - not a slide deck.",
     author: "S. Ranganathan",
     role: "Doctrine runtime",
     date: "2026-05-02",
@@ -96,7 +96,7 @@ export const NOTES: FieldNote[] = [
     body: [
       {
         type: "p",
-        text: "Most autonomy stacks treat doctrine as a separate artefact — a slide deck, a PDF, a procurement annex. The runtime never reads it. The audit log never references it. The vehicle, in flight, has no way to point at the clause that authorised its last action.",
+        text: "Most autonomy stacks treat doctrine as a separate artefact - a slide deck, a PDF, a procurement annex. The runtime never reads it. The audit log never references it. The vehicle, in flight, has no way to point at the clause that authorised its last action.",
       },
       {
         type: "p",

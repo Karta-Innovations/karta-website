@@ -32,7 +32,7 @@ export default function FieldNotesPage() {
         intro={
           <>
             <p>
-              Field Notes is where Karta engineers write — about the Edge stack,
+              Field Notes is where Karta engineers write - about the Edge stack,
               about doctrine, about the operating envelopes we fly. No
               marketing, no roadmap dreams. The work, as it actually is.
             </p>

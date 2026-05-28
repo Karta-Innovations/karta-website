@@ -20,7 +20,7 @@ export default function NotFound() {
         </h1>
         <p className="mt-8 text-fg-muted text-[17px] leading-[1.65] max-w-[58ch]">
           The route you requested is not in Karta&apos;s published envelope. Try
-          the stack, the platforms, or talk to the engineering team — they may
+          the stack, the platforms, or talk to the engineering team - they may
           know what you were looking for.
         </p>
         <div className="mt-10 flex flex-wrap gap-3">

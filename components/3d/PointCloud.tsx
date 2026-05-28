@@ -28,7 +28,7 @@ const VERTEX_SHADER = /* glsl */ `
 
   void main() {
     vec3 pos = position;
-    // Subtle radial pulse so points "breathe" — reads as live sensor sweep.
+    // Subtle radial pulse so points "breathe" - reads as live sensor sweep.
     float pulse = 0.5 + 0.5 * sin(uTime * 1.4 + aPhase);
     vAlpha = mix(0.35, 1.0, pulse);
 
@@ -74,7 +74,7 @@ export function PointCloud({
     const sizes = new Float32Array(count);
     const phases = new Float32Array(count);
     for (let i = 0; i < count; i++) {
-      // Sample inside an ellipsoid — wider in xz, flatter in y so it reads as terrain return.
+      // Sample inside an ellipsoid - wider in xz, flatter in y so it reads as terrain return.
       const theta = Math.random() * Math.PI * 2;
       const r = Math.cbrt(Math.random()) * radius;
       const y = (Math.random() - 0.35) * radius * 0.7;

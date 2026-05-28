@@ -3,6 +3,7 @@ import { Geist, JetBrains_Mono, Noto_Serif_Devanagari } from "next/font/google";
 import { Nav } from "@/components/chrome/Nav";
 import { Footer } from "@/components/chrome/Footer";
 import { Grain } from "@/components/chrome/Grain";
+import { ThemeScript } from "@/components/chrome/ThemeScript";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import "./globals.css";
 
@@ -18,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-// Used sparingly as a manifesto marker per the brand playbook —
+// Used sparingly as a manifesto marker per the brand playbook -
 // "Indian marker. Use Devanagari sparingly as a design detail, not as decorative excess."
 const notoSerifDevanagari = Noto_Serif_Devanagari({
   variable: "--font-noto-devanagari",
@@ -35,8 +36,8 @@ const SITE_DESCRIPTION =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Autonomy that works where GPS does not`,
-    template: `%s — ${SITE_NAME}`,
+    default: `${SITE_NAME} - Autonomy that works where GPS does not`,
+    template: `%s - ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
@@ -48,19 +49,19 @@ export const metadata: Metadata = {
     "robotics",
     "defense autonomy",
     "deeptech",
-    "drone autonomy stack",
+    "unmanned vehicle autonomy stack",
   ],
   openGraph: {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Autonomy that works where GPS does not`,
+    title: `${SITE_NAME} - Autonomy that works where GPS does not`,
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — Operational autonomy`,
+    title: `${SITE_NAME} - Operational autonomy`,
     description: SITE_DESCRIPTION,
   },
   robots: { index: true, follow: true },
@@ -77,6 +78,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className={`${geistSans.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Pre-paint theme - runs before hydration to avoid flash-of-wrong-theme */}
+        <ThemeScript />
+      </head>
       <body className="min-h-dvh bg-ink text-fg">
         <SmoothScroll />
         <Grain />

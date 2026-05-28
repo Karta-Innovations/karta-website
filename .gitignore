@@ -98,3 +98,19 @@ $RECYCLE.BIN/
 *.rej
 .history/
 .tsimp/
+
+# ---------- Dev screenshots & MCP artifacts ----------
+# Playwright / Claude Code screenshots taken during local dev should never
+# ship to production or pollute git history. Patterns below catch the common
+# landing spots — public/screenshots from intentional saves, plus stray PNGs
+# that occasionally end up at the project root when a path arg goes wrong.
+public/screenshots/
+/hero-phase*.png
+/*-screenshot.png
+*.local.png
+
+# ---------- Archived assets ----------
+# Logo variants and other historical files kept on disk for reference but
+# never shipped. The canonical assets live alongside; only the underscore-
+# prefixed subfolders are excluded.
+public/imagery/_archive/

@@ -137,7 +137,7 @@ function RenderBlock({ block }: { block: NoteBlock }) {
           </p>
           {block.cite ? (
             <cite className="block mt-3 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary not-italic">
-              — {block.cite}
+              - {block.cite}
             </cite>
           ) : null}
         </blockquote>

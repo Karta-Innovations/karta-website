@@ -3,6 +3,8 @@ import Image from "next/image";
 import { PageHeader } from "@/components/primitives/PageHeader";
 import { NestedCTA } from "@/components/primitives/NestedCTA";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
+import { DeniedEnvironment } from "@/components/sections/DeniedEnvironment";
+import { OperatingBounds } from "@/components/sections/OperatingBounds";
 
 export const metadata: Metadata = {
   title: "Mission",
@@ -27,7 +29,7 @@ const PRINCIPLES = [
     n: "03",
     title: "Audit by design",
     body:
-      "Every decision the system makes is logged at telemetry-frame granularity. After-action review is not a feature — it is the substrate.",
+      "Every decision the system makes is logged at telemetry-frame granularity. After-action review is not a feature - it is the substrate.",
   },
   {
     n: "04",
@@ -57,19 +59,19 @@ export default function MissionPage() {
               constrained, and built for the field they will see.
             </p>
             <p>
-              We are not building a category-leading drone. We are building the
-              operational autonomy layer underneath the drones — the navigation,
-              decision and integration stack that turns hardware into a safe,
-              auditable teammate.
+              We are not building a category-leading unmanned system. We are
+              building the operational autonomy layer underneath the vehicles,
+              the navigation, decision and integration stack that turns
+              hardware into a safe, auditable teammate.
             </p>
           </>
         }
-        coord={{ center: "DOCTRINE · OPEN", right: "17.385°N 78.486°E" }}
+        coord={{ center: "DOCTRINE · OPEN", right: "17.454°N 78.500°E" }}
       />
 
       <section className="px-6 md:px-10 pb-24 md:pb-32">
         <div className="mx-auto max-w-[1400px]">
-          <EyebrowTag className="mb-10">Operating principles · 04</EyebrowTag>
+          <EyebrowTag className="mb-10">Operating principles · 01</EyebrowTag>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-12">
             {PRINCIPLES.map((p) => (
               <div key={p.n} className="pl-6 border-l border-border">
@@ -87,6 +89,16 @@ export default function MissionPage() {
           </div>
         </div>
       </section>
+
+      {/*
+        Doctrine flow: principles (above) → the conditions we design for
+        (problem space) → what we will and will not build (operating bounds)
+        → identity image (below). DeniedEnvironment + OperatingBounds were
+        moved here from the landing page so the mission page carries the
+        doctrine-heavy material end-to-end.
+      */}
+      <DeniedEnvironment />
+      <OperatingBounds />
 
       <section className="relative bg-ink-2 border-y border-border">
         <div className="relative aspect-[16/8] md:aspect-[16/6]">

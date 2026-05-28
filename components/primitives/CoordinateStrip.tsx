@@ -10,7 +10,7 @@ interface CoordinateStripProps {
 export function CoordinateStrip({
   left = "KRT.OPS.2026",
   center = "ENGAGED",
-  right = "17.385°N 78.486°E",
+  right = "17.454°N 78.500°E",
   className,
 }: CoordinateStripProps) {
   return (

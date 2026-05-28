@@ -18,7 +18,7 @@ interface WireframeMeshProps {
 }
 
 /**
- * Wireframe geodesic — used by the Theatre/Kiksuya card to suggest a doctrine
+ * Wireframe geodesic - used by the Theatre/Kiksuya card to suggest a doctrine
  * graph as a topological structure. Renders as a single icosahedron with
  * `wireframe: true` and an emissive material; the surrounding bloom in the
  * scene gives it the soft glow.

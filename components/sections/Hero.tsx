@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { NestedCTA } from "@/components/primitives/NestedCTA";
 import { HeroTerrain } from "@/components/3d/HeroTerrain";
@@ -24,7 +23,7 @@ export function Hero() {
       ref={ref}
       className="relative min-h-[100dvh] overflow-hidden bg-ink"
     >
-      {/* Terrain layer — 3D when WebGL/motion allow, static himalaya.jpg otherwise */}
+      {/* Terrain layer - 3D when WebGL/motion allow, static himalaya.jpg otherwise */}
       <HeroTerrain sectionRef={ref} />
 
       {/* Layered scrims for depth + legibility */}
@@ -54,12 +53,6 @@ export function Hero() {
         style={{ y: contentY, opacity: contentOpacity }}
         className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-10 pt-32 lg:pt-40 pb-20 min-h-[100dvh] flex flex-col"
       >
-        <CoordinateStrip
-          left="KRT.OPS.2026 · 01"
-          center="HERO · ENGAGED"
-          right="17.385°N 78.486°E"
-        />
-
         <div className="grid grid-cols-1 lg:grid-cols-[1.45fr_1fr] gap-12 lg:gap-20 mt-auto pt-24">
           <div>
             <EyebrowTag className="mb-7">
@@ -78,7 +71,7 @@ export function Hero() {
           </div>
 
           {/*
-            Sanskrit etymology block — replaces v1's deeptech-lede + KPI list.
+            Sanskrit etymology block - replaces v1's deeptech-lede + KPI list.
             "Karta" is the Sanskrit नौन for the agent, the one who acts. This
             is the brand's load-bearing meaning per the playbook. Treated as a
             manifesto marker, not decoration.
@@ -110,7 +103,7 @@ export function Hero() {
           href="#manifesto"
           className="mt-16 inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary hover:text-amber transition-colors group/scroll w-fit"
         >
-          Scroll · 09 sections below
+          Scroll · 05 sections below
           <span className="inline-flex size-7 items-center justify-center rounded-full ring-1 ring-white/15 group-hover/scroll:ring-amber group-hover/scroll:bg-amber/10 transition-all">
             <motion.span
               animate={{ y: [0, 3, 0] }}

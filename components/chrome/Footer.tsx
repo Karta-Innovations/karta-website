@@ -44,7 +44,7 @@ export function Footer() {
         <CoordinateStrip
           left="KRT.OPS.2026"
           center="STATION · ANCHORED"
-          right="17.385°N 78.486°E"
+          right="17.454°N 78.500°E"
           className="mb-16"
         />
 
@@ -82,7 +82,7 @@ export function Footer() {
             © {new Date().getFullYear()} Karta Innovations. All rights reserved.
           </p>
           <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-fg-tertiary">
-            17.385°N 78.486°E
+            17.454°N 78.500°E
           </p>
         </div>
       </div>

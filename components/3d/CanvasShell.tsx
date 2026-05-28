@@ -10,10 +10,10 @@ interface CanvasShellProps {
   children: ReactNode;
   /** Rendered when WebGL is unavailable, prefers-reduced-motion is set, or the canvas is gated off. */
   fallback: ReactNode;
-  /** Outer wrapper className — set the canvas dimensions here to reserve layout space and avoid CLS. */
+  /** Outer wrapper className - set the canvas dimensions here to reserve layout space and avoid CLS. */
   className?: string;
   /**
-   * Frame loop strategy. Default "always" — most Karta scenes have internal animation (rotation, pulse).
+   * Frame loop strategy. Default "always" - most Karta scenes have internal animation (rotation, pulse).
    * Use "demand" for purely scroll-driven scenes where GSAP triggers invalidate().
    * When the canvas is off-screen, the loop is forced to "never" regardless of this setting.
    */
@@ -46,7 +46,7 @@ function hasWebGL(): boolean {
  * Karta's gated R3F Canvas wrapper.
  *
  * Why this exists: the site has a strict bundle budget and an accessibility floor
- * (prefers-reduced-motion already disables Lenis and CSS animations — 3D must respect
+ * (prefers-reduced-motion already disables Lenis and CSS animations - 3D must respect
  * the same contract). Consumers always pass a static fallback so visitors without
  * WebGL, on low-power devices, or with reduced motion preferences see the same
  * imagery the site shipped before this upgrade.

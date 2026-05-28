@@ -2,11 +2,11 @@
 
 /**
  * Per-scenario instrument panels for the DeniedEnvironment section. Each card
- * gets a different visualization tied to its failure mode — fills the empty
+ * gets a different visualization tied to its failure mode - fills the empty
  * middle space and turns each scenario from a text block into something a
  * defense buyer can read at a glance.
  *
- * Pure SVG/CSS — kept off the Three.js bundle on purpose. The four scenarios
+ * Pure SVG/CSS - kept off the Three.js bundle on purpose. The four scenarios
  * here are dense; a 3D scene per card would overload the page.
  */
 
@@ -30,59 +30,112 @@ export function ScenarioVisual({ code }: ScenarioVisualProps) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 01 · GPS denied — planned route vs VIO-estimated drift             */
+/* 01 · GPS denied - planned route vs VIO-estimated drift             */
 /* ------------------------------------------------------------------ */
 function GpsDriftVisual() {
+  // GNSS constellation: 8 satellites, all visible at start, then degrade. The
+  // first three lose signal early, the next three a moment later, etc. - what
+  // a jamming event looks like from the receiver's point of view.
+  const SATS = [
+    { label: "G02", lost: true },
+    { label: "G05", lost: true },
+    { label: "G07", lost: true },
+    { label: "G12", lost: true },
+    { label: "G18", lost: true },
+    { label: "G24", lost: true },
+    { label: "G31", lost: true },
+    { label: "G44", lost: true },
+  ];
+
   return (
-    <Frame label="01 · POSITION ESTIMATE" rightLabel="DRIFT ↑">
+    <Frame label="01 · POSITION ESTIMATE" rightLabel="GNSS LOST · 8/8">
+      {/* Top band - GNSS constellation status. Each satellite ID with a
+          strike-through state cell. Reads as live receiver telemetry. */}
+      <div className="absolute inset-x-4 top-8 flex items-center justify-between gap-2 h-[18px]">
+        {SATS.map((s) => (
+          <div
+            key={s.label}
+            className="flex-1 relative flex items-center justify-center font-mono text-[8px] tracking-[0.18em] uppercase"
+          >
+            <span
+              className={
+                s.lost
+                  ? "text-alert/85 line-through decoration-alert/85"
+                  : "text-ok"
+              }
+            >
+              {s.label}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Middle band - position-estimate plot with widening uncertainty cone. */}
       <svg
-        viewBox="0 0 600 140"
-        className="absolute inset-x-0 bottom-8 w-full h-[100px]"
+        viewBox="0 0 600 90"
+        className="absolute inset-x-0 top-[60px] bottom-8 w-full"
         preserveAspectRatio="none"
         aria-hidden
       >
-        {/* planned waypoint corridor */}
+        {/* Uncertainty cone - semi-transparent fill that widens with distance.
+            Visualises pose drift growing as VIO accumulates error without GNSS. */}
+        <path
+          d="M 20 45 Q 180 47 320 53 T 580 78
+             L 580 88 Q 320 75 180 53 T 20 45 Z"
+          fill="rgba(200,150,46,0.10)"
+        />
+        {/* Planned waypoint corridor - dashed mid-line */}
         <line
           x1="20"
-          y1="70"
+          y1="45"
           x2="580"
-          y2="70"
+          y2="45"
           stroke="rgba(180,187,210,0.35)"
           strokeWidth="1"
           strokeDasharray="4 6"
         />
-        {/* VIO-estimated track drifting */}
+        {/* VIO-estimated track drifting below the planned line */}
         <path
-          d="M 20 70 Q 180 72 320 88 T 580 124"
+          d="M 20 45 Q 180 47 320 56 T 580 82"
           stroke="#C8962E"
           strokeWidth="1.5"
           fill="none"
         />
-        {/* waypoint markers */}
+        {/* Waypoint markers along the planned corridor */}
         {[20, 145, 270, 395, 520, 580].map((x, i) => (
           <circle
             key={i}
             cx={x}
-            cy="70"
+            cy="45"
             r="2.5"
             fill="none"
             stroke="rgba(180,187,210,0.55)"
             strokeWidth="1"
           />
         ))}
-        {/* current position (drifting) */}
-        <circle cx="580" cy="124" r="3.5" fill="#C8962E" />
+        {/* Current position (drifting endpoint) - ringed dot for emphasis */}
+        <circle
+          cx="580"
+          cy="82"
+          r="5"
+          fill="none"
+          stroke="#C8962E"
+          strokeWidth="1"
+          opacity="0.6"
+        />
+        <circle cx="580" cy="82" r="3" fill="#C8962E" />
       </svg>
+
       <FootRow
         left={<span className="text-fg-tertiary">PLANNED · GNSS LOCK</span>}
-        right={<span className="text-amber">ACTUAL · VIO + TRN</span>}
+        right={<span className="text-amber">ACTUAL · VIO + TRN · ±2.4m</span>}
       />
     </Frame>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* 02 · Comms jammed — link timeline with bounded-autonomy band       */
+/* 02 · Comms jammed - link timeline with bounded-autonomy band       */
 /* ------------------------------------------------------------------ */
 function CommsJamVisual() {
   return (
@@ -138,7 +191,7 @@ function TimelineRow({ label, segments }: TimelineRowProps) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 03 · Visual denied — sensor fusion stack with primary/fallback     */
+/* 03 · Visual denied - sensor fusion stack with primary/fallback     */
 /* ------------------------------------------------------------------ */
 interface SensorRow {
   name: string;
@@ -203,7 +256,7 @@ function SensorFusionVisual() {
 }
 
 /* ------------------------------------------------------------------ */
-/* 04 · Operator overload — 1:N supervision graph (playbook proof #5) */
+/* 04 · Operator overload - 1:N supervision graph (playbook proof #5) */
 /* ------------------------------------------------------------------ */
 const N_VEHICLES = 12;
 interface FleetNode {
@@ -236,7 +289,7 @@ function OperatorSupervisionVisual() {
         preserveAspectRatio="xMidYMid meet"
         aria-hidden
       >
-        {/* connection lines — coloured by node status */}
+        {/* connection lines - coloured by node status */}
         {FLEET.map((v) => {
           const stroke =
             v.status === "fault"

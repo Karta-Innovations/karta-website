@@ -13,7 +13,7 @@ interface VehicleModelInnerProps {
 }
 
 /**
- * Internal — only loaded after the HEAD probe in VehicleModelScene confirms
+ * Internal - only loaded after the HEAD probe in VehicleModelScene confirms
  * the .glb file actually exists. Three small lights (key, fill, amber rim)
  * give the airframe enough form without going full studio render.
  */

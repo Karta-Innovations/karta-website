@@ -57,7 +57,7 @@ const VERTEX_SHADER = /* glsl */ `
     );
   }
 
-  // Ridged multifractal — sharp ridge lines characteristic of high mountain ranges
+  // Ridged multifractal - sharp ridge lines characteristic of high mountain ranges
   float ridge(vec2 p) {
     float n = 0.0;
     float amp = 0.5;
@@ -106,7 +106,7 @@ const FRAGMENT_SHADER = /* glsl */ `
     float t = clamp(vHeight / uAmplitude, 0.0, 1.0);
     vec3 base = mix(uValleyColor, uRidgeColor, smoothstep(0.0, 1.0, t));
 
-    // Distance fade for atmospheric perspective — pulls the back of the scene into the ink.
+    // Distance fade for atmospheric perspective - pulls the back of the scene into the ink.
     float d = clamp(length(vWorldPos.xz) / 40.0, 0.0, 1.0);
     base = mix(base, uValleyColor * 0.6, d * 0.85);
 

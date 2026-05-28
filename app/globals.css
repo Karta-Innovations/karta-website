@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 /* ============================================================
-   KARTA — Design tokens
+   KARTA - Design tokens
    Operational autonomy. Mission-control register.
    ============================================================ */
 
 @theme {
   /*
    * Surface palette.
-   * `ink` stays canonical (brand Midnight Ink #0B1020) — used for hero and
+   * `ink` stays canonical (brand Midnight Ink #0B1020) - used for hero and
    * manifesto where the brand reads truest. Content sections step up onto
    * `ink-2`, cards onto `surface`, raised features onto `indigo`. The step
    * between levels is wider than v1 so the site reads with more headroom.
    */
   --color-ink: #0B1020;          /* hero + manifesto baseline */
-  --color-ink-2: #131A36;        /* content sections — lifted ~6% from v1 */
-  --color-surface: #1B244A;      /* cards, raised panels — lifted ~10% */
+  --color-ink-2: #131A36;        /* content sections - lifted ~6% from v1 */
+  --color-surface: #1B244A;      /* cards, raised panels - lifted ~10% */
   --color-surface-deep: #07091B; /* footer well, deepest pit */
   --color-indigo: #1F2A55;       /* feature card cores, deck headings */
   --color-indigo-hi: #2A3873;
@@ -45,10 +45,10 @@
   /* Font families wired by next/font in layout.tsx */
   --font-sans: var(--font-geist-sans), "Söhne", "Aktiv Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), "IBM Plex Mono", "Berkeley Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  /* Manifesto marker only — used sparingly per brand playbook */
+  /* Manifesto marker only - used sparingly per brand playbook */
   --font-devanagari: var(--font-noto-devanagari), "Noto Serif Devanagari", "Mangal", serif;
 
-  /* Type scale — fluid via clamp where used */
+  /* Type scale - fluid via clamp where used */
   --text-xs: 11px;
   --text-sm: 13px;
   --text-base: 15px;
@@ -80,6 +80,46 @@
 }
 
 /* ============================================================
+   Theme: LIGHT override
+   ----------------------------------------------------------------
+   The @theme block above ships the DARK palette (Karta's canonical
+   register). When `data-theme="light"` is set on <html> by the
+   pre-paint script, these custom-property overrides flip the entire
+   semantic palette to the cream "field document" surface. Tokens
+   keep their existing names for backward-compatibility; the *role*
+   stays the same in both themes (e.g. `--color-ink` is always the
+   page baseline surface - it just resolves to cream in light mode).
+   ============================================================ */
+
+:root[data-theme="light"] {
+  /* Surfaces - flipped to warm cream, content lifts to white */
+  --color-ink: #F5F5F0;          /* page baseline - Field cream */
+  --color-ink-2: #FFFFFF;        /* content sections */
+  --color-surface: #FFFFFF;      /* cards, raised panels */
+  --color-surface-deep: #EAEBE3; /* footer well */
+  --color-indigo: #E8EAF0;       /* feature card cores */
+  --color-indigo-hi: #D6DAE4;    /* hover surface */
+
+  /* Text - inverted from the dark palette */
+  --color-fg: #0B1020;
+  --color-fg-muted: #3A4670;
+  /* --color-fg-tertiary stays #7480A0 - neutral midtone reads on both */
+
+  /* Borders - light hairlines on cream */
+  --color-border: #D6DAE4;
+  --color-border-strong: #B0B7CB;
+  --color-border-soft: rgba(11, 16, 32, 0.07);
+
+  /* Accent - slightly deeper amber for AA contrast on cream */
+  --color-amber: #B8862A;
+  --color-amber-hi: #C8962E;
+  --color-amber-deep: #8C631B;
+
+  /* States - deeper green; alert unchanged */
+  --color-ok: #3E8E3E;
+}
+
+/* ============================================================
    Base layer
    ============================================================ */
 
@@ -89,6 +129,10 @@ html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
 }
 
 body {
@@ -114,14 +158,14 @@ body {
   border-radius: 2px;
 }
 
-/* Strip default link underlines — we style links per-context */
+/* Strip default link underlines - we style links per-context */
 a { color: inherit; text-decoration: none; }
 
 /* Image defaults */
 img, svg, video { display: block; max-width: 100%; }
 
 /* ============================================================
-   Typographic primitives — Geist + JetBrains Mono register
+   Typographic primitives - Geist + JetBrains Mono register
    ============================================================ */
 
 .font-display {
@@ -149,7 +193,7 @@ img, svg, video { display: block; max-width: 100%; }
   font-weight: 400;
 }
 
-/* Eyebrow tag — pill, mono, amber tinted (Restrained color strategy: amber ≤10% surface) */
+/* Eyebrow tag - pill, mono, amber tinted (Restrained color strategy: amber ≤10% surface) */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -169,7 +213,7 @@ img, svg, video { display: block; max-width: 100%; }
   background: currentColor;
 }
 
-/* Devanagari manifesto marker — serif, intentional, never tracked-out */
+/* Devanagari manifesto marker - serif, intentional, never tracked-out */
 .font-devanagari {
   font-family: var(--font-devanagari);
   font-feature-settings: "kern" 1;
@@ -191,7 +235,7 @@ img, svg, video { display: block; max-width: 100%; }
    Texture layers
    ============================================================ */
 
-/* Subtle film grain — fixed, pointer-events-none, GPU-safe */
+/* Subtle film grain - fixed, pointer-events-none, GPU-safe */
 .grain {
   position: fixed;
   inset: 0;
@@ -203,7 +247,31 @@ img, svg, video { display: block; max-width: 100%; }
   background-size: 160px 160px;
 }
 
-/* Scan-line overlay — only on hero region (applied via class on a fixed element) */
+/* On cream, `overlay` blend lifts the noise too brightly - multiply keeps it
+   as soft graphite texture instead of bleached highlights. */
+:root[data-theme="light"] .grain {
+  mix-blend-mode: multiply;
+  opacity: 0.05;
+}
+
+/* Logo mark - the PNG is white-on-transparent (designed for dark surface).
+   In light mode we invert it so the dark glyph reads against cream. */
+:root[data-theme="light"] .logo-mark {
+  filter: invert(1);
+}
+
+/* Floating chrome pills (nav + theme toggle) need a backdrop that contrasts
+   against BOTH page surfaces. In dark mode we want a slightly-lifted dark
+   tint; in light mode we want a slightly-darker cream tint. Both with the
+   same glass blur applied via the Tailwind `backdrop-blur-xl` class. */
+.nav-pill {
+  background-color: rgba(11, 16, 32, 0.7);
+}
+:root[data-theme="light"] .nav-pill {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Scan-line overlay - only on hero region (applied via class on a fixed element) */
 .scanlines {
   position: fixed;
   inset: 0;

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { Logo } from "@/components/chrome/Logo";
+import { ThemeToggle } from "@/components/chrome/ThemeToggle";
 
 interface NavLink {
   label: string;
@@ -49,14 +50,14 @@ export function Nav() {
   return (
     <>
       {/*
-        Top-left brand mark — pulled out of the centered nav pill so the
+        Top-left brand mark - pulled out of the centered nav pill so the
         company identity owns the page corner instead of competing with the
         nav controls. Shares the same scroll-down compression timing as the
         pill so the two read as one piece of chrome.
       */}
       <Link
         href="/"
-        aria-label="Karta — home"
+        aria-label="Karta - home"
         className={cn(
           "fixed left-6 lg:left-10 z-50 pointer-events-auto",
           "inline-flex items-center",
@@ -66,6 +67,20 @@ export function Nav() {
       >
         <Logo size={56} wordmarkSize={24} priority showWordmark />
       </Link>
+
+      {/*
+        Top-right theme toggle - mirrors the logo's scroll-aware vertical
+        compression timing so the two corners read as one piece of chrome.
+        Hidden behind the mobile menu overlay (z-40 vs our z-50) so the user
+        can still toggle while the overlay is open.
+      */}
+      <ThemeToggle
+        className={cn(
+          "fixed right-6 lg:right-10 z-50 pointer-events-auto",
+          "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          scrolled ? "top-6" : "top-9",
+        )}
+      />
 
       <header
         className={cn(
@@ -79,11 +94,16 @@ export function Nav() {
           className={cn(
             "pointer-events-auto inline-flex items-center gap-1 sm:gap-2",
             "rounded-full pl-4 pr-2 py-2",
-            "bg-ink/70 backdrop-blur-xl",
-            "ring-1 ring-white/[0.07]",
-            "shadow-[0_20px_60px_-30px_rgba(0,0,0,0.7)]",
+            // Glass backdrop that reads in both themes: in dark mode this is a
+            // dim ink tint on dark; in light mode the same class resolves to a
+            // dim cream tint on cream, paired with the fg/X ring/shadow to give
+            // the pill a subtle floating edge. The `nav-pill` class layers an
+            // additional theme-aware backdrop tint defined in globals.css.
+            "nav-pill backdrop-blur-xl",
+            "ring-1 ring-fg/[0.08]",
+            "shadow-[0_20px_60px_-30px_rgba(0,0,0,0.45)]",
             "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-            scrolled && "ring-white/[0.10] bg-ink/85",
+            scrolled && "ring-fg/[0.14]",
           )}
         >
           <ul className="hidden lg:flex items-center">
@@ -199,7 +219,7 @@ export function Nav() {
                 >
                   <div>
                     <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary">
-                      17.385°N 78.486°E
+                      17.454°N 78.500°E
                     </span>
                     <p className="mt-3 text-fg-muted leading-relaxed max-w-[28ch]">
                       Engineered close to the field. Tested across high

@@ -5,7 +5,6 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { SpecTable } from "@/components/primitives/SpecTable";
 import { VEHICLES, type Vehicle } from "@/lib/catalog";
@@ -33,15 +32,9 @@ export function Vehicles() {
   return (
     <section id="vehicles" className="relative bg-ink">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 pt-32 md:pt-48 pb-16">
-        <CoordinateStrip
-          left="KRT.OPS.2026 · 05"
-          center="VEHICLES · APIS FAMILY"
-          right="03 PLATFORMS"
-          className="mb-20"
-        />
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
           <div>
-            <EyebrowTag className="mb-6">Air vehicles · 05</EyebrowTag>
+            <EyebrowTag className="mb-6">Air vehicles · 03</EyebrowTag>
             <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg max-w-[14ch]">
               The Apis family.
             </h2>
@@ -52,8 +45,8 @@ export function Vehicles() {
           <div className="lg:pt-6">
             <p className="text-fg-muted text-[17px] leading-[1.65] max-w-[58ch]">
               Three airframes, one autonomy stack. Each platform is a deliberate
-              point in the operational design space — purposefully shaped to a
-              mission, not a feature checklist.
+              point in the operational design space, purposefully shaped to a
+              mission.
             </p>
             <Link
               href="/vehicles"
@@ -99,7 +92,7 @@ function VehicleCard({ vehicle }: VehicleCardProps) {
         className="object-cover"
         quality={88}
       />
-      {/* 3D overlay — mounts only for vehicles listed in lib/3d-assets.ts. */}
+      {/* 3D overlay - mounts only for vehicles listed in lib/3d-assets.ts. */}
       <VehicleModelScene
         slug={vehicle.slug}
         fallback={null}
@@ -124,7 +117,7 @@ function VehicleCard({ vehicle }: VehicleCardProps) {
             href={`/vehicles/${vehicle.slug}`}
             className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-fg hover:text-amber transition-colors w-fit"
           >
-            See platform doctrine
+            See platform specs
             <ArrowUpRight size={14} weight="bold" />
           </Link>
         </div>

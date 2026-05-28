@@ -6,7 +6,7 @@ import { DoppelrandCard } from "@/components/primitives/DoppelrandCard";
 export const metadata: Metadata = {
   title: "Engage",
   description:
-    "Open an engagement with Karta. Procurement, partnership, press — talk directly to the team that ships the code.",
+    "Open an engagement with Karta. Procurement, partnership, press - talk directly to the team that ships the code.",
 };
 
 export default function EngagePage() {
@@ -23,7 +23,7 @@ export default function EngagePage() {
         intro={
           <p>
             Karta engages directly. The first reply to your message comes from
-            the team that ships the code — not a funnel. Tell us about the
+            the team that ships the code - not a funnel. Tell us about the
             envelope you fly and what you are trying to integrate.
           </p>
         }
@@ -78,7 +78,7 @@ export default function EngagePage() {
               <p className="text-fg text-[15px] leading-[1.65]">
                 Karta Innovations
                 <br />
-                17.385°N · 78.486°E
+                17.454°N · 78.500°E
               </p>
               <p className="font-mono text-fg-tertiary text-[11px] tracking-[0.22em] uppercase mt-3">
                 Single engineering site · field-tested

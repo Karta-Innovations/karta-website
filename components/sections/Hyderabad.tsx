@@ -1,22 +1,16 @@
-"use client";
-
 import Image from "next/image";
-import dynamic from "next/dynamic";
-import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
-
-const HyderabadSkylineScene = dynamic(
-  () =>
-    import("@/components/3d/HyderabadSkylineScene").then(
-      (m) => m.HyderabadSkylineScene,
-    ),
-  { ssr: false, loading: () => null },
-);
 
 /**
  * The "Anchor" section. Used to live as "From Hyderabad" with explicit
- * geographic chest-thumping. Now reframed as an operational-station moment:
- * coordinates, station data, and a single still. Place is implied, not announced.
+ * geographic chest-thumping. Now reframed as an operational-station moment.
+ *
+ * The hyderabad.png image already carries a hand-drawn Hyderabad skyline
+ * silhouette (Charminar, Golconda, palms, sunset) - so the previous 3D
+ * `HyderabadSkylineScene` overlay has been removed; it would have stacked
+ * a second silhouette on top of the photographic one. Gradients are tuned
+ * to keep the sunset sky readable up top and put a darker base under the
+ * text in the lower half.
  */
 export function Hyderabad() {
   return (
@@ -26,34 +20,26 @@ export function Hyderabad() {
     >
       <div className="relative h-[80vh] min-h-[640px] w-full">
         <Image
-          src="/imagery/urban-industrial.jpg"
-          alt="Operational anchor"
+          src="/imagery/hyderabad.png"
+          alt="Operational anchor - Hyderabad skyline at dusk"
           fill
           sizes="100vw"
           className="object-cover"
-          quality={85}
+          quality={88}
+          priority={false}
         />
+        {/* Vertical scrim - sky visible up top, dark base under the text. */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/30"
+          className="absolute inset-0 bg-gradient-to-b from-transparent via-ink/35 to-ink/95"
         />
-        {/* Subtle drifting city silhouette behind the bottom gradient */}
-        <HyderabadSkylineScene
-          className="absolute left-0 right-0 bottom-0 h-[160px] pointer-events-none"
-          fallback={null}
-        />
+        {/* Left-side scrim for text legibility against the silhouette. */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-ink/85 via-transparent to-ink/40"
+          className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/15 to-transparent"
         />
 
-        <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-10 h-full flex flex-col justify-between py-12 md:py-16">
-          <CoordinateStrip
-            left="KRT.OPS.2026 · 09"
-            center="STATION · ANCHORED"
-            right="17.385°N 78.486°E"
-          />
-
+        <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-10 h-full flex flex-col justify-end py-12 md:py-16">
           <div className="max-w-[44ch]">
             <span
               lang="hi"
@@ -62,7 +48,7 @@ export function Hyderabad() {
             >
               हैदराबाद
             </span>
-            <EyebrowTag className="mb-6">Operational anchor · 09</EyebrowTag>
+            <EyebrowTag className="mb-6">Operational anchor · 05</EyebrowTag>
             <h2 className="font-display text-[clamp(2.5rem,7vw,6rem)] font-medium tracking-[-0.04em] leading-[0.95] text-fg">
               Engineered close to the field.
             </h2>
@@ -72,27 +58,6 @@ export function Hyderabad() {
               semiconductor and defence-software talent we draw from, and close
               to the envelopes our vehicles fly.
             </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-[1100px]">
-            {[
-              { k: "Engineering station", v: "Single site" },
-              { k: "Field operations", v: "Five envelopes" },
-              { k: "Sustainment range", v: "Sub-continental" },
-              { k: "Manufacturing", v: "Tier-1 partnered" },
-            ].map((row) => (
-              <div
-                key={row.k}
-                className="space-y-1.5 border-t border-white/[0.12] pt-4"
-              >
-                <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">
-                  {row.k}
-                </div>
-                <div className="font-mono text-[13px] tracking-[0.02em] text-fg">
-                  {row.v}
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

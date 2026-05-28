@@ -9,7 +9,7 @@ interface HexGridProps {
 
 /**
  * Background pattern of tessellating hexagons.
- * Echoes the Apis dorsata comb — Karta's signature motif.
+ * Echoes the Apis dorsata comb - Karta's signature motif.
  */
 export function HexGrid({
   className,

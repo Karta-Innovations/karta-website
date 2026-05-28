@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Fog, MathUtils, Vector3 } from "three";
+import { Color, Fog, MathUtils, Vector3 } from "three";
 import type { MotionValue } from "framer-motion";
 import { CanvasShell } from "./CanvasShell";
 import { TerrainMesh } from "./TerrainMesh";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 interface HeroTerrainCanvasProps {
   scrollYProgress: MotionValue<number>;
@@ -16,6 +17,10 @@ export function HeroTerrainCanvas({
   scrollYProgress,
   fallback,
 }: HeroTerrainCanvasProps) {
+  // Read once outside Canvas - useThemeColors uses MutationObserver so this
+  // component re-renders on theme flip and the colors propagate down.
+  const palette = useThemeColors();
+
   return (
     <CanvasShell
       className="absolute inset-0"
@@ -24,30 +29,34 @@ export function HeroTerrainCanvas({
       camera={{ position: [0, 7, 18], fov: 42 }}
       ariaLabel="Three-dimensional terrain visualization of GPS-denied operating envelope"
     >
-      <SceneAtmosphere />
+      <SceneAtmosphere fogColor={palette.terrain.fog} />
       <CameraDolly progress={scrollYProgress} />
       <TerrainMesh
         size={70}
         segments={240}
         amplitude={4.2}
         contourSpacing={0.45}
-        valleyColor="#0B1020"
-        ridgeColor="#1B244A"
-        contourColor="#C8962E"
+        valleyColor={palette.terrain.valley}
+        ridgeColor={palette.terrain.ridge}
+        contourColor={palette.terrain.contour}
         animate
       />
     </CanvasShell>
   );
 }
 
-function SceneAtmosphere() {
+function SceneAtmosphere({ fogColor }: { fogColor: string | null }) {
   const { scene } = useThree();
   useEffect(() => {
-    scene.fog = new Fog("#0B1020", 14, 38);
+    if (fogColor) {
+      scene.fog = new Fog(new Color(fogColor), 14, 38);
+    } else {
+      scene.fog = null;
+    }
     return () => {
       scene.fog = null;
     };
-  }, [scene]);
+  }, [scene, fogColor]);
   return null;
 }
 

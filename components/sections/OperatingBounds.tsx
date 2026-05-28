@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { Check, X } from "@phosphor-icons/react/dist/ssr";
 
@@ -19,7 +18,7 @@ const WILL: Position[] = [
   {
     label: "Auditability",
     body:
-      "Every flight produces a structured record of what was sensed, what was reasoned, and what was acted on — at telemetry-frame granularity.",
+      "Every flight produces a structured record of what was sensed, what was reasoned, and what was acted on - at telemetry-frame granularity.",
   },
   {
     label: "Human-on-the-loop",
@@ -63,22 +62,15 @@ export function OperatingBounds() {
       className="relative bg-ink px-6 md:px-10 py-32 md:py-48 border-t border-border"
     >
       <div className="mx-auto max-w-[1400px]">
-        <CoordinateStrip
-          left="KRT.OPS.2026 · 07"
-          center="DOCTRINE · BOUNDS"
-          right="BUILD ENVELOPE"
-          className="mb-20"
-        />
-
         <div className="max-w-[68ch] mb-24">
-          <EyebrowTag className="mb-6">Operating bounds · 07</EyebrowTag>
+          <EyebrowTag className="mb-6">Operating bounds · 03</EyebrowTag>
           <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg">
             What we will build. What we{" "}
             <span className="text-amber">will not</span>.
           </h2>
           <p className="mt-7 text-fg-muted text-[17px] leading-[1.65]">
             We treat doctrine as a product surface. The bounds below are not
-            preferences — they are constraints in the codebase, in the
+            preferences - they are constraints in the codebase, in the
             integration tests, and in the procurement contracts.
           </p>
         </div>

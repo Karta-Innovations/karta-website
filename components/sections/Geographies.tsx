@@ -91,7 +91,7 @@ export function Geographies() {
             <p className="mt-8 text-fg-muted text-[17px] leading-[1.65] max-w-[58ch]">
               The operational space is not one terrain. Karta&apos;s integration
               matrix covers five distinct envelopes, each a deliberate row in
-              our test programme — high altitude, arid desert, maritime
+              our test programme - high altitude, arid desert, maritime
               littoral, urban dense, and contested forward.
             </p>
 
@@ -116,7 +116,7 @@ export function Geographies() {
                 </p>
               </motion.div>
 
-              {/* 3D terrain band — re-tunes per envelope so each tab feels distinct */}
+              {/* 3D terrain band - re-tunes per envelope so each tab feels distinct */}
               <div className="relative h-[140px] mt-6 rounded-xl bg-ink/70 ring-1 ring-white/[0.04] overflow-hidden">
                 <EnvelopeTerrainScene
                   className="absolute inset-0"
@@ -139,7 +139,7 @@ export function Geographies() {
             </div>
           </div>
 
-          {/* Envelope picker — terrain photography grid with active enlargement */}
+          {/* Envelope picker - terrain photography grid with active enlargement */}
           <div className="grid grid-cols-2 gap-3 lg:gap-4 self-start">
             {ENVELOPES.map((env, i) => {
               const isActive = active.id === env.id;

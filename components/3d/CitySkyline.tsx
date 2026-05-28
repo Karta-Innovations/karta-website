@@ -16,7 +16,7 @@ interface CitySkylineProps {
 }
 
 /**
- * Procedural city silhouette — a band of instanced boxes at varied widths
+ * Procedural city silhouette - a band of instanced boxes at varied widths
  * and heights. Used behind the Hyderabad operational anchor as a subtle
  * parallax suggestion of a built environment; pairs with the urban-industrial
  * photograph in the foreground rather than competing with it.
@@ -37,7 +37,7 @@ export function CitySkyline({
     let x = -width / 2;
     while (x < width / 2 && list.length < count) {
       const w = 0.6 + Math.random() * 2.4;
-      // Power-distributed height — most short, a few tall.
+      // Power-distributed height - most short, a few tall.
       const h = 0.4 + Math.pow(Math.random(), 1.8) * 6;
       const d = 1 + Math.random() * 2;
       list.push({ w, h, d, x: x + w / 2, baseY: 0 });

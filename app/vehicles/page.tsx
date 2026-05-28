@@ -9,7 +9,7 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 export const metadata: Metadata = {
   title: "Vehicles · Apis family",
   description:
-    "Karta's Apis family of air vehicles — Cerana, Dorsata and Kari. One autonomy stack, three deliberate platforms.",
+    "Karta's Apis family of air vehicles - Cerana, Dorsata and Kari. One autonomy stack, three deliberate platforms.",
 };
 
 export default function VehiclesPage() {
@@ -26,7 +26,7 @@ export default function VehiclesPage() {
         intro={
           <>
             <p>
-              The Apis family is named for the bee genus — disciplined,
+              The Apis family is named for the bee genus - disciplined,
               formation-aware, built for the envelope it flies.
             </p>
             <p>

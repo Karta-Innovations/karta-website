@@ -95,7 +95,7 @@ export default async function RolePage({ params }: RolePageProps) {
               How to apply
             </h2>
             <p className="text-fg-muted text-[15px] leading-[1.65] mb-6 max-w-[55ch]">
-              Send a short note about what you have shipped that you are proud of —
+              Send a short note about what you have shipped that you are proud of -
               and what you would want to ship at Karta. Resume optional. Field
               notes, GitHub, or published work strongly welcomed.
             </p>

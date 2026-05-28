@@ -3,7 +3,7 @@ import { cn } from "@/lib/cn";
 
 interface LogoProps {
   className?: string;
-  /** Logical height in pixels — drives the rendered mark size. */
+  /** Logical height in pixels - drives the rendered mark size. */
   size?: number;
   /** Show the "Karta" wordmark next to the mark. */
   showWordmark?: boolean;
@@ -14,7 +14,7 @@ interface LogoProps {
 }
 
 /**
- * Karta brand mark — curved-K + brass sphere + curved-1 glyph.
+ * Karta brand mark - curved-K + brass sphere + curved-1 glyph.
  * Uses the chrome/silver variant (`/imagery/white.png`) so the mark reads
  * cleanly on the dark Midnight Ink surface; the brass sphere stays warm.
  *
@@ -38,13 +38,19 @@ export function Logo({
       style={{ gap }}
       aria-label="Karta"
     >
+      {/*
+        The PNG is a white-on-transparent glyph designed for the dark surface.
+        In light mode, the `.logo-mark` class (declared in globals.css) inverts
+        the image so it reads as dark-on-transparent against cream - no second
+        asset needed.
+      */}
       <Image
         src="/imagery/white.png"
         alt=""
         width={size}
         height={size}
         priority={priority}
-        className="block shrink-0"
+        className="block shrink-0 logo-mark"
         style={{ height: size, width: size }}
       />
       {showWordmark ? (
