@@ -48,6 +48,25 @@ export function Nav() {
 
   return (
     <>
+      {/*
+        Top-left brand mark — pulled out of the centered nav pill so the
+        company identity owns the page corner instead of competing with the
+        nav controls. Shares the same scroll-down compression timing as the
+        pill so the two read as one piece of chrome.
+      */}
+      <Link
+        href="/"
+        aria-label="Karta — home"
+        className={cn(
+          "fixed left-6 lg:left-10 z-50 pointer-events-auto",
+          "inline-flex items-center",
+          "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          scrolled ? "top-5" : "top-8",
+        )}
+      >
+        <Logo size={56} wordmarkSize={24} priority showWordmark />
+      </Link>
+
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 flex justify-center",
@@ -59,7 +78,7 @@ export function Nav() {
           aria-label="Primary"
           className={cn(
             "pointer-events-auto inline-flex items-center gap-1 sm:gap-2",
-            "rounded-full px-2 py-2",
+            "rounded-full pl-4 pr-2 py-2",
             "bg-ink/70 backdrop-blur-xl",
             "ring-1 ring-white/[0.07]",
             "shadow-[0_20px_60px_-30px_rgba(0,0,0,0.7)]",
@@ -67,14 +86,6 @@ export function Nav() {
             scrolled && "ring-white/[0.10] bg-ink/85",
           )}
         >
-          <Link
-            href="/"
-            className="flex items-center gap-2 pl-3 pr-3 py-1 rounded-full hover:bg-white/[0.04] transition-colors"
-            aria-label="Karta — home"
-          >
-            <Logo size={26} priority showWordmark />
-          </Link>
-
           <ul className="hidden lg:flex items-center">
             {LINKS.slice(0, 3).map((link) => (
               <li key={link.href}>

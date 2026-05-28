@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
@@ -8,6 +9,30 @@ import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { DoppelrandCard } from "@/components/primitives/DoppelrandCard";
 import { ArrowUpRight, Pulse } from "@phosphor-icons/react/dist/ssr";
 import { STACK_LAYERS, type StackLayer } from "@/lib/catalog";
+
+// 3D scenes are split into their own chunks so the three/R3F bundle never
+// reaches the AutonomyStack section's initial JS payload.
+const EdgeLidarScene = dynamic(
+  () => import("@/components/3d/EdgeLidarScene").then((m) => m.EdgeLidarScene),
+  { ssr: false, loading: () => <InstrumentFallback label="LiDAR · stand-by" /> },
+);
+const TheatreWireframeScene = dynamic(
+  () =>
+    import("@/components/3d/TheatreWireframeScene").then(
+      (m) => m.TheatreWireframeScene,
+    ),
+  { ssr: false, loading: () => <InstrumentFallback label="Doctrine graph · stand-by" /> },
+);
+
+function InstrumentFallback({ label }: { label: string }) {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center bg-ink/40">
+      <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">
+        {label}
+      </span>
+    </div>
+  );
+}
 
 export function AutonomyStack() {
   return (
@@ -127,6 +152,20 @@ function EdgeCard({ layer, className }: LayerCardProps) {
                 {state === "anchored" ? "ANCHORED · 0.42m" : "ACQUIRING..."}
               </motion.span>
             </AnimatePresence>
+          </div>
+
+          {/* 3D LiDAR return — slow rotating point cloud */}
+          <div className="relative h-[180px] rounded-xl bg-ink/80 ring-1 ring-white/[0.04] mb-5 overflow-hidden">
+            <EdgeLidarScene
+              className="absolute inset-0"
+              fallback={<InstrumentFallback label="LiDAR · STATIC" />}
+            />
+            <div className="absolute top-2.5 left-3 font-mono text-[9px] tracking-[0.22em] uppercase text-fg-tertiary pointer-events-none">
+              VIO · returns
+            </div>
+            <div className="absolute bottom-2.5 right-3 font-mono text-[9px] tracking-[0.22em] uppercase text-amber pointer-events-none">
+              {state === "anchored" ? "LOCK" : "SCAN"}
+            </div>
           </div>
 
           <div className="flex items-center gap-4">
@@ -309,6 +348,18 @@ function TheatreCard({ layer, className }: LayerCardProps) {
             </span>
             <span>0{prompt + 1} / 04</span>
           </div>
+
+          {/* 3D doctrine graph — wireframe geodesic with sparse bloom */}
+          <div className="relative h-[140px] rounded-lg bg-ink/70 ring-1 ring-white/[0.04] mb-3 overflow-hidden">
+            <TheatreWireframeScene
+              className="absolute inset-0"
+              fallback={<InstrumentFallback label="Doctrine · STATIC" />}
+            />
+            <div className="absolute top-2 left-2.5 text-[9px] tracking-[0.22em] uppercase text-fg-tertiary pointer-events-none">
+              Clause graph
+            </div>
+          </div>
+
           <p className="text-fg text-[14px] leading-[1.5] min-h-[5.6em]">
             {text}
             <span className="inline-block w-[7px] h-[1em] align-middle bg-amber ml-[2px] animate-pulse" />

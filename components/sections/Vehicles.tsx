@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
@@ -9,6 +10,16 @@ import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { SpecTable } from "@/components/primitives/SpecTable";
 import { VEHICLES, type Vehicle } from "@/lib/catalog";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+
+// 3D vehicle scene auto-upgrades when .glb files appear at /models/{slug}.glb.
+// While files are absent the probe returns false and the existing JPG renders alone.
+const VehicleModelScene = dynamic(
+  () =>
+    import("@/components/3d/VehicleModelScene").then(
+      (m) => m.VehicleModelScene,
+    ),
+  { ssr: false, loading: () => null },
+);
 
 export function Vehicles() {
   const ref = useRef<HTMLDivElement>(null);
@@ -87,6 +98,12 @@ function VehicleCard({ vehicle }: VehicleCardProps) {
         sizes="(max-width: 768px) 88vw, 72vw"
         className="object-cover"
         quality={88}
+      />
+      {/* 3D overlay — mounts only for vehicles listed in lib/3d-assets.ts. */}
+      <VehicleModelScene
+        slug={vehicle.slug}
+        fallback={null}
+        className="absolute inset-0"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/40 to-transparent" />
       <div className="absolute inset-0 p-8 md:p-14 flex flex-col lg:grid lg:grid-cols-[1fr_320px] gap-8 lg:gap-16">

@@ -7,6 +7,8 @@ interface LogoProps {
   size?: number;
   /** Show the "Karta" wordmark next to the mark. */
   showWordmark?: boolean;
+  /** Wordmark font-size in px. Defaults to 13 for compact placements. */
+  wordmarkSize?: number;
   /** Used for hero/footer above-the-fold placements. */
   priority?: boolean;
 }
@@ -23,11 +25,17 @@ export function Logo({
   className,
   size = 24,
   showWordmark = false,
+  wordmarkSize = 13,
   priority = false,
 }: LogoProps) {
+  // Scale the gap between mark and wordmark proportionally so the lockup
+  // stays balanced from the compact 24px footer use up to the larger
+  // top-of-page placement.
+  const gap = Math.max(8, Math.round(size * 0.28));
   return (
     <span
-      className={cn("inline-flex items-center gap-2.5", className)}
+      className={cn("inline-flex items-center", className)}
+      style={{ gap }}
       aria-label="Karta"
     >
       <Image
@@ -40,7 +48,10 @@ export function Logo({
         style={{ height: size, width: size }}
       />
       {showWordmark ? (
-        <span className="font-display text-fg tracking-[0.18em] uppercase font-medium text-[13px] select-none">
+        <span
+          className="font-display text-fg tracking-[0.18em] uppercase font-medium select-none leading-none"
+          style={{ fontSize: wordmarkSize }}
+        >
           Karta
         </span>
       ) : null}

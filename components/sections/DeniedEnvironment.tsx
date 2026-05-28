@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
+import { ScenarioVisual } from "./DeniedEnvironmentVisuals";
 
 interface Scenario {
   code: string;
@@ -137,6 +138,19 @@ function ScenarioCard({ scenario, index, progress }: ScenarioCardProps) {
   const scale = useTransform(progress, [start, end], [0.96, 1]);
   const rotate = useTransform(progress, [start, end], [2, 0]);
 
+  // HUD timestamp + simulated pose drift, scrubbed by scroll progress.
+  // Each scenario gets its own 4.2-second clock that ticks as the user scrolls
+  // through that card's range — reads as live telemetry while keeping zero
+  // background work when not in view.
+  const [timestamp, setTimestamp] = useState("T+0.000s");
+  const [drift, setDrift] = useState("000.0m");
+  useMotionValueEvent(progress, "change", (v) => {
+    const localRaw = (v - start) / (end - start);
+    const local = Math.max(0, Math.min(1, localRaw));
+    setTimestamp(`T+${(local * 4.2).toFixed(3)}s`);
+    setDrift(`${(local * 18.6).toFixed(1).padStart(5, "0")}m`);
+  });
+
   return (
     <motion.article
       style={{
@@ -149,13 +163,19 @@ function ScenarioCard({ scenario, index, progress }: ScenarioCardProps) {
       className="absolute inset-0 will-change-transform"
     >
       <div className="h-full w-full rounded-[28px] bg-gradient-to-br from-indigo to-ink-2 ring-1 ring-white/[0.08] shadow-[0_50px_120px_-50px_rgba(0,0,0,0.8)] p-8 md:p-14 flex flex-col">
-        <header className="flex items-start justify-between gap-6 mb-auto">
-          <div className="flex items-baseline gap-5">
+        <header className="flex items-start justify-between gap-6 mb-5">
+          <div className="flex items-baseline gap-5 flex-wrap">
             <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber">
               FAULT · {scenario.code}
             </span>
             <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary">
               {scenario.label}
+            </span>
+            <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-fg-tertiary tabular-nums">
+              · {timestamp}
+            </span>
+            <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-amber/80 tabular-nums">
+              · DRIFT {drift}
             </span>
           </div>
           <span className="size-9 inline-flex items-center justify-center rounded-full bg-alert/15 text-alert ring-1 ring-alert/25">
@@ -163,7 +183,13 @@ function ScenarioCard({ scenario, index, progress }: ScenarioCardProps) {
           </span>
         </header>
 
-        <h3 className="font-display text-[clamp(1.75rem,4vw,3.25rem)] font-medium tracking-[-0.03em] leading-[1.02] text-fg max-w-[22ch] mt-8">
+        {/* Per-scenario instrument visualization — fills the middle band that
+            previously sat empty. Each scenario gets a different SVG/CSS panel
+            tied to its failure mode (drift trace, link timeline, sensor stack,
+            1:N supervision graph). */}
+        <ScenarioVisual code={scenario.code} />
+
+        <h3 className="font-display text-[clamp(1.75rem,4vw,3.25rem)] font-medium tracking-[-0.03em] leading-[1.02] text-fg max-w-[22ch] mt-auto pt-6">
           {scenario.title}
         </h3>
 
@@ -171,7 +197,7 @@ function ScenarioCard({ scenario, index, progress }: ScenarioCardProps) {
           {scenario.body}
         </p>
 
-        <div className="mt-10 pt-6 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="mt-8 pt-6 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-3 gap-4">
           {scenario.telemetry.map((row) => (
             <div key={row.k} className="space-y-1.5">
               <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">

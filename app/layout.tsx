@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, JetBrains_Mono } from "next/font/google";
+import { Geist, JetBrains_Mono, Noto_Serif_Devanagari } from "next/font/google";
 import { Nav } from "@/components/chrome/Nav";
 import { Footer } from "@/components/chrome/Footer";
 import { Grain } from "@/components/chrome/Grain";
@@ -15,6 +15,15 @@ const geistSans = Geist({
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Used sparingly as a manifesto marker per the brand playbook —
+// "Indian marker. Use Devanagari sparingly as a design detail, not as decorative excess."
+const notoSerifDevanagari = Noto_Serif_Devanagari({
+  variable: "--font-noto-devanagari",
+  subsets: ["devanagari", "latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -65,7 +74,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${jetbrainsMono.variable}`}
+      className={`${geistSans.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh bg-ink text-fg">

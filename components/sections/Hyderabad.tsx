@@ -1,6 +1,17 @@
+"use client";
+
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
+
+const HyderabadSkylineScene = dynamic(
+  () =>
+    import("@/components/3d/HyderabadSkylineScene").then(
+      (m) => m.HyderabadSkylineScene,
+    ),
+  { ssr: false, loading: () => null },
+);
 
 /**
  * The "Anchor" section. Used to live as "From Hyderabad" with explicit
@@ -26,6 +37,11 @@ export function Hyderabad() {
           aria-hidden
           className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/30"
         />
+        {/* Subtle drifting city silhouette behind the bottom gradient */}
+        <HyderabadSkylineScene
+          className="absolute left-0 right-0 bottom-0 h-[160px] pointer-events-none"
+          fallback={null}
+        />
         <div
           aria-hidden
           className="absolute inset-0 bg-gradient-to-r from-ink/85 via-transparent to-ink/40"
@@ -39,6 +55,13 @@ export function Hyderabad() {
           />
 
           <div className="max-w-[44ch]">
+            <span
+              lang="hi"
+              className="font-devanagari block text-[56px] leading-[1] text-fg/90 mb-5"
+              aria-label="Hyderabad"
+            >
+              हैदराबाद
+            </span>
             <EyebrowTag className="mb-6">Operational anchor · 09</EyebrowTag>
             <h2 className="font-display text-[clamp(2.5rem,7vw,6rem)] font-medium tracking-[-0.04em] leading-[0.95] text-fg">
               Engineered close to the field.

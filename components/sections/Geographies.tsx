@@ -1,10 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
+
+const EnvelopeTerrainScene = dynamic(
+  () =>
+    import("@/components/3d/EnvelopeTerrainScene").then(
+      (m) => m.EnvelopeTerrainScene,
+    ),
+  { ssr: false, loading: () => null },
+);
 
 interface Envelope {
   id: string;
@@ -106,6 +115,27 @@ export function Geographies() {
                   {active.doctrine}
                 </p>
               </motion.div>
+
+              {/* 3D terrain band — re-tunes per envelope so each tab feels distinct */}
+              <div className="relative h-[140px] mt-6 rounded-xl bg-ink/70 ring-1 ring-white/[0.04] overflow-hidden">
+                <EnvelopeTerrainScene
+                  className="absolute inset-0"
+                  envelope={active.id}
+                  fallback={
+                    <Image
+                      src={active.image}
+                      alt=""
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 600px"
+                      className="object-cover opacity-50"
+                      quality={75}
+                    />
+                  }
+                />
+                <div className="absolute top-2.5 left-3 font-mono text-[9px] tracking-[0.22em] uppercase text-fg-tertiary pointer-events-none">
+                  Terrain · {active.label}
+                </div>
+              </div>
             </div>
           </div>
 

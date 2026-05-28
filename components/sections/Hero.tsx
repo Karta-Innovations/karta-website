@@ -1,25 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { NestedCTA } from "@/components/primitives/NestedCTA";
+import { HeroTerrain } from "@/components/3d/HeroTerrain";
 import { ArrowDown } from "@phosphor-icons/react/dist/ssr";
-
-interface KPI {
-  label: string;
-  value: string;
-  unit?: string;
-}
-
-const KPIS: KPI[] = [
-  { label: "Operating envelope", value: "GPS-denied" },
-  { label: "Comms posture", value: "Edge-resilient" },
-  { label: "Doctrine layer", value: "Bounded autonomy" },
-];
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -27,8 +15,6 @@ export function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.12]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.9]);
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
   const contentOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.0]);
@@ -38,21 +24,8 @@ export function Hero() {
       ref={ref}
       className="relative min-h-[100dvh] overflow-hidden bg-ink"
     >
-      {/* Parallax terrain */}
-      <motion.div
-        style={{ y: imageY, scale: imageScale }}
-        className="absolute inset-0 will-change-transform"
-      >
-        <Image
-          src="/imagery/himalaya.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-          quality={92}
-        />
-      </motion.div>
+      {/* Terrain layer — 3D when WebGL/motion allow, static himalaya.jpg otherwise */}
+      <HeroTerrain sectionRef={ref} />
 
       {/* Layered scrims for depth + legibility */}
       <motion.div
@@ -104,28 +77,31 @@ export function Hero() {
             </div>
           </div>
 
+          {/*
+            Sanskrit etymology block — replaces v1's deeptech-lede + KPI list.
+            "Karta" is the Sanskrit नौन for the agent, the one who acts. This
+            is the brand's load-bearing meaning per the playbook. Treated as a
+            manifesto marker, not decoration.
+          */}
           <aside className="lg:pt-10">
-            <p className="text-fg-muted text-[17px] leading-[1.55] max-w-[42ch] mb-12">
-              Karta is a deeptech robotics company building the navigation,
-              decision and integration stack that turns unmanned systems into
-              safe, self-aware teammates — across aerial, ground, and theatre
-              scale.
-            </p>
-            <dl className="space-y-3">
-              {KPIS.map((kpi) => (
-                <div
-                  key={kpi.label}
-                  className="grid grid-cols-[auto_1fr] items-baseline gap-5 py-2 border-t border-white/[0.08]"
-                >
-                  <dt className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary">
-                    {kpi.label}
-                  </dt>
-                  <dd className="font-mono text-[13px] tracking-[0.02em] text-fg text-right">
-                    {kpi.value}
-                  </dd>
+            <div className="border-t border-white/[0.08] pt-7 max-w-[28ch] lg:ml-auto">
+              <span
+                lang="sa"
+                className="font-devanagari block text-[clamp(4rem,8vw,7rem)] text-fg leading-[0.95] tracking-[-0.01em]"
+              >
+                कर्ता
+              </span>
+              <div className="mt-5 space-y-2">
+                <div className="font-mono text-[10px] tracking-[0.28em] uppercase text-amber">
+                  karta · n. · sanskrit
                 </div>
-              ))}
-            </dl>
+                <div className="font-mono text-[11px] tracking-[0.12em] text-fg-muted leading-[1.55]">
+                  the one who acts. the agent.
+                  <br />
+                  accountable autonomy under human intent.
+                </div>
+              </div>
+            </div>
           </aside>
         </div>
 

@@ -2,11 +2,13 @@ import Link from "next/link";
 import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { NestedCTA } from "@/components/primitives/NestedCTA";
+import { AmberSweep } from "@/components/primitives/AmberSweep";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 export function ClosingCTA() {
   return (
     <section id="engage" className="relative bg-ink px-6 md:px-10 py-40 md:py-56 overflow-hidden">
+      <AmberSweep className="absolute inset-x-0 top-0" />
       <div className="absolute inset-0 -z-0 opacity-[0.08]">
         <div
           aria-hidden
