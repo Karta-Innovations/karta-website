@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+/* ============================================================
+   KARTA — Design tokens
+   Operational autonomy. Mission-control register.
+   ============================================================ */
+
+@theme {
+  /*
+   * Surface palette.
+   * `ink` stays canonical (brand Midnight Ink #0B1020) — used for hero and
+   * manifesto where the brand reads truest. Content sections step up onto
+   * `ink-2`, cards onto `surface`, raised features onto `indigo`. The step
+   * between levels is wider than v1 so the site reads with more headroom.
+   */
+  --color-ink: #0B1020;          /* hero + manifesto baseline */
+  --color-ink-2: #131A36;        /* content sections — lifted ~6% from v1 */
+  --color-surface: #1B244A;      /* cards, raised panels — lifted ~10% */
+  --color-surface-deep: #07091B; /* footer well, deepest pit */
+  --color-indigo: #1F2A55;       /* feature card cores, deck headings */
+  --color-indigo-hi: #2A3873;
+
+  --color-field: #F5F5F0;
+  --color-field-2: #F7F8FA;
+  --color-fog: #E8EAF0;
+  --color-fog-2: #D6DAE4;
+
+  --color-fg: #F5F5F0;
+  --color-fg-muted: #B3BBD2;     /* slightly higher contrast on lifted bgs */
+  --color-fg-tertiary: #7480A0;
+
+  --color-border: #232C4E;       /* visible against ink-2 */
+  --color-border-strong: #31416B;
+  --color-border-soft: rgba(245, 245, 240, 0.07);
+
+  --color-amber: #C8962E;
+  --color-amber-hi: #E8B85C;
+  --color-amber-deep: #9D7421;
+  --color-gold: #D8A84F;
+
+  --color-alert: #8A1D1D;
+  --color-ok: #7AB87A;
+  --color-warn: #C8962E;
+
+  /* Font families wired by next/font in layout.tsx */
+  --font-sans: var(--font-geist-sans), "Söhne", "Aktiv Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "IBM Plex Mono", "Berkeley Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Type scale — fluid via clamp where used */
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 17px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-3xl: 44px;
+  --text-4xl: 64px;
+  --text-5xl: 88px;
+
+  /* Radii */
+  --radius-none: 0;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 560ms;
+  --dur-extra: 840ms;
+}
+
+/* ============================================================
+   Base layer
+   ============================================================ */
+
+html {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* Selection inherits brand */
+::selection {
+  background: var(--color-amber);
+  color: var(--color-ink);
+}
+
+/* Better focus rings on dark */
+:focus-visible {
+  outline: 1px solid var(--color-amber);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Strip default link underlines — we style links per-context */
+a { color: inherit; text-decoration: none; }
+
+/* Image defaults */
+img, svg, video { display: block; max-width: 100%; }
+
+/* ============================================================
+   Typographic primitives — Geist + JetBrains Mono register
+   ============================================================ */
+
+.font-display {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "ss02", "cv11";
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.font-mono-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-fg-tertiary);
+}
+
+.font-mono-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  font-weight: 400;
+}
+
+/* Eyebrow tag — pill, mono, amber tinted (Restrained color strategy: amber ≤10% surface) */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-amber);
+  font-weight: 500;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+}
+
+/* Hairline divider */
+.hairline {
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: var(--color-border);
+  border: 0;
+}
+
+/* ============================================================
+   Texture layers
+   ============================================================ */
+
+/* Subtle film grain — fixed, pointer-events-none, GPU-safe */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
+}
+
+/* Scan-line overlay — only on hero region (applied via class on a fixed element) */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 59;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(245, 245, 240, 0.012) 0px,
+    rgba(245, 245, 240, 0.012) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
