@@ -14,6 +14,8 @@ interface NavLink {
 }
 
 const LINKS: NavLink[] = [
+  { label: "Enterprise", href: "/enterprise", detail: "Energy, infrastructure, resources, response" },
+  { label: "Defense", href: "/defense", detail: "ISR, overwatch, resilient comms" },
   { label: "Stack", href: "/stack", detail: "SkyAnchor · TENERE · Kiksuya" },
   { label: "Vehicles", href: "/vehicles", detail: "Apis family platforms" },
   { label: "Mission", href: "/mission", detail: "Doctrine and bounds" },

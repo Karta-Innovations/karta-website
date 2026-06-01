@@ -48,7 +48,7 @@ export function Hyderabad() {
             >
               हैदराबाद
             </span>
-            <EyebrowTag className="mb-6">Operational anchor · 05</EyebrowTag>
+            <EyebrowTag className="mb-6">Operational anchor · 06</EyebrowTag>
             <h2 className="font-display text-[clamp(2.5rem,7vw,6rem)] font-medium tracking-[-0.04em] leading-[0.95] text-fg">
               Engineered close to the field.
             </h2>

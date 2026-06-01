@@ -2,6 +2,8 @@
 
 A punch list of media that would strengthen the site beyond what is already in `public/imagery/`. Each item names a target file path, a recommended dimension, and the page that needs it.
 
+> For the **Enterprise / Defense Solutions** pages and **vehicle flight videos**, see [`SOLUTIONS-ASSETS.md`](./SOLUTIONS-ASSETS.md). The `Vehicle.video` slot is already wired - drop a clip in `public/video/` and set the field.
+
 ## What is already in place
 
 | File | Used for | Status |

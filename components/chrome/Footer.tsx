@@ -9,6 +9,13 @@ interface FooterColumn {
 
 const COLS: FooterColumn[] = [
   {
+    title: "Solutions",
+    links: [
+      { label: "Enterprise", href: "/enterprise" },
+      { label: "Defense", href: "/defense" },
+    ],
+  },
+  {
     title: "Stack",
     links: [
       { label: "Stack overview", href: "/stack" },
@@ -48,7 +55,7 @@ export function Footer() {
           className="mb-16"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(3,1fr)] gap-12 md:gap-12 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_repeat(4,1fr)] gap-10 md:gap-10 mb-20">
           <div className="space-y-5 max-w-sm">
             <Logo size={40} showWordmark />
             <p className="text-fg-muted text-sm leading-relaxed">

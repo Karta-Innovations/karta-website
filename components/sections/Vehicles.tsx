@@ -34,9 +34,9 @@ export function Vehicles() {
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 pt-32 md:pt-48 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
           <div>
-            <EyebrowTag className="mb-6">Air vehicles · 03</EyebrowTag>
+            <EyebrowTag className="mb-6">The platforms · 04</EyebrowTag>
             <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg max-w-[14ch]">
-              The Apis family.
+              The platforms that carry it.
             </h2>
             <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary mt-5">
               KARI · CERANA · DORSATA
@@ -44,9 +44,9 @@ export function Vehicles() {
           </div>
           <div className="lg:pt-6">
             <p className="text-fg-muted text-[17px] leading-[1.65] max-w-[58ch]">
-              Three airframes, one autonomy stack. Each platform is a deliberate
-              point in the operational design space, purposefully shaped to a
-              mission.
+              The missions above run on three airframes. Each is a deliberate
+              point in the operating envelope, shaped to a job, and each carries
+              the same autonomy stack.
             </p>
             <Link
               href="/vehicles"

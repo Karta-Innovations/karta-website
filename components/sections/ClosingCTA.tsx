@@ -22,7 +22,7 @@ export function ClosingCTA() {
       <div className="relative mx-auto max-w-[1400px]">
         <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-20 items-end">
           <div>
-            <EyebrowTag className="mb-8">Engage · 06</EyebrowTag>
+            <EyebrowTag className="mb-8">Engage · 07</EyebrowTag>
             <h2 className="font-display text-[clamp(2.5rem,7vw,7rem)] font-medium tracking-[-0.04em] leading-[0.92] text-fg max-w-[14ch]">
               Talk to{" "}
               <span className="text-amber">engineering</span>, not sales.

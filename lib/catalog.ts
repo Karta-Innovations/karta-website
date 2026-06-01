@@ -4,8 +4,10 @@ export interface SpecRowData {
   unit?: string;
 }
 
+export type PlatformSlug = "kari" | "cerana" | "dorsata";
+
 export interface Vehicle {
-  slug: "kari" | "cerana" | "dorsata";
+  slug: PlatformSlug;
   name: string;
   family: string;
   /** Three short descriptors that anchor the platform's character. */
@@ -13,6 +15,12 @@ export interface Vehicle {
   byline: string;
   description: string;
   image: string;
+  /**
+   * Optional flight-video loop, e.g. "/video/cerana-flight.mp4". When set, the
+   * vehicle detail hero plays it muted + looped with `image` as the poster /
+   * fallback. Leave undefined to keep the still image. See SOLUTIONS-ASSETS.md.
+   */
+  video?: string;
   capabilities: string[];
   doctrine: string;
   specs: SpecRowData[];
@@ -55,7 +63,7 @@ export const VEHICLES: Vehicle[] = [
       "Full Edge stack on board, no GNSS dependency",
     ],
     doctrine:
-      "Kari is bounded to short-range surveillance geometry. The platform is purpose-built for situational awareness, not for delivered effect.",
+      "Kari is built for short-range surveillance and reconnaissance. When it carries a designation payload, the effect decision stays with a human and is logged against doctrine in Kiksuya. The airframe never decides on its own.",
     specs: [
       { label: "Configuration", value: "Quadrotor" },
       { label: "Size", value: "11–13", unit: "in" },
@@ -86,7 +94,7 @@ export const VEHICLES: Vehicle[] = [
       "Reference platform for SkyAnchor + TENERE integration",
     ],
     doctrine:
-      "Cerana flies bounded sortie graphs composed in TENERE. Long-loiter watchstanding is its primary mode; effect roles are explicitly out of envelope.",
+      "Cerana flies bounded sortie graphs composed in TENERE. Long-loiter watchstanding is its primary mode. Where a sortie includes designation or handoff, every step carries the doctrine clause that authorized it, and the authority stays human.",
     specs: [
       { label: "Configuration", value: "Hybrid fixed-wing VTOL" },
       { label: "Wingspan", value: "2,200", unit: "mm" },
@@ -117,7 +125,7 @@ export const VEHICLES: Vehicle[] = [
       "Reference heavy-multirotor for the Karta autonomy stack",
     ],
     doctrine:
-      "Dorsata composes sorties in TENERE. It is operated for long-watch ISR and infrastructure inspection - not for delivered effect.",
+      "Dorsata composes sorties in TENERE. It is operated for long-watch ISR, inspection, and logistics. When it carries a delivery payload, the drop is a planned, authorized action on the sortie graph, audited like any other.",
     specs: [
       { label: "Configuration", value: "Multirotor" },
       { label: "Size", value: "21–23", unit: "in" },

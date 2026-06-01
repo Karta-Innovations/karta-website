@@ -103,7 +103,7 @@ export function Hero() {
           href="#manifesto"
           className="mt-16 inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary hover:text-amber transition-colors group/scroll w-fit"
         >
-          Scroll · 05 sections below
+          Scroll · 06 sections below
           <span className="inline-flex size-7 items-center justify-center rounded-full ring-1 ring-white/15 group-hover/scroll:ring-amber group-hover/scroll:bg-amber/10 transition-all">
             <motion.span
               animate={{ y: [0, 3, 0] }}

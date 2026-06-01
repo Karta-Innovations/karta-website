@@ -42,7 +42,7 @@ export function AutonomyStack() {
       <div className="mx-auto max-w-[1400px]">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 mb-24">
           <div>
-            <EyebrowTag className="mb-6">The stack · 04</EyebrowTag>
+            <EyebrowTag className="mb-6">The stack · 05</EyebrowTag>
             <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg max-w-[16ch]">
               One stack. Three altitudes. Three products.
             </h2>

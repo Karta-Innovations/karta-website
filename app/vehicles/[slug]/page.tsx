@@ -54,15 +54,33 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
       <section className="px-6 md:px-10 pb-20">
         <div className="mx-auto max-w-[1400px]">
           <div className="relative aspect-[16/9] rounded-[28px] overflow-hidden ring-1 ring-white/[0.08] mb-20">
-            <Image
-              src={vehicle.image}
-              alt={vehicle.name}
-              fill
-              sizes="(max-width: 1400px) 100vw, 1400px"
-              className="object-cover"
-              quality={92}
-              priority
-            />
+            {/* Flight-video loop when an asset is supplied (see SOLUTIONS-ASSETS.md);
+                otherwise the still image. Poster = the still, so the frame is never
+                empty while the video buffers. */}
+            {vehicle.video ? (
+              <video
+                className="absolute inset-0 h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={vehicle.image}
+                aria-label={`${vehicle.name} in flight`}
+              >
+                <source src={vehicle.video} />
+              </video>
+            ) : (
+              <Image
+                src={vehicle.image}
+                alt={vehicle.name}
+                fill
+                sizes="(max-width: 1400px) 100vw, 1400px"
+                className="object-cover"
+                quality={92}
+                priority
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           </div>
 
