@@ -57,7 +57,7 @@ export function Nav() {
       */}
       <Link
         href="/"
-        aria-label="Karta - home"
+        aria-label="Karta Innovations - home"
         className={cn(
           "fixed left-6 lg:left-10 z-50 pointer-events-auto",
           "inline-flex items-center",

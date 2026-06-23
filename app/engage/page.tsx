@@ -44,17 +44,9 @@ export default function EngagePage() {
               <ul className="space-y-5">
                 {[
                   {
-                    k: "General + media",
-                    v: "hello@kartainnovations.com",
-                  },
-                  {
-                    k: "Programmes + procurement",
-                    v: "programmes@kartainnovations.com",
-                  },
-                  {
-                    k: "Careers",
-                    v: "careers@kartainnovations.com",
-                  },
+                    k: "Email us",
+                    v: "info@kartainnovations.com",
+                  }
                 ].map((row) => (
                   <li key={row.k} className="pb-4 border-b border-border">
                     <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary mb-1.5">

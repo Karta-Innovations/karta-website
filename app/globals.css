@@ -260,6 +260,24 @@ img, svg, video { display: block; max-width: 100%; }
   filter: invert(1);
 }
 
+/* Brand wordmark - "Karta" rendered as a brushed-brass gradient to echo the
+   metallic gold wordmark in the logo lockup. The amber/gold tokens flip with
+   the theme automatically, so it stays warm-on-ink in dark mode and reads with
+   AA contrast on cream in light mode. */
+.karta-wordmark {
+  background-image: linear-gradient(
+    160deg,
+    var(--color-amber-hi) 0%,
+    var(--color-gold) 40%,
+    var(--color-amber) 68%,
+    var(--color-amber-deep) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 /* Floating chrome pills (nav + theme toggle) need a backdrop that contrasts
    against BOTH page surfaces. In dark mode we want a slightly-lifted dark
    tint; in light mode we want a slightly-darker cream tint. Both with the

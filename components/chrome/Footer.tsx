@@ -50,7 +50,7 @@ export function Footer() {
 
         <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(3,1fr)] gap-12 md:gap-12 mb-20">
           <div className="space-y-5 max-w-sm">
-            <Logo size={40} showWordmark />
+            <Logo size={40} wordmarkSize={17} showWordmark />
             <p className="text-fg-muted text-sm leading-relaxed">
               Operational autonomy for unmanned systems. Engineered to navigate,
               decide and act where GPS, comms and operator attention fail.
