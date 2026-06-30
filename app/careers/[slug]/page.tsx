@@ -33,7 +33,6 @@ export default async function RolePage({ params }: RolePageProps) {
   return (
     <>
       <PageHeader
-        index="06 · ROLE"
         eyebrow={`${role.team} · ${role.location}`}
         title={role.title}
         intro={
@@ -47,7 +46,6 @@ export default async function RolePage({ params }: RolePageProps) {
             </div>
           </>
         }
-        coord={{ center: "ROLE · OPEN", right: role.team.toUpperCase() }}
       />
 
       <article className="px-6 md:px-10 pb-32 md:pb-40">
@@ -90,7 +88,7 @@ export default async function RolePage({ params }: RolePageProps) {
             </ul>
           </Section>
 
-          <div className="rounded-2xl bg-white/[0.025] ring-1 ring-white/[0.06] p-8">
+          <div className="rounded-2xl bg-glass ring-1 ring-edge p-8">
             <h2 className="font-display text-2xl font-medium tracking-[-0.02em] text-fg mb-3">
               How to apply
             </h2>

@@ -10,7 +10,7 @@ A punch list of media that would strengthen the site beyond what is already in `
 |---|---|---|
 | `public/imagery/himalaya.jpg` | Hero parallax, mission hero | OK |
 | `public/imagery/cerana.jpeg` | Vehicles index + detail | Could be sharper |
-| `public/imagery/dorsata.jpeg` | Vehicles index + detail | Could be sharper |
+| `public/imagery/dorsata.png` | Vehicles index + detail | Could be sharper |
 | `public/imagery/kari.jpeg` | Vehicles index + detail | Could be sharper |
 | `public/imagery/skyanchor.jpeg` | Stack - Edge layer reference | Lower-fidelity placeholder |
 | `public/imagery/tenere-gcs.jpeg` | Stack - Command layer | Lower-fidelity placeholder |
@@ -186,7 +186,7 @@ For the contact form (`/engage`), `app/api/engage/route.ts` also reads:
 
 ```
 RESEND_API_KEY=re_...           # Resend API key
-ENGAGE_TO_EMAIL=hello@kartainnovations.com
+ENGAGE_TO_EMAIL=info@kartainnovations.com
 ```
 
 See [`env.example`](./env.example) for the full list with comments.

@@ -23,7 +23,7 @@ const SCENARIOS: Scenario[] = [
     telemetry: [
       { k: "GNSS lock", v: "LOST" },
       { k: "Fallback", v: "VIO + TRN" },
-      { k: "Drift budget", v: "<1.2m / km" },
+      { k: "Pose", v: "Bounded uncertainty" },
     ],
   },
   {
@@ -79,7 +79,7 @@ export function DeniedEnvironment() {
       <div className="mx-auto max-w-[1400px] pt-32 md:pt-48">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-20 mb-20">
           <div>
-            <EyebrowTag className="mb-6">Problem space · 02</EyebrowTag>
+            <EyebrowTag className="mb-6">Problem space</EyebrowTag>
             <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg max-w-[18ch]">
               The denied environment is where{" "}
               <span className="text-amber">autonomy earns its keep</span>.
@@ -87,7 +87,7 @@ export function DeniedEnvironment() {
           </div>
           <div className="lg:pt-6">
             <p className="text-fg-muted text-[17px] leading-[1.65] max-w-[60ch]">
-              Real-world unmanned operations are defined by what fails. GPS,
+              Real-world autonomous operations are defined by what fails. GPS,
               comms, optics, and operator attention all degrade - usually
               together. Karta is engineered against each of these from the first
               line of code.
@@ -155,7 +155,7 @@ function ScenarioCard({ scenario, index, progress }: ScenarioCardProps) {
       }}
       className="absolute inset-0 will-change-transform"
     >
-      <div className="h-full w-full rounded-[28px] bg-gradient-to-br from-indigo to-ink-2 ring-1 ring-white/[0.08] shadow-[0_50px_120px_-50px_rgba(0,0,0,0.8)] p-8 md:p-14 flex flex-col">
+      <div className="h-full w-full rounded-[28px] bg-gradient-to-br from-indigo to-ink-2 ring-1 ring-edge shadow-[0_50px_120px_-60px_rgba(11,20,48,0.30)] p-8 md:p-14 flex flex-col">
         <header className="flex items-start justify-between gap-6 mb-5">
           <div className="flex items-baseline gap-5 flex-wrap">
             <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber">
@@ -190,7 +190,7 @@ function ScenarioCard({ scenario, index, progress }: ScenarioCardProps) {
           {scenario.body}
         </p>
 
-        <div className="mt-8 pt-6 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="mt-8 pt-6 border-t border-edge grid grid-cols-1 sm:grid-cols-3 gap-4">
           {scenario.telemetry.map((row) => (
             <div key={row.k} className="space-y-1.5">
               <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary">

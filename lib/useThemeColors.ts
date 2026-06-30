@@ -50,57 +50,55 @@ export interface ThemePalette {
 }
 
 const DARK: ThemePalette = {
-  ink: "#0B1020",
-  ink2: "#131A36",
-  fg: "#F5F5F0",
-  amber: "#C8962E",
-  amberDeep: "#9D7421",
-  border: "#232C4E",
-  surface: "#1B244A",
+  ink: "#070B18",
+  ink2: "#0E1426",
+  fg: "#F3F6FC",
+  amber: "#4D8DFF",
+  amberDeep: "#1E40AF",
+  border: "#1E2747",
+  surface: "#141C36",
   terrain: {
-    valley: "#0B1020",
-    ridge: "#1B244A",
-    contour: "#C8962E",
-    fog: "#0B1020",
+    valley: "#070B18",
+    ridge: "#17224A",
+    contour: "#4D8DFF",
+    fog: "#070B18",
   },
-  citySilhouette: "#06091B",
-  lidar: "#C8962E",
-  wireframe: "#C8962E",
+  citySilhouette: "#04060F",
+  lidar: "#4D8DFF",
+  wireframe: "#4D8DFF",
 };
 
 const LIGHT: ThemePalette = {
-  ink: "#F5F5F0",
+  ink: "#EDF2FB",
   ink2: "#FFFFFF",
-  fg: "#0B1020",
-  amber: "#B8862A",
-  amberDeep: "#8C631B",
-  border: "#D6DAE4",
+  fg: "#0B1430",
+  amber: "#155EEF",
+  amberDeep: "#1E40AF",
+  border: "#D7E0EE",
   surface: "#FFFFFF",
   terrain: {
-    // Cream valleys, warm-tan ridges, deeper amber contours.
-    // No fog - atmospheric haze reads weird on cream; let the edges fade cleanly.
-    valley: "#E8E3D5",
-    ridge: "#D8C49B",
-    contour: "#8C631B",
+    // Cool sky-white valleys, soft blue-grey ridges, azure contours.
+    // No fog - atmospheric haze reads odd on a bright surface.
+    valley: "#DCE6F6",
+    ridge: "#B7C9E6",
+    contour: "#155EEF",
     fog: null,
   },
-  // Pale grey buildings sit *below* the bg in luminance but feel soft, not bold.
-  citySilhouette: "#C8CFDC",
-  // Deeper amber so the point cloud reads as warm accent against cream.
-  lidar: "#8C631B",
-  // Same - bloom turns off in light mode (handled by scene component).
-  wireframe: "#8C631B",
+  // Pale blue-grey buildings sit just below the bg in luminance.
+  citySilhouette: "#AEC0DC",
+  lidar: "#155EEF",
+  wireframe: "#155EEF",
 };
 
 export function useThemeColors(): ThemePalette {
-  const [palette, setPalette] = useState<ThemePalette>(DARK);
+  const [palette, setPalette] = useState<ThemePalette>(LIGHT);
 
   useEffect(() => {
     const html = document.documentElement;
 
     const read = () => {
       const current = (html.dataset.theme as Theme | undefined) ?? "dark";
-      setPalette(current === "light" ? LIGHT : DARK);
+      setPalette(current === "dark" ? DARK : LIGHT);
     };
 
     read();
@@ -127,5 +125,5 @@ export function useThemeColors(): ThemePalette {
 export function getThemePalette(): ThemePalette {
   if (typeof document === "undefined") return DARK;
   const t = (document.documentElement.dataset.theme as Theme | undefined) ?? "dark";
-  return t === "light" ? LIGHT : DARK;
+  return t === "dark" ? DARK : LIGHT;
 }

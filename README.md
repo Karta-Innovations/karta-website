@@ -1,6 +1,6 @@
 # Karta - Web
 
-Operational autonomy for unmanned systems. The deployable web package for [karta.ai](https://karta.ai).
+Operational autonomy layer for autonomous systems. The deployable web package for [karta.ai](https://karta.ai).
 
 Built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind v4**, **Framer Motion**, and **Lenis** smooth scroll. Designed to ship at the visual register of the autonomous-defense category (Anduril, Sightline, StirlingX, Arondite) while staying in the Karta brand voice: precise, operator-respectful, restrained.
 

@@ -16,7 +16,6 @@ export default function VehiclesPage() {
   return (
     <>
       <PageHeader
-        index="02 · VEHICLES"
         eyebrow="Apis family · 03 platforms"
         title={
           <>
@@ -37,7 +36,6 @@ export default function VehiclesPage() {
             </p>
           </>
         }
-        coord={{ center: "KARI · CERANA · DORSATA", right: "APIS FAMILY" }}
       />
 
       <div className="px-6 md:px-10 pb-32 md:pb-48">
@@ -46,7 +44,7 @@ export default function VehiclesPage() {
             <Link
               key={v.slug}
               href={`/vehicles/${v.slug}`}
-              className="group block relative aspect-[4/5] md:aspect-[16/9] rounded-[28px] overflow-hidden ring-1 ring-white/[0.06] hover:ring-amber/40 transition-all duration-500"
+              className="group block relative aspect-[4/5] md:aspect-[16/9] rounded-[28px] overflow-hidden ring-1 ring-edge hover:ring-amber/40 transition-all duration-500"
             >
               <Image
                 src={v.image}
@@ -78,7 +76,7 @@ export default function VehiclesPage() {
                   </span>
                 </div>
 
-                <aside className="lg:self-end rounded-2xl bg-ink/65 backdrop-blur-md ring-1 ring-white/10 p-6">
+                <aside className="lg:self-end rounded-2xl bg-ink/65 backdrop-blur-md ring-1 ring-edge-strong p-6">
                   <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary mb-3">
                     Operating envelope
                   </div>

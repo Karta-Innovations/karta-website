@@ -1,66 +1,70 @@
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 
+type LogoVariant = "mark" | "wordmark" | "full";
+
 interface LogoProps {
   className?: string;
-  /** Logical height in pixels - drives the rendered mark size. */
+  /** Logical height in pixels - drives the rendered asset size. */
   size?: number;
-  /** Show the "Karta" wordmark next to the mark. */
+  /** Back-compat: show the supplied Karta Innovations wordmark asset. */
   showWordmark?: boolean;
-  /** Wordmark font-size in px. Defaults to 13 for compact placements. */
+  /** Deprecated. Kept so older call sites do not break. */
   wordmarkSize?: number;
+  /** Supplied brand asset to render. */
+  variant?: LogoVariant;
   /** Used for hero/footer above-the-fold placements. */
   priority?: boolean;
 }
 
+const LOGOS: Record<
+  LogoVariant,
+  { src: string; width: number; height: number; alt: string }
+> = {
+  mark: {
+    src: "/brand/karta-icon-cropped.png",
+    width: 442,
+    height: 554,
+    alt: "Karta Innovations",
+  },
+  wordmark: {
+    src: "/brand/karta-innovations-wordmark-cropped.png",
+    width: 435,
+    height: 146,
+    alt: "Karta Innovations",
+  },
+  full: {
+    src: "/brand/karta-innovations-full-logo-cropped.png",
+    width: 454,
+    height: 624,
+    alt: "Karta Innovations",
+  },
+};
+
 /**
- * Karta brand mark - curved-K + brass sphere + curved-1 glyph.
- * Uses the chrome/silver variant (`/imagery/white.png`) so the mark reads
- * cleanly on the dark Midnight Ink surface; the brass sphere stays warm.
- *
- * The wordmark is rendered as Geist Sans text rather than a raster, so it
- * scales sharply at every size and inherits the brand type stack.
+ * Supplied Karta Innovations brand assets, trimmed for responsive web chrome.
  */
 export function Logo({
   className,
   size = 24,
   showWordmark = false,
-  wordmarkSize = 13,
+  variant,
   priority = false,
 }: LogoProps) {
-  // Scale the gap between mark and wordmark proportionally so the lockup
-  // stays balanced from the compact 24px footer use up to the larger
-  // top-of-page placement.
-  const gap = Math.max(8, Math.round(size * 0.28));
+  const asset = LOGOS[variant ?? (showWordmark ? "wordmark" : "mark")];
+  const width = Math.round(size * (asset.width / asset.height));
+
   return (
-    <span
-      className={cn("inline-flex items-center", className)}
-      style={{ gap }}
-      aria-label="Karta"
-    >
-      {/*
-        The PNG is a white-on-transparent glyph designed for the dark surface.
-        In light mode, the `.logo-mark` class (declared in globals.css) inverts
-        the image so it reads as dark-on-transparent against cream - no second
-        asset needed.
-      */}
+    <span className={cn("inline-flex items-center", className)}>
       <Image
-        src="/imagery/white.png"
-        alt=""
-        width={size}
+        src={asset.src}
+        alt={asset.alt}
+        width={width}
         height={size}
         priority={priority}
-        className="block shrink-0 logo-mark"
-        style={{ height: size, width: size }}
+        className="block h-auto w-auto shrink-0 select-none"
+        style={{ height: size, width }}
       />
-      {showWordmark ? (
-        <span
-          className="font-display text-fg tracking-[0.18em] uppercase font-medium select-none leading-none"
-          style={{ fontSize: wordmarkSize }}
-        >
-          Karta
-        </span>
-      ) : null}
     </span>
   );
 }

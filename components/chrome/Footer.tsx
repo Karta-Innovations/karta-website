@@ -9,13 +9,6 @@ interface FooterColumn {
 
 const COLS: FooterColumn[] = [
   {
-    title: "Solutions",
-    links: [
-      { label: "Enterprise", href: "/enterprise" },
-      { label: "Defense", href: "/defense" },
-    ],
-  },
-  {
     title: "Stack",
     links: [
       { label: "Stack overview", href: "/stack" },
@@ -55,12 +48,15 @@ export function Footer() {
           className="mb-16"
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_repeat(4,1fr)] gap-10 md:gap-10 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_repeat(3,1fr)] gap-10 md:gap-10 mb-20">
           <div className="space-y-5 max-w-sm">
-            <Logo size={40} showWordmark />
+            <div className="inline-flex rounded-[20px] bg-white p-4 ring-1 ring-black/[0.08] shadow-[0_18px_44px_-32px_rgba(12,14,18,0.48)]">
+              <Logo size={132} variant="full" />
+            </div>
             <p className="text-fg-muted text-sm leading-relaxed">
-              Operational autonomy for unmanned systems. Engineered to navigate,
-              decide and act where GPS, comms and operator attention fail.
+              Karta Innovations builds the operational autonomy layer for
+              autonomous systems, engineered to navigate, decide and act where
+              GPS, comms and operator attention fail.
             </p>
           </div>
           {COLS.map((col) => (

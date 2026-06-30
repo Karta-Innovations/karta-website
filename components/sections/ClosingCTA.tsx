@@ -22,7 +22,7 @@ export function ClosingCTA() {
       <div className="relative mx-auto max-w-[1400px]">
         <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-20 items-end">
           <div>
-            <EyebrowTag className="mb-8">Engage · 07</EyebrowTag>
+            <EyebrowTag className="mb-8">Engage</EyebrowTag>
             <h2 className="font-display text-[clamp(2.5rem,7vw,7rem)] font-medium tracking-[-0.04em] leading-[0.92] text-fg max-w-[14ch]">
               Talk to{" "}
               <span className="text-amber">engineering</span>, not sales.
@@ -47,14 +47,9 @@ export function ClosingCTA() {
 
           <aside className="space-y-7 lg:pb-6">
             <ContactRow
-              label="General + media + Careers"
+              label="General + media + careers + procurement"
               value="info@kartainnovations.com"
               href="mailto:info@kartainnovations.com"
-            />
-            <ContactRow
-              label="Programmes + procurement"
-              value="marketing@kartainnovations.com"
-              href="mailto:marketing@kartainnovations.com"
             />
           </aside>
         </div>
@@ -73,7 +68,7 @@ function ContactRow({ label, value, href }: ContactRowProps) {
   return (
     <a
       href={href}
-      className="block border-t border-white/[0.08] pt-4 group hover:border-amber transition-colors"
+      className="block border-t border-edge pt-4 group hover:border-amber transition-colors"
     >
       <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary mb-2">
         {label}

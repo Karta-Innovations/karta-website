@@ -21,17 +21,17 @@ export function DoppelrandCard({
     <div
       className={cn(
         "rounded-[28px] p-[6px]",
-        "bg-white/[0.03] ring-1 ring-white/[0.06]",
-        "shadow-[0_30px_80px_-40px_rgba(0,0,0,0.7)]",
+        "bg-glass ring-1 ring-edge",
+        "shadow-[0_26px_64px_-40px_rgba(11,20,48,0.42)]",
         className,
       )}
     >
       <div
         className={cn(
           "rounded-[22px] h-full w-full",
-          "bg-gradient-to-b from-indigo/40 to-ink-2",
-          "ring-1 ring-inset ring-white/[0.05]",
-          "shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]",
+          "bg-gradient-to-b from-indigo/70 to-ink-2",
+          "ring-1 ring-inset ring-edge",
+          "shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]",
           innerClassName,
         )}
       >

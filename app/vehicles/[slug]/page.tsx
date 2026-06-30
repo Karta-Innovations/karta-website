@@ -37,7 +37,6 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
   return (
     <>
       <PageHeader
-        index={`02 · ${vehicle.name.toUpperCase()}`}
         eyebrow={vehicle.family}
         title={vehicle.name}
         intro={
@@ -48,12 +47,11 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
             <p>{vehicle.description}</p>
           </>
         }
-        coord={{ center: vehicle.name.toUpperCase(), right: "APIS FAMILY · PLATFORM" }}
       />
 
       <section className="px-6 md:px-10 pb-20">
         <div className="mx-auto max-w-[1400px]">
-          <div className="relative aspect-[16/9] rounded-[28px] overflow-hidden ring-1 ring-white/[0.08] mb-20">
+          <div className="relative aspect-[16/9] rounded-[28px] overflow-hidden ring-1 ring-edge mb-20">
             {/* Flight-video loop when an asset is supplied (see SOLUTIONS-ASSETS.md);
                 otherwise the still image. Poster = the still, so the frame is never
                 empty while the video buffers. */}
@@ -140,7 +138,7 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
               <Link
                 key={v.slug}
                 href={`/vehicles/${v.slug}`}
-                className="group relative aspect-[16/10] rounded-[24px] overflow-hidden ring-1 ring-white/[0.06] hover:ring-amber/40 transition-all"
+                className="group relative aspect-[16/10] rounded-[24px] overflow-hidden ring-1 ring-edge hover:ring-amber/40 transition-all"
               >
                 <Image
                   src={v.image}

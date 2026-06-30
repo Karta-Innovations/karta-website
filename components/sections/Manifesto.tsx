@@ -9,9 +9,9 @@ interface Segment {
 }
 
 const HEADLINE: Segment[] = [
-  { text: "At Karta, we believe the future is" },
-  { text: "unmanned.", amber: true },
-  { text: "Our mission is to build world-class products that make autonomy practical, reliable and ready for the real world." },
+  { text: "At Karta, we believe autonomous systems need" },
+  { text: "situational intelligence.", amber: true },
+  { text: "Our mission is to build the operational autonomy layer that makes them practical, reliable and ready for the real world." },
 ];
 
 const wordVariants: Variants = {
@@ -58,7 +58,7 @@ export function Manifesto() {
             >
               दर्शन
             </span>
-            <EyebrowTag variant="muted">Philosophy · 02</EyebrowTag>
+            <EyebrowTag variant="muted">Philosophy</EyebrowTag>
           </div>
 
           <div>

@@ -22,9 +22,7 @@ export default function EngagePage() {
         }
         intro={
           <p>
-            Karta engages directly. The first reply to your message comes from
-            the team that ships the code - not a funnel. Tell us about the
-            envelope you fly and what you are trying to integrate.
+            Tell us about the envelope you fly and what you are trying to integrate.
           </p>
         }
         coord={{ center: "ENGAGE · OPEN", right: "FIRST REPLY · 48H" }}
@@ -44,16 +42,8 @@ export default function EngagePage() {
               <ul className="space-y-5">
                 {[
                   {
-                    k: "General + media",
-                    v: "hello@kartainnovations.com",
-                  },
-                  {
-                    k: "Programmes + procurement",
-                    v: "programmes@kartainnovations.com",
-                  },
-                  {
-                    k: "Careers",
-                    v: "careers@kartainnovations.com",
+                    k: "General enquiries",
+                    v: "info@kartainnovations.com",
                   },
                 ].map((row) => (
                   <li key={row.k} className="pb-4 border-b border-border">
@@ -78,21 +68,10 @@ export default function EngagePage() {
               <p className="text-fg text-[15px] leading-[1.65]">
                 Karta Innovations
                 <br />
-                17.454°N · 78.500°E
+                17.454 · 78.500  
               </p>
               <p className="font-mono text-fg-tertiary text-[11px] tracking-[0.22em] uppercase mt-3">
-                Single engineering site · field-tested
-              </p>
-            </section>
-
-            <section>
-              <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-5">
-                First-reply window
-              </h2>
-              <p className="text-fg-muted text-[14px] leading-[1.65]">
-                Most engagements receive a substantive engineering reply within
-                48 hours. Procurement and trials engagements receive a
-                programme-shaped reply within 5 working days.
+                Wellington Rd, Hyderabad, Telangana, India
               </p>
             </section>
           </aside>

@@ -1,7 +1,14 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 
 type FrameloopMode = "always" | "demand" | "never";
 
@@ -42,6 +49,19 @@ function hasWebGL(): boolean {
   }
 }
 
+// Client capability gate, probed once and cached. The server snapshot is false,
+// so SSR and the first hydration render show the static fallback (matching what
+// shipped before 3D); the canvas mounts only after hydration on a capable client.
+let capabilityCache: boolean | null = null;
+function getCapability(): boolean {
+  if (capabilityCache === null) {
+    capabilityCache = !isReducedMotion() && hasWebGL();
+  }
+  return capabilityCache;
+}
+const subscribeCapability = () => () => {};
+const getServerCapability = () => false;
+
 /**
  * Karta's gated R3F Canvas wrapper.
  *
@@ -64,16 +84,12 @@ export function CanvasShell({
   ariaLabel,
 }: CanvasShellProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useSyncExternalStore(
+    subscribeCapability,
+    getCapability,
+    getServerCapability,
+  );
   const [inView, setInView] = useState(!suspendOffscreen);
-
-  useEffect(() => {
-    setMounted(true);
-    if (isReducedMotion()) return;
-    if (!hasWebGL()) return;
-    setEnabled(true);
-  }, []);
 
   useEffect(() => {
     if (!enabled || !suspendOffscreen) return;
@@ -90,7 +106,7 @@ export function CanvasShell({
     return () => io.disconnect();
   }, [enabled, suspendOffscreen]);
 
-  if (!mounted || !enabled) {
+  if (!enabled) {
     return (
       <div ref={wrapperRef} className={className} aria-label={ariaLabel}>
         {fallback}

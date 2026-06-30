@@ -7,7 +7,7 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 export const metadata: Metadata = {
   title: "Careers",
   description:
-    "Open engineering roles at Karta. Build the operational autonomy layer for unmanned systems.",
+    "Open engineering roles at Karta. Build the operational autonomy layer for autonomous systems.",
 };
 
 export default function CareersPage() {
@@ -16,7 +16,6 @@ export default function CareersPage() {
   return (
     <>
       <PageHeader
-        index="06 · CAREERS"
         eyebrow="Engineering team · single station"
         title={
           <>
@@ -34,15 +33,10 @@ export default function CareersPage() {
             <p>
               We work from a single engineering station, with field operations
               across high-altitude, arid, littoral, urban and contested
-              envelopes. Compensation is competitive for senior deeptech work,
-              with meaningful equity for early team.
+              envelopes. 
             </p>
           </>
         }
-        coord={{
-          center: "ROLES · OPEN",
-          right: `${open.length} ROLE${open.length === 1 ? "" : "S"}`,
-        }}
       />
 
       <section className="px-6 md:px-10 pb-24 md:pb-32">
@@ -91,7 +85,7 @@ export default function CareersPage() {
             ))}
           </ol>
 
-          <div className="mt-16 rounded-2xl bg-white/[0.025] ring-1 ring-white/[0.06] p-8">
+          <div className="mt-16 rounded-2xl bg-glass ring-1 ring-edge p-8">
             <h3 className="font-display text-2xl font-medium tracking-[-0.02em] text-fg mb-3">
               Don&apos;t see your role?
             </h3>
@@ -99,10 +93,10 @@ export default function CareersPage() {
               We hire opportunistically for engineers who would clearly raise
               the bar. Write to{" "}
               <a
-                href="mailto:careers@kartainnovations.com"
+                href="mailto:info@kartainnovations.com"
                 className="text-amber hover:underline underline-offset-4 decoration-amber/40"
               >
-                careers@kartainnovations.com
+                info@kartainnovations.com
               </a>{" "}
               with what you have built and what you want to build.
             </p>

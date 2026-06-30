@@ -29,9 +29,9 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
 });
 
 const SITE_URL = "https://karta.ai";
-const SITE_NAME = "Karta";
+const SITE_NAME = "Karta Innovations";
 const SITE_DESCRIPTION =
-  "Operational autonomy for unmanned systems. Karta builds the navigation, decision and integration stack that works where GPS does not.";
+  "Operational autonomy layer for autonomous systems. Karta Innovations builds situational intelligence that works where GPS does not.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -44,12 +44,13 @@ export const metadata: Metadata = {
   authors: [{ name: "Karta Innovations" }],
   keywords: [
     "operational autonomy",
-    "unmanned systems",
+    "autonomous systems",
+    "situational intelligence",
     "GPS-denied navigation",
     "robotics",
     "defense autonomy",
     "deeptech",
-    "unmanned vehicle autonomy stack",
+    "autonomous systems autonomy stack",
   ],
   openGraph: {
     type: "website",

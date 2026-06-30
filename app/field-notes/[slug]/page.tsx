@@ -40,7 +40,6 @@ export default async function NotePage({ params }: NotePageProps) {
   return (
     <>
       <PageHeader
-        index="05 · FIELD NOTE"
         eyebrow={`${note.author} · ${note.role}`}
         title={note.title}
         intro={
@@ -55,7 +54,6 @@ export default async function NotePage({ params }: NotePageProps) {
             </div>
           </>
         }
-        coord={{ center: "READING · OPEN", right: `${note.readingMinutes} MIN` }}
       />
 
       <article className="px-6 md:px-10 pb-32 md:pb-40">
@@ -77,7 +75,7 @@ export default async function NotePage({ params }: NotePageProps) {
                 <Link
                   key={o.slug}
                   href={`/field-notes/${o.slug}`}
-                  className="group block rounded-2xl ring-1 ring-white/[0.06] hover:ring-amber/40 transition-all p-7"
+                  className="group block rounded-2xl ring-1 ring-edge hover:ring-amber/40 transition-all p-7"
                 >
                   <div className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-3">
                     {DATE_FMT.format(new Date(o.date))}
@@ -144,7 +142,7 @@ function RenderBlock({ block }: { block: NoteBlock }) {
       );
     case "spec":
       return (
-        <div className="rounded-xl bg-white/[0.025] ring-1 ring-white/[0.06] p-6">
+        <div className="rounded-xl bg-glass ring-1 ring-edge p-6">
           {block.title ? (
             <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary mb-3">
               {block.title}
@@ -164,7 +162,7 @@ function RenderBlock({ block }: { block: NoteBlock }) {
       );
     case "code":
       return (
-        <pre className="rounded-md bg-surface-deep ring-1 ring-white/[0.06] overflow-x-auto p-5 font-mono text-[13px] leading-[1.55] text-fg">
+        <pre className="rounded-md bg-surface-deep ring-1 ring-edge overflow-x-auto p-5 font-mono text-[13px] leading-[1.55] text-fg">
           <code>{block.content}</code>
         </pre>
       );

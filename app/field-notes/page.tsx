@@ -22,7 +22,6 @@ export default function FieldNotesPage() {
   return (
     <>
       <PageHeader
-        index="05 · FIELD NOTES"
         eyebrow="Engineering essays · operational reports"
         title={
           <>
@@ -38,7 +37,6 @@ export default function FieldNotesPage() {
             </p>
           </>
         }
-        coord={{ center: "ENGINEERING · OPEN", right: `${notes.length} ENTRIES` }}
       />
 
       <section className="px-6 md:px-10 pb-32 md:pb-48">

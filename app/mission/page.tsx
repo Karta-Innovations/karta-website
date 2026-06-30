@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PageHeader } from "@/components/primitives/PageHeader";
 import { NestedCTA } from "@/components/primitives/NestedCTA";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
@@ -43,35 +42,34 @@ export default function MissionPage() {
   return (
     <>
       <PageHeader
-        index="04 · MISSION"
         eyebrow="Doctrine · why we exist"
         title={
           <>
-            The future is unmanned. <span className="text-amber">It must be bounded</span>.
+            Autonomous systems are arriving.{" "}
+            <span className="text-amber">They must be bounded</span>.
           </>
         }
         intro={
           <>
             <p>
-              Karta exists because the unmanned future is arriving whether we
+              Karta exists because the autonomous future is arriving whether we
               participate or not. The choice is not whether autonomous systems
               fly. It is whether they fly under doctrine that is auditable,
               constrained, and built for the field they will see.
             </p>
             <p>
-              We are not building a category-leading unmanned system. We are
-              building the operational autonomy layer underneath the vehicles,
-              the navigation, decision and integration stack that turns
-              hardware into a safe, auditable teammate.
+              We are not building one category-leading vehicle. We are building
+              the operational autonomy layer underneath autonomous systems, the
+              navigation, decision and integration stack that turns hardware
+              into a safe, auditable teammate.
             </p>
           </>
         }
-        coord={{ center: "DOCTRINE · OPEN", right: "17.454°N 78.500°E" }}
       />
 
       <section className="px-6 md:px-10 pb-24 md:pb-32">
         <div className="mx-auto max-w-[1400px]">
-          <EyebrowTag className="mb-10">Operating principles · 01</EyebrowTag>
+          <EyebrowTag className="mb-10">Operating principles</EyebrowTag>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-12">
             {PRINCIPLES.map((p) => (
               <div key={p.n} className="pl-6 border-l border-border">
@@ -99,32 +97,6 @@ export default function MissionPage() {
       */}
       <DeniedEnvironment />
       <OperatingBounds />
-
-      <section className="relative bg-ink-2 border-y border-border">
-        <div className="relative aspect-[16/8] md:aspect-[16/6]">
-          <Image
-            src="/imagery/himalaya.jpg"
-            alt="High-altitude envelope"
-            fill
-            sizes="100vw"
-            className="object-cover"
-            quality={85}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/40 to-ink/85" />
-          <div className="absolute inset-x-0 bottom-0 px-6 md:px-10 pb-12 md:pb-20">
-            <div className="mx-auto max-w-[1400px]">
-              <h2 className="font-display text-[clamp(2rem,5vw,4.25rem)] font-medium tracking-[-0.035em] leading-[1.02] text-fg max-w-[26ch]">
-                Karta. Map, actor, maker.
-              </h2>
-              <p className="mt-5 text-fg-muted text-[17px] leading-[1.65] max-w-[60ch]">
-                The name is layered. A system that knows where it is, acts
-                within doctrine, and produces outcomes operators can stand
-                behind.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section className="px-6 md:px-10 py-24 md:py-32">
         <div className="mx-auto max-w-[1400px] grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-end">

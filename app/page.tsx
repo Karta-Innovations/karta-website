@@ -1,27 +1,24 @@
 import { Hero } from "@/components/sections/Hero";
 import { Manifesto } from "@/components/sections/Manifesto";
-import { Solutions } from "@/components/sections/Solutions";
-import { AutonomyStack } from "@/components/sections/AutonomyStack";
+import { GrandScheme } from "@/components/sections/GrandScheme";
 import { Vehicles } from "@/components/sections/Vehicles";
 import { Hyderabad } from "@/components/sections/Hyderabad";
 import { ClosingCTA } from "@/components/sections/ClosingCTA";
 
-// Landing-page narrative:
-//   Hero → Manifesto → Solutions (what we enable: Enterprise | Defense)
-//   → Vehicles (the platforms that carry it) → AutonomyStack (the brain)
-//   → Hyderabad (the place) → Engage.
-// Solutions leads with the missions and routes into /enterprise + /defense;
-// the airframes + stack below it are the "how". The doctrine-heavy sections
-// (DeniedEnvironment + OperatingBounds) live on /mission. Geographies remains
-// parked in components/sections/ for a possible future sub-route.
+// Landing-page narrative, stack-forward:
+//   Hero -> Manifesto -> GrandScheme (the operational autonomy layer:
+//   situational intelligence, mission loop, and three-layer IP stack) ->
+//   Vehicles (the airframes it carries, and any third-party autonomous system)
+//   -> Hyderabad (the place) -> Engage.
+// The product IS the stack, so the page leads with one consolidated stack
+// section rather than splitting "what makes it possible" from the stack itself.
 export default function HomePage() {
   return (
     <>
       <Hero />
       <Manifesto />
-      <Solutions />
+      <GrandScheme />
       <Vehicles />
-      <AutonomyStack />
       <Hyderabad />
       <ClosingCTA />
     </>

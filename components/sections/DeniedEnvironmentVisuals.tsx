@@ -363,7 +363,7 @@ interface FrameProps {
 }
 function Frame({ label, rightLabel, children }: FrameProps) {
   return (
-    <div className="relative h-[180px] rounded-xl bg-ink/40 ring-1 ring-white/[0.05] overflow-hidden mt-2 mb-4">
+    <div className="relative h-[180px] rounded-xl bg-ink/40 ring-1 ring-edge overflow-hidden mt-2 mb-4">
       <div className="absolute top-3 left-4 font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary pointer-events-none">
         {label}
       </div>

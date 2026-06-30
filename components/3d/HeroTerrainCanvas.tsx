@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Color, Fog, MathUtils, Vector3 } from "three";
+import { MathUtils, Vector3 } from "three";
 import type { MotionValue } from "framer-motion";
 import { CanvasShell } from "./CanvasShell";
 import { TerrainMesh } from "./TerrainMesh";
@@ -46,18 +46,10 @@ export function HeroTerrainCanvas({
 }
 
 function SceneAtmosphere({ fogColor }: { fogColor: string | null }) {
-  const { scene } = useThree();
-  useEffect(() => {
-    if (fogColor) {
-      scene.fog = new Fog(new Color(fogColor), 14, 38);
-    } else {
-      scene.fog = null;
-    }
-    return () => {
-      scene.fog = null;
-    };
-  }, [scene, fogColor]);
-  return null;
+  // Declarative R3F fog: attaches to scene.fog and is cleaned up automatically
+  // on unmount, so we never imperatively mutate the scene from a hook.
+  if (!fogColor) return null;
+  return <fog attach="fog" args={[fogColor, 14, 38]} />;
 }
 
 /**
@@ -67,6 +59,9 @@ function SceneAtmosphere({ fogColor }: { fogColor: string | null }) {
  * Lenis's eased scroll the camera glides smoothly even when the scroll
  * MotionValue jitters frame-to-frame.
  */
+/* eslint-disable react-hooks/immutability -- R3F drives the camera imperatively
+   each frame in useFrame; assigning camera.position and calling camera.lookAt is
+   the supported pattern and has no declarative equivalent for per-frame motion. */
 function CameraDolly({ progress }: { progress: MotionValue<number> }) {
   const { camera } = useThree();
   const target = useRef(new Vector3(0, 0, 0));
@@ -97,3 +92,4 @@ function CameraDolly({ progress }: { progress: MotionValue<number> }) {
 
   return null;
 }
+/* eslint-enable react-hooks/immutability */

@@ -126,9 +126,9 @@ export function TerrainMesh({
   segments = 220,
   amplitude = 4,
   contourSpacing = 0.5,
-  valleyColor = "#0B1020",
-  ridgeColor = "#1B244A",
-  contourColor = "#C8962E",
+  valleyColor = "#070B18",
+  ridgeColor = "#17224A",
+  contourColor = "#4D8DFF",
   animate = false,
 }: TerrainMeshProps) {
   const matRef = useRef<ShaderMaterial>(null);

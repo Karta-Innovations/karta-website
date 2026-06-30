@@ -2,23 +2,23 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Karta - Operational autonomy",
+    name: "Karta Innovations - Operational autonomy",
     short_name: "Karta",
     description:
-      "Karta builds the operational autonomy stack for unmanned systems in GPS- and comms-denied environments.",
+      "Karta Innovations builds the operational autonomy layer for autonomous systems in GPS- and comms-denied environments.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0B1020",
-    theme_color: "#0B1020",
+    background_color: "#EDF2FB",
+    theme_color: "#EDF2FB",
     icons: [
       {
-        src: "/imagery/karta_Icon-removebg-preview.png",
+        src: "/brand/karta-icon-512.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "any",
       },
       {
-        src: "/imagery/karta_Icon-removebg-preview.png",
+        src: "/brand/karta-icon-192.png",
         sizes: "192x192",
         type: "image/png",
         purpose: "maskable",

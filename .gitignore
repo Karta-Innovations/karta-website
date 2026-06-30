@@ -114,3 +114,12 @@ public/screenshots/
 # never shipped. The canonical assets live alongside; only the underscore-
 # prefixed subfolders are excluded.
 public/imagery/_archive/
+
+# ---------- FUSE filesystem artifacts ----------
+# Lock files left by FUSE/Samba mounts when a file is deleted while still open.
+.fuse_hidden*
+
+# ---------- Local tooling / agent state (not shipped) ----------
+.claude/
+.superpowers/
+docs/superpowers/

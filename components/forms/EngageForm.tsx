@@ -13,6 +13,8 @@ interface EngageFormState {
   email: string;
   organisation: string;
   message: string;
+  /** Honeypot - real users never see or fill this; bots do. */
+  botField: string;
 }
 
 const INTENTS: { id: Intent; label: string; detail: string }[] = [
@@ -27,6 +29,7 @@ const initial: EngageFormState = {
   email: "",
   organisation: "",
   message: "",
+  botField: "",
 };
 
 export function EngageForm() {
@@ -63,6 +66,25 @@ export function EngageForm() {
 
   return (
     <form onSubmit={onSubmit} className="space-y-10">
+      {/* Honeypot: hidden from people and assistive tech; bots that fill every
+          field trip it and the server silently discards the submission. */}
+      <div
+        aria-hidden
+        className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
+      >
+        <label>
+          Company website
+          <input
+            type="text"
+            name="company_website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={data.botField}
+            onChange={(e) => update("botField", e.target.value)}
+          />
+        </label>
+      </div>
+
       <fieldset>
         <legend className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-5">
           Intent
@@ -80,7 +102,7 @@ export function EngageForm() {
                   "text-left rounded-2xl p-5 ring-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
                   active
                     ? "bg-amber/10 ring-amber/40"
-                    : "bg-white/[0.02] ring-white/[0.06] hover:bg-white/[0.04] hover:ring-white/[0.12]",
+                    : "bg-glass ring-edge hover:bg-glass hover:ring-edge-strong",
                 )}
               >
                 <div className="flex items-center justify-between mb-3">
@@ -229,9 +251,9 @@ function Field({ label, name, value, onChange, type = "text", required, autoComp
         autoComplete={autoComplete}
         onChange={(e) => onChange(e.target.value)}
         className={cn(
-          "w-full rounded-md bg-white/[0.025] ring-1 ring-white/[0.08]",
+          "w-full rounded-md bg-glass ring-1 ring-edge",
           "px-4 py-3 text-fg placeholder:text-fg-tertiary",
-          "focus:ring-amber focus:ring-1 focus:bg-white/[0.045] outline-none transition-all",
+          "focus:ring-amber focus:ring-1 focus:bg-glass outline-none transition-all",
         )}
       />
     </label>
@@ -257,9 +279,9 @@ function TextArea({ label, name, value, onChange, required, rows = 4, placeholde
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         className={cn(
-          "w-full rounded-md bg-white/[0.025] ring-1 ring-white/[0.08]",
+          "w-full rounded-md bg-glass ring-1 ring-edge",
           "px-4 py-3 text-fg placeholder:text-fg-tertiary leading-[1.55]",
-          "focus:ring-amber focus:ring-1 focus:bg-white/[0.045] outline-none transition-all resize-none",
+          "focus:ring-amber focus:ring-1 focus:bg-glass outline-none transition-all resize-none",
         )}
       />
     </label>

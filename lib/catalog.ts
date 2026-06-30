@@ -117,7 +117,7 @@ export const VEHICLES: Vehicle[] = [
       "A medium multirotor for heavier payloads and long-loiter missions where rotor lift earns the watch.",
     description:
       "Dorsata is the heavy-lift multirotor in the Apis family. It carries larger sensor packages - visual, thermal, mmWave - and watches longer than any other multirotor in its class. Where Kari is a scout and Cerana is a fixed-wing watchstander, Dorsata is the mid-envelope platform that brings multirotor lift to long-loiter sorties.",
-    image: "/imagery/dorsata.jpeg",
+    image: "/imagery/dorsata.png",
     capabilities: [
       "Heavier sensor payloads - visual, LWIR, mmWave",
       "Long-loiter multirotor envelope, 90+ min on station",
@@ -156,13 +156,13 @@ export const STACK_LAYERS: StackLayer[] = [
       "SkyAnchor is the on-vehicle positioning system. It fuses visual-inertial odometry, terrain-relative navigation, and barometric integration into a single posed estimate with calibrated uncertainty - usable for the duration of a sortie without any GNSS contact.",
     image: "/imagery/skyanchor.jpeg",
     problem:
-      "GNSS is the single most fragile dependency in the unmanned stack. Jamming, urban canyons, and high-latitude operation all silence it. Without a substitute, the vehicle stops being useful.",
+      "GNSS is the single most fragile dependency in the autonomy stack. Jamming, urban canyons, and high-latitude operation all silence it. Without a substitute, the vehicle stops being useful.",
     approach:
       "SkyAnchor runs as a single deterministic process on-vehicle. There is no cloud, no model download, no online learning. The fusion is exposed as a service with explicit confidence intervals, so downstream consumers can reason about pose uncertainty instead of pretending it doesn't exist.",
     capabilities: [
       "Visual-inertial odometry with multi-camera support",
       "Terrain-relative navigation against on-board map tiles",
-      "Sub-1.2m drift per km on terrain-relative fix",
+      "Bounded drift on terrain-relative fix",
       "Bounded behaviour as confidence degrades",
       "Deterministic - no online learning in the flight loop",
     ],
@@ -173,9 +173,8 @@ export const STACK_LAYERS: StackLayer[] = [
     ],
     posture: [
       { label: "Compute", value: "ARM + accelerator" },
-      { label: "Pose update", value: "50", unit: "Hz" },
-      { label: "GNSS dependency", value: "None" },
-      { label: "Drift budget", value: "<1.2", unit: "m / km" },
+      { label: "Process", value: "Single, deterministic" },
+      { label: "Map", value: "On-board tiles" },
     ],
   },
   {
@@ -187,7 +186,7 @@ export const STACK_LAYERS: StackLayer[] = [
     byline: "Mission composer. Prioritises the next action across vehicles.",
     description:
       "TENERE is the operator's mission composer. It turns intent - a goal, a geometry, a set of bounds - into a sortie graph executable across one or many vehicles. It is what makes one operator viable at fleet scale.",
-    image: "/imagery/tenere-gcs.jpeg",
+    image: "/imagery/tenere.png",
     problem:
       "Operator cognitive bandwidth is finite. Naively, a fleet just multiplies the operator's workload. The solution is not to remove the operator. It is to compose mission intent at a higher level of abstraction and surface only the decisions that need a human.",
     approach:
@@ -220,7 +219,7 @@ export const STACK_LAYERS: StackLayer[] = [
     byline: "The memory layer. Doctrine, audit and cross-echelon coordination.",
     description:
       "Kiksuya is the doctrine and memory runtime. It is where rules of engagement, geometry constraints, and authority gates live as first-class code - auditable, versioned, signed, and remembered across sorties and echelons. The name is borrowed from a word meaning to remember.",
-    image: "/imagery/forest.jpg",
+    image: "/imagery/kiksuya.png",
     problem:
       "Doctrine in most autonomy stacks is a slide deck. It is not enforced by the code, it is not versioned, and it cannot be audited after the fact. That gap is where bad outcomes happen. The same goes for institutional memory across sorties - most stacks forget.",
     approach:

@@ -63,7 +63,7 @@ export function OperatingBounds() {
     >
       <div className="mx-auto max-w-[1400px]">
         <div className="max-w-[68ch] mb-24">
-          <EyebrowTag className="mb-6">Operating bounds · 03</EyebrowTag>
+          <EyebrowTag className="mb-6">Operating bounds</EyebrowTag>
           <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg">
             What we will build. What we{" "}
             <span className="text-amber">will not</span>.
@@ -123,7 +123,7 @@ function PositionColumn({ heading, icon, iconColor, positions }: PositionColumnP
           >
             <div className="flex items-start gap-4">
               <span
-                className={`mt-1 size-6 inline-flex items-center justify-center rounded-full ring-1 ring-white/10 ${iconColor}`}
+                className={`mt-1 size-6 inline-flex items-center justify-center rounded-full ring-1 ring-edge-strong ${iconColor}`}
               >
                 {icon}
               </span>

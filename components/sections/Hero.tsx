@@ -23,7 +23,7 @@ export function Hero() {
       ref={ref}
       className="relative min-h-[100dvh] overflow-hidden bg-ink"
     >
-      {/* Terrain layer - 3D when WebGL/motion allow, static himalaya.jpg otherwise */}
+      {/* Terrain layer - 3D when WebGL/motion allow, static terrain imagery otherwise */}
       <HeroTerrain sectionRef={ref} />
 
       {/* Layered scrims for depth + legibility */}
@@ -37,33 +37,40 @@ export function Hero() {
         className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/25 to-transparent"
       />
 
-      {/* Hairline grid */}
+      {/* Aurora bloom - the vibrant azure/cyan wash that lifts the hero */}
       <div
         aria-hidden
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, #F5F5F0 1px, transparent 1px), linear-gradient(to bottom, #F5F5F0 1px, transparent 1px)",
-          backgroundSize: "96px 96px",
-        }}
+        className="bg-aurora absolute inset-0 opacity-[0.55] pointer-events-none"
       />
+
+      {/* Hairline grid - theme-aware faint lines */}
+      <div aria-hidden className="grid-overlay absolute inset-0 opacity-70" />
 
       {/* Content */}
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
         className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-10 pt-32 lg:pt-40 pb-20 min-h-[100dvh] flex flex-col"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-[1.45fr_1fr] gap-12 lg:gap-20 mt-auto pt-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.45fr_1fr] gap-12 lg:gap-20 mt-auto pt-6">
           <div>
             <EyebrowTag className="mb-7">
               Operational Autonomy
             </EyebrowTag>
-            <h1 className="font-display text-[clamp(2.75rem,8.5vw,8rem)] font-medium tracking-[-0.045em] leading-[0.93] text-fg max-w-[16ch]">
-              Autonomy that works where{" "}
-              <span className="text-amber">GPS does not</span>.
+            <h1 className="font-display text-[clamp(2.55rem,6.8vw,6rem)] font-medium tracking-[-0.045em] leading-[0.93] text-fg max-w-[18ch]">
+              <span className="block">Operational</span>
+              <span className="block">autonomy layer</span>
+              <span className="block">for autonomous</span>
+              <span className="block">
+                <span className="text-amber">systems</span>.
+              </span>
             </h1>
+            <p className="mt-8 max-w-[31ch] text-[17px] leading-[1.7] text-fg-muted sm:max-w-[58ch]">
+              Karta Innovations builds situational intelligence for autonomous
+              systems: the navigation, decision and integration stack that keeps
+              working through GPS loss, comms gaps and overloaded operators.
+            </p>
             <div className="mt-10 flex flex-wrap items-center gap-3">
-              <NestedCTA href="/stack">See the autonomy stack</NestedCTA>
+              <NestedCTA href="/stack">Explore the autonomy layer</NestedCTA>
               <NestedCTA href="/engage" variant="ghost">
                 Talk to engineering
               </NestedCTA>
@@ -77,7 +84,7 @@ export function Hero() {
             manifesto marker, not decoration.
           */}
           <aside className="lg:pt-10">
-            <div className="border-t border-white/[0.08] pt-7 max-w-[28ch] lg:ml-auto">
+            <div className="border-t border-edge pt-7 max-w-[28ch] lg:ml-auto">
               <span
                 lang="sa"
                 className="font-devanagari block text-[clamp(4rem,8vw,7rem)] text-fg leading-[0.95] tracking-[-0.01em]"
@@ -86,10 +93,10 @@ export function Hero() {
               </span>
               <div className="mt-5 space-y-2">
                 <div className="font-mono text-[10px] tracking-[0.28em] uppercase text-amber">
-                  karta · n. · sanskrit
+                  karta · n. · the agent
                 </div>
                 <div className="font-mono text-[11px] tracking-[0.12em] text-fg-muted leading-[1.55]">
-                  the one who acts. the agent.
+                  the one who acts. 
                   <br />
                   accountable autonomy under human intent.
                 </div>
@@ -103,8 +110,8 @@ export function Hero() {
           href="#manifesto"
           className="mt-16 inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary hover:text-amber transition-colors group/scroll w-fit"
         >
-          Scroll · 06 sections below
-          <span className="inline-flex size-7 items-center justify-center rounded-full ring-1 ring-white/15 group-hover/scroll:ring-amber group-hover/scroll:bg-amber/10 transition-all">
+          Scroll to explore
+          <span className="inline-flex size-7 items-center justify-center rounded-full ring-1 ring-edge-strong group-hover/scroll:ring-amber group-hover/scroll:bg-amber/10 transition-all">
             <motion.span
               animate={{ y: [0, 3, 0] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}

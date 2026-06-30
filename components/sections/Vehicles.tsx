@@ -34,7 +34,7 @@ export function Vehicles() {
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 pt-32 md:pt-48 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
           <div>
-            <EyebrowTag className="mb-6">The platforms · 04</EyebrowTag>
+            <EyebrowTag className="mb-6">The platforms</EyebrowTag>
             <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg max-w-[14ch]">
               The platforms that carry it.
             </h2>
@@ -83,7 +83,7 @@ interface VehicleCardProps {
 
 function VehicleCard({ vehicle }: VehicleCardProps) {
   return (
-    <article className="shrink-0 w-[88vw] md:w-[78vw] lg:w-[72vw] xl:w-[1100px] h-[80vh] md:h-[78vh] relative rounded-[32px] overflow-hidden ring-1 ring-white/[0.08] bg-surface">
+    <article className="shrink-0 w-[88vw] md:w-[78vw] lg:w-[72vw] xl:w-[1100px] h-[80vh] md:h-[78vh] relative rounded-[32px] overflow-hidden ring-1 ring-edge bg-surface">
       <Image
         src={vehicle.image}
         alt={vehicle.name}
@@ -121,7 +121,7 @@ function VehicleCard({ vehicle }: VehicleCardProps) {
             <ArrowUpRight size={14} weight="bold" />
           </Link>
         </div>
-        <aside className="lg:self-end lg:max-w-[320px] rounded-2xl bg-ink/65 backdrop-blur-md ring-1 ring-white/10 p-6">
+        <aside className="lg:self-end lg:max-w-[320px] rounded-2xl bg-ink/65 backdrop-blur-md ring-1 ring-edge-strong p-6">
           <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary mb-3">
             Operating envelope
           </div>

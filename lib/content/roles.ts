@@ -41,7 +41,7 @@ export const ROLES: Role[] = [
       "Field experience in monsoon or high-altitude regimes",
       "Familiarity with state-estimation literature beyond textbook EKF",
     ],
-    contact: "careers@kartainnovations.com",
+    contact: "info@kartainnovations.com",
   },
   {
     slug: "command-systems-engineer",
@@ -70,7 +70,7 @@ export const ROLES: Role[] = [
       "Experience with mission-critical UI work",
       "Working knowledge of allied-export defence procurement",
     ],
-    contact: "careers@kartainnovations.com",
+    contact: "info@kartainnovations.com",
   },
 ];
 

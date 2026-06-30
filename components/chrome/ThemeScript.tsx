@@ -6,9 +6,9 @@
  * `data-theme` on <html> so the CSS-variable cascade applies the correct
  * palette on the very first frame - no flash-of-wrong-theme.
  *
- * Defaults to DARK if nothing is stored (intentional - preserves the brand's
- * canonical register on first visit; prefers-color-scheme is ignored by
- * design per the plan).
+ * Defaults to DARK if nothing is stored (the dark register is the canonical
+ * first-visit look). A stored `light` preference still wins;
+ * prefers-color-scheme is ignored by design per the plan.
  */
 export const THEME_STORAGE_KEY = "karta-theme";
 
@@ -17,7 +17,6 @@ const SCRIPT = `(function(){try{var t=localStorage.getItem('${THEME_STORAGE_KEY}
 export function ThemeScript() {
   return (
     <script
-      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: SCRIPT }}
       // Avoid Next's hydration tracking for inline scripts.
       suppressHydrationWarning

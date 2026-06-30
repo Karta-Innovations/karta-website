@@ -22,56 +22,174 @@ export interface FieldNote {
 export const NOTES: FieldNote[] = [
   {
     slug: "skyanchor-uncertainty",
-    title: "Why SkyAnchor publishes uncertainty, not position",
+    title: "Why SkyAnchor treats location as confidence, not certainty",
     summary:
-      "A short note on why our on-vehicle pose estimate is exposed with explicit confidence - and what that lets every downstream consumer do correctly.",
-    author: "K. Mehrotra",
+      "A short note on why GPS-denied navigation should expose trust, not just coordinates.",
+    author: "Sarath Irigireddy",
     role: "Edge stack lead",
-    date: "2026-04-18",
+    date: "2026-06-30",
     readingMinutes: 6,
-    tags: ["Edge", "SkyAnchor", "Engineering"],
+    tags: ["Edge", "SkyAnchor", "Autonomy", "Engineering"],
     body: [
       {
         type: "p",
-        text: "Every autonomy stack we have looked at - open-source, commercial, defence-supplied - exposes pose as a single number triple. (x, y, z) in some frame. Sometimes a quaternion. Almost never a confidence.",
+        text: "Most navigation systems speak in coordinates. Latitude, longitude, altitude. Maybe velocity. Maybe orientation.",
       },
       {
         type: "p",
-        text: "Downstream consumers then act as if the pose is true. They plan against it. They draw on maps. They make commitments. When the underlying estimator silently degrades - drift accumulates, terrain match falls - nothing in the system notices until something goes wrong.",
+        text: "That is useful, but incomplete.",
+      },
+      {
+        type: "p",
+        text: "A vehicle does not only need to know where it is. It needs to know how much confidence it should place in that answer.",
+      },
+      {
+        type: "p",
+        text: "This distinction becomes critical when GPS is unreliable, degraded, or unavailable. In those conditions, location is no longer a single clean fact coming from one trusted source. It becomes an estimate formed from partial signals, changing conditions, and varying confidence.",
+      },
+      {
+        type: "p",
+        text: "SkyAnchor is built around that reality.",
       },
       {
         type: "h2",
-        text: "SkyAnchor publishes a posterior",
+        text: "Position alone is not enough",
       },
       {
         type: "p",
-        text: "SkyAnchor's output is not (x, y, z). It is a calibrated posterior over pose, summarised as a mean and a covariance, with metadata about which fix modalities contributed and at what confidence.",
+        text: "A coordinate without confidence can be dangerous.",
+      },
+      {
+        type: "p",
+        text: "It may look precise even when the underlying system is uncertain. It may continue updating even when the evidence supporting it has weakened. It may be consumed by planners, displays, autonomy logic, or flight systems as if it were ground truth.",
+      },
+      {
+        type: "p",
+        text: "That is the failure mode we care about.",
+      },
+      {
+        type: "quote",
+        text: "A system should not silently become less certain while continuing to sound equally confident.",
+      },
+      {
+        type: "p",
+        text: "SkyAnchor's role is to make that confidence visible.",
+      },
+      {
+        type: "h2",
+        text: "What SkyAnchor publishes",
+      },
+      {
+        type: "p",
+        text: "SkyAnchor does not treat position as a bare number.",
+      },
+      {
+        type: "p",
+        text: "It exposes a navigation belief: where the vehicle is estimated to be, how fresh that estimate is, and how much trust downstream systems should place in it.",
+      },
+      {
+        type: "p",
+        text: "That lets other parts of the stack make better decisions.",
       },
       {
         type: "ul",
         items: [
-          "Visual-inertial odometry contribution and its drift rate",
-          "Terrain-relative match score and matched-frame age",
-          "Barometric integration confidence",
-          "Last GNSS contact (if any), and how long ago",
+          "A planner can wait when location confidence is low.",
+          "A mission system can avoid committing to precise actions until the estimate improves.",
+          "A safety layer can distinguish between \"known position\" and \"best current guess.\"",
+          "An operator interface can show degraded navigation before it becomes a surprise.",
         ],
       },
       {
+        type: "p",
+        text: "The important point is not the internal technique. The important point is the contract: consumers receive both the estimate and the confidence around it.",
+      },
+      {
         type: "h2",
-        text: "What this enables",
+        text: "GPS-denied does not mean guessing",
       },
       {
         type: "p",
-        text: "TENERE consumes the posterior, not the mean. Mission graphs can be authored against pose-uncertainty constraints - \"do not commit to the corridor unless lateral 1-sigma is under 6 metres\" - and the planner can hold actions until they would be safe to execute.",
+        text: "GPS-denied navigation is often misunderstood as replacing GPS with one alternate source.",
       },
       {
         type: "p",
-        text: "Kiksuya consumes the posterior too. Doctrine clauses can be written in terms of confidence. \"No effect authority below pose confidence X.\" The bound becomes a property of the running plan, not a checkbox on a slide.",
+        text: "That is not the right framing.",
       },
       {
-        type: "quote",
-        text: "The vehicle never silently becomes less safe.",
-        cite: "Karta operating principle",
+        type: "p",
+        text: "In real operation, confidence changes over time. Some moments provide strong evidence. Other moments are ambiguous. Some signals are fresh. Some are stale. Some are useful for broad awareness but not for precise commitments.",
+      },
+      {
+        type: "p",
+        text: "SkyAnchor is designed so the system can say:",
+      },
+      {
+        type: "ul",
+        items: [
+          "\"I have a strong estimate.\"",
+          "\"I have a usable but aging estimate.\"",
+          "\"I am uncertain.\"",
+          "\"I should not publish this as valid global position.\"",
+        ],
+      },
+      {
+        type: "p",
+        text: "That last sentence matters. Knowing when not to claim certainty is part of navigation.",
+      },
+      {
+        type: "h2",
+        text: "Why this matters downstream",
+      },
+      {
+        type: "p",
+        text: "Autonomy stacks are made of consumers.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Controllers consume state.",
+          "Mission logic consumes state.",
+          "Maps consume state.",
+          "Human interfaces consume state.",
+          "Safety systems consume state.",
+        ],
+      },
+      {
+        type: "p",
+        text: "If all of them receive only a coordinate, they must either trust it blindly or invent their own confidence rules after the fact.",
+      },
+      {
+        type: "p",
+        text: "SkyAnchor gives them a cleaner interface.",
+      },
+      {
+        type: "p",
+        text: "Instead of asking every downstream component to guess whether the estimate is trustworthy, the navigation layer carries that information forward. This makes confidence a shared property of the running system, not an undocumented assumption buried inside one node.",
+      },
+      {
+        type: "h2",
+        text: "Different by design",
+      },
+      {
+        type: "p",
+        text: "Many systems optimize for producing a position as often as possible.",
+      },
+      {
+        type: "p",
+        text: "SkyAnchor is stricter.",
+      },
+      {
+        type: "p",
+        text: "It is designed to avoid turning weak evidence into confident output. It favors explicit uncertainty over false precision. It treats freshness, confidence, and validity as first-class parts of the navigation product.",
+      },
+      {
+        type: "p",
+        text: "That makes the system more conservative, but also more honest.",
+      },
+      {
+        type: "p",
+        text: "And in autonomy, honesty is not a cosmetic property. It is what allows the rest of the stack to behave safely.",
       },
       {
         type: "h2",
@@ -79,49 +197,24 @@ export const NOTES: FieldNote[] = [
       },
       {
         type: "p",
-        text: "It is more work. Calibrating uncertainty is harder than reporting it. The benefit is that every downstream consumer that uses the posterior is, by construction, safer than one that does not - and the failure modes that used to be silent become loud.",
-      },
-    ],
-  },
-  {
-    slug: "doctrine-as-code",
-    title: "Doctrine as code: what Kiksuya actually does",
-    summary:
-      "Why rules of engagement, geometry constraints, and authority gates belong in a versioned runtime - not a slide deck.",
-    author: "S. Ranganathan",
-    role: "Doctrine runtime",
-    date: "2026-05-02",
-    readingMinutes: 8,
-    tags: ["Doctrine", "Kiksuya", "Operations"],
-    body: [
-      {
-        type: "p",
-        text: "Most autonomy stacks treat doctrine as a separate artefact - a slide deck, a PDF, a procurement annex. The runtime never reads it. The audit log never references it. The vehicle, in flight, has no way to point at the clause that authorised its last action.",
+        text: "This costs engineering effort.",
       },
       {
         type: "p",
-        text: "Kiksuya is built on the opposite assumption. Doctrine is a versioned, signed runtime artefact. Every plan TENERE produces is annotated, action by action, with the doctrine clause that authorises it. The annotation is logged at telemetry frame rate and survives the sortie.",
-      },
-      {
-        type: "h2",
-        text: "What this lets us claim",
-      },
-      {
-        type: "ul",
-        items: [
-          "Procurement-grade traceability from contract to flight",
-          "Doctrine packs that can be exchanged between programmes without code changes",
-          "After-action review that points at clauses, not just events",
-          "Operators who can read and edit the doctrine the system enforces",
-        ],
-      },
-      {
-        type: "h2",
-        text: "What this lets us not claim",
+        text: "It is easier to publish a coordinate. It is harder to publish confidence. It is harder still to make downstream systems respect that confidence.",
       },
       {
         type: "p",
-        text: "We do not claim that the existence of a doctrine layer makes autonomy safe. We claim that without one, the safety claims of any autonomy stack are unfalsifiable. Kiksuya makes the claim falsifiable.",
+        text: "But the payoff is important: failures that used to be silent become visible. Degradation becomes a state the system can reason about, not an accident discovered too late.",
+      },
+      {
+        type: "p",
+        text: "SkyAnchor's core principle is simple:",
+      },
+      {
+        type: "quote",
+        text: "The vehicle should not only know where it thinks it is. It should know how much it should trust that belief.",
+        cite: "SkyAnchor operating principle",
       },
     ],
   },

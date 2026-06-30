@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { Logo } from "@/components/chrome/Logo";
 import { ThemeToggle } from "@/components/chrome/ThemeToggle";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 interface NavLink {
   label: string;
@@ -14,9 +15,7 @@ interface NavLink {
 }
 
 const LINKS: NavLink[] = [
-  { label: "Enterprise", href: "/enterprise", detail: "Energy, infrastructure, resources, response" },
-  { label: "Defense", href: "/defense", detail: "ISR, overwatch, resilient comms" },
-  { label: "Stack", href: "/stack", detail: "SkyAnchor · TENERE · Kiksuya" },
+  { label: "Stack", href: "/stack", detail: "SkyAnchor / TENERE / Kiksuya" },
   { label: "Vehicles", href: "/vehicles", detail: "Apis family platforms" },
   { label: "Mission", href: "/mission", detail: "Doctrine and bounds" },
   { label: "Field Notes", href: "/field-notes", detail: "Engineering essays" },
@@ -59,15 +58,19 @@ export function Nav() {
       */}
       <Link
         href="/"
-        aria-label="Karta - home"
+        aria-label="Karta Innovations - home"
         className={cn(
-          "fixed left-6 lg:left-10 z-50 pointer-events-auto",
-          "inline-flex items-center",
+          "fixed left-4 lg:left-10 z-50 pointer-events-auto",
+          "inline-flex items-center gap-2.5 rounded-[18px]",
+          "bg-white/86 px-3 py-2 ring-1 ring-black/[0.08]",
+          "shadow-[0_18px_44px_-30px_rgba(12,14,18,0.48)] backdrop-blur-xl",
           "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          scrolled ? "top-5" : "top-8",
+          "hover:-translate-y-0.5 hover:bg-white",
+          scrolled ? "top-3 lg:top-5" : "top-5 lg:top-8",
         )}
       >
-        <Logo size={56} wordmarkSize={24} priority showWordmark />
+        <Logo size={34} variant="mark" priority />
+        <Logo size={30} variant="wordmark" priority />
       </Link>
 
       {/*
@@ -79,6 +82,7 @@ export function Nav() {
       <ThemeToggle
         className={cn(
           "fixed right-6 lg:right-10 z-50 pointer-events-auto",
+          "hidden lg:inline-flex",
           "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
           scrolled ? "top-6" : "top-9",
         )}
@@ -86,9 +90,9 @@ export function Nav() {
 
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 flex justify-center",
+          "fixed inset-x-0 top-0 z-50 flex justify-start pl-[188px] pr-4 lg:justify-center lg:px-0",
           "pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          scrolled ? "pt-3" : "pt-6",
+          scrolled ? "pt-3" : "pt-5 lg:pt-6",
         )}
       >
         <nav
@@ -103,7 +107,7 @@ export function Nav() {
             // additional theme-aware backdrop tint defined in globals.css.
             "nav-pill backdrop-blur-xl",
             "ring-1 ring-fg/[0.08]",
-            "shadow-[0_20px_60px_-30px_rgba(0,0,0,0.45)]",
+            "shadow-[0_18px_50px_-28px_rgba(11,20,48,0.22)]",
             "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
             scrolled && "ring-fg/[0.14]",
           )}
@@ -113,7 +117,7 @@ export function Nav() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="px-3 py-1.5 text-[13px] text-fg-muted hover:text-fg rounded-full hover:bg-white/[0.04] transition-colors"
+                  className="px-3 py-1.5 text-[13px] text-fg-muted hover:text-fg rounded-full hover:bg-glass transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -127,7 +131,7 @@ export function Nav() {
             aria-expanded={open}
             aria-controls="nav-overlay"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="relative size-9 inline-flex items-center justify-center rounded-full hover:bg-white/[0.04] transition-colors"
+            className="relative size-9 inline-flex items-center justify-center rounded-full hover:bg-glass transition-colors"
           >
             <span className="sr-only">{open ? "Close" : "Menu"}</span>
             <span
@@ -148,17 +152,16 @@ export function Nav() {
 
           <Link
             href="/engage"
+            aria-label="Engage"
             className={cn(
               "ml-1 inline-flex items-center gap-2 rounded-full",
-              "px-4 py-1.5 text-[13px] font-medium",
+              "px-3 py-1.5 text-[13px] font-medium sm:px-4",
               "bg-amber text-ink hover:bg-amber-hi",
               "transition-colors duration-300",
             )}
           >
-            Engage
-            <span aria-hidden className="text-[10px] font-mono tracking-wider opacity-70">
-              →
-            </span>
+            <span className="hidden sm:inline">Engage</span>
+            <ArrowRight size={12} weight="bold" aria-hidden />
           </Link>
         </nav>
       </header>
@@ -190,7 +193,7 @@ export function Nav() {
                         delay: 0.12 + i * 0.05,
                         ease: [0.16, 1, 0.3, 1],
                       }}
-                      className="border-b border-white/[0.06]"
+                      className="border-b border-edge"
                     >
                       <Link
                         href={link.href}
@@ -221,7 +224,7 @@ export function Nav() {
                 >
                   <div>
                     <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary">
-                      17.454°N 78.500°E
+                      17.454 deg N 78.500 deg E
                     </span>
                     <p className="mt-3 text-fg-muted leading-relaxed max-w-[28ch]">
                       Engineered close to the field. Tested across high
@@ -234,7 +237,7 @@ export function Nav() {
                     className="inline-flex items-center gap-3 rounded-full bg-amber text-ink px-5 py-3 text-sm font-medium hover:bg-amber-hi transition-colors"
                   >
                     Talk to engineering
-                    <span aria-hidden>→</span>
+                    <ArrowRight size={14} weight="bold" aria-hidden />
                   </Link>
                 </motion.aside>
               </div>

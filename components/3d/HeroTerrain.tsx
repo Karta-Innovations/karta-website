@@ -2,17 +2,16 @@
 
 import { type RefObject } from "react";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 
 // Dynamic-import the actual canvas so three/R3F never reaches the initial bundle.
-// The fallback below mirrors the previous static parallax so visitors without WebGL
-// (or with prefers-reduced-motion set) see exactly the imagery the site shipped before.
+// The fallback below keeps a static atmospheric layer for visitors without WebGL
+// or with prefers-reduced-motion set.
 const HeroTerrainCanvas = dynamic(
   () => import("./HeroTerrainCanvas").then((m) => m.HeroTerrainCanvas),
   {
     ssr: false,
-    loading: () => <HimalayaFallback imageY={null} imageScale={null} />,
+    loading: () => <TerrainFallback imageY={null} imageScale={null} />,
   },
 );
 
@@ -31,12 +30,15 @@ export function HeroTerrain({ sectionRef }: HeroTerrainProps) {
   return (
     <HeroTerrainCanvas
       scrollYProgress={scrollYProgress}
-      fallback={<HimalayaFallback imageY={imageY} imageScale={imageScale} />}
+      fallback={<TerrainFallback imageY={imageY} imageScale={imageScale} />}
     />
   );
 }
 
-function HimalayaFallback({
+// Static, on-brand fallback for no-WebGL / reduced-motion / pre-hydration: a soft
+// atmospheric gradient with the aurora wash and hairline grid, standing in for
+// the 3D terrain. No image asset, so it can never 404.
+function TerrainFallback({
   imageY,
   imageScale,
 }: {
@@ -48,17 +50,12 @@ function HimalayaFallback({
   return (
     <motion.div
       style={style}
+      aria-hidden
       className="absolute inset-0 will-change-transform"
     >
-      <Image
-        src="/imagery/himalaya.jpg"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-        quality={92}
-      />
+      <div className="absolute inset-0 bg-gradient-to-b from-indigo via-ink-2 to-ink" />
+      <div className="bg-aurora absolute inset-0 opacity-60" />
+      <div className="grid-overlay absolute inset-0 opacity-50" />
     </motion.div>
   );
 }
