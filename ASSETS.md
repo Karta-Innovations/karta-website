@@ -9,8 +9,9 @@ A punch list of media that would strengthen the site beyond what is already in `
 | File | Used for | Status |
 |---|---|---|
 | `public/imagery/himalaya.jpg` | Hero parallax, mission hero | OK |
+| `public/imagery/mission-corridor.jpg` | Fault-conditions mission map (homepage + /mission, `MissionMap.tsx`) | OK - night-ops isometric plate (take off → landing, 3 fault zones) |
 | `public/imagery/cerana.jpeg` | Vehicles index + detail | Could be sharper |
-| `public/imagery/dorsata.png` | Vehicles index + detail | Could be sharper |
+| `public/imagery/dorsata.jpg` | Vehicles index + detail | Could be sharper |
 | `public/imagery/kari.jpeg` | Vehicles index + detail | Could be sharper |
 | `public/imagery/skyanchor.jpeg` | Stack - Edge layer reference | Lower-fidelity placeholder |
 | `public/imagery/tenere-gcs.jpeg` | Stack - Command layer | Lower-fidelity placeholder |
