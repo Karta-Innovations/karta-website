@@ -2,65 +2,62 @@
 
 /* ============================================================
    KARTA - Design tokens
-   Operational autonomy. Bright aerospace register.
+   Operational autonomy. Night-operations register.
    ------------------------------------------------------------
-   The DEFAULT palette below is the LIGHT / vibrant scheme
-   (cool sky-white surfaces, deep navy ink, an electric azure
-   brand accent, cyan telemetry, warm amber sparks). The dark
-   scheme is preserved as a `[data-theme="dark"]` override for
-   the toggle. Token *roles* are stable across both themes, so
-   `bg-ink` is always the page baseline.
+   Dark is the ONLY theme: the site lives where its systems
+   live - night sorties, denied signal, terrain. Deep navy-black
+   surfaces, an electric azure brand accent, cyan telemetry,
+   warm amber sparks. There is no light mode and no toggle.
 
    NOTE on naming: the brand accent lives in the historic
-   `--color-amber*` tokens. The token names are kept so existing
-   accent utilities (text-amber, bg-amber, ring-amber ...) flip
-   in one move.
+   `--color-amber*` tokens (the actual color is azure), and
+   `--color-gold` is the cyan telemetry stroke. The names are
+   kept so the accent utilities (text-amber, bg-amber,
+   ring-amber ...) stay stable across the codebase.
    ============================================================ */
 
 @theme {
-  /* ---- Surfaces: bright, airy, a hint of sky-blue ---- */
-  --color-ink: #EDF2FB;          /* page baseline - cool sky-white */
-  --color-ink-2: #FFFFFF;        /* content sections */
-  --color-surface: #FFFFFF;      /* cards, raised panels */
-  --color-surface-deep: #E6ECF7; /* footer well, deepest light step */
-  --color-indigo: #E5EDFC;       /* feature card cores, deck headings */
-  --color-indigo-hi: #D4E2FB;    /* hover surface */
+  /* ---- Surfaces: deep navy-black, lifting toward slate ---- */
+  --color-ink: #070B18;          /* page baseline - deep navy-black */
+  --color-ink-2: #0E1426;        /* content sections */
+  --color-surface: #141C36;      /* cards, raised panels */
+  --color-surface-deep: #04060F; /* footer well, deepest step */
+  --color-indigo: #17224A;       /* feature card cores, deck headings */
+  --color-indigo-hi: #243463;    /* hover surface */
 
-  --color-field: #FFFFFF;
-  --color-field-2: #F4F7FC;
-  --color-fog: #E8EEF8;
-  --color-fog-2: #D6DEEC;
+  --color-field: #0E1426;
+  --color-field-2: #141C36;
+  --color-fog: #1A2340;
+  --color-fog-2: #243363;
 
-  /* ---- Text: deep navy on bright ---- */
-  --color-fg: #0B1430;           /* primary copy - deep navy near-black */
-  --color-fg-muted: #45526D;     /* body / secondary */
-  --color-fg-tertiary: #7C89A6;  /* mono labels, captions */
+  /* ---- Text: off-white on deep navy ---- */
+  --color-fg: #F3F6FC;           /* primary copy */
+  --color-fg-muted: #AEB9D4;     /* body / secondary */
+  --color-fg-tertiary: #6E7CA0;  /* mono labels, captions */
 
-  /* ---- Borders / hairlines (opaque, theme-specific) ---- */
-  --color-border: #D7E0EE;
-  --color-border-strong: #B7C4DA;
-  --color-border-soft: rgba(11, 20, 48, 0.08);
+  /* ---- Borders / hairlines ---- */
+  --color-border: #1E2747;
+  --color-border-strong: #2C3A63;
+  --color-border-soft: rgba(255, 255, 255, 0.07);
 
-  /* ---- Edge + glass (NEW): theme-flipping alpha tokens that
-          replace the hardcoded white/[alpha] hairlines so cards
-          keep their machined edge on a bright surface ---- */
-  --color-edge: rgba(11, 20, 48, 0.10);        /* hairline rings / dividers */
-  --color-edge-strong: rgba(11, 20, 48, 0.18); /* stronger rings */
-  --color-glass: rgba(11, 20, 48, 0.04);       /* faint instrument fill */
-  --color-glass-hi: rgba(11, 20, 48, 0.07);    /* lifted instrument fill */
+  /* ---- Edge + glass: alpha hairlines and instrument fills ---- */
+  --color-edge: rgba(255, 255, 255, 0.07);     /* hairline rings / dividers */
+  --color-edge-strong: rgba(255, 255, 255, 0.14); /* stronger rings */
+  --color-glass: rgba(255, 255, 255, 0.035);   /* faint instrument fill */
+  --color-glass-hi: rgba(255, 255, 255, 0.07); /* lifted instrument fill */
 
   /* ---- Brand accent: electric azure + cyan telemetry ---- */
-  --color-amber: #155EEF;        /* primary accent - vivid, AA on white */
-  --color-amber-hi: #3B82F6;     /* hover / bright */
+  --color-amber: #4D8DFF;        /* primary accent - azure, lifted for dark */
+  --color-amber-hi: #7DABFF;     /* hover / bright */
   --color-amber-deep: #1E40AF;   /* rings, shadows, pressed */
-  --color-gold: #06B6D4;         /* electric cyan - diagrams, telemetry, hex */
+  --color-gold: #22D3EE;         /* electric cyan - diagrams, telemetry, hex */
 
   /* ---- Warm signal + states (sparing) ---- */
-  --color-signal: #F59E0B;       /* warm amber spark - live / acquiring */
+  --color-signal: #FBBF24;       /* warm amber spark - live / acquiring */
   --color-signal-deep: #B45309;
-  --color-alert: #DC2626;
-  --color-ok: #16A34A;           /* anchored / landing / go */
-  --color-warn: #F59E0B;
+  --color-alert: #F87171;
+  --color-ok: #34D399;           /* anchored / landing / go */
+  --color-warn: #FBBF24;
 
   /* Font families wired by next/font in layout.tsx */
   --font-sans: var(--font-geist-sans), "Söhne", "Aktiv Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -100,48 +97,6 @@
 }
 
 /* ============================================================
-   Theme: DARK override
-   ============================================================ */
-
-:root[data-theme="dark"] {
-  --color-ink: #070B18;
-  --color-ink-2: #0E1426;
-  --color-surface: #141C36;
-  --color-surface-deep: #04060F;
-  --color-indigo: #17224A;
-  --color-indigo-hi: #243463;
-
-  --color-field: #0E1426;
-  --color-field-2: #141C36;
-  --color-fog: #1A2340;
-  --color-fog-2: #243363;
-
-  --color-fg: #F3F6FC;
-  --color-fg-muted: #AEB9D4;
-  --color-fg-tertiary: #6E7CA0;
-
-  --color-border: #1E2747;
-  --color-border-strong: #2C3A63;
-  --color-border-soft: rgba(255, 255, 255, 0.07);
-
-  --color-edge: rgba(255, 255, 255, 0.07);
-  --color-edge-strong: rgba(255, 255, 255, 0.14);
-  --color-glass: rgba(255, 255, 255, 0.035);
-  --color-glass-hi: rgba(255, 255, 255, 0.07);
-
-  --color-amber: #4D8DFF;
-  --color-amber-hi: #7DABFF;
-  --color-amber-deep: #1E40AF;
-  --color-gold: #22D3EE;
-
-  --color-signal: #FBBF24;
-  --color-signal-deep: #B45309;
-  --color-alert: #F87171;
-  --color-ok: #34D399;
-  --color-warn: #FBBF24;
-}
-
-/* ============================================================
    Base layer
    ============================================================ */
 
@@ -150,10 +105,6 @@ html {
   color: var(--color-fg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  color-scheme: light;
-}
-
-html[data-theme="dark"] {
   color-scheme: dark;
 }
 
@@ -169,7 +120,7 @@ body {
 
 ::selection {
   background: var(--color-amber);
-  color: #ffffff;
+  color: #04060F;
 }
 
 :focus-visible {
@@ -250,13 +201,6 @@ img, svg, video { display: block; max-width: 100%; }
    Vibrancy helpers - gradients, glow, aurora
    ============================================================ */
 
-.text-gradient-brand {
-  background-image: linear-gradient(102deg, var(--color-amber) 0%, var(--color-gold) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
 .bg-aurora {
   background-image:
     radial-gradient(58% 80% at 12% 6%, color-mix(in srgb, var(--color-amber) 26%, transparent), transparent 60%),
@@ -281,7 +225,7 @@ img, svg, video { display: block; max-width: 100%; }
 }
 
 /* ============================================================
-   Texture layers (light-default; dark overrides follow)
+   Texture layers
    ============================================================ */
 
 .grain {
@@ -289,21 +233,34 @@ img, svg, video { display: block; max-width: 100%; }
   inset: 0;
   pointer-events: none;
   z-index: 60;
-  opacity: 0.05;
-  mix-blend-mode: multiply;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   background-size: 160px 160px;
 }
-:root[data-theme="dark"] .grain {
-  mix-blend-mode: overlay;
-  opacity: 0.035;
-}
 
 .nav-pill {
-  background-color: rgba(255, 255, 255, 0.72);
-}
-:root[data-theme="dark"] .nav-pill {
   background-color: rgba(7, 11, 24, 0.72);
+}
+
+/* Brand chips hold the transparent-PNG lockup; the gold lettering needs a
+   slight lift to read on dark surfaces. */
+.logo-chip img {
+  filter: brightness(1.3) saturate(1.05);
+}
+
+/* Duotone tint for grayscale imagery - screens the brand gradient into the
+   art so photography joins the azure/cyan system instead of floating
+   outside it. */
+.duotone-tint {
+  background-image: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-amber) 85%, transparent),
+    color-mix(in srgb, var(--color-gold) 85%, transparent)
+  );
+  mix-blend-mode: screen;
+  opacity: 0.15;
+  pointer-events: none;
 }
 
 .scanlines {
@@ -313,20 +270,85 @@ img, svg, video { display: block; max-width: 100%; }
   z-index: 59;
   background-image: repeating-linear-gradient(
     0deg,
-    rgba(11, 20, 48, 0.016) 0px,
-    rgba(11, 20, 48, 0.016) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-}
-:root[data-theme="dark"] .scanlines {
-  background-image: repeating-linear-gradient(
-    0deg,
     rgba(245, 245, 240, 0.012) 0px,
     rgba(245, 245, 240, 0.012) 1px,
     transparent 1px,
     transparent 3px
   );
+}
+
+/* ============================================================
+   Denied-environment plunge (landing page)
+   ------------------------------------------------------------
+   The homepage problem section sinks BELOW the page's own dark
+   with scroll: a --plunge custom property (0-1, driven by
+   framer-motion) mixes this section's LOCAL token copies toward
+   absolute black while hairlines and instrument fills brighten.
+   The world dies; the instruments come up. Two layers are
+   required: .denied-scope captures the live token values under
+   different names so .denied-plunge can override the real
+   tokens without self-reference.
+   ============================================================ */
+
+.denied-scope {
+  --base-ink: var(--color-ink);
+  --base-ink-2: var(--color-ink-2);
+  --base-surface-deep: var(--color-surface-deep);
+  --base-indigo: var(--color-indigo);
+  --base-border: var(--color-border);
+  --base-edge: var(--color-edge);
+  --base-edge-strong: var(--color-edge-strong);
+  --base-glass: var(--color-glass);
+}
+
+.denied-plunge {
+  --plunge: 0;
+  --plunge-pct: calc(var(--plunge) * 100%);
+  background: color-mix(in srgb, #000104 var(--plunge-pct), var(--base-surface-deep));
+  --color-ink: color-mix(in srgb, #020409 var(--plunge-pct), var(--base-ink));
+  --color-ink-2: color-mix(in srgb, #070B18 var(--plunge-pct), var(--base-ink-2));
+  --color-surface-deep: color-mix(in srgb, #000104 var(--plunge-pct), var(--base-surface-deep));
+  --color-indigo: color-mix(in srgb, #0D1430 var(--plunge-pct), var(--base-indigo));
+  --color-border: color-mix(in srgb, #131A33 var(--plunge-pct), var(--base-border));
+  --color-edge: color-mix(in srgb, rgb(255 255 255 / 0.11) var(--plunge-pct), var(--base-edge));
+  --color-edge-strong: color-mix(in srgb, rgb(255 255 255 / 0.20) var(--plunge-pct), var(--base-edge-strong));
+  --color-glass: color-mix(in srgb, rgb(255 255 255 / 0.05) var(--plunge-pct), var(--base-glass));
+}
+
+/* Reduced motion: the section is simply at full depth - no scrubbing. */
+.denied-plunge-static {
+  --plunge: 1;
+}
+
+/* Instrument textures that surface as the light dies. The grid rides the
+   local --color-fg, the vignette adds an alert-tinted edge falloff at
+   full darkness. */
+.denied-grid {
+  opacity: calc(var(--plunge) * 0.55);
+}
+.denied-vignette {
+  background: radial-gradient(
+    120% 90% at 50% 40%,
+    transparent 55%,
+    rgb(220 38 38 / calc(var(--plunge) * 0.05)) 82%,
+    rgb(0 1 4 / calc(var(--plunge) * 0.62)) 100%
+  );
+}
+
+/* ============================================================
+   Mission map - fault-zone halo pulse
+   ------------------------------------------------------------
+   Soft breathing glow positioned over the baked fault rings on
+   the mission-corridor plate. Slow and quiet by design; the
+   global reduced-motion block collapses it to a single frame.
+   ============================================================ */
+@keyframes mission-halo {
+  0%, 100% { opacity: 0.45; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.18); }
+}
+.mission-halo {
+  animation: mission-halo 4.2s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* ============================================================
@@ -348,6 +370,26 @@ img, svg, video { display: block; max-width: 100%; }
 }
 @keyframes path-dash {
   to { stroke-dashoffset: -1000; }
+}
+
+/* ============================================================
+   Boot choreography (anime.js entrance timelines)
+   ------------------------------------------------------------
+   [data-boot] elements inside a .boot-scope hide only when JS is
+   confirmed (html[data-js], set by the pre-paint BootScript) and
+   motion is allowed; the anime timeline then reveals them and
+   marks the scope [data-boot-done]. The delayed keyframe is a
+   safety valve: if the timeline never runs (hydration failure),
+   content fades in on its own. No-JS visitors never hide at all.
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js] .boot-scope:not([data-boot-done]) [data-boot] {
+    opacity: 0;
+    animation: boot-reveal 0.8s var(--ease-expo) 4s forwards;
+  }
+}
+@keyframes boot-reveal {
+  to { opacity: 1; }
 }
 
 /* ============================================================

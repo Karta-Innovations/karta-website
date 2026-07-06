@@ -7,12 +7,12 @@ import { Hyderabad } from "@/components/sections/Hyderabad";
 import { ClosingCTA } from "@/components/sections/ClosingCTA";
 
 // Landing-page narrative, problem-first:
-//   Hero (the promise) -> DeniedEnvironment (the problem, dramatized - one
-//   flight holds its mission through GPS loss, comms jamming, blinded
-//   cameras, and operator saturation as the page sinks toward black) ->
-//   Manifesto (the turn: what we believe, the page surfaces again) ->
-//   GrandScheme (the answer: the stack and its loop) -> Vehicles (the
-//   airframes that carry it) -> Hyderabad (the place) -> Engage.
+//   Hero (the promise) -> DeniedEnvironment (the problem, dramatized - a
+//   cinematic mission map: one corridor from launch to objective through
+//   three fault zones, as the page sinks toward black) -> Manifesto (the
+//   turn: what we believe, the page surfaces again) -> GrandScheme (the
+//   answer: the stack and its loop) -> Vehicles (the airframes that carry
+//   it) -> Hyderabad (the place) -> Engage.
 // The denied-environment sequence also lives on /mission in its doctrine
 // context; here it runs as the "why" beat before any product is named.
 export default function HomePage() {

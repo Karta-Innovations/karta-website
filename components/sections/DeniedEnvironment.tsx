@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform, type MotionStyle } from "framer-motion";
 import { useRef } from "react";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
-import { Sortie } from "./sortie/Sortie";
+import { MissionMap } from "./MissionMap";
 
 type DeniedVariant = "home" | "mission";
 
@@ -69,14 +69,15 @@ export function DeniedEnvironment({ variant = "mission" }: DeniedEnvironmentProp
             </div>
             <div className="lg:pt-6">
               <p className="text-fg-muted text-[17px] leading-[1.65] max-w-[60ch]">
-                Real operations are defined by what fails. GPS, comms, optics and
-                operator attention degrade, usually together. Watch one flight
-                hold its mission through all four.
+                Real operations are defined by what fails. GPS, comms and
+                operator attention degrade, usually together. One route from
+                take off to landing, three fault zones, and a mission that
+                completes anyway.
               </p>
             </div>
           </div>
 
-          <Sortie />
+          <MissionMap />
         </div>
       </motion.div>
     </section>
