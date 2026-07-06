@@ -50,8 +50,12 @@ export function Footer() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_repeat(3,1fr)] gap-10 md:gap-10 mb-20">
           <div className="space-y-5 max-w-sm">
-            <div className="inline-flex rounded-[20px] bg-white p-4 ring-1 ring-black/[0.08] shadow-[0_18px_44px_-32px_rgba(12,14,18,0.48)]">
-              <Logo size={132} variant="full" />
+            {/* Composed from the transparent mark + wordmark assets - the
+                "full" lockup PNG carries its own dark plate and would read
+                as a dark tile on the white chip. */}
+            <div className="logo-chip inline-flex flex-col items-center gap-3 rounded-[20px] px-7 py-5 ring-1 ring-edge shadow-[0_18px_44px_-32px_rgba(0,0,0,0.65)]">
+              <Logo size={72} variant="mark" />
+              <Logo size={30} variant="wordmark" />
             </div>
             <p className="text-fg-muted text-sm leading-relaxed">
               Karta Innovations builds the operational autonomy layer for

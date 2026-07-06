@@ -243,10 +243,12 @@ img, svg, video { display: block; max-width: 100%; }
   background-color: rgba(7, 11, 24, 0.72);
 }
 
-/* Brand chips hold the transparent-PNG lockup; the gold lettering needs a
-   slight lift to read on dark surfaces. */
-.logo-chip img {
-  filter: brightness(1.3) saturate(1.05);
+/* Brand chips hold the transparent-PNG lockup on a white plate - the one
+   deliberately bright element on the dark site, so the chrome/gold artwork
+   reads as printed rather than lifted. Cool near-white, tinted toward the
+   brand hue (never pure #fff). */
+.logo-chip {
+  background-color: #f4f8fe;
 }
 
 /* Duotone tint for grayscale imagery - screens the brand gradient into the
