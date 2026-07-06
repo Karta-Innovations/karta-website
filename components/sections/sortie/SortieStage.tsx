@@ -218,6 +218,7 @@ export function SortieStage() {
       {/* mission clock */}
       <text
         data-role="clock"
+        aria-hidden
         x="480"
         y="44"
         textAnchor="middle"
@@ -231,6 +232,7 @@ export function SortieStage() {
           in act 1). Left-anchored so it never collides with the sensor row. */}
       <text
         data-role="drift"
+        aria-hidden
         x="40"
         y="66"
         fill="var(--color-signal)"
@@ -242,6 +244,7 @@ export function SortieStage() {
       {/* caption band */}
       <text
         data-role="caption"
+        aria-hidden
         x="480"
         y="576"
         textAnchor="middle"
