@@ -82,7 +82,7 @@ export function useSortieTimeline(
     if (driftEl) {
       const drift = { v: 0 };
       const writeDrift = () => {
-        driftEl.textContent = `±${drift.v.toFixed(1)}m`;
+        driftEl.textContent = `POS ±${drift.v.toFixed(1)}m`;
       };
       tl.add(drift, { v: [0, 18.6], duration: 6000, onUpdate: writeDrift }, a1);
       tl.add(drift, { v: 2.4, duration: 2600, onUpdate: writeDrift }, a1 + 6000);
