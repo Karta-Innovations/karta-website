@@ -3,7 +3,7 @@ import { Geist, JetBrains_Mono, Noto_Serif_Devanagari } from "next/font/google";
 import { Nav } from "@/components/chrome/Nav";
 import { Footer } from "@/components/chrome/Footer";
 import { Grain } from "@/components/chrome/Grain";
-import { ThemeScript } from "@/components/chrome/ThemeScript";
+import { BootScript } from "@/components/chrome/BootScript";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import "./globals.css";
 
@@ -76,12 +76,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="en"
+      // Dark-only site: the attribute is static, not toggled.
+      data-theme="dark"
       className={`${geistSans.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable}`}
       suppressHydrationWarning
     >
       <head>
-        {/* Pre-paint theme - runs before hydration to avoid flash-of-wrong-theme */}
-        <ThemeScript />
+        {/* Pre-paint boot flag - lets CSS gate entrance choreography on JS */}
+        <BootScript />
       </head>
       <body className="min-h-dvh bg-ink text-fg">
         <SmoothScroll />

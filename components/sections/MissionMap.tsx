@@ -102,7 +102,7 @@ export function MissionMap() {
   const imageScale = useTransform(scrollYProgress, [0, 1], [1.08, 1.03]);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="mx-auto w-full max-w-[1400px]">
       {/* The plate, full-frame */}
       <figure
         className="relative w-full overflow-hidden rounded-2xl ring-1 ring-edge bg-ink-2"
@@ -153,21 +153,40 @@ export function MissionMap() {
         <FaultList />
       </div>
 
-      {/* Mission stats - the concrete flight, same band grammar as the
-          tested-envelopes strip in the Hyderabad section */}
-      <div className="mt-6 border-t border-edge pt-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-8">
-        <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary shrink-0">
-          Sortie 047
-        </span>
-        <dl className="flex flex-wrap items-baseline gap-x-7 gap-y-2">
-          {STATS.map((s) => (
-            <div key={s.k} className="flex items-baseline gap-2">
-              <dt className="font-mono text-[10px] tracking-[0.18em] uppercase text-fg-tertiary">
-                {s.k}
-              </dt>
-              <dd className="font-mono text-[12px] tracking-[0.06em] text-fg-muted tabular-nums">
+      {/* Mission stats - the concrete flight this map traces. A centered
+          telemetry strip: a ruled SORTIE header (cyan sortie index) over a
+          hairline-divided row of readouts, value over label. */}
+      <div className="mt-10 flex flex-col items-center">
+        <div className="flex w-full max-w-[560px] items-center gap-4">
+          <span
+            aria-hidden
+            className="h-px flex-1 bg-gradient-to-r from-transparent to-edge-strong"
+          />
+          <span className="font-mono text-[11px] tracking-[0.3em] uppercase text-fg-tertiary whitespace-nowrap">
+            Sortie <span className="text-gold">047</span>
+          </span>
+          <span
+            aria-hidden
+            className="h-px flex-1 bg-gradient-to-l from-transparent to-edge-strong"
+          />
+        </div>
+
+        <dl className="mt-7 grid w-full max-w-[720px] grid-cols-2 sm:grid-cols-5 gap-y-6">
+          {STATS.map((s, i) => (
+            <div
+              key={s.k}
+              className={`flex flex-col items-center px-4 sm:border-l sm:border-edge sm:first:border-l-0 ${
+                i === STATS.length - 1 && STATS.length % 2 === 1
+                  ? "col-span-2 sm:col-span-1"
+                  : ""
+              }`}
+            >
+              <dd className="font-mono text-[15px] leading-none tracking-[0.01em] text-fg tabular-nums sm:text-[17px]">
                 {s.v}
               </dd>
+              <dt className="mt-2 text-center font-mono text-[9px] leading-[1.3] tracking-[0.18em] uppercase text-fg-tertiary">
+                {s.k}
+              </dt>
             </div>
           ))}
         </dl>

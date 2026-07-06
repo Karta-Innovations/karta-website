@@ -2,7 +2,8 @@
 
 import { Fragment } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
+import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { ArrowDown, ArrowUp } from "@phosphor-icons/react/dist/ssr";
 import {
   DIAGRAM_BANDS,
@@ -21,7 +22,7 @@ import {
  * ------------------------------------------------------------------ */
 
 export function StackArchitecture() {
-  const reduce = useReducedMotion() ?? false;
+  const reduce = useReducedMotionSafe();
 
   const container: Variants = {
     hidden: {},
@@ -114,7 +115,7 @@ function DiagramBandRow({ band, item }: { band: DiagramBand; item: Variants }) {
     <motion.div variants={item}>
       <Link
         href={`#${band.slug}`}
-        className="group relative block overflow-hidden rounded-[20px] bg-gradient-to-b from-indigo/60 to-surface ring-1 ring-edge shadow-[0_24px_56px_-44px_rgba(11,20,48,0.5)] transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:ring-edge-strong"
+        className="group relative block overflow-hidden rounded-[20px] bg-gradient-to-b from-indigo/60 to-surface ring-1 ring-edge shadow-[0_24px_56px_-44px_rgba(0,0,0,0.5)] transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:ring-edge-strong"
       >
         <div
           aria-hidden

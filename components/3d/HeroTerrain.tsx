@@ -26,10 +26,15 @@ export function HeroTerrain({ sectionRef }: HeroTerrainProps) {
   });
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
   const imageScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.12]);
+  // "Signal is a privilege": position confidence decays as the reader leaves
+  // the hero, dissolving the contour map - the beat that hands off into the
+  // denied-environment plunge below.
+  const confidence = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
 
   return (
     <HeroTerrainCanvas
       scrollYProgress={scrollYProgress}
+      confidence={confidence}
       fallback={<TerrainFallback imageY={imageY} imageScale={imageScale} />}
     />
   );

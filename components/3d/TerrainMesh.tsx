@@ -3,6 +3,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Color, type ShaderMaterial } from "three";
+import type { MotionValue } from "framer-motion";
 
 interface TerrainMeshProps {
   /** World-space size of the terrain plane. Default 60 x 60. */
@@ -21,6 +22,13 @@ interface TerrainMeshProps {
   contourColor?: string;
   /** Animate ridges over time (slow drift). Default false. */
   animate?: boolean;
+  /**
+   * Position-confidence signal, 1 (locked) to 0 (lost). As it drops, the
+   * topographic contours dissolve and the relief flattens toward fog - the
+   * map degrading as GNSS goes away. Sampled per-frame, so a framer-motion
+   * scroll value plugs straight in.
+   */
+  confidence?: MotionValue<number>;
 }
 
 const VERTEX_SHADER = /* glsl */ `
@@ -94,6 +102,7 @@ const FRAGMENT_SHADER = /* glsl */ `
   uniform vec3 uContourColor;
   uniform float uContourSpacing;
   uniform float uAmplitude;
+  uniform float uConfidence;
 
   void main() {
     // Topographic contour lines: anti-aliased bands at every uContourSpacing of height.
@@ -102,16 +111,19 @@ const FRAGMENT_SHADER = /* glsl */ `
     float lineWidth = fwidth(h / uContourSpacing) * 1.4;
     float line = 1.0 - smoothstep(0.0, lineWidth, contour - 0.48);
 
-    // Base gradient: valley to ridge tint by normalized height.
+    // Base gradient: valley to ridge tint by normalized height. Confidence
+    // loss flattens the tonal relief - ridges sink toward the fog.
     float t = clamp(vHeight / uAmplitude, 0.0, 1.0);
-    vec3 base = mix(uValleyColor, uRidgeColor, smoothstep(0.0, 1.0, t));
+    float relief = 0.35 + 0.65 * uConfidence;
+    vec3 base = mix(uValleyColor, uRidgeColor, smoothstep(0.0, 1.0, t) * relief);
 
     // Distance fade for atmospheric perspective - pulls the back of the scene into the ink.
     float d = clamp(length(vWorldPos.xz) / 40.0, 0.0, 1.0);
     base = mix(base, uValleyColor * 0.6, d * 0.85);
 
-    // Composite contour over base, fading contours into the distance.
-    vec3 color = mix(base, uContourColor, line * 0.55 * (1.0 - d * 0.7));
+    // Composite contour over base, fading contours into the distance. The
+    // contour map IS the position estimate: it dissolves as confidence drops.
+    vec3 color = mix(base, uContourColor, line * 0.55 * uConfidence * (1.0 - d * 0.7));
 
     // Vignette + edge fade to ink so the terrain melts into the section background.
     float edge = smoothstep(0.85, 1.0, d);
@@ -130,6 +142,7 @@ export function TerrainMesh({
   ridgeColor = "#17224A",
   contourColor = "#4D8DFF",
   animate = false,
+  confidence,
 }: TerrainMeshProps) {
   const matRef = useRef<ShaderMaterial>(null);
 
@@ -141,13 +154,19 @@ export function TerrainMesh({
       uValleyColor: { value: new Color(valleyColor) },
       uRidgeColor: { value: new Color(ridgeColor) },
       uContourColor: { value: new Color(contourColor) },
+      uConfidence: { value: 1 },
     }),
     [amplitude, contourSpacing, valleyColor, ridgeColor, contourColor],
   );
 
   useFrame((_, delta) => {
-    if (!animate || !matRef.current) return;
-    matRef.current.uniforms.uTime.value += delta;
+    if (!matRef.current) return;
+    if (animate) {
+      matRef.current.uniforms.uTime.value += delta;
+    }
+    if (confidence) {
+      matRef.current.uniforms.uConfidence.value = confidence.get();
+    }
   });
 
   return (

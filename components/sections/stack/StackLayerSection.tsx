@@ -133,12 +133,12 @@ export function StackLayerSection({ layer, index, total }: StackLayerSectionProp
 
         {/* Image */}
         <div className={cn(flip && "lg:order-1")}>
-          <div className="relative aspect-[16/11] overflow-hidden rounded-[26px] bg-ink ring-1 ring-edge shadow-[0_40px_90px_-52px_rgba(11,20,48,0.6)]">
+          <div className="relative aspect-[16/11] overflow-hidden rounded-[26px] bg-ink ring-1 ring-edge shadow-[0_40px_90px_-52px_rgba(0,0,0,0.6)]">
             <Image
               src={view.image}
               alt={view.alt}
               fill
-              quality={86}
+              quality={85}
               sizes="(max-width: 1024px) 100vw, 700px"
               className="object-cover"
             />

@@ -32,7 +32,7 @@ export const STACK_VIEW: Record<StackProductSlug, StackView> = {
   },
   tenere: {
     role: "Bounded operator intent becomes a sortie graph, deconflicted across the fleet.",
-    image: "/imagery/tenere.png",
+    image: "/imagery/tenere.jpg",
     alt: "The TENERE mission composer over a live airfield.",
     proof: [
       { label: "Per operator", value: "≤12" },
@@ -42,7 +42,7 @@ export const STACK_VIEW: Record<StackProductSlug, StackView> = {
   },
   kiksuya: {
     role: "Doctrine, authority, and audit, remembered and provable across the theatre.",
-    image: "/imagery/kiksuya.png",
+    image: "/imagery/kiksuya.jpg",
     alt: "The Kiksuya theatre dashboard with doctrine zones and an audit log.",
     proof: [
       { label: "Scale", value: "Squadron" },
