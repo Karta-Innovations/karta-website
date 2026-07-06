@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { Logo } from "@/components/chrome/Logo";
-import { ThemeToggle } from "@/components/chrome/ThemeToggle";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 interface NavLink {
@@ -25,10 +24,22 @@ const LINKS: NavLink[] = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
+    let lastY = window.scrollY;
     function onScroll() {
-      setScrolled(window.scrollY > 24);
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      // Direction-aware chrome: retreat while the reader descends past the
+      // hero (so fixed chrome never collides with section content), return
+      // the moment they scroll back up.
+      if (y > lastY + 4 && y > 480) {
+        setHidden(true);
+      } else if (y < lastY - 4 || y <= 480) {
+        setHidden(false);
+      }
+      lastY = y;
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -56,43 +67,44 @@ export function Nav() {
         nav controls. Shares the same scroll-down compression timing as the
         pill so the two read as one piece of chrome.
       */}
-      <Link
-        href="/"
-        aria-label="Karta Innovations - home"
+      <div
         className={cn(
-          "fixed left-4 lg:left-10 z-50 pointer-events-auto",
-          "inline-flex items-center gap-2.5 rounded-[18px]",
-          "bg-white/86 px-3 py-2 ring-1 ring-black/[0.08]",
-          "shadow-[0_18px_44px_-30px_rgba(12,14,18,0.48)] backdrop-blur-xl",
+          "fixed left-4 lg:left-10 z-50",
           "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          "hover:-translate-y-0.5 hover:bg-white",
           scrolled ? "top-3 lg:top-5" : "top-5 lg:top-8",
+          hidden && !open
+            ? "-translate-y-[180%] opacity-0 pointer-events-none"
+            : "pointer-events-auto",
         )}
       >
-        <Logo size={34} variant="mark" priority />
-        <Logo size={30} variant="wordmark" priority />
-      </Link>
-
-      {/*
-        Top-right theme toggle - mirrors the logo's scroll-aware vertical
-        compression timing so the two corners read as one piece of chrome.
-        Hidden behind the mobile menu overlay (z-40 vs our z-50) so the user
-        can still toggle while the overlay is open.
-      */}
-      <ThemeToggle
-        className={cn(
-          "fixed right-6 lg:right-10 z-50 pointer-events-auto",
-          "hidden lg:inline-flex",
-          "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          scrolled ? "top-6" : "top-9",
-        )}
-      />
+        <Link
+          href="/"
+          aria-label="Karta Innovations - home"
+          className={cn(
+            "logo-chip inline-flex items-center gap-2 sm:gap-2.5 rounded-[18px]",
+            "px-2.5 py-1.5 sm:px-3 sm:py-2 ring-1 ring-edge",
+            "shadow-[0_18px_44px_-30px_rgba(0,0,0,0.65)]",
+            "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            "hover:-translate-y-0.5 hover:bg-white",
+          )}
+        >
+          <span className="sm:hidden inline-flex items-center gap-2">
+            <Logo size={26} variant="mark" priority />
+            <Logo size={22} variant="wordmark" priority />
+          </span>
+          <span className="hidden sm:inline-flex items-center gap-2.5">
+            <Logo size={34} variant="mark" priority />
+            <Logo size={30} variant="wordmark" priority />
+          </span>
+        </Link>
+      </div>
 
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 flex justify-start pl-[188px] pr-4 lg:justify-center lg:px-0",
+          "fixed inset-x-0 top-0 z-50 flex justify-start pl-[168px] pr-4 sm:pl-[188px] lg:justify-center lg:px-0",
           "pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
           scrolled ? "pt-3" : "pt-5 lg:pt-6",
+          hidden && !open && "-translate-y-[180%] opacity-0",
         )}
       >
         <nav
@@ -100,14 +112,11 @@ export function Nav() {
           className={cn(
             "pointer-events-auto inline-flex items-center gap-1 sm:gap-2",
             "rounded-full pl-4 pr-2 py-2",
-            // Glass backdrop that reads in both themes: in dark mode this is a
-            // dim ink tint on dark; in light mode the same class resolves to a
-            // dim cream tint on cream, paired with the fg/X ring/shadow to give
-            // the pill a subtle floating edge. The `nav-pill` class layers an
-            // additional theme-aware backdrop tint defined in globals.css.
+            // Dim ink glass backdrop (nav-pill in globals.css) with a faint
+            // fg ring and a true-black drop for floating depth on dark.
             "nav-pill backdrop-blur-xl",
             "ring-1 ring-fg/[0.08]",
-            "shadow-[0_18px_50px_-28px_rgba(11,20,48,0.22)]",
+            "shadow-[0_18px_50px_-28px_rgba(0,0,0,0.55)]",
             "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
             scrolled && "ring-fg/[0.14]",
           )}
