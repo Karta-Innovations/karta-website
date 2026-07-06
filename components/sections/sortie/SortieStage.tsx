@@ -97,24 +97,6 @@ export function SortieStage() {
           strokeDashoffset="1200"
         />
 
-        {/* uncertainty cone */}
-        <ellipse
-          data-role="cone"
-          cx="120"
-          cy="420"
-          rx="4"
-          ry="4"
-          fill="color-mix(in srgb, var(--color-signal) 14%, transparent)"
-          stroke="color-mix(in srgb, var(--color-signal) 40%, transparent)"
-          strokeWidth="1"
-          opacity="0"
-          style={{
-            willChange: "transform, opacity",
-            transformBox: "fill-box",
-            transformOrigin: "center",
-          }}
-        />
-
         {/* fleet (revealed in act 4) */}
         <g data-role="fleet" opacity="0" style={CENTER_ORIGIN}>
           {FLEET.map((v) => (
@@ -153,8 +135,26 @@ export function SortieStage() {
         </g>
 
         {/* primary aircraft glyph (path pre-translated to corridor start; the
-            timeline moves the GROUP by deltas from that base) */}
+            timeline moves the GROUP by deltas from that base). The uncertainty
+            cone rides inside the group so it envelops the aircraft as it
+            flies, blooming and re-tightening around the current position. */}
         <g data-role="aircraft" style={{ willChange: "transform" }}>
+          <ellipse
+            data-role="cone"
+            cx="120"
+            cy="420"
+            rx="4"
+            ry="4"
+            fill="color-mix(in srgb, var(--color-signal) 14%, transparent)"
+            stroke="color-mix(in srgb, var(--color-signal) 40%, transparent)"
+            strokeWidth="1"
+            opacity="0"
+            style={{
+              willChange: "transform, opacity",
+              transformBox: "fill-box",
+              transformOrigin: "center",
+            }}
+          />
           <path d="M 0 -8 L 6 7 L 0 3 L -6 7 Z" fill="var(--color-amber)" transform="translate(120,420)" />
         </g>
 
@@ -227,16 +227,16 @@ export function SortieStage() {
         T+00:00
       </text>
 
-      {/* live drift readout (counts up in act 1) */}
+      {/* live position-uncertainty readout, under the GNSS strip (counts up
+          in act 1). Left-anchored so it never collides with the sensor row. */}
       <text
         data-role="drift"
-        x="920"
-        y="44"
-        textAnchor="end"
+        x="40"
+        y="66"
         fill="var(--color-signal)"
         style={{ fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: "0.14em" }}
       >
-        ±0.0m
+        POS ±0.0m
       </text>
 
       {/* caption band */}
