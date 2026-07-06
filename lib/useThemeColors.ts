@@ -1,19 +1,10 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
-type Theme = "dark" | "light";
-
 /**
- * Theme-aware palette consumed by 3D scenes.
+ * Resolved palette consumed by 3D scenes.
  *
- * 3D shaders take hex strings, not CSS custom properties - so we can't rely
- * on the CSS-var cascade like the rest of the site does. This hook reads the
- * active theme from `document.documentElement.dataset.theme` and returns a
- * resolved palette of hex values matching the CSS tokens.
- *
- * Updates automatically when the theme flips via MutationObserver on the
- * `data-theme` attribute - no global event bus needed.
+ * 3D shaders take hex strings, not CSS custom properties - so scenes can't
+ * ride the CSS-var cascade like the rest of the site. The site is dark-only,
+ * so the palette is a constant mirroring the tokens in app/globals.css.
+ * Change both places together.
  */
 export interface ThemePalette {
   /** Page baseline surface (--color-ink) */
@@ -33,19 +24,19 @@ export interface ThemePalette {
 
   /* ------- Domain-specific palette mixes per scene ------- */
 
-  /** Hero terrain - three-value palette tuned for both themes */
+  /** Hero terrain - valley/ridge/contour trio plus atmospheric fog */
   terrain: {
     valley: string;
     ridge: string;
     contour: string;
-    /** Optional fog color; null disables atmospheric fade in light mode */
+    /** Fog color; null disables atmospheric fade */
     fog: string | null;
   };
-  /** Hyderabad city silhouette - darker than bg in both themes */
+  /** Hyderabad city silhouette - darker than bg */
   citySilhouette: string;
-  /** Edge LiDAR point cloud - accent so it reads against both surfaces */
+  /** Edge LiDAR point cloud - accent so it reads against the surface */
   lidar: string;
-  /** Theatre wireframe - accent (with bloom in dark mode) */
+  /** Theatre wireframe - accent with bloom */
   wireframe: string;
 }
 
@@ -68,62 +59,15 @@ const DARK: ThemePalette = {
   wireframe: "#4D8DFF",
 };
 
-const LIGHT: ThemePalette = {
-  ink: "#EDF2FB",
-  ink2: "#FFFFFF",
-  fg: "#0B1430",
-  amber: "#155EEF",
-  amberDeep: "#1E40AF",
-  border: "#D7E0EE",
-  surface: "#FFFFFF",
-  terrain: {
-    // Cool sky-white valleys, soft blue-grey ridges, azure contours.
-    // No fog - atmospheric haze reads odd on a bright surface.
-    valley: "#DCE6F6",
-    ridge: "#B7C9E6",
-    contour: "#155EEF",
-    fog: null,
-  },
-  // Pale blue-grey buildings sit just below the bg in luminance.
-  citySilhouette: "#AEC0DC",
-  lidar: "#155EEF",
-  wireframe: "#155EEF",
-};
-
+/**
+ * Kept as a hook so existing scene call sites don't churn; it now returns
+ * the constant dark palette (no observers - there is nothing to observe).
+ */
 export function useThemeColors(): ThemePalette {
-  const [palette, setPalette] = useState<ThemePalette>(LIGHT);
-
-  useEffect(() => {
-    const html = document.documentElement;
-
-    const read = () => {
-      const current = (html.dataset.theme as Theme | undefined) ?? "dark";
-      setPalette(current === "dark" ? DARK : LIGHT);
-    };
-
-    read();
-    const observer = new MutationObserver((records) => {
-      for (const record of records) {
-        if (record.attributeName === "data-theme") {
-          read();
-          break;
-        }
-      }
-    });
-    observer.observe(html, { attributes: true, attributeFilter: ["data-theme"] });
-
-    return () => observer.disconnect();
-  }, []);
-
-  return palette;
+  return DARK;
 }
 
-/**
- * Synchronous lookup for code paths outside React (rare). Most callers should
- * use the hook so they re-render on theme change.
- */
+/** Synchronous lookup for code paths outside React (rare). */
 export function getThemePalette(): ThemePalette {
-  if (typeof document === "undefined") return DARK;
-  const t = (document.documentElement.dataset.theme as Theme | undefined) ?? "dark";
-  return t === "dark" ? DARK : LIGHT;
+  return DARK;
 }

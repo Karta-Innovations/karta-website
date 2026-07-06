@@ -5,7 +5,9 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
+import { AmberSweep } from "@/components/primitives/AmberSweep";
 import { SpecTable } from "@/components/primitives/SpecTable";
 import { VEHICLES, type Vehicle } from "@/lib/catalog";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
@@ -21,17 +23,12 @@ const VehicleModelScene = dynamic(
 );
 
 export function Vehicles() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
-
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.67%"]);
+  const reduce = useReducedMotionSafe();
 
   return (
     <section id="vehicles" className="relative bg-ink">
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10 pt-32 md:pt-48 pb-16">
+      <AmberSweep className="absolute inset-x-0 top-0" />
+      <div className="mx-auto max-w-[1400px] px-6 md:px-10 pt-24 md:pt-36 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
           <div>
             <EyebrowTag className="mb-6">The platforms</EyebrowTag>
@@ -44,9 +41,10 @@ export function Vehicles() {
           </div>
           <div className="lg:pt-6">
             <p className="text-fg-muted text-[17px] leading-[1.65] max-w-[58ch]">
-              The missions above run on three airframes. Each is a deliberate
-              point in the operating envelope, shaped to a job, and each carries
-              the same autonomy stack.
+              Three airframes, three jobs. Kari scouts where GPS never reaches,
+              Cerana holds the watch through comms loss, and Dorsata lifts the
+              sensors that see through weather. Every one of them carries the
+              same autonomy stack.
             </p>
             <Link
               href="/vehicles"
@@ -59,31 +57,66 @@ export function Vehicles() {
         </div>
       </div>
 
-      {/* Horizontal scroll-hijack */}
-      <div ref={ref} className="relative" style={{ height: "260vh" }}>
-        <div className="sticky top-0 h-[100dvh] overflow-hidden flex items-center">
-          <motion.div
-            style={{ x }}
-            className="flex gap-6 md:gap-10 px-6 md:px-10 will-change-transform"
-          >
-            {VEHICLES.map((v) => (
-              <VehicleCard key={v.slug} vehicle={v} />
-            ))}
-            <div className="shrink-0 w-[40vw]" aria-hidden />
-          </motion.div>
+      {reduce ? (
+        /* Reduced motion: plain vertical read - every platform reachable
+           without the pinned horizontal scrub. */
+        <div className="px-6 md:px-10 pb-24 space-y-10 mx-auto max-w-[1400px]">
+          {VEHICLES.map((v) => (
+            <VehicleCard key={v.slug} vehicle={v} layout="stacked" />
+          ))}
         </div>
-      </div>
+      ) : (
+        <VehicleCarousel />
+      )}
     </section>
+  );
+}
+
+/**
+ * Horizontal scroll-hijack - shorter pin on mobile so touch users aren't
+ * trapped in a long hijack. Own component so the useScroll target ref only
+ * exists while the carousel branch is mounted (see useReducedMotionSafe).
+ */
+function VehicleCarousel() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.67%"]);
+
+  return (
+    <div ref={ref} className="relative h-[180vh] md:h-[260vh]">
+      <div className="sticky top-0 h-[100dvh] overflow-hidden flex items-center">
+        <motion.div
+          style={{ x }}
+          className="flex gap-6 md:gap-10 px-6 md:px-10 will-change-transform"
+        >
+          {VEHICLES.map((v) => (
+            <VehicleCard key={v.slug} vehicle={v} />
+          ))}
+          <div className="shrink-0 w-[40vw]" aria-hidden />
+        </motion.div>
+      </div>
+    </div>
   );
 }
 
 interface VehicleCardProps {
   vehicle: Vehicle;
+  /** "carousel" (default) sizes for the pinned strip; "stacked" fills the column. */
+  layout?: "carousel" | "stacked";
 }
 
-function VehicleCard({ vehicle }: VehicleCardProps) {
+function VehicleCard({ vehicle, layout = "carousel" }: VehicleCardProps) {
   return (
-    <article className="shrink-0 w-[88vw] md:w-[78vw] lg:w-[72vw] xl:w-[1100px] h-[80vh] md:h-[78vh] relative rounded-[32px] overflow-hidden ring-1 ring-edge bg-surface">
+    <article
+      className={`relative rounded-[32px] overflow-hidden ring-1 ring-edge bg-surface ${
+        layout === "carousel"
+          ? "shrink-0 w-[88vw] md:w-[78vw] lg:w-[72vw] xl:w-[1100px] h-[80vh] md:h-[78vh]"
+          : "w-full h-[80vh] md:h-[78vh]"
+      }`}
+    >
       <Image
         src={vehicle.image}
         alt={vehicle.name}

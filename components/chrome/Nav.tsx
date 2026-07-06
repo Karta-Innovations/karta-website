@@ -236,8 +236,7 @@ export function Nav() {
                       17.454 deg N 78.500 deg E
                     </span>
                     <p className="mt-3 text-fg-muted leading-relaxed max-w-[28ch]">
-                      Engineered close to the field. Tested across high
-                      altitude, arid, littoral and contested envelopes.
+                      Engineered close to the field.
                     </p>
                   </div>
                   <Link

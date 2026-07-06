@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { EyebrowTag } from "@/components/primitives/EyebrowTag";
+import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 
 interface Segment {
   text: string;
@@ -32,6 +33,7 @@ const containerVariants: Variants = {
 };
 
 export function Manifesto() {
+  const reduce = useReducedMotionSafe();
   const words = HEADLINE.flatMap((segment, segmentIdx) =>
     segment.text
       .split(/\s+/)
@@ -46,7 +48,7 @@ export function Manifesto() {
   return (
     <section
       id="manifesto"
-      className="relative py-40 md:py-56 px-6 md:px-10 border-y border-border bg-ink"
+      className="relative py-32 md:py-44 px-6 md:px-10 border-y border-border bg-ink"
     >
       <div className="mx-auto max-w-[1400px]">
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-12 lg:gap-24">
@@ -62,6 +64,15 @@ export function Manifesto() {
           </div>
 
           <div>
+            {reduce ? (
+              <p className="font-display text-[clamp(1.75rem,3.6vw,3.25rem)] font-medium tracking-[-0.03em] leading-[1.08] text-fg max-w-[28ch]">
+                {HEADLINE.map((segment, i) => (
+                  <span key={i} className={segment.amber ? "text-amber" : ""}>
+                    {segment.text}{" "}
+                  </span>
+                ))}
+              </p>
+            ) : (
             <motion.p
               initial="hidden"
               whileInView="visible"
@@ -82,6 +93,7 @@ export function Manifesto() {
                 </motion.span>
               ))}
             </motion.p>
+            )}
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -91,14 +103,17 @@ export function Manifesto() {
               className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 max-w-[78ch]"
             >
               <p className="text-fg-muted text-[17px] leading-[1.7]">
-                We are focused not just on better vehicles, but on intelligent
-                systems that reduce dependence on pilot skill and make confident
-                operation possible at scale.
+                A vehicle that needs perfect signal is a fair-weather teammate.
+                We build systems that keep flying when the link drops and the
+                map goes quiet, with pilots staying in command of what matters.
               </p>
               <p className="text-fg-muted text-[17px] leading-[1.7]">
-                Autonomy is not software alone. It comes from integration, data
-                discipline, and sustainment. That is the gap we are working to
-                close, by staying close to the field.
+                The aircraft knows where it is: that is{" "}
+                <span className="text-fg">SkyAnchor</span>. Command knows what
+                to do next: that is <span className="text-fg">TENERE</span>.
+                The theatre remembers why every action was allowed: that is{" "}
+                <span className="text-fg">Kiksuya</span>. That loop, not any
+                single vehicle, is what we ship.
               </p>
             </motion.div>
           </div>

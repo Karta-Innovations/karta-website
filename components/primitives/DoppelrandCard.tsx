@@ -22,7 +22,7 @@ export function DoppelrandCard({
       className={cn(
         "rounded-[28px] p-[6px]",
         "bg-glass ring-1 ring-edge",
-        "shadow-[0_26px_64px_-40px_rgba(11,20,48,0.42)]",
+        "shadow-[0_26px_64px_-40px_rgba(0,0,0,0.5)]",
         className,
       )}
     >
@@ -31,7 +31,7 @@ export function DoppelrandCard({
           "rounded-[22px] h-full w-full",
           "bg-gradient-to-b from-indigo/70 to-ink-2",
           "ring-1 ring-inset ring-edge",
-          "shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]",
+          "shadow-[inset_0_1px_0_rgba(255,255,255,0.10)]",
           innerClassName,
         )}
       >

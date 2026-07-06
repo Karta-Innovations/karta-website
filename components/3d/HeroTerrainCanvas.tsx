@@ -10,15 +10,18 @@ import { useThemeColors } from "@/lib/useThemeColors";
 
 interface HeroTerrainCanvasProps {
   scrollYProgress: MotionValue<number>;
+  /** Position-confidence signal (1 locked, 0 lost) forwarded to the terrain shader. */
+  confidence?: MotionValue<number>;
   fallback: ReactNode;
 }
 
 export function HeroTerrainCanvas({
   scrollYProgress,
+  confidence,
   fallback,
 }: HeroTerrainCanvasProps) {
-  // Read once outside Canvas - useThemeColors uses MutationObserver so this
-  // component re-renders on theme flip and the colors propagate down.
+  // Dark-only site: useThemeColors returns the constant dark palette that
+  // mirrors the CSS tokens (shaders need hex strings, not CSS vars).
   const palette = useThemeColors();
 
   return (
@@ -40,6 +43,7 @@ export function HeroTerrainCanvas({
         ridgeColor={palette.terrain.ridge}
         contourColor={palette.terrain.contour}
         animate
+        confidence={confidence}
       />
     </CanvasShell>
   );

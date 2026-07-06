@@ -52,7 +52,7 @@ export const VEHICLES: Vehicle[] = [
     family: "Apis · short-range scout",
     descriptors: ["Nimble", "Modular", "Precise"],
     byline:
-      "A compact quadrotor built for surveillance where agility, adaptability, and precision matter most.",
+      "The scout. A compact quadrotor that keeps its bearings in streets, stairwells and canyons where GPS never reaches.",
     description:
       "Kari is the smallest member of the Apis family. Its streamlined form factor is engineered for tight spaces and stable flight in complex environments, with mission-specific payloads that swap quickly in the field. Kari is where Karta's autonomy stack runs on the smallest possible airframe - the proof that the Edge layer is real.",
     image: "/imagery/kari.jpeg",
@@ -83,7 +83,7 @@ export const VEHICLES: Vehicle[] = [
     family: "Apis · long-endurance fixed wing",
     descriptors: ["Enduring", "Agile", "Dependable"],
     byline:
-      "A hybrid VTOL fixed-wing built from the ground up. Endurance and manoeuvrability shaped by years of aircraft design.",
+      "The watchstander. A hybrid VTOL fixed-wing that holds station for hours and finishes the sortie even when the link drops.",
     description:
       "Cerana is a tailless fixed-wing platform engineered for sortie endurance and the manoeuvrability operators actually use. Every detail is shaped by the realities of field operations - rapid deployment, dependable performance, minimal friction between setup and mission-ready. Cerana carries the reference build of the Karta autonomy stack.",
     image: "/imagery/cerana.jpeg",
@@ -114,10 +114,10 @@ export const VEHICLES: Vehicle[] = [
     family: "Apis · heavy multirotor",
     descriptors: ["Persistent", "Capable", "Modular"],
     byline:
-      "A medium multirotor for heavier payloads and long-loiter missions where rotor lift earns the watch.",
+      "The heavy lift. A multirotor that carries the full sensor suite - visual, thermal, radar - and watches through weather that blinds cameras.",
     description:
       "Dorsata is the heavy-lift multirotor in the Apis family. It carries larger sensor packages - visual, thermal, mmWave - and watches longer than any other multirotor in its class. Where Kari is a scout and Cerana is a fixed-wing watchstander, Dorsata is the mid-envelope platform that brings multirotor lift to long-loiter sorties.",
-    image: "/imagery/dorsata.png",
+    image: "/imagery/dorsata.jpg",
     capabilities: [
       "Heavier sensor payloads - visual, LWIR, mmWave",
       "Long-loiter multirotor envelope, 90+ min on station",
@@ -186,7 +186,7 @@ export const STACK_LAYERS: StackLayer[] = [
     byline: "Mission composer. Prioritises the next action across vehicles.",
     description:
       "TENERE is the operator's mission composer. It turns intent - a goal, a geometry, a set of bounds - into a sortie graph executable across one or many vehicles. It is what makes one operator viable at fleet scale.",
-    image: "/imagery/tenere.png",
+    image: "/imagery/tenere.jpg",
     problem:
       "Operator cognitive bandwidth is finite. Naively, a fleet just multiplies the operator's workload. The solution is not to remove the operator. It is to compose mission intent at a higher level of abstraction and surface only the decisions that need a human.",
     approach:
@@ -219,7 +219,7 @@ export const STACK_LAYERS: StackLayer[] = [
     byline: "The memory layer. Doctrine, audit and cross-echelon coordination.",
     description:
       "Kiksuya is the doctrine and memory runtime. It is where rules of engagement, geometry constraints, and authority gates live as first-class code - auditable, versioned, signed, and remembered across sorties and echelons. The name is borrowed from a word meaning to remember.",
-    image: "/imagery/kiksuya.png",
+    image: "/imagery/kiksuya.jpg",
     problem:
       "Doctrine in most autonomy stacks is a slide deck. It is not enforced by the code, it is not versioned, and it cannot be audited after the fact. That gap is where bad outcomes happen. The same goes for institutional memory across sorties - most stacks forget.",
     approach:
