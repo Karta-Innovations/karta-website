@@ -57,18 +57,18 @@ export function MnemonicBand() {
           <Statement
             statement="Know where you are, and how sure you are."
             product="SkyAnchor"
-            anchor="edge"
+            anchor="skyanchor"
             isFirst
           />
           <Statement
             statement="Know what to do next, within approved intent."
             product="TENERE"
-            anchor="command"
+            anchor="tenere"
           />
           <Statement
             statement="Know why an action was allowed."
             product="Kiksuya"
-            anchor="theatre"
+            anchor="kiksuya"
             isLast
           />
         </motion.div>

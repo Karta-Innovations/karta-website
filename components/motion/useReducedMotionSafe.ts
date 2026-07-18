@@ -20,17 +20,19 @@ export function useReducedMotionSafe(): boolean {
       }
 
       const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+      // Removal requires the exact same function reference as addition.
+      const handler = () => onChange();
 
       // Modern browsers
       if (mql.addEventListener) {
-        mql.addEventListener("change", () => onChange());
-        return () => mql.removeEventListener("change", () => onChange());
+        mql.addEventListener("change", handler);
+        return () => mql.removeEventListener("change", handler);
       }
 
       // Older browsers fallback
       if (mql.addListener) {
-        mql.addListener(() => onChange());
-        return () => mql.removeListener(() => onChange());
+        mql.addListener(handler);
+        return () => mql.removeListener(handler);
       }
 
       return () => {};

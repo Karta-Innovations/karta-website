@@ -30,7 +30,7 @@ export default function CareersPage() {
 
       <section className="px-6 md:px-10 pb-24 md:pb-32">
         <div className="mx-auto max-w-[1100px]">
-          <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-10">
+          <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand mb-10">
             Open roles
           </h2>
           <ol>
@@ -44,7 +44,7 @@ export default function CareersPage() {
                   className="group block py-10 lg:py-12 grid grid-cols-1 lg:grid-cols-[120px_1fr_auto] gap-6 lg:gap-12 items-baseline"
                 >
                   <div>
-                    <div className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber">
+                    <div className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand">
                       0{i + 1}
                     </div>
                     <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-fg-tertiary mt-1">
@@ -52,7 +52,7 @@ export default function CareersPage() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-medium tracking-[-0.025em] leading-[1.05] text-fg group-hover:text-amber transition-colors">
+                    <h3 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-medium tracking-[-0.025em] leading-[1.05] text-fg group-hover:text-sand transition-colors">
                       {role.title}
                     </h3>
                     <p className="mt-3 text-fg-muted text-[15px] leading-[1.6] max-w-[60ch]">
@@ -63,7 +63,7 @@ export default function CareersPage() {
                       <span>{role.seniority}</span>
                     </div>
                   </div>
-                  <div className="lg:flex items-center gap-2 text-fg-muted group-hover:text-amber transition-colors hidden">
+                  <div className="lg:flex items-center gap-2 text-fg-muted group-hover:text-sand transition-colors hidden">
                     <span className="font-mono text-[11px] tracking-[0.22em] uppercase">
                       Read role
                     </span>
@@ -83,7 +83,7 @@ export default function CareersPage() {
               the bar. Write to{" "}
               <a
                 href="mailto:info@kartainnovations.com"
-                className="text-amber hover:underline underline-offset-4 decoration-amber/40"
+                className="text-sand hover:underline underline-offset-4 decoration-sand/40"
               >
                 info@kartainnovations.com
               </a>{" "}

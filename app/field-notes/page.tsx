@@ -46,7 +46,7 @@ export default function FieldNotesPage() {
                   className="group block py-10 lg:py-12 grid grid-cols-1 lg:grid-cols-[120px_1fr_180px] gap-6 lg:gap-12 items-baseline"
                 >
                   <div>
-                    <div className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber">
+                    <div className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand">
                       0{i + 1}
                     </div>
                     <div className="font-mono text-[11px] tracking-[0.18em] uppercase text-fg-tertiary mt-1">
@@ -54,7 +54,7 @@ export default function FieldNotesPage() {
                     </div>
                   </div>
                   <div>
-                    <h2 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-medium tracking-[-0.025em] leading-[1.05] text-fg group-hover:text-amber transition-colors">
+                    <h2 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-medium tracking-[-0.025em] leading-[1.05] text-fg group-hover:text-sand transition-colors">
                       {note.title}
                     </h2>
                     <p className="mt-4 text-fg-muted text-[15px] leading-[1.65] max-w-[60ch]">
@@ -72,7 +72,7 @@ export default function FieldNotesPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="hidden lg:flex items-center justify-end gap-2 text-fg-muted group-hover:text-amber transition-colors">
+                  <div className="hidden lg:flex items-center justify-end gap-2 text-fg-muted group-hover:text-sand transition-colors">
                     <span className="font-mono text-[11px] tracking-[0.22em] uppercase">
                       Read
                     </span>

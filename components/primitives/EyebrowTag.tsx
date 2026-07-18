@@ -12,14 +12,14 @@ export function EyebrowTag({ children, className, variant = "amber" }: EyebrowTa
     <span
       className={cn(
         "inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] uppercase font-medium",
-        isAmber ? "text-amber" : "text-fg-tertiary",
+        isAmber ? "text-sand" : "text-fg-tertiary",
         className,
       )}
     >
       <span
         className={cn(
           "block h-px w-7",
-          isAmber ? "bg-amber" : "bg-fg-tertiary",
+          isAmber ? "bg-sand" : "bg-fg-tertiary",
         )}
         aria-hidden
       />

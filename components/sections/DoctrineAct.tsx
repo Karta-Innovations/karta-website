@@ -61,7 +61,7 @@ export function DoctrineAct() {
     <section
       id="mission"
       ref={ref}
-      className="relative px-6 md:px-10 py-24 md:py-44 overflow-hidden border-t border-oxblood/30"
+      className="relative scroll-mt-24 px-6 md:px-10 py-24 md:py-44 overflow-hidden border-t border-oxblood/30"
     >
       {/* Oxblood gradient field resolving to warm-sand tint at the bottom */}
       <div

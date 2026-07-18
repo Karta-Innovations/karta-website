@@ -86,7 +86,7 @@ export function EngageForm() {
       </div>
 
       <fieldset>
-        <legend className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-5">
+        <legend className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand mb-5">
           Intent
         </legend>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -258,7 +258,7 @@ function Field({ label, name, value, onChange, type = "text", required, autoComp
         className={cn(
           "w-full rounded-md bg-glass ring-1 ring-edge",
           "px-4 py-3 text-fg placeholder:text-fg-tertiary",
-          "focus:ring-amber focus:ring-1 focus:bg-glass outline-none transition-all",
+          "focus:ring-sand focus:ring-1 focus:bg-glass outline-none transition-all",
         )}
       />
     </label>
@@ -286,7 +286,7 @@ function TextArea({ label, name, value, onChange, required, rows = 4, placeholde
         className={cn(
           "w-full rounded-md bg-glass ring-1 ring-edge",
           "px-4 py-3 text-fg placeholder:text-fg-tertiary leading-[1.55]",
-          "focus:ring-amber focus:ring-1 focus:bg-glass outline-none transition-all resize-none",
+          "focus:ring-sand focus:ring-1 focus:bg-glass outline-none transition-all resize-none",
         )}
       />
     </label>

@@ -31,7 +31,7 @@ export function BriefPlate() {
   return (
     <section
       id="brief"
-      className="relative w-full bg-gradient-to-b from-teal to-current-deep px-6 md:px-10 py-32 md:py-48"
+      className="relative w-full scroll-mt-24 bg-gradient-to-b from-teal to-current-deep px-6 md:px-10 py-32 md:py-48"
     >
       <div className="relative mx-auto max-w-[1440px]">
         {/* Eyebrow: mission clock + REPRESENTATIVE SORTIE label */}

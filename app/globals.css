@@ -154,9 +154,12 @@ body {
   color: #051112;
 }
 
+/* Two-layer focus ring per the design contract: telemetry aqua inside,
+   warm paper outside - readable on every dark surface. */
 :focus-visible {
-  outline: 2px solid var(--color-sand);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-warm-paper);
+  outline-offset: 5px;
+  box-shadow: 0 0 0 3px var(--color-aqua);
   border-radius: 2px;
 }
 

@@ -17,7 +17,7 @@ export default function EngagePage() {
         eyebrow="Engineering channel · open"
         title={
           <>
-            Talk to <span className="text-amber">engineering</span>, not sales.
+            Talk to <span className="text-sand">engineering</span>, not sales.
           </>
         }
         intro={
@@ -36,7 +36,7 @@ export default function EngagePage() {
 
           <aside className="space-y-10 lg:pt-2">
             <section>
-              <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-5">
+              <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand mb-5">
                 Direct contacts
               </h2>
               <ul className="space-y-5">
@@ -52,7 +52,7 @@ export default function EngagePage() {
                     </div>
                     <a
                       href={`mailto:${row.v}`}
-                      className="font-mono text-[13px] text-fg hover:text-amber transition-colors break-all"
+                      className="font-mono text-[13px] text-fg hover:text-sand transition-colors break-all"
                     >
                       {row.v}
                     </a>
@@ -62,7 +62,7 @@ export default function EngagePage() {
             </section>
 
             <section>
-              <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-5">
+              <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand mb-5">
                 Engineering station
               </h2>
               <p className="text-fg text-[15px] leading-[1.65]">
