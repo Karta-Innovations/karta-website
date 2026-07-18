@@ -75,18 +75,18 @@ export default async function NotePage({ params }: NotePageProps) {
                 <Link
                   key={o.slug}
                   href={`/field-notes/${o.slug}`}
-                  className="group block rounded-2xl ring-1 ring-edge hover:ring-amber/40 transition-all p-7"
+                  className="group block rounded-2xl ring-1 ring-edge hover:ring-sand/40 transition-all p-7"
                 >
-                  <div className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-3">
+                  <div className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand mb-3">
                     {DATE_FMT.format(new Date(o.date))}
                   </div>
-                  <h3 className="font-display text-xl font-medium tracking-[-0.02em] text-fg group-hover:text-amber transition-colors mb-3">
+                  <h3 className="font-display text-xl font-medium tracking-[-0.02em] text-fg group-hover:text-sand transition-colors mb-3">
                     {o.title}
                   </h3>
                   <p className="text-fg-muted text-sm leading-[1.6] max-w-[42ch]">
                     {o.summary}
                   </p>
-                  <span className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-muted group-hover:text-amber transition-colors">
+                  <span className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-muted group-hover:text-sand transition-colors">
                     Read note
                     <ArrowUpRight size={14} weight="bold" />
                   </span>
@@ -121,7 +121,7 @@ function RenderBlock({ block }: { block: NoteBlock }) {
         <ul className="space-y-3 pl-1">
           {block.items.map((item, i) => (
             <li key={i} className="flex items-start gap-3 text-fg text-[17px] leading-[1.65]">
-              <span className="mt-3 size-1 rounded-full bg-amber shrink-0" />
+              <span className="mt-3 size-1 rounded-full bg-sand shrink-0" />
               {item}
             </li>
           ))}
@@ -129,7 +129,7 @@ function RenderBlock({ block }: { block: NoteBlock }) {
       );
     case "quote":
       return (
-        <blockquote className="border-l-2 border-amber pl-6 py-2">
+        <blockquote className="border-l-2 border-sand pl-6 py-2">
           <p className="font-display text-[clamp(1.4rem,2.6vw,1.875rem)] font-medium tracking-[-0.02em] leading-[1.25] text-fg">
             {block.text}
           </p>

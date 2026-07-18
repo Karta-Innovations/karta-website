@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { Logo } from "@/components/chrome/Logo";
+import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 interface NavLink {
@@ -24,6 +26,12 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const reduce = useReducedMotionSafe();
+  const pathname = usePathname();
+
+  // aria-current for routed pages; homepage hash links never match a route.
+  const isCurrent = (href: string) =>
+    !href.includes("#") && (pathname === href || pathname.startsWith(href + "/"));
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -125,7 +133,13 @@ export function Nav() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="px-3 py-1.5 text-[13px] text-fg-muted hover:text-fg rounded-full hover:bg-glass transition-colors"
+                  aria-current={isCurrent(link.href) ? "page" : undefined}
+                  className={cn(
+                    "px-3 py-1.5 text-[13px] rounded-full hover:bg-glass transition-colors",
+                    isCurrent(link.href)
+                      ? "text-fg"
+                      : "text-fg-muted hover:text-fg",
+                  )}
                 >
                   {link.label}
                 </Link>
@@ -194,17 +208,30 @@ export function Nav() {
                   {LINKS.map((link, i) => (
                     <motion.li
                       key={link.href}
-                      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      transition={{
-                        duration: 0.7,
-                        delay: 0.12 + i * 0.05,
-                        ease: [0.16, 1, 0.3, 1],
-                      }}
+                      initial={
+                        reduce
+                          ? { opacity: 0 }
+                          : { opacity: 0, y: 24, filter: "blur(6px)" }
+                      }
+                      animate={
+                        reduce
+                          ? { opacity: 1 }
+                          : { opacity: 1, y: 0, filter: "blur(0px)" }
+                      }
+                      transition={
+                        reduce
+                          ? { duration: 0 }
+                          : {
+                              duration: 0.7,
+                              delay: 0.12 + i * 0.05,
+                              ease: [0.16, 1, 0.3, 1],
+                            }
+                      }
                       className="border-b border-edge"
                     >
                       <Link
                         href={link.href}
+                        aria-current={isCurrent(link.href) ? "page" : undefined}
                         onClick={() => setOpen(false)}
                         className="group flex items-baseline justify-between py-5 hover:pl-2 transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
                       >
@@ -225,9 +252,13 @@ export function Nav() {
                 </ol>
 
                 <motion.aside
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
+                  animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                  transition={
+                    reduce
+                      ? { duration: 0 }
+                      : { duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }
+                  }
                   className="space-y-10"
                 >
                   <div>

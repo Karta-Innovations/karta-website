@@ -57,7 +57,7 @@ export default async function RolePage({ params }: RolePageProps) {
                   key={item}
                   className="flex items-start gap-4 text-fg text-[16px] leading-[1.65] py-3 border-b border-border last:border-b-0"
                 >
-                  <span className="mt-2.5 size-1.5 rounded-full bg-amber shrink-0" />
+                  <span className="mt-2.5 size-1.5 rounded-full bg-sand shrink-0" />
                   {item}
                 </li>
               ))}
@@ -71,7 +71,7 @@ export default async function RolePage({ params }: RolePageProps) {
                   key={item}
                   className="flex items-start gap-4 text-fg text-[16px] leading-[1.65] py-3 border-b border-border last:border-b-0"
                 >
-                  <span className="mt-2.5 size-1.5 rounded-full bg-amber shrink-0" />
+                  <span className="mt-2.5 size-1.5 rounded-full bg-sand shrink-0" />
                   {item}
                 </li>
               ))}
@@ -106,7 +106,7 @@ export default async function RolePage({ params }: RolePageProps) {
         <div className="mx-auto max-w-[820px]">
           <Link
             href="/careers"
-            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-muted hover:text-amber transition-colors"
+            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-muted hover:text-sand transition-colors"
           >
             ← All open roles
           </Link>
@@ -124,7 +124,7 @@ interface SectionProps {
 function Section({ title, children }: SectionProps) {
   return (
     <section>
-      <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber">
+      <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand">
         {title}
       </h2>
       {children}

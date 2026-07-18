@@ -22,7 +22,7 @@ export function CoordinateStrip({
     >
       <span>{left}</span>
       <span className="hidden md:inline-flex items-center gap-2">
-        <span className="size-[6px] rounded-full bg-amber animate-pulse" />
+        <span className="size-[6px] rounded-full bg-sand animate-pulse" />
         {center}
       </span>
       <span>{right}</span>

@@ -13,9 +13,9 @@ export interface ThemePalette {
   ink2: string;
   /** Primary body text (--color-fg) */
   fg: string;
-  /** Sparse single accent (--color-amber) */
+  /** Sparse single accent (--color-sand) */
   amber: string;
-  /** Amber deepened (--color-amber-deep) */
+  /** Amber deepened (--color-sand-deep) */
   amberDeep: string;
   /** Borders / hairlines (--color-border) */
   border: string;

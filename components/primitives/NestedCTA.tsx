@@ -45,10 +45,10 @@ export function NestedCTA({
     "transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
     "active:scale-[0.98]",
     variant === "primary" &&
-      "bg-amber text-ink ring-1 ring-amber-deep/40 hover:bg-amber-hi shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]",
+      "bg-sand text-ink ring-1 ring-sand-deep/40 hover:bg-sand-hi shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]",
     variant === "ghost" &&
       "bg-glass text-fg ring-1 ring-edge-strong hover:bg-glass-hi hover:ring-edge-strong",
-    variant === "minimal" && "text-fg hover:text-amber pr-6",
+    variant === "minimal" && "text-fg hover:text-sand pr-6",
     className,
   );
 
@@ -57,7 +57,7 @@ export function NestedCTA({
     "transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
     "group-hover/cta:translate-x-[2px] group-hover/cta:-translate-y-[1px]",
     variant === "primary" && "bg-ink/15",
-    variant === "ghost" && "bg-glass-hi group-hover/cta:bg-amber group-hover/cta:text-ink",
+    variant === "ghost" && "bg-glass-hi group-hover/cta:bg-sand group-hover/cta:text-ink",
     variant === "minimal" && "hidden",
   );
 
