@@ -7,19 +7,18 @@ import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 
 /**
- * The "Anchor" section. Used to live as "From Hyderabad" with explicit
- * geographic chest-thumping. Now reframed as an operational-station moment.
+ * ACT 5 — Ground Truth (Hyderabad)
+ * Section id="hyderabad"
  *
- * The hyderabad.jpg image already carries a hand-drawn Hyderabad skyline
- * silhouette (Charminar, Golconda, palms, sunset) - so the previous 3D
- * `HyderabadSkylineScene` overlay has been removed; it would have stacked
- * a second silhouette on top of the photographic one. Gradients are tuned
- * to keep the sunset sky readable up top and put a darker base under the
- * text in the lower half. A duotone tint (see .duotone-tint) pulls the
- * grayscale art into the azure/cyan system in both themes.
+ * Tightened to the ground-truth beat: place as identity and operating
+ * context. Engineered, integrated and flown from Hyderabad — no unsupported
+ * proof claims.
+ *
+ * The hyderabad.jpg image carries the skyline silhouette. Gradients keep
+ * the sunset sky readable and establish a dark base under the text. The
+ * duotone tint pulls the grayscale art into the teal/sand system. Motion:
+ * slow parallax on scroll; reduced motion collapses to static.
  */
-
-const ENVELOPES = ["High altitude", "Arid", "Littoral", "Contested"];
 
 export function Hyderabad() {
   const ref = useRef<HTMLElement>(null);
@@ -34,7 +33,7 @@ export function Hyderabad() {
 
   return (
     <section
-      id="anchor"
+      id="hyderabad"
       ref={ref}
       className="relative bg-ink overflow-hidden border-t border-border"
     >
@@ -54,7 +53,7 @@ export function Hyderabad() {
             priority={false}
           />
         </motion.div>
-        {/* Duotone tint - joins the grayscale art to the azure system. */}
+        {/* Duotone tint - joins the grayscale art to the teal/sand system. */}
         <div aria-hidden className="duotone-tint absolute inset-0" />
         {/* Vertical scrim - sky visible up top, dark base under the text. */}
         <div
@@ -77,16 +76,16 @@ export function Hyderabad() {
               हैदराबाद
             </span>
             <EyebrowTag variant="muted" className="mb-6">
-              Operational anchor
+              17.454 N · 78.500 E · GROUND TRUTH
             </EyebrowTag>
             <h2 className="font-display text-[clamp(2.5rem,7vw,6rem)] font-medium tracking-[-0.04em] leading-[0.95] text-fg">
-              Engineered close to the field.
+              Built close to the work.
             </h2>
             <p className="mt-7 text-fg-muted text-[17px] leading-[1.65] max-w-[52ch]">
-              The team that ships the code is the team that deploys it. Karta
-              operates a single engineering station, close to the aerospace,
-              semiconductor and defence-software talent we draw from, and close
-              to the envelopes our vehicles fly.
+              Engineered, integrated and flown from Hyderabad. The team that
+              builds the code is the team that deploys it, close to the
+              aerospace, semiconductor and defence-software expertise we draw
+              from, and close to the fields where the systems will operate.
             </p>
           </div>
         </div>

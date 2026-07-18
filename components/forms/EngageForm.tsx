@@ -101,7 +101,7 @@ export function EngageForm() {
                 className={cn(
                   "text-left rounded-2xl p-5 ring-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
                   active
-                    ? "bg-amber/10 ring-amber/40"
+                    ? "bg-sand/10 ring-sand/40"
                     : "bg-glass ring-edge hover:bg-glass hover:ring-edge-strong",
                 )}
               >
@@ -109,7 +109,7 @@ export function EngageForm() {
                   <span
                     className={cn(
                       "font-mono text-[11px] tracking-[0.22em] uppercase",
-                      active ? "text-amber" : "text-fg-tertiary",
+                      active ? "text-sand" : "text-fg-tertiary",
                     )}
                   >
                     {it.label}
@@ -117,7 +117,7 @@ export function EngageForm() {
                   <span
                     className={cn(
                       "size-3 rounded-full ring-1 ring-inset",
-                      active ? "bg-amber ring-amber" : "ring-fg-tertiary",
+                      active ? "bg-sand ring-sand" : "ring-fg-tertiary",
                     )}
                   />
                 </div>
@@ -176,9 +176,9 @@ export function EngageForm() {
           className={cn(
             "inline-flex items-center gap-3 rounded-full pl-6 pr-2 py-2",
             "font-medium text-[14px] tracking-[-0.005em]",
-            "bg-amber text-ink",
+            "bg-sand text-warm-ink",
             "transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
-            "hover:bg-amber-hi active:scale-[0.98]",
+            "hover:bg-sand-hi active:scale-[0.98]",
             "disabled:opacity-60 disabled:cursor-not-allowed",
           )}
         >
@@ -187,18 +187,23 @@ export function EngageForm() {
               ? "Sending"
               : state === "success"
                 ? "Sent"
-                : "Send engagement"}
+                : "Send to engineering"}
           </span>
-          <span className="size-9 inline-flex items-center justify-center rounded-full bg-ink/15">
+          <span className="size-9 inline-flex items-center justify-center rounded-full bg-warm-ink/15">
             <span
               aria-hidden
               className={cn(
-                "block size-2 rounded-full bg-ink/80",
+                "block size-2 rounded-full bg-warm-ink/80",
                 state === "submitting" && "animate-pulse",
               )}
             />
           </span>
         </button>
+
+        <div aria-live="polite" role="status" className="sr-only">
+          {state === "success" ? "Message sent successfully. Expect a reply from the engineering team within 48 hours." : null}
+          {state === "error" && error ? `Error: ${error}` : null}
+        </div>
 
         <AnimatePresence>
           {state === "success" ? (

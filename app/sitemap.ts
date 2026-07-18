@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { VEHICLES } from "@/lib/catalog";
 import { NOTES } from "@/lib/content/notes";
 import { ROLES } from "@/lib/content/roles";
 
@@ -9,19 +8,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${SITE_URL}/stack`, lastModified: now, priority: 0.95 },
-    { url: `${SITE_URL}/vehicles`, lastModified: now, priority: 0.9 },
-    { url: `${SITE_URL}/mission`, lastModified: now, priority: 0.8 },
     { url: `${SITE_URL}/field-notes`, lastModified: now, priority: 0.7 },
     { url: `${SITE_URL}/careers`, lastModified: now, priority: 0.7 },
     { url: `${SITE_URL}/engage`, lastModified: now, priority: 0.6 },
   ];
-
-  const vehicleRoutes = VEHICLES.map((v) => ({
-    url: `${SITE_URL}/vehicles/${v.slug}`,
-    lastModified: now,
-    priority: 0.8,
-  }));
 
   const noteRoutes = NOTES.map((n) => ({
     url: `${SITE_URL}/field-notes/${n.slug}`,
@@ -35,5 +25,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...vehicleRoutes, ...noteRoutes, ...roleRoutes];
+  return [...staticRoutes, ...noteRoutes, ...roleRoutes];
 }

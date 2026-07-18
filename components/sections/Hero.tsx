@@ -1,218 +1,164 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { createTimeline, stagger } from "animejs";
-import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { useAnimeBoot } from "@/components/motion/useAnimeBoot";
-import { EyebrowTag } from "@/components/primitives/EyebrowTag";
-import { NestedCTA } from "@/components/primitives/NestedCTA";
-import { HeroTerrain } from "@/components/3d/HeroTerrain";
-import { ScrubCounter } from "@/components/motion/ScrubCounter";
-import { ArrowDown } from "@phosphor-icons/react/dist/ssr";
 
 /**
- * Boot choreography - one orchestrated anime.js timeline, grave and
- * unhurried: eyebrow, then the headline rising line by line, copy and
- * CTAs settling in behind it, the कर्ता etymology blooming out of blur
- * on the opposite column, and finally the instrument row. Roughly 2.4s
- * end to end; every target is [data-boot]-gated in CSS so no-JS and
- * reduced-motion visitors simply see the finished frame.
+ * Boot choreography for the launch hero:
+ * eyebrow → headline (Operational, then AUTONOMY) → statement → deck & CTAs → telemetry strip
+ * Orchestrated via anime.js with smooth, deliberate spacing.
  */
-function buildHeroBoot(scope: HTMLElement) {
+function buildLaunchBoot(scope: HTMLElement) {
   const q = (name: string) =>
     scope.querySelectorAll<HTMLElement>(`[data-boot="${name}"]`);
 
   const tl = createTimeline({ defaults: { ease: "outExpo" } });
-  tl.add(q("eyebrow"), { opacity: [0, 1], translateY: [14, 0], duration: 700 });
+
+  // Eyebrow rises in
+  tl.add(q("eyebrow"), { opacity: [0, 1], translateY: [14, 0], duration: 600 });
+
+  // Headline lines rise line by line
   tl.add(
-    q("line"),
+    q("headline"),
     {
       opacity: [0, 1],
-      translateY: ["0.7em", "0em"],
-      duration: 1100,
-      delay: stagger(140),
+      translateY: ["0.8em", "0em"],
+      duration: 900,
+      delay: stagger(120),
     },
-    "-=450",
+    "-=400",
   );
+
+  // Statement line settles
   tl.add(
-    q("body"),
-    { opacity: [0, 1], translateY: [18, 0], duration: 900 },
-    "-=750",
+    q("statement"),
+    { opacity: [0, 1], translateY: [16, 0], duration: 800 },
+    "-=600",
   );
+
+  // Deck copy
+  tl.add(
+    q("deck"),
+    { opacity: [0, 1], translateY: [14, 0], duration: 800 },
+    "-=650",
+  );
+
+  // CTAs appear with stagger
   tl.add(
     q("cta"),
-    { opacity: [0, 1], translateY: [14, 0], duration: 800, delay: stagger(90) },
+    { opacity: [0, 1], translateY: [12, 0], duration: 700, delay: stagger(80) },
     "-=700",
   );
+
+  // Telemetry strip fades in at the bottom
   tl.add(
-    q("etym"),
-    { opacity: [0, 1], filter: ["blur(12px)", "blur(0px)"], duration: 1400 },
-    "-=950",
+    q("telemetry"),
+    { opacity: [0, 1], duration: 600 },
+    "-=500",
   );
-  tl.add(
-    q("etym-meta"),
-    { opacity: [0, 1], translateY: [10, 0], duration: 700, delay: stagger(90) },
-    "-=1000",
-  );
-  tl.add(q("foot"), { opacity: [0, 1], duration: 700 }, "-=500");
+
   return tl;
 }
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotionSafe();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.9]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.0]);
 
-  useAnimeBoot(ref, buildHeroBoot);
+  useAnimeBoot(ref, buildLaunchBoot);
 
   return (
     <section
+      id="launch"
       ref={ref}
-      className="boot-scope relative min-h-[100dvh] overflow-hidden bg-ink"
+      className="boot-scope relative min-h-[100svh] overflow-hidden bg-ink"
     >
-      {/* Terrain layer - 3D when WebGL/motion allow, static terrain imagery otherwise */}
-      <HeroTerrain sectionRef={ref} />
-
-      {/* Layered scrims for depth + legibility */}
-      <motion.div
-        aria-hidden
-        style={reduce ? undefined : { opacity: overlayOpacity }}
-        className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/55 to-ink"
-      />
+      {/* Aurora soft atmosphere layer - teal/sand wash to lift the hero */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/25 to-transparent"
+        className="bg-aurora-soft absolute inset-0 pointer-events-none"
       />
 
-      {/* Aurora bloom - the azure/cyan wash that lifts the hero out of the black */}
-      <div
-        aria-hidden
-        className="bg-aurora absolute inset-0 opacity-[0.55] pointer-events-none"
-      />
-
-      {/* Hairline grid - faint instrument lines */}
-      <div aria-hidden className="grid-overlay absolute inset-0 opacity-70" />
-
-      {/* Content */}
-      <motion.div
-        style={reduce ? undefined : { y: contentY, opacity: contentOpacity }}
-        className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-10 pt-32 lg:pt-40 pb-20 min-h-[100dvh] flex flex-col"
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-[1.45fr_1fr] gap-12 lg:gap-20 mt-auto pt-6">
-          <div>
-            <div data-boot="eyebrow">
-              <EyebrowTag className="mb-7">
-                Operational Autonomy
-              </EyebrowTag>
-            </div>
-            <h1 className="font-display text-[clamp(2.55rem,6.8vw,6rem)] font-medium tracking-[-0.045em] leading-[0.93] text-fg max-w-[18ch]">
-              <span data-boot="line" className="block will-change-transform">
-                Autonomy that works
-              </span>
-              <span data-boot="line" className="block will-change-transform">
-                where <span className="text-amber">GPS does not</span>.
-              </span>
-            </h1>
-            <p
-              data-boot="body"
-              className="mt-8 max-w-[31ch] text-[17px] leading-[1.7] text-fg-muted sm:max-w-[58ch]"
-            >
-              Karta builds the intelligence that keeps unmanned aircraft flying
-              when GPS is jammed, links drop and one operator is running twelve
-              aircraft. A human stays in command of every call that matters.
-            </p>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <span data-boot="cta" className="inline-flex">
-                <NestedCTA href="/stack">Explore the autonomy layer</NestedCTA>
-              </span>
-              <span data-boot="cta" className="inline-flex">
-                <NestedCTA href="/engage" variant="ghost">
-                  Talk to engineering
-                </NestedCTA>
-              </span>
-            </div>
+      {/* Content column */}
+      <div className="relative z-10 mx-auto h-full max-w-[90rem] px-[clamp(1rem,4vw,4rem)] flex flex-col justify-center items-start py-16 md:py-24">
+        {/* Mono eyebrow: mission clock and coordinates */}
+        <div data-boot="eyebrow" className="mb-[clamp(3rem,8vw,6rem)]">
+          <div className="font-mono text-sand text-[11px] tracking-[0.22em] uppercase font-medium">
+            <span>Karta Innovations · T-00:00:00 · Launch · 17.454 N 78.500 E</span>
           </div>
-
-          {/*
-            Sanskrit etymology block. "Karta" is the Sanskrit noun for the
-            agent, the one who acts - the brand's load-bearing meaning per
-            the playbook. Treated as a manifesto marker, not decoration.
-          */}
-          <aside className="lg:pt-10">
-            <div
-              data-boot="etym"
-              className="border-t border-edge pt-7 max-w-[28ch] lg:ml-auto"
-            >
-              <span
-                lang="sa"
-                className="font-devanagari block text-[clamp(4rem,8vw,7rem)] text-fg leading-[0.95] tracking-[-0.01em]"
-              >
-                कर्ता
-              </span>
-              <div className="mt-5 space-y-2">
-                <div
-                  data-boot="etym-meta"
-                  className="font-mono text-[10px] tracking-[0.28em] uppercase text-amber"
-                >
-                  karta · n. · the agent
-                </div>
-                <div
-                  data-boot="etym-meta"
-                  className="font-mono text-[11px] tracking-[0.12em] text-fg-muted leading-[1.55]"
-                >
-                  the one who acts.
-                  <br />
-                  accountable autonomy under human intent.
-                </div>
-              </div>
-            </div>
-          </aside>
         </div>
 
-        {/* Scroll cue + live position-confidence readout. The readout scrubs
-            down with scroll, mirroring the terrain contours dissolving - the
-            first hint that signal is a privilege here. */}
-        <div
-          data-boot="foot"
-          className="mt-16 flex flex-wrap items-center gap-x-10 gap-y-4"
-        >
-          <Link
-            href="#denied"
-            className="inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary hover:text-amber transition-colors group/scroll w-fit"
+        {/* Headline: Operational / AUTONOMY */}
+        <h1 className="font-display font-display-wide uppercase text-fg mb-[clamp(2rem,4vw,3rem)]">
+          <span
+            data-boot="headline"
+            className="block text-[clamp(3rem,8vw,7rem)] leading-[0.84] will-change-transform"
           >
-            Scroll to explore
-            <span className="inline-flex size-7 items-center justify-center rounded-full ring-1 ring-edge-strong group-hover/scroll:ring-amber group-hover/scroll:bg-amber/10 transition-all">
-              <motion.span
-                animate={reduce ? undefined : { y: [0, 3, 0] }}
-                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                className="block"
-              >
-                <ArrowDown size={12} weight="bold" />
-              </motion.span>
-            </span>
-          </Link>
-          <span className="hidden sm:inline-flex items-baseline gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary tabular-nums">
-            POS CONFIDENCE
-            {reduce ? (
-              <span className="text-fg-muted">0.99</span>
-            ) : (
-              <ScrubCounter
-                progress={scrollYProgress}
-                format={(t) => (0.99 - t * 0.55).toFixed(2)}
-                className="text-fg-muted"
-              />
-            )}
+            Operational
           </span>
+          <span
+            data-boot="headline"
+            className="block text-[clamp(4.2rem,14vw,12.5rem)] leading-[0.84] texture-text texture-text-drift will-change-transform"
+          >
+            Autonomy
+          </span>
+        </h1>
+
+        {/* Statement: the memory hook */}
+        <p
+          data-boot="statement"
+          className="font-display text-[clamp(1.6rem,3.2vw,2.6rem)] leading-[1] text-fg mb-[clamp(1.5rem,3vw,2.5rem)] max-w-[52ch] will-change-transform"
+        >
+          Command that survives uncertainty.
+        </p>
+
+        {/* Deck: plain definition */}
+        <p
+          data-boot="deck"
+          className="text-fg-muted text-[clamp(1rem,0.35vw_+_0.92rem,1.125rem)] leading-[1.65] max-w-[52ch] mb-[clamp(2rem,5vw,3rem)] will-change-transform"
+        >
+          Karta builds the autonomy layer that helps unmanned systems stay oriented, act within human-approved intent, and return a reviewable record as operating conditions degrade.
+        </p>
+
+        {/* CTAs: primary button + secondary text link */}
+        <div className="flex flex-wrap items-center gap-4 md:gap-6 mb-[clamp(4rem,10vw,6rem)]">
+          <a
+            href="/engage"
+            data-boot="cta"
+            className="inline-flex px-6 py-3 rounded-full bg-sand text-warm-ink font-medium text-[14px] tracking-[-0.005em] transition-all duration-300 hover:bg-sand-hi active:scale-[0.97] will-change-transform shadow-sm"
+          >
+            Talk to engineering
+          </a>
+          <Link
+            href="#brief"
+            data-boot="cta"
+            className="inline-flex items-center gap-2 text-fg font-medium text-[14px] tracking-[-0.005em] transition-colors hover:text-sand will-change-transform group"
+          >
+            See autonomy in operation
+            <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+          </Link>
         </div>
-      </motion.div>
+
+        {/* Hairline separator */}
+        <hr className="h-px w-full bg-border mb-[clamp(1.5rem,3vw,2rem)]" aria-hidden />
+
+        {/* Telemetry strip: mission scenario info */}
+        <div
+          data-boot="telemetry"
+          className="flex flex-col md:flex-row md:items-center md:justify-between gap-y-2 gap-x-8 w-full text-[11px] font-mono tracking-[0.12em] uppercase will-change-opacity"
+        >
+          <div className="text-fg-tertiary">
+            Representative Sortie · Illustrative
+          </div>
+          <div className="text-aqua tabular-nums flex flex-wrap gap-x-6 gap-y-1">
+            <span>Distance 72.4 km</span>
+            <span>Duration 01:42:00</span>
+            <span className="hidden md:inline">Max Elev 1,850 m</span>
+            <span className="hidden md:inline">Weather Clear</span>
+            <span className="hidden lg:inline">Wind 12 kts NE</span>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

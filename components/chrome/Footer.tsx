@@ -11,28 +11,17 @@ const COLS: FooterColumn[] = [
   {
     title: "Stack",
     links: [
-      { label: "Stack overview", href: "/stack" },
-      { label: "SkyAnchor · Edge", href: "/stack#skyanchor" },
-      { label: "TENERE · Command", href: "/stack#tenere" },
-      { label: "Kiksuya · Theatre", href: "/stack#kiksuya" },
-    ],
-  },
-  {
-    title: "Vehicles",
-    links: [
-      { label: "All platforms", href: "/vehicles" },
-      { label: "Cerana", href: "/vehicles/cerana" },
-      { label: "Dorsata", href: "/vehicles/dorsata" },
-      { label: "Kari", href: "/vehicles/kari" },
+      { label: "SkyAnchor · Edge", href: "/#skyanchor" },
+      { label: "TENERE · Command", href: "/#tenere" },
+      { label: "Kiksuya · Theatre", href: "/#kiksuya" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "Mission", href: "/mission" },
       { label: "Field Notes", href: "/field-notes" },
       { label: "Careers", href: "/careers" },
-      { label: "Engage", href: "/engage" },
+      { label: "Talk to engineering", href: "/engage" },
     ],
   },
 ];
@@ -48,7 +37,7 @@ export function Footer() {
           className="mb-16"
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_repeat(3,1fr)] gap-10 md:gap-10 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_repeat(2,1fr)] gap-10 md:gap-10 mb-20">
           <div className="space-y-5 max-w-sm">
             {/* Composed from the transparent mark + wordmark assets - the
                 "full" lockup PNG carries its own dark plate and would read
@@ -58,9 +47,7 @@ export function Footer() {
               <Logo size={30} variant="wordmark" />
             </div>
             <p className="text-fg-muted text-sm leading-relaxed">
-              Karta Innovations builds the operational autonomy layer for
-              autonomous systems, engineered to navigate, decide and act where
-              GPS, comms and operator attention fail.
+              Command that survives uncertainty.
             </p>
           </div>
           {COLS.map((col) => (

@@ -23,17 +23,17 @@ export const ROLES: Role[] = [
     postedAt: "2026-05-10",
     status: "open",
     summary:
-      "Own the perception subsystem on the airframe. Visual-inertial, thermal, mmWave radar fusion under tight power and latency budgets. You will ship code that flies.",
+      "Own the perception subsystem on unmanned platforms. Visual-inertial, thermal, mmWave radar fusion under tight power and latency budgets. You will ship code that flies in validated operating envelopes.",
     doYou: [
       "Have shipped a perception system to a production embedded target",
       "Read accelerometer and gyro datasheets for fun",
       "Care more about calibrated uncertainty than benchmark headlines",
-      "Want to fly what you write",
+      "Want to see what you write operate in contested conditions",
     ],
     responsibilities: [
-      "Own the perception pipeline across Kari, Cerana and Dorsata",
-      "Define and enforce on-vehicle uncertainty calibration",
-      "Drive sensor selection and integration on new airframes",
+      "Own the perception pipeline across multiple validated platform integrations",
+      "Define and enforce on-platform uncertainty calibration and confidence bounds",
+      "Drive sensor selection and integration on new unmanned systems",
       "Field-deploy and field-debug across the operational envelope",
     ],
     niceToHave: [
@@ -52,7 +52,7 @@ export const ROLES: Role[] = [
     postedAt: "2026-05-12",
     status: "open",
     summary:
-      "Build the mission composer that lets one operator command a fleet. Constraint solving, sortie graphs, after-action audit at telemetry-frame rate. You will design the surface operators use in the worst hours of their day.",
+      "Build the mission composer that lets operators command fleets within validated bounds. Constraint solving, mission graphs, after-action audit at telemetry-frame rate. You will design the interface operators use in the worst hours of their day.",
     doYou: [
       "Have built a system humans rely on in high-stakes situations",
       "Treat cognitive bandwidth as a hard constraint, not a UX detail",
@@ -61,14 +61,14 @@ export const ROLES: Role[] = [
     ],
     responsibilities: [
       "Architect TENERE's mission graph + constraint solver",
-      "Define the after-action audit surface from telemetry to PDF",
-      "Partner with Edge and Doctrine teams on interface contracts",
-      "Ride along on field deployments to ground designs in reality",
+      "Define the after-action audit surface from telemetry to PDF and inspection tools",
+      "Partner with Edge and Doctrine teams on integration contracts",
+      "Ride along on field deployments to ground designs in operating reality",
     ],
     niceToHave: [
       "Background in optimisation, planning, or formal methods",
-      "Experience with mission-critical UI work",
-      "Working knowledge of allied-export defence procurement",
+      "Experience with mission-critical UI and control systems",
+      "Working knowledge of defence procurement and system integration",
     ],
     contact: "info@kartainnovations.com",
   },

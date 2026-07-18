@@ -22,18 +22,12 @@ export default function FieldNotesPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Engineering essays · operational reports"
-        title={
-          <>
-            Notes from the <span className="text-amber">field</span>.
-          </>
-        }
+        eyebrow="FIELD NOTES · THE EVIDENCE LAYER"
+        title="Notes from the field."
         intro={
           <>
             <p>
-              Field Notes is where Karta engineers write - about the Edge stack,
-              about doctrine, about the operating envelopes we fly. No
-              marketing, no roadmap dreams. The work, as it actually is.
+              Engineering findings with conditions and boundaries, in public.
             </p>
           </>
         }
