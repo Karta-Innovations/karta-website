@@ -30,7 +30,7 @@ export function DeniedEnvironment({ variant = "mission" }: DeniedEnvironmentProp
 
   return (
     <section
-      id="denied"
+      id="denial"
       ref={sectionRef}
       className={plunged ? "denied-scope relative" : "relative bg-surface-deep"}
     >

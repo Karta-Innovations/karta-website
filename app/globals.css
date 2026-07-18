@@ -281,9 +281,11 @@ img, svg, video { display: block; max-width: 100%; }
    ============================================================ */
 
 .texture-text {
-  --texture-url: url("/textures/terrain-brief.jpg");
-  --texture-size: 165% auto;
-  --texture-pos: 30% 64%;
+  /* Dedicated label-free crop of the mission plate (clean terrain only);
+     the full annotated plate ships separately as terrain-brief.jpg. */
+  --texture-url: url("/textures/terrain-mask.jpg");
+  --texture-size: 135% auto;
+  --texture-pos: 30% 45%;
   background-image:
     linear-gradient(rgba(5, 17, 18, 0.16), rgba(5, 17, 18, 0.3)),
     var(--texture-url);
@@ -297,8 +299,8 @@ img, svg, video { display: block; max-width: 100%; }
 }
 
 @keyframes texture-drift {
-  from { background-position: 26% 60%; }
-  to { background-position: 36% 70%; }
+  from { background-position: 18% 35%; }
+  to { background-position: 42% 60%; }
 }
 .texture-text-drift {
   animation: texture-drift 44s ease-in-out infinite alternate;
