@@ -16,24 +16,13 @@ export default function CareersPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Engineering team · single station"
-        title={
-          <>
-            Build the stack <span className="text-amber">that flies</span>.
-          </>
-        }
+        eyebrow="Engineering team · operational autonomy"
+        title="Build command that survives uncertainty."
         intro={
           <>
             <p>
-              Karta hires for ownership and field-grounding. The people who
-              build the stack also deploy it. If you have ever wanted what you
-              build to be operationally consequential - not theoretically
-              important - this is the right room.
-            </p>
-            <p>
-              We work from a single engineering station, with field operations
-              across high-altitude, arid, littoral, urban and contested
-              envelopes. 
+              The work spans degraded sensing and confidence, constraint solving
+              and mission interfaces, policy systems, testing and field deployment.
             </p>
           </>
         }

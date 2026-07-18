@@ -14,9 +14,8 @@ interface NavLink {
 }
 
 const LINKS: NavLink[] = [
-  { label: "Stack", href: "/stack", detail: "SkyAnchor / TENERE / Kiksuya" },
-  { label: "Vehicles", href: "/vehicles", detail: "Apis family platforms" },
-  { label: "Mission", href: "/mission", detail: "Doctrine and bounds" },
+  { label: "Stack", href: "/#stack", detail: "SkyAnchor / TENERE / Kiksuya" },
+  { label: "Doctrine", href: "/#mission", detail: "Bounded autonomy principles" },
   { label: "Field Notes", href: "/field-notes", detail: "Engineering essays" },
   { label: "Careers", href: "/careers", detail: "Open roles" },
 ];
@@ -161,15 +160,15 @@ export function Nav() {
 
           <Link
             href="/engage"
-            aria-label="Engage"
+            aria-label="Talk to engineering"
             className={cn(
               "ml-1 inline-flex items-center gap-2 rounded-full",
               "px-3 py-1.5 text-[13px] font-medium sm:px-4",
-              "bg-amber text-ink hover:bg-amber-hi",
+              "bg-sand text-warm-ink hover:bg-sand-hi",
               "transition-colors duration-300",
             )}
           >
-            <span className="hidden sm:inline">Engage</span>
+            <span className="hidden sm:inline">Talk to engineering</span>
             <ArrowRight size={12} weight="bold" aria-hidden />
           </Link>
         </nav>
@@ -210,10 +209,10 @@ export function Nav() {
                         className="group flex items-baseline justify-between py-5 hover:pl-2 transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
                       >
                         <span className="flex items-baseline gap-5">
-                          <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary group-hover:text-amber transition-colors">
+                          <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary group-hover:text-sand transition-colors">
                             0{i + 1}
                           </span>
-                          <span className="font-display text-[clamp(2rem,5vw,4.25rem)] font-medium tracking-[-0.03em] leading-[0.95] text-fg group-hover:text-amber transition-colors">
+                          <span className="font-display text-[clamp(2rem,5vw,4.25rem)] font-medium tracking-[-0.03em] leading-[0.95] text-fg group-hover:text-sand transition-colors">
                             {link.label}
                           </span>
                         </span>
@@ -242,7 +241,7 @@ export function Nav() {
                   <Link
                     href="/engage"
                     onClick={() => setOpen(false)}
-                    className="inline-flex items-center gap-3 rounded-full bg-amber text-ink px-5 py-3 text-sm font-medium hover:bg-amber-hi transition-colors"
+                    className="inline-flex items-center gap-3 rounded-full bg-sand text-warm-ink px-5 py-3 text-sm font-medium hover:bg-sand-hi transition-colors"
                   >
                     Talk to engineering
                     <ArrowRight size={14} weight="bold" aria-hidden />

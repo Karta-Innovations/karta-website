@@ -27,7 +27,9 @@ import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 interface FaultZone {
   code: string;
   label: string;
-  /** One plain-language line - the only copy this section carries now. */
+  /** Mission clock timestamp. */
+  timestamp: string;
+  /** Failure description - canonical mission log text. */
   line: string;
   /** Halo center, % of the plate (x of 1535, y of 1024). */
   x: number;
@@ -49,30 +51,33 @@ const PLATE_H = 1024;
 const ZONES: FaultZone[] = [
   {
     code: "01",
-    label: "No GPS area",
-    line: "Navigation continues on vision and terrain matching alone.",
+    label: "GPS constellation lost",
+    timestamp: "T+00:38",
+    line: "Position source: none.",
     x: pct(640, PLATE_W),
     y: pct(390, PLATE_H),
     size: 14,
-    color: "var(--color-alert)",
+    color: "var(--color-oxblood-hi)",
   },
   {
     code: "02",
-    label: "Comms jammed",
-    line: "The aircraft flies its plan and reports back when the link returns.",
+    label: "Command link jammed",
+    timestamp: "T+00:51",
+    line: "Operator unreachable.",
     x: pct(945, PLATE_W),
     y: pct(518, PLATE_H),
     size: 12,
-    color: "var(--color-gold)",
+    color: "var(--color-oxblood-hi)",
   },
   {
     code: "03",
-    label: "Multiple aircraft",
-    line: "One operator supervises the flight; deconfliction is automatic.",
+    label: "Congested air",
+    timestamp: "T+01:07",
+    line: "Three aircraft, one corridor, no coordination channel.",
     x: pct(1140, PLATE_W),
     y: pct(375, PLATE_H),
     size: 13,
-    color: "var(--color-signal)",
+    color: "var(--color-oxblood-hi)",
   },
 ];
 
@@ -87,8 +92,9 @@ const STATS: { k: string; v: string }[] = [
 const MAP_ALT =
   "Night mission map: an isometric mountain terrain block with a dashed " +
   "flight route from take off to landing. The route crosses three glowing " +
-  "fault zones - a red no-GPS area, a cyan comms-jammed area, and an amber " +
-  "sector with multiple aircraft in the air. The mission completes anyway.";
+  "fault zones marked by oxblood halos - GPS lost, communications jammed, " +
+  "and congested airspace. Position estimated at 4 meters error despite all " +
+  "three failures. Representative sortie, illustrative.";
 
 export function MissionMap() {
   const ref = useRef<HTMLDivElement>(null);
@@ -105,9 +111,16 @@ export function MissionMap() {
     <div ref={ref} className="mx-auto w-full max-w-[1400px]">
       {/* The plate, full-frame */}
       <figure
-        className="relative w-full overflow-hidden rounded-2xl ring-1 ring-edge bg-ink-2"
+        className="relative w-full overflow-hidden rounded-2xl ring-1 ring-border-strong bg-ink-2"
         style={{ aspectRatio: `${PLATE_W} / ${PLATE_H}` }}
       >
+        {/* Mission log label: centered above plate */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full mb-4">
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-fg-tertiary whitespace-nowrap">
+            Mission log (canonical) / REPRESENTATIVE SORTIE · ILLUSTRATIVE
+          </p>
+        </div>
+
         <motion.div
           style={reduce ? undefined : { y: imageY, scale: imageScale }}
           className="absolute inset-0 will-change-transform"
@@ -154,7 +167,7 @@ export function MissionMap() {
       </div>
 
       {/* Mission stats - the concrete flight this map traces. A centered
-          telemetry strip: a ruled SORTIE header (cyan sortie index) over a
+          telemetry strip: a ruled SORTIE header (aqua sortie index) over a
           hairline-divided row of readouts, value over label. */}
       <div className="mt-10 flex flex-col items-center">
         <div className="flex w-full max-w-[560px] items-center gap-4">
@@ -163,7 +176,7 @@ export function MissionMap() {
             className="h-px flex-1 bg-gradient-to-r from-transparent to-edge-strong"
           />
           <span className="font-mono text-[11px] tracking-[0.3em] uppercase text-fg-tertiary whitespace-nowrap">
-            Sortie <span className="text-gold">047</span>
+            Sortie <span className="text-aqua">047</span>
           </span>
           <span
             aria-hidden
@@ -191,6 +204,14 @@ export function MissionMap() {
           ))}
         </dl>
       </div>
+
+      {/* The curiosity gap: the hinge of the whole page. Sand text on dark,
+          mono, with breathing room. It arrives last in the scroll sequence. */}
+      <div className="mt-16 md:mt-20 flex justify-center">
+        <p className="font-mono text-[13px] tracking-[0.15em] uppercase text-sand text-center max-w-[70ch]">
+          T+01:08 · AIRCRAFT STILL ON CORRIDOR · POSITION SOURCE: ONBOARD · HOW?
+        </p>
+      </div>
     </div>
   );
 }
@@ -205,7 +226,7 @@ function FaultList({ compact = false }: { compact?: boolean }) {
             : "text-[11px] tracking-[0.22em] mb-4"
         }`}
       >
-        Fault conditions
+        Mission log
       </p>
       <ol className={compact ? "space-y-3" : "space-y-4"}>
         {ZONES.map((zone) => (
@@ -215,24 +236,24 @@ function FaultList({ compact = false }: { compact?: boolean }) {
               className="mt-[5px] size-2 shrink-0 rounded-full ring-1 ring-edge-strong"
               style={{ background: zone.color }}
             />
-            <div>
+            <div className="flex-1">
               <p
-                className={`font-mono uppercase text-fg ${
+                className={`font-mono uppercase text-oxblood-hi ${
                   compact
-                    ? "text-[11px] tracking-[0.18em]"
-                    : "text-[12px] tracking-[0.2em]"
+                    ? "text-[10px] tracking-[0.18em]"
+                    : "text-[11px] tracking-[0.18em]"
                 }`}
               >
-                {zone.code} · {zone.label}
+                {zone.timestamp} · FAILURE {zone.code}
               </p>
               <p
                 className={`text-fg-muted ${
                   compact
-                    ? "mt-0.5 text-[12px] leading-[1.5]"
-                    : "mt-1 text-[14px] leading-[1.55]"
+                    ? "mt-0.5 text-[11px] leading-[1.4]"
+                    : "mt-1 text-[13px] leading-[1.5]"
                 }`}
               >
-                {zone.line}
+                {zone.label.toUpperCase()} — {zone.line}
               </p>
             </div>
           </li>
@@ -252,7 +273,7 @@ function FaultList({ compact = false }: { compact?: boolean }) {
             aria-hidden
             className="size-3 rounded-full border border-dashed border-fg-tertiary"
           />
-          Risk zone
+          Fault zone
         </span>
       </div>
     </div>

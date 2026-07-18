@@ -4,9 +4,9 @@ import { EngageForm } from "@/components/forms/EngageForm";
 import { DoppelrandCard } from "@/components/primitives/DoppelrandCard";
 
 export const metadata: Metadata = {
-  title: "Engage",
+  title: "Talk to engineering",
   description:
-    "Open an engagement with Karta. Procurement, partnership, press - talk directly to the team that ships the code.",
+    "Direct line to Karta engineering. Procurement, partnership, integration - talk to the team that ships the code.",
 };
 
 export default function EngagePage() {

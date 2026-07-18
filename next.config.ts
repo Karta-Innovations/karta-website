@@ -11,6 +11,30 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["@phosphor-icons/react", "framer-motion"],
   },
+  redirects: async () => [
+    // One-sortie redesign: fold /stack, /mission, /vehicles into homepage acts.
+    // QA phase: permanent: false. Flip to true at launch.
+    {
+      source: "/stack",
+      destination: "/#stack",
+      permanent: false,
+    },
+    {
+      source: "/mission",
+      destination: "/#mission",
+      permanent: false,
+    },
+    {
+      source: "/vehicles",
+      destination: "/",
+      permanent: false,
+    },
+    {
+      source: "/vehicles/:slug",
+      destination: "/",
+      permanent: false,
+    },
+  ],
 };
 
 export default nextConfig;

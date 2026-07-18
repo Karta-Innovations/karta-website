@@ -50,29 +50,24 @@ export function DeniedEnvironment({ variant = "mission" }: DeniedEnvironmentProp
         ) : null}
 
         <div className="relative mx-auto max-w-[1400px] pt-32 md:pt-48 pb-28 md:pb-36">
+          <div className="mb-8 flex items-center gap-2">
+            <span aria-hidden className="h-px w-6 bg-sand" />
+            <span className="inline-flex items-center gap-2.5 font-mono text-[11px] tracking-[0.22em] uppercase text-sand font-medium">
+              T+00:38:00 · THE NIGHT · REPRESENTATIVE SORTIE · ILLUSTRATIVE
+            </span>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-20 mb-16 md:mb-20">
             <div>
-              <div className="mb-6 flex items-center gap-3">
-                <span aria-hidden className="h-10 w-px bg-alert/60" />
-                <span className="inline-flex items-center gap-2.5 font-mono text-[11px] tracking-[0.22em] uppercase text-alert font-medium">
-                  <span
-                    aria-hidden
-                    className={`size-1.5 rounded-full bg-alert ${reduce ? "" : "animate-pulse"}`}
-                  />
-                  Fault conditions
-                </span>
-              </div>
-              <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg max-w-[18ch]">
-                The denied environment is where{" "}
-                <span className="text-amber">autonomy earns its keep</span>.
+              <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.035em] leading-[0.98] text-fg max-w-[20ch]">
+                Then the night takes the plan apart.
               </h2>
             </div>
             <div className="lg:pt-6">
               <p className="text-fg-muted text-[17px] leading-[1.65] max-w-[60ch]">
-                Real operations are defined by what fails. GPS, comms and
-                operator attention degrade, usually together. One route from
-                take off to landing, three fault zones, and a mission that
-                completes anyway.
+                Three failures across the next thirty minutes. GPS fails first.
+                Then comms. Then the sky gets crowded. The mission log is the
+                only text that matters now.
               </p>
             </div>
           </div>
