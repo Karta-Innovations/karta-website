@@ -1,10 +1,22 @@
 import type { Metadata } from "next";
-import { Anek_Latin, Anek_Devanagari, Azeret_Mono } from "next/font/google";
+import {
+  Anek_Bangla,
+  Anek_Devanagari,
+  Anek_Gujarati,
+  Anek_Gurmukhi,
+  Anek_Kannada,
+  Anek_Latin,
+  Anek_Malayalam,
+  Anek_Odia,
+  Anek_Tamil,
+  Anek_Telugu,
+  Azeret_Mono,
+} from "next/font/google";
 import { Nav } from "@/components/chrome/Nav";
 import { Footer } from "@/components/chrome/Footer";
 import { Grain } from "@/components/chrome/Grain";
 import { BootScript } from "@/components/chrome/BootScript";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { MotionProvider } from "@/components/motion/MotionProvider";
 import "./globals.css";
 
 // Anek (Ek Type, Mumbai): multiscript family - physical, precise, rooted in
@@ -23,12 +35,78 @@ const azeretMono = Azeret_Mono({
   display: "swap",
 });
 
-// Used once per page maximum - the कर्ता etymology moment, per brand playbook.
+// The hero rotates one shaped word across the Anek multiscript family. Script
+// fonts are not preloaded, so each downloads only if the browser needs it.
 const anekDevanagari = Anek_Devanagari({
   variable: "--font-anek-devanagari",
-  subsets: ["devanagari", "latin"],
-  axes: ["wdth"],
+  subsets: ["devanagari"],
+  weight: "500",
   display: "swap",
+  preload: false,
+});
+
+const anekTelugu = Anek_Telugu({
+  variable: "--font-anek-telugu",
+  subsets: ["telugu"],
+  weight: "500",
+  display: "swap",
+  preload: false,
+});
+
+const anekTamil = Anek_Tamil({
+  variable: "--font-anek-tamil",
+  subsets: ["tamil"],
+  weight: "500",
+  display: "swap",
+  preload: false,
+});
+
+const anekKannada = Anek_Kannada({
+  variable: "--font-anek-kannada",
+  subsets: ["kannada"],
+  weight: "500",
+  display: "swap",
+  preload: false,
+});
+
+const anekMalayalam = Anek_Malayalam({
+  variable: "--font-anek-malayalam",
+  subsets: ["malayalam"],
+  weight: "500",
+  display: "swap",
+  preload: false,
+});
+
+const anekGujarati = Anek_Gujarati({
+  variable: "--font-anek-gujarati",
+  subsets: ["gujarati"],
+  weight: "500",
+  display: "swap",
+  preload: false,
+});
+
+const anekGurmukhi = Anek_Gurmukhi({
+  variable: "--font-anek-gurmukhi",
+  subsets: ["gurmukhi"],
+  weight: "500",
+  display: "swap",
+  preload: false,
+});
+
+const anekBangla = Anek_Bangla({
+  variable: "--font-anek-bangla",
+  subsets: ["bengali"],
+  weight: "500",
+  display: "swap",
+  preload: false,
+});
+
+const anekOdia = Anek_Odia({
+  variable: "--font-anek-odia",
+  subsets: ["oriya"],
+  weight: "500",
+  display: "swap",
+  preload: false,
 });
 
 const SITE_URL = "https://karta.ai";
@@ -81,7 +159,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       lang="en"
       // Dark-only site: the attribute is static, not toggled.
       data-theme="dark"
-      className={`${anekLatin.variable} ${azeretMono.variable} ${anekDevanagari.variable}`}
+      className={`${anekLatin.variable} ${azeretMono.variable} ${anekDevanagari.variable} ${anekTelugu.variable} ${anekTamil.variable} ${anekKannada.variable} ${anekMalayalam.variable} ${anekGujarati.variable} ${anekGurmukhi.variable} ${anekBangla.variable} ${anekOdia.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -89,16 +167,20 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <BootScript />
       </head>
       <body className="min-h-dvh bg-ink text-fg">
-        <a href="#content" className="skip-link">
-          Skip to content
-        </a>
-        <SmoothScroll />
-        <Grain />
-        <Nav />
-        <main id="content" className="relative">
-          {children}
-        </main>
-        <Footer />
+        <MotionProvider>
+          <a href="#content" className="skip-link">
+            Skip to content
+          </a>
+          <Grain />
+          <div className="mission-progress" aria-hidden>
+            <span className="mission-progress__fill" />
+          </div>
+          <Nav />
+          <main id="content" className="relative">
+            {children}
+          </main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

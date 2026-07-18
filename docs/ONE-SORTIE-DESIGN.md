@@ -19,14 +19,14 @@
 **Synthesis update (2026-07-18, mid-build):** the full contract docs (`DESIGN.md`, `PRODUCT.md`, blueprint refinements) landed in the working tree during implementation. Decisions taken to merge them with this spec:
 
 - **Adopted:** the color-state architecture — teal and sand are true *primary fields*, not accents on black. Act surfaces: launch = teal-black night → brief = tide-teal field → denial = deep current plunging to black (oxblood faults) → the stack mnemonic band = **light field-sand with warm-ink text** (dawn: the answer arrives) → stack layers = deep-current/teal bands (aqua artifacts) → doctrine = bounded oxblood field resolving toward sand → Hyderabad = teal, warm → landing = night ink. Derived neutrals adopted: warm paper `#FFF3DE`, warm ink `#152E2F`, deep current `#082E31`, pale tide `#E1F0ED`, field muted `#D8C8AF`. Oxblood semantics widened: denial *and* doctrine-boundary.
-- **Adopted:** Anek Latin (display/body) + Anek Devanagari (etymology) + Azeret Mono (instrument data) via `next/font/google`, replacing Geist/JetBrains/Noto.
+- **Adopted:** Anek Latin (display/body) plus nine matching Anek Indian-script cuts for the hero identity, with Azeret Mono for instrument data, via `next/font/google`.
 - **Adopted:** PRODUCT.md's approved message hierarchy verbatim — hero texture word `AUTONOMY`, hook *"Command that survives uncertainty."*, deck = the plain definition, banned-phrase list (so no "every decision logged" absolutes in copy). CTA: one solid `Talk to engineering`; `See autonomy in operation` is a secondary text link to the operation act.
 - **Adopted:** redirects via `next.config.ts` `redirects()` with `permanent: false` during QA.
-- **Still diverging (this spec wins):** the two founder-supplied mission plates stay, labeled `REPRESENTATIVE SORTIE · ILLUSTRATIVE` — the contract's blanket aircraft-imagery ban is relaxed to "no vehicle *marketing*"; the plates are the story's concrete spine and the founder's demonstrated taste. The page keeps the sortie act structure and mission clock (`#launch/#brief/#denial/#stack/#mission/#hyderabad/#landing`) rather than the abstract decision-line chapters; `/vehicles*` redirects to `/`.
+- **Still diverging (this spec wins):** the two founder-supplied mission plates stay as a single planned-versus-field comparison. The contract's blanket aircraft-imagery ban is relaxed to "no vehicle *marketing*"; the plates are the story's concrete spine and the founder's demonstrated taste. The current page structure is `#launch/#brief/#stack/#mission/#hyderabad/#landing`; `#denial` remains an inner compatibility anchor and `/vehicles*` redirects to `/`.
 
 **Where this spec deliberately diverges:**
 - **The terrain plates stay.** The blueprint rejects `terrain.png` / `mission-corridor.jpg` because aircraft symbols are baked in. Decision: removing *vehicle product marketing* is not the same as banning aircraft from mission illustration. The plates are founder-supplied cinematic art (the established taste on this project), and the whole page is framed as one representative sortie — an aircraft in the mission map is the story, not a product pitch. The framing label `REPRESENTATIVE SORTIE · ILLUSTRATIVE` (mono, on both plates) enforces the honesty rule instead.
-- **Fonts stay Geist Sans + JetBrains Mono + Noto Serif Devanagari.** The blueprint proposes an Anek/Azeret migration; that is a separate, later decision — no font churn in this pass.
+- **Typography decision superseded:** the implemented system uses Anek Latin, matching Anek Indian-script cuts, and Azeret Mono.
 - **The story is a sortie, not an abstract decision-line.** The blueprint's chapter arc (intent → degradation → gate → record) is preserved, but told through the two owned plates and a mission clock rather than a new abstract state diagram we would have to invent assets for.
 
 ---
@@ -81,7 +81,9 @@ Unchanged from `PRODUCT.md`, in priority order: defense evaluators (need credibi
 
 ## 5. The page — act by act
 
-The page is a mission. A persistent, subtle **mission clock** (mono, top-right of each act's eyebrow) advances with scroll position. Section IDs double as anchors: `#launch`, `#brief`, `#denial`, `#stack` (`#skyanchor` / `#tenere` / `#kiksuya`), `#mission`, `#hyderabad`, `#landing`.
+The page is a mission. A persistent, subtle route line advances with scroll position. Section IDs double as anchors: `#launch`, `#brief` (including the `#denial` compatibility anchor), `#stack` (`#skyanchor` / `#tenere` / `#kiksuya`), `#mission`, `#hyderabad`, `#landing`.
+
+> **Narrative revision, 2026-07-18:** The former `THE BRIEF` and `THE NIGHT` acts are now one `OperationalReality` section. The old "The plan is perfect" and "Then the night takes the plan apart" headlines are retired. One headline, one detailed operating argument, one planned-versus-field visual, and one three-condition response rail now hand directly into the autonomy stack. This revision supersedes the separate Act 1 and Act 2 descriptions below.
 
 ### Act 0 — `#launch` · T-00:00:00 · LAUNCH
 
@@ -136,7 +138,7 @@ The page is a mission. A persistent, subtle **mission clock** (mono, top-right o
 
 - Headline: **"Autonomy without accountability is a liability."**
 - The four operating principles (01 bounded autonomy · 02 integration discipline · 03 audit-by-design · 04 allied export), tightened to two lines each.
-- The etymology moment (Devanagari, the one place it appears): **कर्ता — the one who acts, and answers for it.** *"We named the company after the accountable actor. The machine acts; a human answers. The log proves it."*
+- The identity moment lives in the hero. The word Karta cycles as one shaped unit through Devanagari, Telugu, Tamil, Kannada, Malayalam, Gujarati, Gurmukhi, Bangla, and Odia while the English accountability explanation stays fixed.
 
 *SUCCESs served: Credible (doctrine you can hold us to), Emotional (identity, responsibility).*
 
@@ -153,13 +155,15 @@ The page is a mission. A persistent, subtle **mission clock** (mono, top-right o
 - **Talk to engineering** (sand primary → `/engage`) — *"No sales team exists."*
 - **Fly the next one** (ghost → `/careers`)
 - Quiet third link: *Field notes — how we think, in public* → `/field-notes`
-- Optional texture-mask coda: the single word **LANDED** small, terrain-filled — bookending the hero treatment.
+- The landing closes on the final Field Notes link, without a decorative text coda.
 
 *SUCCESs served: Stories (the sortie completes), Simple (core restated), Credible (the record, not a promise, is the ending).*
 
 **Honesty framing (applies to Acts 1–3):** both plates and the mission log carry a quiet mono label — `REPRESENTATIVE SORTIE · ILLUSTRATIVE`. Scenario numbers (72.4 km, 4 m drift, timestamps) are story furniture, clearly inside the scenario frame; they are never presented as measured product performance. Real performance claims live only in spec tables sourced from `lib/catalog.ts` content that engineering already stands behind.
 
 ## 6. Color system — "warm light in a cold night"
+
+> **Palette revision, 2026-07-18:** The current build uses **Field Atlas**, derived from the supplied Karta palette: sage `#66785F`, mineral gray `#A0A4A0`, field tan `#B89A7A`, route orange `#E67E22`, and brick red `#C0392B`. Sage is re-derived into graphite surfaces, mineral gray carries information, tan adds physical context, brick red marks human intent and constraint, and orange is restricted to narrow route traces. Dark mineral separation prevents flag-like orange, light, and green groupings. The CSS defines the system in OKLCH and retains historic class names only as compatibility aliases. This revision supersedes the values and hue-specific rules below; the state semantics and sortie structure remain active.
 
 The palette is the story: **teal-black night** (the operating environment), **warm sand light** (the corridor, the human decision, the way home), **oxblood** (what the night takes), **aqua** (the instruments that keep talking).
 
@@ -202,7 +206,7 @@ State colors: `--color-alert` re-seats on `oxblood-hi #B05054`, `--color-ok #6FB
 
 ## 7. Typography & the texture-mask-text primitive
 
-Fonts unchanged: **Geist Sans** (display/body), **JetBrains Mono** (telemetry/labels), **Noto Serif Devanagari** (the single कर्ता moment). Display tracking −0.025em, lh 0.98, fluid clamp to ~96px for the hero.
+Implemented fonts: **Anek Latin** for display/body, matching **Anek Indian-script cuts** for the multilingual Karta word, and **Azeret Mono** for telemetry/labels. The script word uses a fixed-height slot and changes only with opacity and transform.
 
 **New primitive — `.texture-text`** (adapted from HyperFrames texture-mask-text to our stack, no GSAP — CSS + existing motion conventions):
 
@@ -222,7 +226,7 @@ Fonts unchanged: **Geist Sans** (display/body), **JetBrains Mono** (telemetry/la
 
 - Asset: `terrain.png` → optimized to `public/textures/terrain-brief.jpg` (~quality 85, ≤600 KB, 2400w). `--texture-pos` tuned so letterforms sample clean terrain + a streak of corridor light, not the baked-in labels.
 - Motion: `background-position` drifts a few percent over ~40 s via CSS keyframes; `prefers-reduced-motion`: static. (Only `transform/opacity/clip-path/filter` normally animate — `background-position` on a GPU-composited text layer at this cadence is the one sanctioned exception; if it janks in verification, fall back to a masked `<div>` with `transform` drift.)
-- Usage budget: hero display, act numerals (optional, subtle), the `LANDED` coda. Nowhere else — it is a signature, not a wallpaper.
+- Usage budget: hero display and act numerals (optional, subtle). Nowhere else - it is a signature, not a wallpaper.
 
 ## 8. Components — keep / kill / new
 

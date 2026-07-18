@@ -6,9 +6,10 @@ Asset inventory and punch list for the One Sortie redesign (`redesign/v3-operati
 
 | File | Used for | Status |
 |---|---|---|
-| `public/textures/terrain-brief.jpg` | Act 1 THE BRIEF - daylight corridor plate (launch → objective, three risk zones, stats strip) | OK - optimized from root `terrain.png` |
-| `public/textures/terrain-mask.jpg` | `.texture-text` fill (hero AUTONOMY, landing LANDED) - label-free crop of the plate | OK |
-| `public/imagery/mission-corridor.jpg` | Act 2 THE NIGHT - isometric night sortie plate (MissionMap) | OK - founder-supplied |
+| `public/imagery/sortie-plan-v2.jpg` | One Sortie clear-condition corridor plate | Active - generated editorial scenario image, illustrative |
+| `public/imagery/sortie-field-v2.jpg` | Matching corridor under degraded weather and visibility | Active - derived from the same locked-camera scene, illustrative |
+| `public/textures/terrain-mask.jpg` | Reserved `.texture-text` terrain fill, currently unused | OK |
+| `public/textures/terrain-brief.jpg` / `public/imagery/mission-corridor.jpg` | Previous annotated and isometric mission plates | Retained as source references, no longer rendered |
 | `public/imagery/hyderabad.jpg` | Act 5 GROUND TRUTH skyline (teal dusk wash applied in code) | OK |
 | `public/imagery/skyanchor.jpeg` / `tenere-gcs.jpeg` / `forest.jpg` | Stack layer stills (if wired) | Placeholder quality |
 | `public/brand/*` | Logo lockups + PWA icons | OK |

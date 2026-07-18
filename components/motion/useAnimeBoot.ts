@@ -33,7 +33,12 @@ export function useAnimeBoot(
     const scope = scopeRef.current;
     if (!scope) return;
 
-    const markDone = () => scope.setAttribute("data-boot-done", "");
+    const markDone = () => {
+      scope.setAttribute("data-boot-done", "");
+      scope.querySelectorAll<HTMLElement>("[data-boot]").forEach((element) => {
+        element.style.willChange = "auto";
+      });
+    };
 
     // Read the media query directly (not via useReducedMotionSafe) so the
     // effect runs exactly once - the hook's post-mount flip would restart

@@ -75,7 +75,7 @@ export default async function NotePage({ params }: NotePageProps) {
                 <Link
                   key={o.slug}
                   href={`/field-notes/${o.slug}`}
-                  className="group block rounded-2xl ring-1 ring-edge hover:ring-sand/40 transition-all p-7"
+                  className="group block rounded-2xl ring-1 ring-edge hover:ring-flare/40 transition-[box-shadow,background-color] duration-200 p-7"
                 >
                   <div className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand mb-3">
                     {DATE_FMT.format(new Date(o.date))}

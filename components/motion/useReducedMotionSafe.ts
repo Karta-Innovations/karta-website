@@ -3,13 +3,14 @@
 import { useSyncExternalStore } from "react";
 
 /**
- * Hydration-safe prefers-reduced-motion.
+ * Hydration-safe motion capability check.
  *
  * Subscribes to the prefers-reduced-motion media query in a way that avoids
  * hydration mismatches. Returns false during SSR and initial hydration,
- * then subscribes to the real preference post-mount. Sections that swap DOM
- * structure for reduced motion (static lists instead of pinned scenes) must
- * use this instead of framer-motion's useReducedMotion directly.
+ * then subscribes to the real preference post-mount. It also chooses the
+ * static path when IntersectionObserver is unavailable so in-view reveals
+ * can never leave narrative content hidden. Sections that swap DOM structure
+ * for reduced motion must use this instead of Framer Motion directly.
  */
 export function useReducedMotionSafe(): boolean {
   return useSyncExternalStore(
@@ -38,15 +39,18 @@ export function useReducedMotionSafe(): boolean {
       return () => {};
     },
     () => {
-      // Server-side snapshot: always false (no media query in SSR)
-      return false;
-    },
-    () => {
-      // Client-side snapshot: read the media query preference
+      // Client snapshot: read the current user preference.
       if (typeof window === "undefined") {
         return false;
       }
-      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      return (
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        !("IntersectionObserver" in window)
+      );
+    },
+    () => {
+      // Server snapshot: no media query is available during SSR.
+      return false;
     },
   );
 }

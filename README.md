@@ -55,7 +55,7 @@ karta-web/
 
 | Route | Purpose |
 |---|---|
-| `/` | The One Sortie - one long page: `#launch` hero → `#brief` → `#denial` → `#stack` (`#skyanchor` / `#tenere` / `#kiksuya`) → `#mission` → `#hyderabad` → `#landing` |
+| `/` | The One Sortie - one long page: `#launch` hero → `#brief` unified operating reality (`#denial` compatibility anchor) → `#stack` (`#skyanchor` / `#tenere` / `#kiksuya`) → `#mission` → `#hyderabad` → `#landing` |
 | `/field-notes` + `/field-notes/[slug]` | Engineering essays - the public evidence layer |
 | `/careers` + `/careers/[slug]` | Open roles |
 | `/engage` + `/api/engage` | Talk to engineering |
@@ -67,16 +67,18 @@ Brand colors, type scale, motion easing, and radii are defined in `app/globals.c
 
 | Token | Value | Role |
 |---|---|---|
-| `bg-ink` | `#051112` | Page baseline - teal-black night |
-| `bg-teal` | `#13737A` | Tide teal - primary brand field |
-| `bg-sand` / `text-sand` | `#FBCA89` | Field sand - luminous accent, CTAs, mission clock |
-| `bg-oxblood` | `#88393C` | Denial + doctrine boundary |
-| `text-aqua` | `#81D1D0` | Telemetry - mono readouts, audit lines |
-| `text-fg` | `#F5F3EC` | Warm off-white text |
+| `bg-ink` | `oklch(0.16 0.022 145)` | Page baseline - sage graphite `#071008` |
+| `bg-sage` | `oklch(0.550647 0.043468 136.971)` | Supplied sage `#66785F`; terrain and operating context |
+| `text-mineral` | `oklch(0.714251 0.007295 145.499)` | Supplied mineral gray `#A0A4A0`; supporting information |
+| `bg-field-tan` | `oklch(0.705198 0.056921 68.506)` | Supplied field tan `#B89A7A`; physical context |
+| `text-route` | `oklch(0.695758 0.159641 55.544)` | Supplied orange `#E67E22`; narrow live route signal |
+| `bg-flare` | `oklch(0.543346 0.174006 29.697)` | Supplied brick red `#C0392B`; human action and constraint |
+| `text-return` | `oklch(0.76 0.06 137)` | Lifted sage returned state and audit lines |
+| `text-fg` | `oklch(0.91 0.012 145)` | Mineral-tinted primary text `#DDE3DC` |
 
-Derived neutrals (`warm-paper`, `warm-ink`, `current-deep`, `pale-tide`) carry text on colored fields - see `DESIGN.md` for the checked contrast pairs. Legacy `amber`/`gold` utilities alias to sand/aqua.
+Derived neutrals carry text on colored fields - see `DESIGN.md` for checked contrast pairs. Legacy hue utilities remain compatibility aliases while new work uses semantic field roles.
 
-Fonts: Anek Latin + Anek Devanagari (Ek Type) and Azeret Mono, self-hosted via `next/font/google`. No runtime font CDN dependency.
+Fonts: Anek Latin plus the Anek Devanagari, Telugu, Tamil, Kannada, Malayalam, Gujarati, Gurmukhi, Bangla, and Odia cuts (Ek Type), with Azeret Mono for instrument data. All are self-hosted via `next/font/google`; there is no runtime font CDN dependency.
 
 ## Engage form
 

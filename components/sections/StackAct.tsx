@@ -6,9 +6,9 @@ import { LayerBand } from "./stack-act/LayerBand";
 import { LoopClosing } from "./stack-act/LoopClosing";
 
 /**
- * Act 3 — THE ANSWER
+ * Act 3 - THE ANSWER
  * Folds the /stack page into one act: three responsibilities that close the loop.
- * - Mnemonic band: light sand surface with three connected statements
+ * - Mnemonic band: saturated violet surface with three connected statements
  * - Three layer bands: dark background, one per layer with mission-clock eyebrows
  * - Loop diagram: the circuit that closes intent and audit
  */

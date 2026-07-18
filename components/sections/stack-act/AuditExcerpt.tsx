@@ -1,6 +1,6 @@
 /**
  * AUDIT EXCERPT
- * The credibility centerpiece — a bordered mono panel showing a
+ * The credibility centerpiece - a bordered mono panel showing a
  * representative doctrine-attributed log entry.
  */
 export function AuditExcerpt() {
@@ -10,7 +10,7 @@ export function AuditExcerpt() {
         Representative record
       </p>
       <div className="mt-5 border border-edge bg-surface px-4 py-4 md:px-5 md:py-5">
-        <div className="space-y-1.5 font-mono text-[11px] leading-[1.7] text-aqua">
+        <div className="space-y-1.5 font-mono text-[11px] leading-[1.7] text-return">
           <div>T+00:38:12  ACQUIRE  pos 17.454N 78.500E  confidence 4.2m</div>
           <div>T+00:51:04  HOLD  alt 140m  clause KX-2.4 · link-loss loiter</div>
           <div className="text-fg-tertiary">auth: pre-approved  operator notified</div>

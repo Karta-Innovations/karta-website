@@ -11,8 +11,10 @@ export const EASING = {
   quint: [0.22, 1, 0.36, 1],
   /** cubic-bezier(0.16, 1, 0.3, 1) - the signature snappy reveal */
   expo: [0.16, 1, 0.3, 1],
-  /** cubic-bezier(0.32, 0.72, 0, 1) - decisive exit */
-  out: [0.32, 0.72, 0, 1],
+  /** cubic-bezier(0.23, 1, 0.32, 1) - crisp interface settle */
+  out: [0.23, 1, 0.32, 1],
+  /** cubic-bezier(0.77, 0, 0.175, 1) - deliberate state change */
+  inOut: [0.77, 0, 0.175, 1],
 } as const satisfies Record<string, [number, number, number, number]>;
 
 export const DURATION = {
@@ -21,5 +23,5 @@ export const DURATION = {
   slow: 0.56,
   extra: 0.84,
   /** long-form reveals (word staggers, section headlines) */
-  reveal: 0.9,
+  reveal: 0.72,
 } as const;
