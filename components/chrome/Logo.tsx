@@ -61,7 +61,7 @@ export function Logo({
         alt={asset.alt}
         width={width}
         height={size}
-        priority={priority}
+        loading={priority ? "eager" : undefined}
         className="block h-auto w-auto shrink-0 select-none"
         style={{ height: size, width }}
       />

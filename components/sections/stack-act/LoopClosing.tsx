@@ -9,6 +9,7 @@ import {
   type Variants,
 } from "framer-motion";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
+import { OperationalField } from "@/components/primitives/OperationalField";
 
 /**
  * THE LOOP CLOSES
@@ -37,8 +38,10 @@ export function LoopClosing() {
   };
 
   return (
-    <section className="relative bg-current-deep px-6 py-20 md:px-10 md:py-32">
-      <div className="mx-auto max-w-[90rem]">
+    <section className="relative isolate overflow-hidden bg-current-deep px-6 py-20 md:px-10 md:py-32">
+      <div aria-hidden className="section-field section-field--loop" />
+      <OperationalField variant="return" animated={false} />
+      <div className="relative z-10 mx-auto max-w-[90rem]">
         {/* Heading */}
         <motion.div
           variants={reveal}
@@ -54,7 +57,7 @@ export function LoopClosing() {
             The autonomy loop is a four-step circuit. It begins when an operator
             expresses intent. SkyAnchor surfaces the situation. TENERE adapts the
             mission. Kiksuya records why each action was allowed. Then, audit
-            becomes the next intent — the loop runs again.
+            becomes the next intent - the loop runs again.
           </p>
         </motion.div>
 
@@ -67,7 +70,7 @@ export function LoopClosing() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "0px 0px -80px 0px" }}
-          className="mx-auto mt-12 max-w-[60ch] text-center font-display text-[clamp(1.3rem,2.5vw,1.8rem)] font-medium leading-[1.3] tracking-[-0.03em] text-sand"
+          className="mx-auto mt-12 max-w-[60ch] text-center font-display text-[clamp(1.3rem,2.5vw,1.8rem)] font-medium leading-[1.3] tracking-[-0.03em] text-flare"
         >
           The loop is not closed until the record returns.
         </motion.p>
@@ -80,9 +83,9 @@ export function LoopClosing() {
  * LOOP DIAGRAM
  * Redrawn from GrandScheme for the homepage act:
  * - Four phases as nodes
- * - Forward path (sand) shows intent flowing down
- * - Return arc (aqua) shows audit flowing back
- * - Pulse orbits when not in reduced motion
+ * - Forward path (flare) shows intent flowing down
+ * - Return arc (return) shows audit flowing back
+ * - The path draws once as the diagram enters view
  */
 function LoopDiagram({ reduce }: { reduce: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -98,9 +101,6 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
   // Return arc: down the right, across the bottom, up the left, arrowhead back
   const returnArc = `C ${right + 37} ${NODE_CY} ${right + 41} ${NODE_CY + 28} ${right + 41} ${NODE_CY + 56} C ${right + 41} ${NODE_CY + 98} ${right + 17} ${NODE_CY + 120} ${right - 17} ${NODE_CY + 120} L ${left + 17} ${NODE_CY + 120} C ${left - 17} ${NODE_CY + 120} ${left - 41} ${NODE_CY + 98} ${left - 41} ${NODE_CY + 56} C ${left - 41} ${NODE_CY + 28} ${left - 37} ${NODE_CY} ${left} ${NODE_CY}`;
   const returnPath = `M ${right} ${NODE_CY} ${returnArc}`;
-  const circuitPath = `M ${left} ${NODE_CY} L ${right} ${NODE_CY} ${returnArc}`;
-
-  const pulseOpacity = useTransform(scrollYProgress, [0.9, 1], [0, 1]);
 
   return (
     <div ref={ref} className="mx-auto mt-12 max-w-[1100px]">
@@ -110,24 +110,7 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
         role="img"
         aria-label="The autonomy loop: Intent enters at the operator, SkyAnchor surfaces position, TENERE adapts the mission, Kiksuya records the decision, and audit flows back as the next intent."
       >
-        {/* Orbiting signal pulse */}
-        {!reduce ? (
-          <motion.g style={{ opacity: pulseOpacity }}>
-            <circle
-              r={4.5}
-              fill="var(--color-sand)"
-              style={{ filter: "drop-shadow(0 0 6px var(--color-sand))" }}
-            >
-              <animateMotion
-                dur="6.4s"
-                repeatCount="indefinite"
-                path={circuitPath}
-              />
-            </circle>
-          </motion.g>
-        ) : null}
-
-        {/* Forward segments (sand) — intent flowing down */}
+        {/* Forward segments: the route signal carries intent down. */}
         {[0, 1, 2].map((i) => {
           const x1 = NODE_CX[i] + NODE_R + 7;
           const x2 = NODE_CX[i + 1] - NODE_R - 7;
@@ -135,14 +118,14 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
             <g key={`seg-${i}`}>
               <ScrubbedPath
                 d={`M ${x1} ${NODE_CY} L ${x2} ${NODE_CY}`}
-                stroke="var(--color-sand)"
+                stroke="var(--color-route)"
                 progress={scrollYProgress}
                 range={[i * 0.18, i * 0.18 + 0.18]}
                 reduce={reduce}
               />
               <ScrubbedHead
                 d={`M ${x2 - 8} ${NODE_CY - 6} L ${x2} ${NODE_CY} L ${x2 - 8} ${NODE_CY + 6}`}
-                stroke="var(--color-sand)"
+                stroke="var(--color-route)"
                 progress={scrollYProgress}
                 at={i * 0.18 + 0.16}
                 reduce={reduce}
@@ -151,11 +134,11 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
           );
         })}
 
-        {/* Return arc (aqua) — audit flowing back */}
-        <g style={{ filter: "drop-shadow(0 0 7px color-mix(in srgb, var(--color-aqua) 45%, transparent))" }}>
+        {/* Return arc carries the audit back. */}
+        <g style={{ filter: "drop-shadow(0 0 7px color-mix(in oklab, var(--color-return) 45%, transparent))" }}>
           <ScrubbedPath
             d={returnPath}
-            stroke="var(--color-aqua)"
+            stroke="var(--color-return)"
             progress={scrollYProgress}
             range={[0.52, 0.94]}
             reduce={reduce}
@@ -163,7 +146,7 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
         </g>
         <ScrubbedHead
           d={`M ${left - 7} ${NODE_CY - 7} L ${left} ${NODE_CY} L ${left - 7} ${NODE_CY + 7}`}
-          stroke="var(--color-aqua)"
+          stroke="var(--color-return)"
           progress={scrollYProgress}
           at={0.93}
           reduce={reduce}
@@ -175,15 +158,15 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
             cx={NODE_CX[0]}
             cy={NODE_CY}
             r={NODE_R}
-            fill="var(--color-teal)"
-            stroke="var(--color-sand)"
+            fill="var(--color-return)"
+            stroke="var(--color-route)"
             strokeWidth={1.5}
           />
           <text
             x={NODE_CX[0]}
             y={NODE_CY + 5}
             textAnchor="middle"
-            fill="var(--color-warm-ink)"
+            fill="var(--color-night-ink)"
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 14,
@@ -227,15 +210,15 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
             cx={NODE_CX[1]}
             cy={NODE_CY}
             r={NODE_R}
-            fill="var(--color-teal)"
-            stroke="var(--color-sand)"
+            fill="var(--color-return)"
+            stroke="var(--color-route)"
             strokeWidth={1.5}
           />
           <text
             x={NODE_CX[1]}
             y={NODE_CY + 5}
             textAnchor="middle"
-            fill="var(--color-warm-ink)"
+            fill="var(--color-night-ink)"
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 14,
@@ -279,15 +262,15 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
             cx={NODE_CX[2]}
             cy={NODE_CY}
             r={NODE_R}
-            fill="var(--color-teal)"
-            stroke="var(--color-sand)"
+            fill="var(--color-return)"
+            stroke="var(--color-route)"
             strokeWidth={1.5}
           />
           <text
             x={NODE_CX[2]}
             y={NODE_CY + 5}
             textAnchor="middle"
-            fill="var(--color-warm-ink)"
+            fill="var(--color-night-ink)"
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 14,
@@ -331,15 +314,15 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
             cx={NODE_CX[3]}
             cy={NODE_CY}
             r={NODE_R}
-            fill="var(--color-teal)"
-            stroke="var(--color-aqua)"
+            fill="var(--color-return)"
+            stroke="var(--color-return)"
             strokeWidth={1.5}
           />
           <text
             x={NODE_CX[3]}
             y={NODE_CY + 5}
             textAnchor="middle"
-            fill="var(--color-warm-ink)"
+            fill="var(--color-night-ink)"
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 14,

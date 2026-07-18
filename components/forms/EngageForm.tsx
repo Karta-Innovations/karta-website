@@ -86,7 +86,7 @@ export function EngageForm() {
       </div>
 
       <fieldset>
-        <legend className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand mb-5">
+        <legend className="font-mono text-[11px] tracking-[0.22em] uppercase text-flare mb-5">
           Intent
         </legend>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -99,9 +99,9 @@ export function EngageForm() {
                 onClick={() => update("intent", it.id)}
                 aria-pressed={active}
                 className={cn(
-                  "text-left rounded-2xl p-5 ring-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                  "pressable text-left rounded-2xl p-5 ring-1",
                   active
-                    ? "bg-sand/10 ring-sand/40"
+                    ? "bg-flare/10 ring-flare/40"
                     : "bg-glass ring-edge hover:bg-glass hover:ring-edge-strong",
                 )}
               >
@@ -109,7 +109,7 @@ export function EngageForm() {
                   <span
                     className={cn(
                       "font-mono text-[11px] tracking-[0.22em] uppercase",
-                      active ? "text-sand" : "text-fg-tertiary",
+                      active ? "text-flare" : "text-fg-tertiary",
                     )}
                   >
                     {it.label}
@@ -117,7 +117,7 @@ export function EngageForm() {
                   <span
                     className={cn(
                       "size-3 rounded-full ring-1 ring-inset",
-                      active ? "bg-sand ring-sand" : "ring-fg-tertiary",
+                      active ? "bg-flare ring-flare" : "ring-fg-tertiary",
                     )}
                   />
                 </div>
@@ -176,9 +176,8 @@ export function EngageForm() {
           className={cn(
             "inline-flex items-center gap-3 rounded-full pl-6 pr-2 py-2",
             "font-medium text-[14px] tracking-[-0.005em]",
-            "bg-sand text-warm-ink",
-            "transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
-            "hover:bg-sand-hi active:scale-[0.98]",
+            "pressable bg-flare text-on-flare",
+            "hover:bg-flare-hi",
             "disabled:opacity-60 disabled:cursor-not-allowed",
           )}
         >
@@ -258,7 +257,7 @@ function Field({ label, name, value, onChange, type = "text", required, autoComp
         className={cn(
           "w-full rounded-md bg-glass ring-1 ring-edge",
           "px-4 py-3 text-fg placeholder:text-fg-tertiary",
-          "focus:ring-sand focus:ring-1 focus:bg-glass outline-none transition-all",
+          "focus:ring-flare focus:ring-1 focus:bg-glass outline-none transition-[background-color,box-shadow] duration-200",
         )}
       />
     </label>
@@ -286,7 +285,7 @@ function TextArea({ label, name, value, onChange, required, rows = 4, placeholde
         className={cn(
           "w-full rounded-md bg-glass ring-1 ring-edge",
           "px-4 py-3 text-fg placeholder:text-fg-tertiary leading-[1.55]",
-          "focus:ring-sand focus:ring-1 focus:bg-glass outline-none transition-all resize-none",
+          "focus:ring-flare focus:ring-1 focus:bg-glass outline-none transition-[background-color,box-shadow] duration-200 resize-none",
         )}
       />
     </label>

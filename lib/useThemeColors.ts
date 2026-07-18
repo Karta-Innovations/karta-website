@@ -1,9 +1,8 @@
 /**
  * Resolved palette consumed by 3D scenes.
  *
- * 3D shaders take hex strings, not CSS custom properties - so scenes can't
- * ride the CSS-var cascade like the rest of the site. The site is dark-only,
- * so the palette is a constant mirroring the tokens in app/globals.css.
+ * 3D shaders take hex strings, not CSS custom properties, so scenes cannot
+ * ride the CSS-var cascade. These values mirror the OKLCH tokens in CSS.
  * Change both places together.
  */
 export interface ThemePalette {
@@ -13,13 +12,13 @@ export interface ThemePalette {
   ink2: string;
   /** Primary body text (--color-fg) */
   fg: string;
-  /** Sparse single accent (--color-sand) */
-  amber: string;
-  /** Amber deepened (--color-sand-deep) */
-  amberDeep: string;
+  /** Human-intent accent (--color-flare) */
+  flare: string;
+  /** Flare deepened (--color-flare-deep) */
+  flareDeep: string;
   /** Borders / hairlines (--color-border) */
   border: string;
-  /** Indigo / surface lift (--color-surface) */
+  /** Sage / surface lift (--color-surface) */
   surface: string;
 
   /* ------- Domain-specific palette mixes per scene ------- */
@@ -41,22 +40,22 @@ export interface ThemePalette {
 }
 
 const DARK: ThemePalette = {
-  ink: "#051112",
-  ink2: "#0A1D1E",
-  fg: "#F5F3EC",
-  amber: "#FBCA89",
-  amberDeep: "#A87844",
-  border: "#16393B",
-  surface: "#0E2627",
+  ink: "#071008",
+  ink2: "#0E180D",
+  fg: "#DDE3DC",
+  flare: "#C0392B",
+  flareDeep: "#901F15",
+  border: "#293726",
+  surface: "#162213",
   terrain: {
-    valley: "#051112",
-    ridge: "#133335",
-    contour: "#1FA3AC",
-    fog: "#051112",
+    valley: "#071008",
+    ridge: "#32432B",
+    contour: "#A0BA95",
+    fog: "#071008",
   },
-  citySilhouette: "#030C0C",
-  lidar: "#81D1D0",
-  wireframe: "#81D1D0",
+  citySilhouette: "#030603",
+  lidar: "#A0BA95",
+  wireframe: "#A0BA95",
 };
 
 /**

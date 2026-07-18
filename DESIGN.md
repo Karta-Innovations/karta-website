@@ -2,6 +2,23 @@
 
 This document is the proposed visual contract for the operational-autonomy redesign on `codex/operational-autonomy-redesign`. It follows the reusable design-reference structure advocated by [getdesign.md](https://getdesign.md/): atmosphere, semantic color roles, type, layout, components, depth, responsive behavior, motion, accessibility, and explicit guardrails.
 
+## Current palette revision (2026-07-18)
+
+This revision supersedes all earlier hue-specific values elsewhere in this document. The current implementation uses a **Field Atlas** palette taken from the supplied Karta palette PDF and composed with the restraint, mineral gradients, and mapped depth of the Gambit reference while remaining distinctly Karta:
+
+| Role | Token | OKLCH | Meaning |
+| --- | --- | --- | --- |
+| Operating field | `--color-sage` | `oklch(0.550647 0.043468 136.971)` | Exact sage `#66785F`; terrain, contour context, and atmospheric fields. |
+| Information | `--color-mineral` | `oklch(0.714251 0.007295 145.499)` | Exact mineral gray `#A0A4A0`; secondary copy and map notation. |
+| Physical context | `--color-field-tan` | `oklch(0.705198 0.056921 68.506)` | Exact field tan `#B89A7A`; earth, material, and warm mineral gradients. |
+| Active route | `--color-route` | `oklch(0.695758 0.159641 55.544)` | Exact orange `#E67E22`; narrow route traces and live path state only. |
+| Human intent | `--color-flare` | `oklch(0.543346 0.174006 29.697)` | Exact brick red `#C0392B`; primary action, intervention, and constraint. |
+| Returned state | `--color-return` | `oklch(0.76 0.06 137)` | Lifted sage confirmation and audit return path. |
+| Page baseline | `--color-ink` | `oklch(0.16 0.022 145)` | Sage graphite `#071008`, never pure black. |
+| Primary text | `--color-fg` | `oklch(0.91 0.012 145)` | Mineral-tinted light `#DDE3DC`, never pure white. |
+
+Validated normal-text pairs include primary text on ink (`14.87:1`), mineral text on ink (`7.66:1`), tertiary text on ink (`4.93:1`), return on ink (`9.20:1`), warm light on brick red (`4.70:1`), route orange on ink (`6.79:1`), and dark ink on field tan (`7.20:1`). Exact sage is graphical rather than a body-text surface. Historic class names remain compatibility aliases while homepage components use the current semantic roles.
+
 ## Visual theme and atmosphere
 
 ### Design thesis
@@ -12,7 +29,7 @@ The interface should feel like a survey map placed beneath a precise command ins
 
 ### Physical scene
 
-A mission-systems evaluator opens the site on a large monitor in a bright briefing room after seeing too many glossy airframe presentations. The page feels grounded and readable in daylight, but consequential enough to reward close inspection. Warm field surfaces carry the human story. Deep teal instrument surfaces carry the system story. Oxblood marks constraints. Aqua marks returned or system-confirmed state and connective traces.
+A mission-systems evaluator opens the site on a large monitor in a bright briefing room after seeing too many glossy airframe presentations. The page feels grounded and readable in daylight, but consequential enough to reward close inspection. Sage graphite carries the operating story. Mineral gray and field tan make it physical. Brick red marks human action and constraint. Lifted sage marks returned or system-confirmed state.
 
 ### Brand voice words
 
@@ -22,14 +39,15 @@ A mission-systems evaluator opens the site on a large monitor in a bright briefi
 
 ### Color strategy
 
-**Full palette with named operational roles.** The four supplied colors all appear, but never as interchangeable decoration. The page moves through color as a state sequence:
+**Full palette with named operational roles.** The five supplied colors appear, but never as interchangeable decoration. The page moves through color as a state sequence:
 
-1. Deep teal: uncertainty and operating context.
-2. Sand: clarity and explanation.
-3. Oxblood: boundary, intervention, and consequence.
-4. Aqua: returned or system-confirmed state and connective traces.
+1. Sage graphite: uncertainty and operating context.
+2. Field tan and mineral gray: terrain, explanation, and material context.
+3. Brick red: boundary, intervention, consequence, and primary action.
+4. Route orange: a live path only, never a broad surface.
+5. Lifted sage: returned or system-confirmed state and connective traces.
 
-Teal and derived deep surfaces carry roughly 55 to 60 percent of the experience. Sand carries 25 to 30 percent. Aqua stays below 8 percent. Oxblood stays below 5 percent. Warm paper and derived inks exist for readable text and accessible states.
+Sage-derived dark surfaces carry roughly 70 percent of the experience. Mineral gray and tan provide atmospheric relief. Brick red stays compact and decisive. Orange appears only as a narrow route signal, separated from sage by dark mineral surfaces so the page never forms a flag-like composition.
 
 ## Color palette and roles
 
@@ -37,43 +55,40 @@ The user-supplied colors remain exact brand anchors. Derived neutrals are hue-ti
 
 | Token | Value | Role | Usage rule |
 | --- | --- | --- | --- |
-| `--color-tide` | `#13737A` | Primary teal | Brand surface, large bands, navigation state, hero atmosphere. Pair with warm paper for body text. |
-| `--color-field` | `#FBCA89` | Primary sand | Explanatory chapters, large display text, selected primary actions. Pair with warm ink or oxblood for body text. |
-| `--color-boundary` | `#88393C` | Accent oxblood | Constraint, intervention, denied state, and doctrine boundary. Never use as generic decoration. |
-| `--color-telemetry` | `#81D1D0` | Accent aqua | Returned or system-confirmed state, return path, confidence trace, focus ring, and selected system indicators. |
-| `--color-current-deep` | `#082E31` | Deep teal surface | Highest-contrast instrument field, footer, diagrams, WebGL fog, and dark controls. |
-| `--color-warm-paper` | `#FFF3DE` | Primary light text/surface | Body text on teal and oxblood, forced solid fallback for masked text, high-contrast paper bands. |
-| `--color-warm-ink` | `#152E2F` | Primary dark text | Body text on sand and aqua, outlines on light fields. |
-| `--color-pale-tide` | `#E1F0ED` | Secondary light text | Supporting text on teal where AA contrast is required. |
-| `--color-field-muted` | `#D8C8AF` | Muted light surface | Dividers, inactive data, captions on deep current only. Do not use for body text on primary teal. |
+| `--color-sage` | `#66785F` | Operating field | Contours, terrain atmosphere, and field geometry. Exact sage is graphical, not a body-text background. |
+| `--color-mineral` | `#A0A4A0` | Information | Secondary copy, map notation, and quiet metadata. |
+| `--color-field-tan` | `#B89A7A` | Physical context | Earth, material, and restrained warm gradients. |
+| `--color-route` | `#E67E22` | Active route | Thin route traces and current-path state only. Never use as a broad field. |
+| `--color-flare` | `#C0392B` | Human intent | Primary actions, intervention, and bounded constraint. |
+| `--color-ink` | `#071008` | Page baseline | Sage graphite surface and highest-contrast instrument field. |
+| `--color-fg` | `#DDE3DC` | Primary text | Mineral-tinted light text on dark field surfaces. |
+| `--color-return` | `#A0BA95` | Returned state | Audit return path, confirmation, and selected system indicators. |
 
 ### Checked contrast pairs
 
 | Foreground on background | Approximate ratio | Allowed use |
 | --- | --- | --- |
-| `#FFF3DE` on `#13737A` | `5.09:1` | Normal body text and controls. |
-| `#E1F0ED` on `#13737A` | `4.76:1` | Normal secondary text. |
-| `#FBCA89` on `#13737A` | `3.70:1` | Large display text and graphics only. |
-| `#81D1D0` on `#13737A` | `3.18:1` | Large labels, traces, focus decoration, and graphics only. |
-| `#FBCA89` on `#082E31` | `9.62:1` | Normal text and controls. |
-| `#81D1D0` on `#082E31` | `8.28:1` | Normal text and confirmed runtime state. |
-| `#152E2F` on `#FBCA89` | `9.50:1` | Normal body text and controls. |
-| `#88393C` on `#FBCA89` | `5.16:1` | Normal text, boundaries, and actions. |
-| `#FFF3DE` on `#88393C` | `7.09:1` | Normal text and controls. |
-| `#152E2F` on `#81D1D0` | `8.17:1` | Normal text and controls. |
+| `#DDE3DC` on `#071008` | `14.87:1` | Primary body text and controls. |
+| `#A0A4A0` on `#071008` | `7.66:1` | Secondary body text and metadata. |
+| `#7C827C` on `#071008` | `4.93:1` | Tertiary copy and compact mono labels. |
+| `#A0BA95` on `#071008` | `9.20:1` | Returned state and audit labels. |
+| `#F3EDE6` on `#C0392B` | `4.70:1` | Primary action labels. |
+| `#E67E22` on `#071008` | `6.79:1` | Route labels and narrow signals. |
+| `#091209` on `#B89A7A` | `7.20:1` | Dark text on field tan where needed. |
 
-Do not place oxblood body text on aqua. The approximate `4.44:1` ratio falls just below the normal-text target. Never rely on opacity to repair a weak pair.
+Never rely on opacity to repair a weak pair. Keep exact sage behind geometry, texture, or large display treatment rather than body copy.
 
 ### Semantic state rules
 
-- **Default and context:** tide teal.
-- **Readable explanation:** field sand with warm ink.
-- **Returned or system-confirmed:** telemetry aqua, supported by a text label or icon.
-- **Constraint or intervention:** boundary oxblood, supported by a text label, shape, or pattern.
-- **Unknown or inactive:** warm paper or muted field at a validated contrast.
-- **Focus:** two-layer ring, warm paper outside and telemetry aqua inside on dark surfaces; warm ink outside and tide teal inside on light surfaces.
+- **Default and context:** sage graphite.
+- **Readable explanation:** mineral text on dark field surfaces; dark ink on field tan only when a light band is required.
+- **Returned or system-confirmed:** lifted sage, supported by a text label or icon.
+- **Constraint or intervention:** brick red, supported by a text label, shape, or pattern.
+- **Active route:** orange, restricted to narrow traces and supported by text.
+- **Unknown or inactive:** mineral gray at a validated contrast.
+- **Focus:** two-layer warm-paper and brick-red ring.
 
-`System-confirmed` means the interface has acknowledged a runtime state. It does not mean independently validated, tested, certified, or approved. Evidence status must be stated in text with its source, conditions, date, and boundary. Never use aqua or any other color to make an illustrative artifact look validated.
+`System-confirmed` means the interface has acknowledged a runtime state. It does not mean independently validated, tested, certified, or approved. Evidence status must be stated in text with its source, conditions, date, and boundary. Never use color alone to make an illustrative artifact look validated.
 
 ## Typography rules
 
@@ -84,7 +99,7 @@ The brief calls for a type system that feels physical, precise, and rooted in In
 ### Families
 
 - **Display and body:** Anek Latin, variable weight and width. Ek Type designed Anek as a multiscript family with sharp terminals, tapered joins, and a broad width axis. Use wider, heavier cuts for the monumental headline and quieter middle cuts for body text.
-- **Devanagari identity moment:** Anek Devanagari. Use once for the approved Karta etymology after language review. It should align naturally with the Latin family.
+- **Multiscript identity moment:** use the matching Anek family cuts for Devanagari, Telugu, Tamil, Kannada, Malayalam, Gujarati, Gurmukhi, Bangla, and Odia. Only the word Karta changes; the English explanation remains stable. Treat each shaped word as one unit inside a fixed-height hero slot.
 - **Instrument data:** Azeret Mono. Use only for coordinates, timestamps, confidence values, trace IDs, and log fragments. It is functional data typography, not a repeated section-label costume.
 - **Fallbacks:** system sans for Anek, system monospace for Azeret.
 
@@ -119,6 +134,7 @@ The Anek family is open source under the SIL Open Font License and comes from Mu
 - The maximum content grid is `90rem` or `1440px`, but full-bleed color, terrain, and trace layers may ignore the container.
 - Desktop uses a 12-column grid with asymmetric spans. Tablet uses 6 columns. Mobile uses one content column with data rails beneath the relevant text.
 - Default page gutters are `clamp(1rem, 4vw, 4rem)`.
+- The desktop hero uses a bottom-aligned two-column proposition row: title and proposition on the left, supporting copy and actions on the right. A full-width divider introduces the multilingual Karta identity rail beneath it. Keep the upper field visually open.
 - Major chapter separation ranges from `clamp(7rem, 14vw, 14rem)`. Related elements stay tight.
 - Not every chapter fills the viewport. Use minimum viewport height only for the hero and the central operation sequence.
 - Avoid equal card grids. Stack layers are full-width bands or one continuous system diagram. Proof, notes, and roles use rows.
@@ -166,8 +182,8 @@ Reserve a copy-safe zone in the hero. Procedural terrain and animated contours m
 ### Navigation
 
 - Sticky but quiet, approximately 64 to 72px tall.
-- Desktop items: Autonomy, Stack, Mission, Field Notes, Careers, and one primary `Talk to engineering` action.
-- Autonomy, Stack, and Mission target homepage anchors.
+- Desktop items: Stack, Field Notes, Careers, and one primary `Talk to engineering` action.
+- Stack targets the homepage product anchor.
 - Use a thin divider and restrained surface transition, not a floating glass pill.
 - Show `aria-current` for routed pages and an active chapter marker for homepage anchors.
 - Mobile menu moves focus into the panel, traps focus, restores focus on close, and makes background content inert.
@@ -247,7 +263,7 @@ Reserve a copy-safe zone in the hero. Procedural terrain and animated contours m
 - invented dashboards, timestamps, metrics, or logs presented as evidence
 - black and neon command-center aesthetics
 
-The current `mission-corridor.jpg`, `terrain.png`, and `terrain 2.png` contain aircraft silhouettes or baked flight annotations and cannot be reused unchanged. The current TENERE and Kiksuya screenshots contain visible platform imagery and vehicle language. They require approved replacement or redaction. The current SkyAnchor render has a malformed visible label and should not ship as credibility evidence.
+The active sortie comparison uses a matched pair of clean, locked-camera Deccan corridor plates with no baked UI, labels, or aircraft. The older `mission-corridor.jpg`, `terrain.png`, and `terrain 2.png` remain source references only. The current TENERE and Kiksuya screenshots contain visible platform imagery and vehicle language. They require approved replacement or redaction. The current SkyAnchor render has a malformed visible label and should not ship as credibility evidence.
 
 ## Depth and elevation
 
@@ -297,6 +313,7 @@ No other chapter needs a signature animation.
 
 ### Small screens below 48rem
 
+- Collapse the hero rail into source order: title and proposition, supporting copy and actions, then the Karta identity. Let the hero grow beyond one viewport when needed.
 - Hero statement appears before the texture word if the word would crowd the viewport.
 - `AUTONOMY` may wrap only as `AUTO` and `NOMY` in an approved two-line lockup; otherwise scale down to remain one line.
 - Mission corridor becomes a vertical sequence with no sticky pinning.
@@ -313,6 +330,7 @@ No other chapter needs a signature animation.
 
 ### Large screens above 80rem
 
+- Use two bottom-aligned hero columns followed by the full-width identity rail, with a responsive 40px to 72px bottom gutter.
 - Use the full 12-column grid and restrained full-bleed layers.
 - Cap readable text at 68 characters and prevent the content from spreading across empty width.
 - Keep the hero's key message visible on a small laptop height before relying on scroll.

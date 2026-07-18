@@ -42,22 +42,21 @@ export function NestedCTA({
   const base = cn(
     "group/cta inline-flex items-center gap-3 rounded-full pl-6 pr-2 py-2",
     "font-medium text-[14px] tracking-[-0.005em]",
-    "transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
-    "active:scale-[0.98]",
+    "pressable",
     variant === "primary" &&
-      "bg-sand text-ink ring-1 ring-sand-deep/40 hover:bg-sand-hi shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]",
+      "bg-flare text-on-flare ring-1 ring-flare-deep/40 hover:bg-flare-hi shadow-[inset_0_1px_0_var(--color-edge-strong)]",
     variant === "ghost" &&
       "bg-glass text-fg ring-1 ring-edge-strong hover:bg-glass-hi hover:ring-edge-strong",
-    variant === "minimal" && "text-fg hover:text-sand pr-6",
+    variant === "minimal" && "text-fg hover:text-flare pr-6",
     className,
   );
 
   const iconWrapper = cn(
     "size-9 rounded-full inline-flex items-center justify-center",
-    "transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
+    "transition-[transform,background-color,color] duration-[160ms] ease-[cubic-bezier(0.23,1,0.32,1)]",
     "group-hover/cta:translate-x-[2px] group-hover/cta:-translate-y-[1px]",
     variant === "primary" && "bg-ink/15",
-    variant === "ghost" && "bg-glass-hi group-hover/cta:bg-sand group-hover/cta:text-ink",
+    variant === "ghost" && "bg-glass-hi group-hover/cta:bg-flare group-hover/cta:text-on-flare",
     variant === "minimal" && "hidden",
   );
 

@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Karta Innovations builds the operational autonomy layer for autonomous systems in GPS- and comms-denied environments.",
     start_url: "/",
     display: "standalone",
-    background_color: "#051112",
-    theme_color: "#051112",
+    background_color: "#071008",
+    theme_color: "#071008",
     icons: [
       {
         src: "/brand/karta-icon-512.png",

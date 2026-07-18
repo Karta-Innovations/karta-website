@@ -2,99 +2,111 @@
 
 /* ============================================================
    KARTA - Design tokens
-   Operational autonomy. Night-operations register.
+   Operational autonomy. Field Atlas register.
    ------------------------------------------------------------
-   Dark is the ONLY theme: the site lives where its systems
-   live - night sorties, denied signal, terrain. The palette is
-   the story: teal-black night (the operating environment),
-   warm sand light (the corridor, the human decision, the way
-   home), oxblood (what the night takes away), aqua (the
-   instruments that keep talking). No light mode, no toggle.
+   Sage carries the operating environment, mineral gray carries
+   information, field tan carries physical context, orange carries
+   a live route, and brick-red marks human intent and constraint.
 
-   Brand colors:
-     tide teal   #13737A  primary brand - fills, strokes, chips
-     field sand  #FBCA89  primary luminous accent - CTAs, clock
-     oxblood     #88393C  denial accent - faults, boundaries
-     aqua        #81D1D0  telemetry accent - mono readouts
-
-   NOTE on naming: the historic `--color-amber*` and
-   `--color-gold` aliases are kept so existing accent utilities
-   (text-amber, bg-amber, ring-amber, text-gold ...) stay stable
-   across the codebase. `amber` now resolves to field sand and
-   `gold` to aqua. New and edited components should prefer the
-   semantic tokens (teal / sand / oxblood / aqua).
+   All authored colors use OKLCH. Historic token aliases remain
+   temporarily so secondary routes inherit the new system without
+   a brittle all-at-once class rename.
    ============================================================ */
 
 @theme {
-  /* ---- Surfaces: teal-black night, lifting toward the shore ---- */
-  --color-ink: #051112;          /* page baseline - teal-black */
-  --color-ink-2: #0A1D1E;        /* content sections */
-  --color-surface: #0E2627;      /* cards, raised panels */
-  --color-surface-deep: #030C0C; /* footer well, deepest step */
-  --color-raised: #133335;       /* feature card cores, deck headings */
-  --color-raised-hi: #1A4547;    /* hover surface */
-  /* Legacy aliases (indigo era) so existing utilities keep working */
-  --color-indigo: #133335;
-  --color-indigo-hi: #1A4547;
+  /* ---- Surfaces: sage graphite, never pure black ---- */
+  --color-ink: oklch(0.16 0.022 145);
+  --color-ink-2: oklch(0.195 0.027 143);
+  --color-surface: oklch(0.235 0.033 140);
+  --color-surface-deep: oklch(0.115 0.014 150);
+  --color-raised: oklch(0.285 0.039 138);
+  --color-raised-hi: oklch(0.33 0.045 136);
+  --color-indigo: oklch(0.285 0.039 138);
+  --color-indigo-hi: oklch(0.33 0.045 136);
 
-  --color-field: #0A1D1E;
-  --color-field-2: #0E2627;
-  --color-fog: #10292B;
-  --color-fog-2: #17393C;
+  --color-field: oklch(0.19 0.026 145);
+  --color-field-2: oklch(0.235 0.033 140);
+  --color-fog: oklch(0.215 0.03 142);
+  --color-fog-2: oklch(0.30 0.04 138);
 
-  /* ---- Text: warm off-white on teal-black ---- */
-  --color-fg: #F5F3EC;           /* primary copy - warm, pairs with sand */
-  --color-fg-muted: #B7C6C3;     /* body / secondary */
-  --color-fg-tertiary: #6F8E8B;  /* mono labels, captions */
+  /* ---- Text: mineral gray on sage graphite, never white ---- */
+  --color-fg: oklch(0.91 0.012 145);
+  --color-fg-muted: oklch(0.714251 0.007295 145.499); /* #A0A4A0 */
+  --color-fg-tertiary: oklch(0.60 0.012 145);
 
   /* ---- Borders / hairlines ---- */
-  --color-border: #16393B;
-  --color-border-strong: #1F5254;
-  --color-border-soft: rgba(255, 255, 255, 0.07);
+  --color-border: oklch(0.32 0.035 140);
+  --color-border-strong: oklch(0.43 0.045 138);
+  --color-border-soft: oklch(0.91 0.012 145 / 0.07);
 
-  /* ---- Edge + glass: alpha hairlines and instrument fills ---- */
-  --color-edge: rgba(255, 255, 255, 0.07);     /* hairline rings / dividers */
-  --color-edge-strong: rgba(255, 255, 255, 0.14); /* stronger rings */
-  --color-glass: rgba(255, 255, 255, 0.035);   /* faint instrument fill */
-  --color-glass-hi: rgba(255, 255, 255, 0.07); /* lifted instrument fill */
+  /* ---- Edge + instrument fills ---- */
+  --color-edge: oklch(0.91 0.012 145 / 0.08);
+  --color-edge-strong: oklch(0.91 0.012 145 / 0.16);
+  --color-glass: oklch(0.91 0.012 145 / 0.04);
+  --color-glass-hi: oklch(0.91 0.012 145 / 0.08);
 
-  /* ---- Brand: tide teal + field sand ---- */
-  --color-teal: #13737A;         /* primary brand - fills, strokes, large display */
-  --color-teal-hi: #1FA3AC;      /* hover / bright strokes */
-  --color-teal-deep: #0B4A4F;    /* rings, shadows, pressed */
-  --color-sand: #FBCA89;         /* luminous accent - CTAs, clock, corridor light */
-  --color-sand-hi: #FFDCA8;      /* hover / bright */
-  --color-sand-deep: #A87844;    /* pressed, dim strokes */
-  --color-oxblood: #88393C;      /* denial - fault fills, boundary geometry */
-  --color-oxblood-hi: #B05054;   /* denial strokes, alert text on dark */
-  --color-aqua: #81D1D0;         /* telemetry - mono readouts, audit lines */
+  /* ---- Supplied palette anchors ---- */
+  --color-sage: oklch(0.550647 0.043468 136.971);       /* #66785F */
+  --color-mineral: oklch(0.714251 0.007295 145.499);    /* #A0A4A0 */
+  --color-field-tan: oklch(0.705198 0.056921 68.506);   /* #B89A7A */
+  --color-route: oklch(0.695758 0.159641 55.544);       /* #E67E22 */
 
-  /* Legacy accent aliases (azure/cyan era names) */
-  --color-amber: #FBCA89;        /* -> sand */
-  --color-amber-hi: #FFDCA8;     /* -> sand-hi */
-  --color-amber-deep: #A87844;   /* -> sand-deep */
-  --color-gold: #81D1D0;         /* -> aqua */
+  /* ---- Brand roles ---- */
+  --color-violet: var(--color-sage);                    /* operating field */
+  --color-violet-hi: oklch(0.68 0.055 137);             /* sage lift */
+  --color-violet-deep: oklch(0.36 0.045 137);           /* pressed sage */
+  --color-flare: oklch(0.543346 0.174006 29.697); /* #C0392B brick-red action */
+  --color-flare-hi: oklch(0.49 0.16 29.697);      /* darker hover */
+  --color-flare-deep: oklch(0.43 0.15 29.697);    /* pressed / dim trace */
+  --color-boundary: oklch(0.47 0.14 29.697);      /* brick-red constraint */
+  --color-boundary-hi: oklch(0.70 0.13 29.697);   /* readable signal on dark */
+  --color-return: oklch(0.76 0.06 137);        /* confirmed return state */
+  --color-on-flare: oklch(0.95 0.012 75);      /* warm light text on #C0392B */
+  --color-on-sage: oklch(0.985 0.006 75);      /* AA text on exact #66785F */
 
-  /* ---- Derived neutrals (contract: DESIGN.md checked contrast pairs) ---- */
-  --color-warm-paper: #FFF3DE;   /* body text on teal and oxblood fields */
-  --color-warm-ink: #152E2F;     /* body text on sand and aqua fields */
-  --color-current-deep: #082E31; /* deep-current instrument field */
-  --color-pale-tide: #E1F0ED;    /* secondary text on teal fields */
-  --color-field-muted: #D8C8AF;  /* dividers / captions on deep current only */
+  /* Historic class aliases. New homepage code uses the roles above. */
+  --color-teal: var(--color-violet);
+  --color-teal-hi: var(--color-violet-hi);
+  --color-teal-deep: var(--color-violet-deep);
+  --color-sand: var(--color-flare);
+  --color-sand-hi: var(--color-flare-hi);
+  --color-sand-deep: var(--color-flare-deep);
+  --color-oxblood: var(--color-boundary);
+  --color-oxblood-hi: var(--color-boundary-hi);
+  --color-aqua: var(--color-return);
+  --color-amber: var(--color-flare);
+  --color-amber-hi: var(--color-flare-hi);
+  --color-amber-deep: var(--color-flare-deep);
+  --color-gold: var(--color-return);
 
-  /* ---- States (sparing; sand doubles as live/warn - one warm family) ---- */
-  --color-signal: #FBCA89;       /* live / acquiring */
-  --color-signal-deep: #A87844;
-  --color-alert: #B05054;        /* oxblood-hi - readable on ink */
-  --color-ok: #6FBF9E;           /* anchored / landing / go */
-  --color-warn: #FBCA89;
+  /* ---- Derived neutrals ---- */
+  --color-paper: oklch(0.90 0.025 75);
+  --color-night-ink: oklch(0.17 0.024 145);
+  --color-current-deep: oklch(0.14 0.02 148);
+  --color-pale-field: oklch(0.84 0.03 75);
+  --color-field-muted: oklch(0.70 0.025 90);
+  --color-warm-paper: var(--color-paper);
+  --color-warm-ink: var(--color-night-ink);
+  --color-pale-tide: var(--color-pale-field);
+
+  /* ---- State aliases ---- */
+  --color-signal: var(--color-flare);
+  --color-signal-deep: var(--color-flare-deep);
+  --color-alert: var(--color-boundary-hi);
+  --color-ok: var(--color-return);
+  --color-warn: var(--color-route);
 
   /* Font families wired by next/font in layout.tsx.
      Anek (Ek Type): variable weight + width; Azeret Mono: instrument data. */
   --font-sans: var(--font-anek-latin), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --font-mono: var(--font-azeret-mono), "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  /* Etymology marker only - used sparingly per brand playbook */
+  /* Etymology marker only - used sparingly per brand playbook. */
   --font-devanagari: var(--font-anek-devanagari), "Noto Serif Devanagari", "Mangal", serif;
+  --font-indic: var(--font-anek-devanagari), var(--font-anek-telugu),
+    var(--font-anek-tamil), var(--font-anek-kannada),
+    var(--font-anek-malayalam), var(--font-anek-gujarati),
+    var(--font-anek-gurmukhi), var(--font-anek-bangla),
+    var(--font-anek-odia), "Nirmala UI", "Noto Sans", sans-serif;
 
   /* Type scale - fluid via clamp where used */
   --text-xs: 11px;
@@ -120,7 +132,8 @@
   /* Motion */
   --ease-quint: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --dur-fast: 160ms;
   --dur-base: 280ms;
   --dur-slow: 560ms;
@@ -134,6 +147,7 @@
 html {
   background: var(--color-ink);
   color: var(--color-fg);
+  scrollbar-gutter: stable;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   color-scheme: dark;
@@ -150,16 +164,15 @@ body {
 }
 
 ::selection {
-  background: var(--color-sand);
-  color: #051112;
+  background: var(--color-flare);
+  color: var(--color-on-flare);
 }
 
-/* Two-layer focus ring per the design contract: telemetry aqua inside,
-   warm paper outside - readable on every dark surface. */
+/* Two-layer focus ring: brick-red inside, warm field paper outside. */
 :focus-visible {
-  outline: 2px solid var(--color-warm-paper);
+  outline: 2px solid var(--color-paper);
   outline-offset: 5px;
-  box-shadow: 0 0 0 3px var(--color-aqua);
+  box-shadow: 0 0 0 3px var(--color-flare);
   border-radius: 2px;
 }
 
@@ -167,7 +180,7 @@ a { color: inherit; text-decoration: none; }
 
 img, svg, video { display: block; max-width: 100%; }
 
-/* Skip link: visually hidden until focused, then a solid sand chip. */
+/* Skip link: visually hidden until focused, then a solid flare chip. */
 .skip-link {
   position: fixed;
   top: 12px;
@@ -175,8 +188,8 @@ img, svg, video { display: block; max-width: 100%; }
   z-index: 100;
   padding: 10px 18px;
   border-radius: var(--radius-sm);
-  background: var(--color-sand);
-  color: var(--color-warm-ink);
+  background: var(--color-flare);
+  color: var(--color-on-flare);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   letter-spacing: 0.08em;
@@ -211,12 +224,12 @@ img, svg, video { display: block; max-width: 100%; }
   text-wrap: balance;
 }
 
-/* Wide heavy cut for monumental moments (Anek width axis). */
+/* Controlled wide cut for display names and section anchors. */
 .font-display-wide {
-  font-variation-settings: "wdth" 120;
-  font-weight: 740;
-  letter-spacing: -0.01em;
-  line-height: 0.84;
+  font-variation-settings: "wdth" 108;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 0.94;
 }
 
 .font-mono-label {
@@ -243,7 +256,7 @@ img, svg, video { display: block; max-width: 100%; }
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-sand);
+  color: var(--color-flare);
   font-weight: 500;
 }
 .eyebrow::before {
@@ -260,6 +273,12 @@ img, svg, video { display: block; max-width: 100%; }
   letter-spacing: 0;
   font-weight: 500;
   line-height: 1;
+}
+
+.font-indic {
+  font-family: var(--font-indic);
+  font-feature-settings: "kern" 1;
+  letter-spacing: 0;
 }
 
 .hairline {
@@ -280,17 +299,19 @@ img, svg, video { display: block; max-width: 100%; }
    shadow on the element itself. The slow drift is a CSS
    keyframe; the global reduced-motion block freezes it.
    Fallback: browsers without background-clip:text render solid
-   field sand.
+   field flare.
    ============================================================ */
 
 .texture-text {
-  /* Dedicated label-free crop of the mission plate (clean terrain only);
-     the full annotated plate ships separately as terrain-brief.jpg. */
+  /* Dedicated label-free terrain crop for optional texture masks. */
   --texture-url: url("/textures/terrain-mask.jpg");
   --texture-size: 135% auto;
   --texture-pos: 30% 45%;
   background-image:
-    linear-gradient(rgba(5, 17, 18, 0.16), rgba(5, 17, 18, 0.3)),
+    linear-gradient(
+      color-mix(in oklab, var(--color-ink) 18%, transparent),
+      color-mix(in oklab, var(--color-ink) 36%, transparent)
+    ),
     var(--texture-url);
   background-size: var(--texture-size);
   background-position: var(--texture-pos);
@@ -298,7 +319,7 @@ img, svg, video { display: block; max-width: 100%; }
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 2px 14px rgba(3, 12, 12, 0.55));
+  filter: drop-shadow(0 2px 14px oklch(0.10 0.018 145 / 0.62));
 }
 
 @keyframes texture-drift {
@@ -309,10 +330,14 @@ img, svg, video { display: block; max-width: 100%; }
   animation: texture-drift 44s ease-in-out infinite alternate;
 }
 
+#launch[data-signal-active="false"] .texture-text-drift {
+  animation-play-state: paused;
+}
+
 @supports not ((background-clip: text) or (-webkit-background-clip: text)) {
   .texture-text {
     background-image: none;
-    color: var(--color-sand);
+    color: var(--color-flare);
     filter: none;
   }
 }
@@ -323,18 +348,20 @@ img, svg, video { display: block; max-width: 100%; }
 
 .bg-aurora {
   background-image:
-    radial-gradient(58% 80% at 12% 6%, color-mix(in srgb, var(--color-sand) 22%, transparent), transparent 60%),
-    radial-gradient(48% 70% at 88% 14%, color-mix(in srgb, var(--color-aqua) 18%, transparent), transparent 58%),
-    radial-gradient(62% 90% at 72% 108%, color-mix(in srgb, var(--color-teal) 26%, transparent), transparent 62%);
+    radial-gradient(42% 56% at 14% 2%, color-mix(in oklab, var(--color-flare) 10%, transparent), transparent 68%),
+    radial-gradient(50% 68% at 92% 10%, color-mix(in oklab, var(--color-field-tan) 12%, transparent), transparent 64%),
+    radial-gradient(72% 90% at 60% 110%, color-mix(in oklab, var(--color-sage) 22%, transparent), transparent 70%);
 }
 .bg-aurora-soft {
   background-image:
-    radial-gradient(50% 60% at 8% 0%, color-mix(in srgb, var(--color-sand) 12%, transparent), transparent 60%),
-    radial-gradient(46% 64% at 96% 8%, color-mix(in srgb, var(--color-teal) 16%, transparent), transparent 58%);
+    radial-gradient(44% 54% at 8% 0%, color-mix(in oklab, var(--color-flare) 7%, transparent), transparent 68%),
+    radial-gradient(54% 70% at 96% 6%, color-mix(in oklab, var(--color-sage) 18%, transparent), transparent 66%),
+    radial-gradient(42% 50% at 76% 72%, color-mix(in oklab, var(--color-field-tan) 9%, transparent), transparent 72%),
+    radial-gradient(34% 44% at 46% 14%, color-mix(in oklab, var(--color-route) 5%, transparent), transparent 74%);
 }
 
 .glow-accent {
-  box-shadow: 0 26px 70px -30px color-mix(in srgb, var(--color-sand) 55%, transparent);
+  box-shadow: 0 26px 70px -30px color-mix(in oklab, var(--color-flare) 55%, transparent);
 }
 
 .grid-overlay {
@@ -342,6 +369,380 @@ img, svg, video { display: block; max-width: 100%; }
     linear-gradient(to right, color-mix(in srgb, var(--color-fg) 7%, transparent) 1px, transparent 1px),
     linear-gradient(to bottom, color-mix(in srgb, var(--color-fg) 7%, transparent) 1px, transparent 1px);
   background-size: 96px 96px;
+}
+
+.stack-product-grade {
+  background:
+    linear-gradient(120deg, color-mix(in oklab, var(--color-sage) 32%, transparent), transparent 62%),
+    linear-gradient(300deg, color-mix(in oklab, var(--color-field-tan) 13%, transparent), color-mix(in oklab, var(--color-route) 7%, transparent));
+  mix-blend-mode: color;
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+/* Section-scale palette fields. Each act gets one authored composition so
+   gradients support the story instead of repeating the same ambient glow. */
+.section-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.section-field--brief {
+  background:
+    radial-gradient(62% 72% at 86% 14%, color-mix(in oklab, var(--color-sage) 30%, transparent), transparent 68%),
+    radial-gradient(46% 54% at 8% 92%, color-mix(in oklab, var(--color-field-tan) 11%, transparent), transparent 72%),
+    linear-gradient(135deg, var(--color-current-deep), color-mix(in oklab, var(--color-surface) 72%, var(--color-sage)) 56%, var(--color-current-deep));
+}
+
+.section-field--stack {
+  background:
+    radial-gradient(70% 86% at 0% 12%, color-mix(in oklab, var(--color-sage) 24%, transparent), transparent 66%),
+    radial-gradient(48% 60% at 100% 100%, color-mix(in oklab, var(--color-field-tan) 10%, transparent), transparent 70%),
+    linear-gradient(115deg, var(--color-surface), color-mix(in oklab, var(--color-surface) 82%, var(--color-sage)));
+}
+
+.section-field--orientation {
+  background:
+    radial-gradient(50% 70% at 100% 0%, color-mix(in oklab, var(--color-sage) 17%, transparent), transparent 68%),
+    linear-gradient(120deg, var(--color-current-deep), color-mix(in oklab, var(--color-current-deep) 86%, var(--color-sage)));
+}
+
+.section-field--command {
+  background:
+    radial-gradient(48% 64% at 92% 12%, color-mix(in oklab, var(--color-field-tan) 11%, transparent), transparent 68%),
+    radial-gradient(44% 58% at 0% 100%, color-mix(in oklab, var(--color-route) 5%, transparent), transparent 70%),
+    linear-gradient(120deg, var(--color-ink-2), color-mix(in oklab, var(--color-ink-2) 90%, var(--color-sage)));
+}
+
+.section-field--theatre {
+  background:
+    radial-gradient(54% 70% at 88% 88%, color-mix(in oklab, var(--color-return) 12%, transparent), transparent 70%),
+    radial-gradient(42% 58% at 2% 8%, color-mix(in oklab, var(--color-flare) 6%, transparent), transparent 72%),
+    linear-gradient(125deg, var(--color-surface-deep), color-mix(in oklab, var(--color-surface-deep) 86%, var(--color-sage)));
+}
+
+.section-field--loop {
+  background:
+    radial-gradient(58% 78% at 50% 38%, color-mix(in oklab, var(--color-sage) 15%, transparent), transparent 68%),
+    linear-gradient(180deg, var(--color-current-deep), color-mix(in oklab, var(--color-current-deep) 92%, var(--color-field-tan)));
+}
+
+.section-field--doctrine {
+  background:
+    radial-gradient(64% 82% at 92% 8%, color-mix(in oklab, var(--color-field-tan) 16%, transparent), transparent 66%),
+    radial-gradient(52% 72% at 8% 68%, color-mix(in oklab, var(--color-sage) 32%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--color-violet-deep), color-mix(in oklab, var(--color-sage) 34%, var(--color-current-deep)) 54%, var(--color-ink));
+}
+
+.section-field--landing {
+  background:
+    radial-gradient(52% 70% at 50% 0%, color-mix(in oklab, var(--color-sage) 18%, transparent), transparent 70%),
+    radial-gradient(36% 48% at 88% 86%, color-mix(in oklab, var(--color-field-tan) 8%, transparent), transparent 72%),
+    var(--color-surface-deep);
+}
+
+/* One owned terrain plate becomes the signature physical texture. It is
+   intentionally static and section-local to avoid fixed blend-layer cost. */
+.terrain-field-texture {
+  background-image: url("/textures/terrain-mask.jpg");
+  background-position: 70% 48%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  mix-blend-mode: luminosity;
+  opacity: 0.075;
+  -webkit-mask-image: linear-gradient(to left, black 30%, transparent 88%);
+  mask-image: linear-gradient(to left, black 30%, transparent 88%);
+}
+
+/* Shared survey geometry. The SVG carries semantic route, boundary, and
+   return shapes; only its oversized group drifts, so motion stays composited. */
+.operational-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.operational-field svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.operational-field__drift {
+  transform-box: view-box;
+  transform-origin: center;
+}
+
+.operational-field__route {
+  stroke-dasharray: 34 15 4 13;
+}
+
+.operational-field__node {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.operational-field__word {
+  font-family: var(--font-sans);
+  font-variation-settings: "wdth" 110;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.operational-field--corridor {
+  opacity: 0.48;
+  -webkit-mask-image: linear-gradient(to left, black 42%, transparent 96%);
+  mask-image: linear-gradient(to left, black 42%, transparent 96%);
+}
+
+.operational-field--stack { opacity: 0.34; }
+.operational-field--boundary { opacity: 0.30; }
+.operational-field--return { opacity: 0.28; }
+
+.operational-field[data-active="true"] .operational-field__drift {
+  animation: operational-field-drift 24s var(--ease-in-out) infinite alternate;
+}
+
+.operational-field[data-active="true"] .operational-field__route {
+  animation: operational-field-route 18s linear infinite;
+}
+
+.operational-field[data-active="true"] .operational-field__node {
+  animation: operational-field-node 5.8s var(--ease-in-out) infinite;
+}
+
+@keyframes operational-field-drift {
+  from { transform: translate3d(0, -0.5%, 0) rotate(0deg); }
+  to { transform: translate3d(-1.2%, 1.1%, 0) rotate(-0.55deg); }
+}
+
+@keyframes operational-field-route {
+  to { stroke-dashoffset: -198; }
+}
+
+@keyframes operational-field-node {
+  0%, 100% { opacity: 0.46; transform: scale(0.96); }
+  50% { opacity: 0.94; transform: scale(1.04); }
+}
+
+/* ============================================================
+   Mission progress + hero signal field
+   ------------------------------------------------------------
+   One persistent motion language replaces scattered decoration:
+   the route advances with page scroll and the hero shows the
+   same closed-loop geometry before the story begins.
+   ============================================================ */
+
+.mission-progress {
+  position: fixed;
+  top: 7.5rem;
+  right: clamp(0.7rem, 1.8vw, 1.75rem);
+  bottom: 2rem;
+  z-index: 48;
+  width: 1px;
+  background: var(--color-edge-strong);
+  pointer-events: none;
+}
+
+.mission-progress::before,
+.mission-progress::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: 1px solid var(--color-fg-tertiary);
+  background: var(--color-ink);
+  transform: translateX(-50%);
+}
+
+.mission-progress::before { top: 0; }
+.mission-progress::after { bottom: 0; border-color: var(--color-return); }
+
+.mission-progress__fill {
+  position: absolute;
+  inset: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  background: linear-gradient(
+    to bottom,
+    var(--color-flare) 0%,
+    var(--color-route) 46%,
+    var(--color-return) 100%
+  );
+}
+
+@supports (animation-timeline: scroll()) {
+  .mission-progress__fill {
+    animation: mission-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes mission-progress {
+  to { transform: scaleY(1); }
+}
+
+/* The Karta identity remains fixed while the shaped word moves through one
+   harmonized Indic type family. Every word occupies the same absolute slot,
+   so script changes never shift the supporting copy or the hero grid. */
+.hero-karta-cycle__viewport {
+  position: relative;
+  height: clamp(4rem, 9vw, 5.75rem);
+  overflow: hidden;
+}
+
+.hero-karta-cycle__item {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  color: var(--color-paper);
+  font-family: var(--font-indic);
+  font-size: clamp(2.65rem, 10vw, 4.6rem);
+  font-weight: 500;
+  font-feature-settings: "kern" 1;
+  letter-spacing: 0;
+  line-height: 0.9;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate3d(0, 12%, 0);
+  animation: karta-script-cycle 45s var(--ease-in-out) infinite;
+}
+
+.hero-karta-cycle__item:nth-child(1) { animation-delay: -45s; }
+.hero-karta-cycle__item:nth-child(2) { animation-delay: -40s; }
+.hero-karta-cycle__item:nth-child(3) { animation-delay: -35s; }
+.hero-karta-cycle__item:nth-child(4) { animation-delay: -30s; }
+.hero-karta-cycle__item:nth-child(5) { animation-delay: -25s; }
+.hero-karta-cycle__item:nth-child(6) { animation-delay: -20s; }
+.hero-karta-cycle__item:nth-child(7) { animation-delay: -15s; }
+.hero-karta-cycle__item:nth-child(8) { animation-delay: -10s; }
+.hero-karta-cycle__item:nth-child(9) { animation-delay: -5s; }
+
+@keyframes karta-script-cycle {
+  0%, 8.7% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  9.7% {
+    opacity: 0;
+    transform: translate3d(0, -12%, 0);
+  }
+  98.6% {
+    opacity: 0;
+    transform: translate3d(0, 12%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-signal-field {
+  position: absolute;
+  z-index: 1;
+  top: 14%;
+  right: max(-7rem, -6vw);
+  width: min(52vw, 46rem);
+  aspect-ratio: 1;
+  opacity: 0.40;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to left, black 62%, transparent 98%);
+  mask-image: linear-gradient(to left, black 62%, transparent 98%);
+}
+
+.hero-signal-field svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hero-signal__orbit-a,
+.hero-signal__orbit-b,
+.hero-signal__terrain {
+  transform-box: view-box;
+  transform-origin: center;
+}
+
+.hero-signal__orbit-a { animation: signal-orbit 48s linear infinite; }
+.hero-signal__orbit-b { animation: signal-orbit 72s linear infinite reverse; }
+.hero-signal__terrain { animation: signal-drift 28s var(--ease-in-out) infinite alternate; }
+.hero-signal__trace { animation: signal-trace 16s linear infinite; }
+.hero-signal__node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: signal-breathe 5.6s var(--ease-in-out) infinite;
+}
+.hero-signal__node:nth-of-type(2) { animation-delay: -1.2s; }
+.hero-signal__node:nth-of-type(3) { animation-delay: -2.4s; }
+
+.hero-signal-field[data-active="false"] .hero-signal__orbit-a,
+.hero-signal-field[data-active="false"] .hero-signal__orbit-b,
+.hero-signal-field[data-active="false"] .hero-signal__terrain,
+.hero-signal-field[data-active="false"] .hero-signal__trace,
+.hero-signal-field[data-active="false"] .hero-signal__node {
+  animation-play-state: paused;
+}
+
+@keyframes signal-orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes signal-trace {
+  to { stroke-dashoffset: -180; }
+}
+
+@keyframes signal-drift {
+  from { transform: translate3d(0, -1%, 0) rotate(0deg); }
+  to { transform: translate3d(-1.5%, 1.2%, 0) rotate(-0.7deg); }
+}
+
+@keyframes signal-breathe {
+  0%, 100% { opacity: 0.48; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+/* Press feedback is fast and property-specific. */
+.pressable {
+  transition-property: transform, background-color, color, border-color, box-shadow;
+  transition-duration: var(--dur-fast);
+  transition-timing-function: var(--ease-out);
+}
+
+.pressable:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+/* Product media stays calm at rest, then responds only to a real hover. */
+@media (hover: hover) and (pointer: fine) {
+  .stack-media:hover .stack-media__image {
+    transform: scale(1.02);
+  }
+
+  .stack-media:hover .stack-media__index {
+    transform: translateX(4px);
+  }
+}
+
+@media (max-width: 64rem) {
+  .hero-signal-field {
+    right: -18rem;
+    width: 52rem;
+    opacity: 0.34;
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .mission-progress { display: none; }
+  .hero-signal-field {
+    top: 16%;
+    right: -25rem;
+    opacity: 0.18;
+  }
 }
 
 /* ============================================================
@@ -353,35 +754,36 @@ img, svg, video { display: block; max-width: 100%; }
   inset: 0;
   pointer-events: none;
   z-index: 60;
-  opacity: 0.035;
+  opacity: 0.022;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   background-size: 160px 160px;
 }
 
 .nav-pill {
-  background-color: rgba(5, 17, 18, 0.72);
+  max-width: calc(100vw - 1.5rem);
+  min-height: 2.75rem;
+  border: 1px solid var(--color-edge);
+  background-color: oklch(0.175 0.025 145 / 0.94);
+  isolation: isolate;
 }
 
-/* Brand chips hold the transparent-PNG lockup on a white plate - the one
-   deliberately bright element on the dark site, so the chrome/gold artwork
-   reads as printed rather than lifted. Warm near-white, tinted toward the
-   sand hue (never pure #fff). */
+/* Brand chips hold the transparent PNG lockup on a warm field plate. */
 .logo-chip {
-  background-color: #faf6ee;
+  background-color: var(--color-paper);
 }
 
-/* Duotone tint for grayscale imagery - screens the brand gradient into the
-   art so photography joins the sand/aqua system instead of floating
+/* Duotone tint for grayscale imagery - screens the field gradient into the
+   art so photography joins the sage/tan system instead of floating
    outside it. */
 .duotone-tint {
   background-image: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--color-sand) 85%, transparent),
-    color-mix(in srgb, var(--color-aqua) 85%, transparent)
+    color-mix(in oklab, var(--color-field-tan) 70%, transparent),
+    color-mix(in oklab, var(--color-sage) 82%, transparent)
   );
   mix-blend-mode: screen;
-  opacity: 0.15;
+  opacity: 0.11;
   pointer-events: none;
 }
 
@@ -392,106 +794,37 @@ img, svg, video { display: block; max-width: 100%; }
   z-index: 59;
   background-image: repeating-linear-gradient(
     0deg,
-    rgba(245, 243, 236, 0.012) 0px,
-    rgba(245, 243, 236, 0.012) 1px,
+    oklch(0.91 0.012 145 / 0.01) 0px,
+    oklch(0.91 0.012 145 / 0.01) 1px,
     transparent 1px,
     transparent 3px
   );
 }
 
-/* ============================================================
-   Denied-environment plunge (landing page)
-   ------------------------------------------------------------
-   The homepage problem section sinks BELOW the page's own dark
-   with scroll: a --plunge custom property (0-1, driven by
-   framer-motion) mixes this section's LOCAL token copies toward
-   absolute black while hairlines and instrument fills brighten.
-   The world dies; the instruments come up. Two layers are
-   required: .denied-scope captures the live token values under
-   different names so .denied-plunge can override the real
-   tokens without self-reference.
-   ============================================================ */
+/* Coarse and compact screens keep the signal field static. This removes
+   perpetual texture and SVG trace work while preserving the composition. */
+@media (max-width: 47.999rem), (pointer: coarse) {
+  .hyderabad-media {
+    transform: none !important;
+  }
 
-.denied-scope {
-  --base-ink: var(--color-ink);
-  --base-ink-2: var(--color-ink-2);
-  --base-surface-deep: var(--color-surface-deep);
-  --base-indigo: var(--color-indigo);
-  --base-border: var(--color-border);
-  --base-edge: var(--color-edge);
-  --base-edge-strong: var(--color-edge-strong);
-  --base-glass: var(--color-glass);
-}
+  .texture-text-drift,
+  .hero-signal__orbit-a,
+  .hero-signal__orbit-b,
+  .hero-signal__terrain,
+  .hero-signal__trace,
+  .hero-signal__node,
+  .operational-field__drift,
+  .operational-field__route,
+  .operational-field__node {
+    animation-play-state: paused !important;
+    will-change: auto !important;
+  }
 
-.denied-plunge {
-  --plunge: 0;
-  --plunge-pct: calc(var(--plunge) * 100%);
-  background: color-mix(in srgb, #000403 var(--plunge-pct), var(--base-surface-deep));
-  --color-ink: color-mix(in srgb, #020808 var(--plunge-pct), var(--base-ink));
-  --color-ink-2: color-mix(in srgb, #051112 var(--plunge-pct), var(--base-ink-2));
-  --color-surface-deep: color-mix(in srgb, #000403 var(--plunge-pct), var(--base-surface-deep));
-  --color-indigo: color-mix(in srgb, #0A2426 var(--plunge-pct), var(--base-indigo));
-  --color-border: color-mix(in srgb, #0F2B2D var(--plunge-pct), var(--base-border));
-  --color-edge: color-mix(in srgb, rgb(255 255 255 / 0.11) var(--plunge-pct), var(--base-edge));
-  --color-edge-strong: color-mix(in srgb, rgb(255 255 255 / 0.20) var(--plunge-pct), var(--base-edge-strong));
-  --color-glass: color-mix(in srgb, rgb(255 255 255 / 0.05) var(--plunge-pct), var(--base-glass));
-}
-
-/* Reduced motion: the section is simply at full depth - no scrubbing. */
-.denied-plunge-static {
-  --plunge: 1;
-}
-
-/* Instrument textures that surface as the light dies. The grid rides the
-   local --color-fg, the vignette adds an oxblood-tinted edge falloff at
-   full darkness - the color of what the night takes. */
-.denied-grid {
-  opacity: calc(var(--plunge) * 0.55);
-}
-.denied-vignette {
-  background: radial-gradient(
-    120% 90% at 50% 40%,
-    transparent 55%,
-    rgb(136 57 60 / calc(var(--plunge) * 0.07)) 82%,
-    rgb(0 4 3 / calc(var(--plunge) * 0.62)) 100%
-  );
-}
-
-/* ============================================================
-   Mission map - fault-zone halo pulse
-   ------------------------------------------------------------
-   Soft breathing glow positioned over the baked fault rings on
-   the mission-corridor plate. Slow and quiet by design; the
-   global reduced-motion block collapses it to a single frame.
-   ============================================================ */
-@keyframes mission-halo {
-  0%, 100% { opacity: 0.45; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.18); }
-}
-.mission-halo {
-  animation: mission-halo 4.2s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-/* ============================================================
-   Mission console schematic - sweep line
-   ============================================================ */
-@keyframes mission-sweep {
-  0% { transform: translateX(-30px); opacity: 0; }
-  12% { opacity: 0.55; }
-  88% { opacity: 0.55; }
-  100% { transform: translateX(480px); opacity: 0; }
-}
-.mission-sweep {
-  animation: mission-sweep 3.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-  will-change: transform;
-}
-
-@keyframes path-draw {
-  to { stroke-dashoffset: 0; }
-}
-@keyframes path-dash {
-  to { stroke-dashoffset: -1000; }
+  .grain,
+  .scanlines {
+    display: none;
+  }
 }
 
 /* ============================================================
@@ -514,6 +847,14 @@ img, svg, video { display: block; max-width: 100%; }
   to { opacity: 1; }
 }
 
+/* Framer emits its initial target in server HTML. Without JavaScript, keep
+   narrative content visible instead of leaving in-view reveals at opacity 0. */
+html:not([data-js]) main [style*="opacity:0"]:not([data-motion-decorative]) {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
 /* ============================================================
    Reduced motion
    ============================================================ */
@@ -523,5 +864,64 @@ img, svg, video { display: block; max-width: 100%; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .hero-karta-cycle__item {
+    animation: none !important;
+    opacity: 0;
+    transform: none;
+  }
+
+  .hero-karta-cycle__item:first-child {
+    opacity: 1;
+  }
+
+  .mission-progress__fill {
+    animation: none !important;
+    transform: scaleY(1);
+  }
+
+  main [style*="opacity:0"]:not([data-motion-decorative]) {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .hero-signal__orbit-a,
+  .hero-signal__orbit-b,
+  .hero-signal__terrain,
+  .hero-signal__trace,
+  .hero-signal__node,
+  .operational-field__drift,
+  .operational-field__route,
+  .operational-field__node {
+    animation: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .hero-karta-cycle__item {
+    animation: none;
+    opacity: 0;
+    transform: none;
+  }
+
+  .hero-karta-cycle__item:first-child {
+    color: CanvasText;
+    opacity: 1;
+  }
+
+  .mission-progress,
+  .hero-signal-field,
+  .operational-field,
+  .terrain-field-texture,
+  .grain {
+    display: none;
+  }
+
+  .texture-text {
+    background: none;
+    color: CanvasText;
+    filter: none;
   }
 }

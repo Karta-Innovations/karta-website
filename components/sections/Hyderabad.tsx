@@ -7,16 +7,16 @@ import { EyebrowTag } from "@/components/primitives/EyebrowTag";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 
 /**
- * ACT 5 — Ground Truth (Hyderabad)
+ * ACT 5 - Ground Truth (Hyderabad)
  * Section id="hyderabad"
  *
  * Tightened to the ground-truth beat: place as identity and operating
- * context. Engineered, integrated and flown from Hyderabad — no unsupported
+ * context. Engineered, integrated and flown from Hyderabad - no unsupported
  * proof claims.
  *
  * The hyderabad.jpg image carries the skyline silhouette. Gradients keep
  * the sunset sky readable and establish a dark base under the text. The
- * duotone tint pulls the grayscale art into the teal/sand system. Motion:
+ * duotone tint pulls the grayscale art into the sage, tan and flare system. Motion:
  * slow parallax on scroll; reduced motion collapses to static.
  */
 
@@ -28,8 +28,8 @@ export function Hyderabad() {
     offset: ["start end", "end start"],
   });
   // Slow parallax: the skyline lags the scroll and breathes slightly.
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-7%", "7%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.12, 1.04]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.02]);
 
   return (
     <section
@@ -41,7 +41,7 @@ export function Hyderabad() {
         <motion.div
           aria-hidden={false}
           style={reduce ? undefined : { y: imageY, scale: imageScale }}
-          className="absolute inset-0 will-change-transform"
+          className="hyderabad-media absolute inset-0"
         >
           <Image
             src="/imagery/hyderabad.jpg"
@@ -53,13 +53,12 @@ export function Hyderabad() {
             priority={false}
           />
         </motion.div>
-        {/* Teal dusk wash - multiplies the light sky into the night palette
-            so the act sits in the teal register instead of washed gray. */}
+        {/* Sage dusk wash multiplies the light sky into the night palette. */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-teal-deep/70 mix-blend-multiply"
+          className="absolute inset-0 bg-violet-deep/70 mix-blend-multiply"
         />
-        {/* Duotone tint - joins the grayscale art to the teal/sand system. */}
+        {/* Duotone tint joins the grayscale art to the field palette. */}
         <div aria-hidden className="duotone-tint absolute inset-0" />
         {/* Vertical scrim - sky visible up top, dark base under the text. */}
         <div
@@ -73,13 +72,22 @@ export function Hyderabad() {
         />
 
         <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-10 h-full flex flex-col justify-end py-12 md:py-16">
-          <div className="max-w-[44ch]">
-            {/* One Devanagari moment per site (कर्ता, in the doctrine act) -
-                the place name stays latin here. */}
+          <motion.div
+            className="max-w-[44ch]"
+            initial={
+              reduce
+                ? false
+                : { opacity: 0, transform: "translateY(22px)" }
+            }
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
+            transition={{ duration: 0.56, ease: [0.23, 1, 0.32, 1] }}
+            viewport={{ once: true, margin: "0px 0px -80px 0px" }}
+          >
+            {/* The multiscript Karta identity appears in the launch hero; the place name stays Latin here. */}
             <EyebrowTag variant="muted" className="mb-6">
-              17.454 N · 78.500 E · GROUND TRUTH
+              17.454 N / 78.500 E / GROUND TRUTH
             </EyebrowTag>
-            <h2 className="font-display text-[clamp(2.5rem,7vw,6rem)] font-medium tracking-[-0.04em] leading-[0.95] text-fg">
+            <h2 className="font-display-wide text-[clamp(2rem,4.4vw,4rem)] uppercase leading-[0.96] tracking-[0.01em] text-fg">
               Built close to the work.
             </h2>
             <p className="mt-7 text-fg-muted text-[17px] leading-[1.65] max-w-[52ch]">
@@ -88,7 +96,7 @@ export function Hyderabad() {
               aerospace, semiconductor and defence-software expertise we draw
               from, and close to the fields where the systems will operate.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
