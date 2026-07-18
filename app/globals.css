@@ -5,39 +5,51 @@
    Operational autonomy. Night-operations register.
    ------------------------------------------------------------
    Dark is the ONLY theme: the site lives where its systems
-   live - night sorties, denied signal, terrain. Deep navy-black
-   surfaces, an electric azure brand accent, cyan telemetry,
-   warm amber sparks. There is no light mode and no toggle.
+   live - night sorties, denied signal, terrain. The palette is
+   the story: teal-black night (the operating environment),
+   warm sand light (the corridor, the human decision, the way
+   home), oxblood (what the night takes away), aqua (the
+   instruments that keep talking). No light mode, no toggle.
 
-   NOTE on naming: the brand accent lives in the historic
-   `--color-amber*` tokens (the actual color is azure), and
-   `--color-gold` is the cyan telemetry stroke. The names are
-   kept so the accent utilities (text-amber, bg-amber,
-   ring-amber ...) stay stable across the codebase.
+   Brand colors:
+     tide teal   #13737A  primary brand - fills, strokes, chips
+     field sand  #FBCA89  primary luminous accent - CTAs, clock
+     oxblood     #88393C  denial accent - faults, boundaries
+     aqua        #81D1D0  telemetry accent - mono readouts
+
+   NOTE on naming: the historic `--color-amber*` and
+   `--color-gold` aliases are kept so existing accent utilities
+   (text-amber, bg-amber, ring-amber, text-gold ...) stay stable
+   across the codebase. `amber` now resolves to field sand and
+   `gold` to aqua. New and edited components should prefer the
+   semantic tokens (teal / sand / oxblood / aqua).
    ============================================================ */
 
 @theme {
-  /* ---- Surfaces: deep navy-black, lifting toward slate ---- */
-  --color-ink: #070B18;          /* page baseline - deep navy-black */
-  --color-ink-2: #0E1426;        /* content sections */
-  --color-surface: #141C36;      /* cards, raised panels */
-  --color-surface-deep: #04060F; /* footer well, deepest step */
-  --color-indigo: #17224A;       /* feature card cores, deck headings */
-  --color-indigo-hi: #243463;    /* hover surface */
+  /* ---- Surfaces: teal-black night, lifting toward the shore ---- */
+  --color-ink: #051112;          /* page baseline - teal-black */
+  --color-ink-2: #0A1D1E;        /* content sections */
+  --color-surface: #0E2627;      /* cards, raised panels */
+  --color-surface-deep: #030C0C; /* footer well, deepest step */
+  --color-raised: #133335;       /* feature card cores, deck headings */
+  --color-raised-hi: #1A4547;    /* hover surface */
+  /* Legacy aliases (indigo era) so existing utilities keep working */
+  --color-indigo: #133335;
+  --color-indigo-hi: #1A4547;
 
-  --color-field: #0E1426;
-  --color-field-2: #141C36;
-  --color-fog: #1A2340;
-  --color-fog-2: #243363;
+  --color-field: #0A1D1E;
+  --color-field-2: #0E2627;
+  --color-fog: #10292B;
+  --color-fog-2: #17393C;
 
-  /* ---- Text: off-white on deep navy ---- */
-  --color-fg: #F3F6FC;           /* primary copy */
-  --color-fg-muted: #AEB9D4;     /* body / secondary */
-  --color-fg-tertiary: #6E7CA0;  /* mono labels, captions */
+  /* ---- Text: warm off-white on teal-black ---- */
+  --color-fg: #F5F3EC;           /* primary copy - warm, pairs with sand */
+  --color-fg-muted: #B7C6C3;     /* body / secondary */
+  --color-fg-tertiary: #6F8E8B;  /* mono labels, captions */
 
   /* ---- Borders / hairlines ---- */
-  --color-border: #1E2747;
-  --color-border-strong: #2C3A63;
+  --color-border: #16393B;
+  --color-border-strong: #1F5254;
   --color-border-soft: rgba(255, 255, 255, 0.07);
 
   /* ---- Edge + glass: alpha hairlines and instrument fills ---- */
@@ -46,18 +58,29 @@
   --color-glass: rgba(255, 255, 255, 0.035);   /* faint instrument fill */
   --color-glass-hi: rgba(255, 255, 255, 0.07); /* lifted instrument fill */
 
-  /* ---- Brand accent: electric azure + cyan telemetry ---- */
-  --color-amber: #4D8DFF;        /* primary accent - azure, lifted for dark */
-  --color-amber-hi: #7DABFF;     /* hover / bright */
-  --color-amber-deep: #1E40AF;   /* rings, shadows, pressed */
-  --color-gold: #22D3EE;         /* electric cyan - diagrams, telemetry, hex */
+  /* ---- Brand: tide teal + field sand ---- */
+  --color-teal: #13737A;         /* primary brand - fills, strokes, large display */
+  --color-teal-hi: #1FA3AC;      /* hover / bright strokes */
+  --color-teal-deep: #0B4A4F;    /* rings, shadows, pressed */
+  --color-sand: #FBCA89;         /* luminous accent - CTAs, clock, corridor light */
+  --color-sand-hi: #FFDCA8;      /* hover / bright */
+  --color-sand-deep: #A87844;    /* pressed, dim strokes */
+  --color-oxblood: #88393C;      /* denial - fault fills, boundary geometry */
+  --color-oxblood-hi: #B05054;   /* denial strokes, alert text on dark */
+  --color-aqua: #81D1D0;         /* telemetry - mono readouts, audit lines */
 
-  /* ---- Warm signal + states (sparing) ---- */
-  --color-signal: #FBBF24;       /* warm amber spark - live / acquiring */
-  --color-signal-deep: #B45309;
-  --color-alert: #F87171;
-  --color-ok: #34D399;           /* anchored / landing / go */
-  --color-warn: #FBBF24;
+  /* Legacy accent aliases (azure/cyan era names) */
+  --color-amber: #FBCA89;        /* -> sand */
+  --color-amber-hi: #FFDCA8;     /* -> sand-hi */
+  --color-amber-deep: #A87844;   /* -> sand-deep */
+  --color-gold: #81D1D0;         /* -> aqua */
+
+  /* ---- States (sparing; sand doubles as live/warn - one warm family) ---- */
+  --color-signal: #FBCA89;       /* live / acquiring */
+  --color-signal-deep: #A87844;
+  --color-alert: #B05054;        /* oxblood-hi - readable on ink */
+  --color-ok: #6FBF9E;           /* anchored / landing / go */
+  --color-warn: #FBCA89;
 
   /* Font families wired by next/font in layout.tsx */
   --font-sans: var(--font-geist-sans), "Söhne", "Aktiv Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -119,12 +142,12 @@ body {
 }
 
 ::selection {
-  background: var(--color-amber);
-  color: #04060F;
+  background: var(--color-sand);
+  color: #051112;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-amber);
+  outline: 2px solid var(--color-sand);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -170,7 +193,7 @@ img, svg, video { display: block; max-width: 100%; }
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-amber);
+  color: var(--color-sand);
   font-weight: 500;
 }
 .eyebrow::before {
@@ -198,23 +221,68 @@ img, svg, video { display: block; max-width: 100%; }
 }
 
 /* ============================================================
+   Texture-masked display type ("texture-text")
+   ------------------------------------------------------------
+   Terrain lives inside the letterforms: the machine carries the
+   map within it. Adapted from the HyperFrames texture-mask-text
+   technique - background-clip:text with an owned terrain plate,
+   a legibility scrim inside the glyphs, and a contour drop
+   shadow on the element itself. The slow drift is a CSS
+   keyframe; the global reduced-motion block freezes it.
+   Fallback: browsers without background-clip:text render solid
+   field sand.
+   ============================================================ */
+
+.texture-text {
+  --texture-url: url("/textures/terrain-brief.jpg");
+  --texture-size: 165% auto;
+  --texture-pos: 30% 64%;
+  background-image:
+    linear-gradient(rgba(5, 17, 18, 0.16), rgba(5, 17, 18, 0.3)),
+    var(--texture-url);
+  background-size: var(--texture-size);
+  background-position: var(--texture-pos);
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 14px rgba(3, 12, 12, 0.55));
+}
+
+@keyframes texture-drift {
+  from { background-position: 26% 60%; }
+  to { background-position: 36% 70%; }
+}
+.texture-text-drift {
+  animation: texture-drift 44s ease-in-out infinite alternate;
+}
+
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .texture-text {
+    background-image: none;
+    color: var(--color-sand);
+    filter: none;
+  }
+}
+
+/* ============================================================
    Vibrancy helpers - gradients, glow, aurora
    ============================================================ */
 
 .bg-aurora {
   background-image:
-    radial-gradient(58% 80% at 12% 6%, color-mix(in srgb, var(--color-amber) 26%, transparent), transparent 60%),
-    radial-gradient(48% 70% at 88% 14%, color-mix(in srgb, var(--color-gold) 22%, transparent), transparent 58%),
-    radial-gradient(62% 90% at 72% 108%, color-mix(in srgb, #7C3AED 18%, transparent), transparent 62%);
+    radial-gradient(58% 80% at 12% 6%, color-mix(in srgb, var(--color-sand) 22%, transparent), transparent 60%),
+    radial-gradient(48% 70% at 88% 14%, color-mix(in srgb, var(--color-aqua) 18%, transparent), transparent 58%),
+    radial-gradient(62% 90% at 72% 108%, color-mix(in srgb, var(--color-teal) 26%, transparent), transparent 62%);
 }
 .bg-aurora-soft {
   background-image:
-    radial-gradient(50% 60% at 8% 0%, color-mix(in srgb, var(--color-amber) 14%, transparent), transparent 60%),
-    radial-gradient(46% 64% at 96% 8%, color-mix(in srgb, var(--color-gold) 12%, transparent), transparent 58%);
+    radial-gradient(50% 60% at 8% 0%, color-mix(in srgb, var(--color-sand) 12%, transparent), transparent 60%),
+    radial-gradient(46% 64% at 96% 8%, color-mix(in srgb, var(--color-teal) 16%, transparent), transparent 58%);
 }
 
 .glow-accent {
-  box-shadow: 0 26px 70px -30px color-mix(in srgb, var(--color-amber) 65%, transparent);
+  box-shadow: 0 26px 70px -30px color-mix(in srgb, var(--color-sand) 55%, transparent);
 }
 
 .grid-overlay {
@@ -240,25 +308,25 @@ img, svg, video { display: block; max-width: 100%; }
 }
 
 .nav-pill {
-  background-color: rgba(7, 11, 24, 0.72);
+  background-color: rgba(5, 17, 18, 0.72);
 }
 
 /* Brand chips hold the transparent-PNG lockup on a white plate - the one
    deliberately bright element on the dark site, so the chrome/gold artwork
-   reads as printed rather than lifted. Cool near-white, tinted toward the
-   brand hue (never pure #fff). */
+   reads as printed rather than lifted. Warm near-white, tinted toward the
+   sand hue (never pure #fff). */
 .logo-chip {
-  background-color: #f4f8fe;
+  background-color: #faf6ee;
 }
 
 /* Duotone tint for grayscale imagery - screens the brand gradient into the
-   art so photography joins the azure/cyan system instead of floating
+   art so photography joins the sand/aqua system instead of floating
    outside it. */
 .duotone-tint {
   background-image: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--color-amber) 85%, transparent),
-    color-mix(in srgb, var(--color-gold) 85%, transparent)
+    color-mix(in srgb, var(--color-sand) 85%, transparent),
+    color-mix(in srgb, var(--color-aqua) 85%, transparent)
   );
   mix-blend-mode: screen;
   opacity: 0.15;
@@ -272,8 +340,8 @@ img, svg, video { display: block; max-width: 100%; }
   z-index: 59;
   background-image: repeating-linear-gradient(
     0deg,
-    rgba(245, 245, 240, 0.012) 0px,
-    rgba(245, 245, 240, 0.012) 1px,
+    rgba(245, 243, 236, 0.012) 0px,
+    rgba(245, 243, 236, 0.012) 1px,
     transparent 1px,
     transparent 3px
   );
@@ -306,12 +374,12 @@ img, svg, video { display: block; max-width: 100%; }
 .denied-plunge {
   --plunge: 0;
   --plunge-pct: calc(var(--plunge) * 100%);
-  background: color-mix(in srgb, #000104 var(--plunge-pct), var(--base-surface-deep));
-  --color-ink: color-mix(in srgb, #020409 var(--plunge-pct), var(--base-ink));
-  --color-ink-2: color-mix(in srgb, #070B18 var(--plunge-pct), var(--base-ink-2));
-  --color-surface-deep: color-mix(in srgb, #000104 var(--plunge-pct), var(--base-surface-deep));
-  --color-indigo: color-mix(in srgb, #0D1430 var(--plunge-pct), var(--base-indigo));
-  --color-border: color-mix(in srgb, #131A33 var(--plunge-pct), var(--base-border));
+  background: color-mix(in srgb, #000403 var(--plunge-pct), var(--base-surface-deep));
+  --color-ink: color-mix(in srgb, #020808 var(--plunge-pct), var(--base-ink));
+  --color-ink-2: color-mix(in srgb, #051112 var(--plunge-pct), var(--base-ink-2));
+  --color-surface-deep: color-mix(in srgb, #000403 var(--plunge-pct), var(--base-surface-deep));
+  --color-indigo: color-mix(in srgb, #0A2426 var(--plunge-pct), var(--base-indigo));
+  --color-border: color-mix(in srgb, #0F2B2D var(--plunge-pct), var(--base-border));
   --color-edge: color-mix(in srgb, rgb(255 255 255 / 0.11) var(--plunge-pct), var(--base-edge));
   --color-edge-strong: color-mix(in srgb, rgb(255 255 255 / 0.20) var(--plunge-pct), var(--base-edge-strong));
   --color-glass: color-mix(in srgb, rgb(255 255 255 / 0.05) var(--plunge-pct), var(--base-glass));
@@ -323,8 +391,8 @@ img, svg, video { display: block; max-width: 100%; }
 }
 
 /* Instrument textures that surface as the light dies. The grid rides the
-   local --color-fg, the vignette adds an alert-tinted edge falloff at
-   full darkness. */
+   local --color-fg, the vignette adds an oxblood-tinted edge falloff at
+   full darkness - the color of what the night takes. */
 .denied-grid {
   opacity: calc(var(--plunge) * 0.55);
 }
@@ -332,8 +400,8 @@ img, svg, video { display: block; max-width: 100%; }
   background: radial-gradient(
     120% 90% at 50% 40%,
     transparent 55%,
-    rgb(220 38 38 / calc(var(--plunge) * 0.05)) 82%,
-    rgb(0 1 4 / calc(var(--plunge) * 0.62)) 100%
+    rgb(136 57 60 / calc(var(--plunge) * 0.07)) 82%,
+    rgb(0 4 3 / calc(var(--plunge) * 0.62)) 100%
   );
 }
 
