@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, JetBrains_Mono, Noto_Serif_Devanagari } from "next/font/google";
+import { Anek_Latin, Anek_Devanagari, Azeret_Mono } from "next/font/google";
 import { Nav } from "@/components/chrome/Nav";
 import { Footer } from "@/components/chrome/Footer";
 import { Grain } from "@/components/chrome/Grain";
@@ -7,36 +7,39 @@ import { BootScript } from "@/components/chrome/BootScript";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Anek (Ek Type, Mumbai): multiscript family - physical, precise, rooted in
+// India without decorative shorthand. Variable weight + width axes let the
+// hero display use wide heavy cuts while body stays in quiet middle cuts.
+const anekLatin = Anek_Latin({
+  variable: "--font-anek-latin",
+  subsets: ["latin"],
+  axes: ["wdth"],
+  display: "swap",
+});
+
+const azeretMono = Azeret_Mono({
+  variable: "--font-azeret-mono",
   subsets: ["latin"],
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-// Used sparingly as a manifesto marker per the brand playbook -
-// "Indian marker. Use Devanagari sparingly as a design detail, not as decorative excess."
-const notoSerifDevanagari = Noto_Serif_Devanagari({
-  variable: "--font-noto-devanagari",
+// Used once per page maximum - the कर्ता etymology moment, per brand playbook.
+const anekDevanagari = Anek_Devanagari({
+  variable: "--font-anek-devanagari",
   subsets: ["devanagari", "latin"],
-  weight: ["400", "500", "600"],
+  axes: ["wdth"],
   display: "swap",
 });
 
 const SITE_URL = "https://karta.ai";
 const SITE_NAME = "Karta Innovations";
 const SITE_DESCRIPTION =
-  "Operational autonomy layer for autonomous systems. Karta Innovations builds situational intelligence that works where GPS does not.";
+  "Karta builds the operational autonomy layer that helps unmanned systems stay oriented, act within human-approved intent, and return a reviewable record as operating conditions degrade.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} - Autonomy that works where GPS does not`,
+    default: `${SITE_NAME} - Operational autonomy`,
     template: `%s - ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -57,7 +60,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} - Autonomy that works where GPS does not`,
+    title: `${SITE_NAME} - Command that survives uncertainty`,
     description: SITE_DESCRIPTION,
   },
   twitter: {
@@ -78,7 +81,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       lang="en"
       // Dark-only site: the attribute is static, not toggled.
       data-theme="dark"
-      className={`${geistSans.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable}`}
+      className={`${anekLatin.variable} ${azeretMono.variable} ${anekDevanagari.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -86,6 +89,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <BootScript />
       </head>
       <body className="min-h-dvh bg-ink text-fg">
+        <a href="#content" className="skip-link">
+          Skip to content
+        </a>
         <SmoothScroll />
         <Grain />
         <Nav />
