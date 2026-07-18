@@ -30,14 +30,10 @@ npm run typecheck
 ```
 karta-web/
 ├── app/                     # App Router routes
-│   ├── page.tsx             # Homepage
-│   ├── stack/               # Autonomy stack breakdown
-│   ├── vehicles/[slug]/     # Apis family - Cerana, Dorsata, Kari
-│   ├── stack/               # Edge · Command · Theatre - the products live here
-│   ├── mission/             # Doctrine and ethos
-│   ├── field-notes/[slug]/  # Engineering essays
+│   ├── page.tsx             # The one-sortie long homepage (all acts)
+│   ├── field-notes/[slug]/  # Engineering essays (evidence layer)
 │   ├── careers/[slug]/      # Open roles
-│   ├── engage/              # Contact + form
+│   ├── engage/              # Talk to engineering + form
 │   └── api/engage/          # Form Route Handler
 ├── components/
 │   ├── chrome/              # Nav, Footer, Grain, ScanLines, Logo
@@ -46,11 +42,12 @@ karta-web/
 │   ├── sections/            # Homepage sections (one file each)
 │   └── forms/               # EngageForm
 ├── lib/
-│   ├── catalog.ts           # Vehicles + Products data
+│   ├── catalog.ts           # Autonomy stack (STACK_LAYERS) data
 │   ├── content/notes.ts     # Field Notes
 │   ├── content/roles.ts     # Career openings
 │   └── cn.ts                # clsx + tailwind-merge
 ├── public/imagery/          # Terrain photography + brand mark
+├── public/textures/         # Mission plates + texture-text fills
 └── app/globals.css          # Design tokens (Tailwind v4 @theme)
 ```
 
@@ -58,13 +55,11 @@ karta-web/
 
 | Route | Purpose |
 |---|---|
-| `/` | Cinematic deep-scroll home with 9 sections |
-| `/stack` | Edge · Command · Theatre - the three Karta products live here (SkyAnchor, TENERE, Kiksuya) |
-| `/vehicles` + `/vehicles/[slug]` | Apis family platforms |
-| `/mission` | Doctrine, principles, operational anchor |
-| `/field-notes` + `/field-notes/[slug]` | Engineering essays |
+| `/` | The One Sortie - one long page: `#launch` hero → `#brief` → `#denial` → `#stack` (`#skyanchor` / `#tenere` / `#kiksuya`) → `#mission` → `#hyderabad` → `#landing` |
+| `/field-notes` + `/field-notes/[slug]` | Engineering essays - the public evidence layer |
 | `/careers` + `/careers/[slug]` | Open roles |
-| `/engage` + `/api/engage` | Direct line to engineering |
+| `/engage` + `/api/engage` | Talk to engineering |
+| `/stack`, `/mission`, `/vehicles*` | Redirects into the long page (`next.config.ts`, temporary during QA) |
 
 ## Design tokens
 
@@ -72,13 +67,16 @@ Brand colors, type scale, motion easing, and radii are defined in `app/globals.c
 
 | Token | Value | Role |
 |---|---|---|
-| `bg-ink` | `#0B1020` | Primary surface (Midnight Ink) |
-| `bg-indigo` | `#18244D` | Raised surfaces, deck titles |
-| `text-fg` | `#F5F5F0` | Warm off-white text |
-| `text-amber` | `#C8962E` | Signal Amber - sole chromatic accent |
-| `text-gold` | `#D8A84F` | Comb Gold - diagrams + hex motifs |
+| `bg-ink` | `#051112` | Page baseline - teal-black night |
+| `bg-teal` | `#13737A` | Tide teal - primary brand field |
+| `bg-sand` / `text-sand` | `#FBCA89` | Field sand - luminous accent, CTAs, mission clock |
+| `bg-oxblood` | `#88393C` | Denial + doctrine boundary |
+| `text-aqua` | `#81D1D0` | Telemetry - mono readouts, audit lines |
+| `text-fg` | `#F5F3EC` | Warm off-white text |
 
-Fonts: Geist Sans + JetBrains Mono, self-hosted via `next/font/google`. No runtime font CDN dependency.
+Derived neutrals (`warm-paper`, `warm-ink`, `current-deep`, `pale-tide`) carry text on colored fields - see `DESIGN.md` for the checked contrast pairs. Legacy `amber`/`gold` utilities alias to sand/aqua.
+
+Fonts: Anek Latin + Anek Devanagari (Ek Type) and Azeret Mono, self-hosted via `next/font/google`. No runtime font CDN dependency.
 
 ## Engage form
 
@@ -86,7 +84,7 @@ The contact form at `/engage` posts to `/api/engage`. The route validates with Z
 
 ## Adding content
 
-- **A new vehicle or product**: edit `lib/catalog.ts`. Detail pages + homepage update automatically.
+- **Stack layer copy or specs**: edit `lib/catalog.ts` (`STACK_LAYERS`). The homepage stack act updates automatically.
 - **A new field note**: append to `lib/content/notes.ts`. Each entry is a typed object whose `body` is a list of `NoteBlock` items (paragraph, heading, list, quote, spec table, code).
 - **A new role**: append to `lib/content/roles.ts`.
 
@@ -116,5 +114,5 @@ Karta writes in mission-control register: precise, calm, no chest-thumping. The 
 - No em dashes. Commas, colons, semicolons, periods, parentheses only
 - No filler clichés ("elevate", "seamless", "unleash", "next-gen")
 - Cultural register comes from design language (palette, terrain photography, coordinate strip) - never from explicit copy
-- Specs use JetBrains Mono. Display copy uses Geist Sans. The two never cross
-- Amber is a signal, not a brand colour. Use it below 10% of any surface
+- Instrument data uses Azeret Mono. Display copy uses Anek Latin. The two never cross
+- Sand is precious: if a fold has more than two sand elements, it has too many
