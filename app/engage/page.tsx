@@ -13,8 +13,8 @@ export default function EngagePage() {
   return (
     <>
       <PageHeader
-        index="07 · ENGAGE"
-        eyebrow="Direct line · open"
+        index="07 · DIRECT LINE"
+        eyebrow="Engineering channel · open"
         title={
           <>
             Talk to <span className="text-amber">engineering</span>, not sales.
@@ -25,7 +25,7 @@ export default function EngagePage() {
             Tell us about the envelope you fly and what you are trying to integrate.
           </p>
         }
-        coord={{ center: "ENGAGE · OPEN", right: "FIRST REPLY · 48H" }}
+        coord={{ center: "CHANNEL · OPEN", right: "FIRST REPLY · 48H" }}
       />
 
       <section className="px-6 md:px-10 pb-32 md:pb-48">

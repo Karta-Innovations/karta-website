@@ -80,7 +80,7 @@ export function Hero() {
       />
 
       {/* Content column */}
-      <div className="relative z-10 mx-auto h-full max-w-[90rem] px-[clamp(1rem,4vw,4rem)] flex flex-col justify-center items-start py-16 md:py-24">
+      <div className="relative z-10 mx-auto h-full max-w-[90rem] px-[clamp(1rem,4vw,4rem)] flex flex-col justify-center items-start pt-32 pb-16 md:pt-36 md:pb-20">
         {/* Mono eyebrow: mission clock and coordinates */}
         <div data-boot="eyebrow" className="mb-[clamp(3rem,8vw,6rem)]">
           <div className="font-mono text-sand text-[11px] tracking-[0.22em] uppercase font-medium">
@@ -92,13 +92,13 @@ export function Hero() {
         <h1 className="font-display font-display-wide uppercase text-fg mb-[clamp(2rem,4vw,3rem)]">
           <span
             data-boot="headline"
-            className="block text-[clamp(3rem,8vw,7rem)] leading-[0.84] will-change-transform"
+            className="block text-[clamp(2.2rem,5.8vw,5.2rem)] leading-[0.9] will-change-transform"
           >
             Operational
           </span>
           <span
             data-boot="headline"
-            className="block text-[clamp(4.2rem,14vw,12.5rem)] leading-[0.84] texture-text texture-text-drift will-change-transform"
+            className="block text-[clamp(3.2rem,10.2vw,9.4rem)] leading-[0.88] texture-text texture-text-drift will-change-transform"
           >
             Autonomy
           </span>

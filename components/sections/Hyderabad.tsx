@@ -53,6 +53,12 @@ export function Hyderabad() {
             priority={false}
           />
         </motion.div>
+        {/* Teal dusk wash - multiplies the light sky into the night palette
+            so the act sits in the teal register instead of washed gray. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-teal-deep/70 mix-blend-multiply"
+        />
         {/* Duotone tint - joins the grayscale art to the teal/sand system. */}
         <div aria-hidden className="duotone-tint absolute inset-0" />
         {/* Vertical scrim - sky visible up top, dark base under the text. */}
@@ -68,13 +74,8 @@ export function Hyderabad() {
 
         <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-10 h-full flex flex-col justify-end py-12 md:py-16">
           <div className="max-w-[44ch]">
-            <span
-              lang="hi"
-              className="font-devanagari block text-[56px] leading-[1] text-fg/90 mb-5"
-              aria-label="Hyderabad"
-            >
-              हैदराबाद
-            </span>
+            {/* One Devanagari moment per site (कर्ता, in the doctrine act) -
+                the place name stays latin here. */}
             <EyebrowTag variant="muted" className="mb-6">
               17.454 N · 78.500 E · GROUND TRUTH
             </EyebrowTag>

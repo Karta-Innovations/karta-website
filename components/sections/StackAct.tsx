@@ -14,7 +14,9 @@ import { LoopClosing } from "./stack-act/LoopClosing";
  */
 export function StackAct() {
   return (
-    <>
+    // The act anchor: nav "Stack" and the /stack redirect land here, at the
+    // mnemonic band. scroll-mt clears the fixed nav.
+    <div id="stack" className="scroll-mt-24">
       <MnemonicBand />
       <div className="space-y-0">
         {STACK_LAYERS.map((layer, index) => (
@@ -22,6 +24,6 @@ export function StackAct() {
         ))}
       </div>
       <LoopClosing />
-    </>
+    </div>
   );
 }
