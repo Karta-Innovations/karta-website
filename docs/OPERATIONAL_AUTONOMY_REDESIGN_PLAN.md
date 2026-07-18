@@ -2,7 +2,7 @@
 
 **Branch:** `codex/operational-autonomy-redesign`
 
-**Status:** strategy and design contract complete, implementation not started
+**Status:** strategy and design contract drafted, pending approval, implementation not started
 
 **Scope:** long homepage, Field Notes, Careers, Talk to Engineering, vehicle removal, route migration, content validation, accessibility, performance, and launch QA
 
@@ -99,8 +99,8 @@ This is a design intent and brand promise. It must not be presented as an uncond
 
 ### CTA hierarchy
 
-1. `Talk to engineering`
-2. `See autonomy in operation`
+1. `Talk to engineering`, the single solid action
+2. `See autonomy in operation`, a secondary text link
 3. `Read Field Notes`
 4. `Build it with us`
 
@@ -143,10 +143,10 @@ Avoid `Learn more`, `Explore`, and `Engage` as visible action labels.
 
 | Current route | Target | Behavior | Reason |
 | --- | --- | --- | --- |
-| `/stack` | `/#stack` | Permanent redirect | Stack becomes a chapter in the long homepage. |
-| `/mission` | `/#mission` | Permanent redirect | Mission becomes the closing doctrine chapter. |
-| `/vehicles` | `/#autonomy` | Permanent redirect | Vehicle catalog leaves the public story. |
-| `/vehicles/[slug]` | `/#autonomy` | Permanent redirect | Preserve bookmarks without retaining vehicle pages. |
+| `/stack` | `/#stack` | Temporary during QA, permanent at launch | Stack becomes a chapter in the long homepage. |
+| `/mission` | `/#mission` | Temporary during QA, permanent at launch | Mission becomes the closing doctrine chapter. |
+| `/vehicles` | `/#autonomy` | Temporary during QA, permanent at launch | Vehicle catalog leaves the public story. |
+| `/vehicles/[slug]` | `/#autonomy` | Temporary during QA, permanent at launch | Preserve bookmarks without retaining vehicle pages. |
 | `/field-notes` | unchanged | Keep | Public evidence layer. |
 | `/field-notes/[slug]` | unchanged | Keep | Technical depth and sourceable proof. |
 | `/careers` | unchanged | Keep | Talent destination. |
@@ -154,6 +154,8 @@ Avoid `Learn more`, `Explore`, and `Engage` as visible action labels.
 | `/engage` | unchanged | Keep, rename visible language | Technical conversation endpoint. |
 
 Remove migrated routes from the sitemap and all internal navigation. Keep redirects long enough for indexed URLs and external bookmarks.
+
+Implement the known mappings through `redirects()` in `next.config.ts`. Use `permanent: false` during QA, then switch to `permanent: true` only after the target anchors ship and production tests pass. Next.js documents those settings as method-preserving `307` and `308` responses. Source: [Next.js redirects](https://nextjs.org/docs/app/api-reference/config/next-config-js/redirects). Use the dynamic source pattern `/vehicles/:slug`. Verify that each `Location` retains `#stack`, `#mission`, or `#autonomy` on the production host. If the host strips fragments, redirect to `/` and use a temporary query-to-anchor bridge for the Stack and Mission migrations.
 
 ## 7. Long homepage story
 
@@ -189,14 +191,15 @@ The page is one operation, told in chapters. Every chapter advances the state an
 - Texture word: `AUTONOMY`
 - Statement: `Command that survives uncertainty.`
 - Deck: `Karta builds the autonomy layer that helps systems stay oriented, act within human-approved intent, and return a reviewable record as conditions degrade.`
-- Primary action: `See autonomy in operation`
-- Secondary text link: `Talk to engineering`
+- Primary solid action: `Talk to engineering`
+- Secondary text link: `See autonomy in operation`
 
 **Visual:**
 
 - Deep tide-teal field with derived deep-current depth.
 - One enormous `AUTONOMY` word using a Karta-owned terrain texture mask.
 - Low-contrast procedural topography behind or beneath the text, using the existing HeroTerrain system only if the composition stays readable.
+- A uniform deep-current copy-safe zone behind the deck and actions, or a composition that keeps animated terrain outside that column.
 - No aircraft, vehicle, drone, map target, or combat imagery.
 
 **Motion:**
@@ -230,15 +233,15 @@ The page is one operation, told in chapters. Every chapter advances the state an
 2. Position confidence begins to fall.
 3. The communications link becomes intermittent.
 4. A proposed change approaches or crosses a boundary.
-5. The system continues only within published local authority and surfaces the required human gate.
-6. State and record reconcile when conditions allow.
+5. The story tests a design requirement: behavior must remain within approved local authority, and action beyond that authority must surface a human gate. Public capability copy requires an approved mechanism, failure behavior, evidence, conditions, and boundary.
+6. The story asks how state and record reconcile after interruption. Describe reconciliation as a capability only after its conflict behavior, timing, evidence, and limits are approved.
 
 **Visual:**
 
 - One continuous route or decision line, not a flight path.
 - State nodes show `intent`, `confidence`, `link`, `boundary`, `authority`, and `record`.
 - Constraint zones use oxblood patterns and labels.
-- Verified returns use aqua plus text and shape.
+- Returned or system-confirmed state uses aqua plus text and shape. Aqua never implies independent validation.
 - No baked metrics or timestamps until supplied by engineering.
 
 **Motion:**
@@ -345,7 +348,7 @@ Do not end with `the mission completes anyway`. Show what the system knows, what
 - Down path: intent, bounds, plan.
 - Up path: position and confidence, state, decisions, audit.
 - Human gates sit visibly on the loop.
-- Aqua marks returned, verified state. Oxblood marks boundary and intervention.
+- Aqua marks returned or system-confirmed state. Oxblood marks boundary and intervention. Evidence status remains explicit text.
 
 ### Chapter 6: proof
 
@@ -553,7 +556,7 @@ The complete visual contract lives in [`DESIGN.md`](../DESIGN.md). Key decisions
 - Thesis: field atlas crossed with an audited runtime.
 - Primary fields: tide teal `#13737A` and field sand `#FBCA89`.
 - Boundary: oxblood `#88393C`.
-- Verified state: aqua `#81D1D0`.
+- Returned or system-confirmed state: aqua `#81D1D0`. This is a runtime-state color, not an evidence credential.
 - Accessible derived text: warm paper `#FFF3DE` and warm ink `#152E2F`.
 - Type: Anek Latin and Anek Devanagari, with Azeret Mono only for real instrument data.
 - Signature: one terrain-masked `AUTONOMY` word.
@@ -600,6 +603,8 @@ The complete visual contract lives in [`DESIGN.md`](../DESIGN.md). Key decisions
 
 ### Retire or remove during implementation
 
+- `app/stack/page.tsx`, after `#stack` ships and its redirect passes QA
+- `app/mission/page.tsx`, after `#mission` ships and its redirect passes QA
 - `app/vehicles/page.tsx`
 - `app/vehicles/[slug]/page.tsx`
 - `components/sections/Vehicles.tsx`
@@ -625,11 +630,16 @@ The complete visual contract lives in [`DESIGN.md`](../DESIGN.md). Key decisions
 - `components/chrome/Footer.tsx`
 - `app/not-found.tsx`
 - `app/field-notes/page.tsx`
+- `app/field-notes/[slug]/page.tsx`
 - `app/careers/page.tsx`
+- `app/careers/[slug]/page.tsx`
 - `app/engage/page.tsx`
 - `components/forms/EngageForm.tsx`
 - `lib/content/roles.ts`
 - `lib/content/notes.ts`
+- `components/sections/stack/StackArchitecture.tsx`
+- `components/sections/stack/StackLayerSection.tsx`
+- `components/sections/stack/stack-data.ts`
 
 ### Consolidate
 
@@ -736,7 +746,9 @@ The existing hero terrain uses a continuously animated `240 x 240` mesh and per-
 - Confirm Karta's Sanskrit spelling and translation.
 - Approve a vehicle-free asset list.
 
-**Exit:** no homepage claim lacks an owner, evidence requirement, and boundary.
+**Exit:** the claim matrix has signed approval from the required engineering, legal, and programme owners. No homepage claim lacks an owner, approved wording, evidence requirement, and boundary.
+
+Phase 3 cannot begin until this exit condition is met. Phase 1 and Phase 2 may build neutral tokens, primitives, data structure, and navigation, but they must not turn provisional capability language into public copy.
 
 ### Phase 1: foundation
 
@@ -781,13 +793,14 @@ The existing hero terrain uses a continuously animated `240 x 240` mesh and per-
 - Remove vehicle routes, components, data types, models, imagery, and docs.
 - Replace baked aircraft visuals.
 - Rewrite generic vehicle-first copy where it does not carry technical meaning.
+- Update `app/sitemap.ts`, navigation, footer, 404, metadata, and every other `VEHICLES` catalogue consumer in the same change that removes the catalogue so the build never contains a dangling import.
 - Run a repository-wide scan for vehicle names and route references.
 
 **Exit:** no public route, asset, metadata entry, sitemap item, navigation item, or internal link presents vehicles.
 
 ### Phase 6: SEO, accessibility, and performance
 
-- Update manifest, Open Graph, sitemap, robots, 404, structured metadata, and site URL handling.
+- Update manifest, Open Graph, robots, remaining structured metadata, and site URL handling. Sitemap vehicle cleanup is already atomic with Phase 5.
 - Complete keyboard, reduced-motion, forced-colors, screen-reader, and form-state work.
 - Profile JavaScript, animation, WebGL, images, and Core Web Vitals.
 
@@ -798,7 +811,7 @@ The existing hero terrain uses a continuously animated `240 x 240` mesh and per-
 - Review at mobile, tablet, small laptop, desktop, and wide desktop sizes.
 - Review under bright and dim display conditions.
 - Run five-second and one-scroll retell tests.
-- Review every claim with engineering and the appropriate approval owner.
+- Re-confirm every previously approved claim with engineering and the appropriate approval owner after it is placed in the final composition.
 - Verify real artifacts, redactions, alt text, and source labels.
 
 **Exit:** every acceptance criterion in this document passes.

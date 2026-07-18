@@ -41,22 +41,22 @@ export interface ThemePalette {
 }
 
 const DARK: ThemePalette = {
-  ink: "#070B18",
-  ink2: "#0E1426",
-  fg: "#F3F6FC",
-  amber: "#4D8DFF",
-  amberDeep: "#1E40AF",
-  border: "#1E2747",
-  surface: "#141C36",
+  ink: "#051112",
+  ink2: "#0A1D1E",
+  fg: "#F5F3EC",
+  amber: "#FBCA89",
+  amberDeep: "#A87844",
+  border: "#16393B",
+  surface: "#0E2627",
   terrain: {
-    valley: "#070B18",
-    ridge: "#17224A",
-    contour: "#4D8DFF",
-    fog: "#070B18",
+    valley: "#051112",
+    ridge: "#133335",
+    contour: "#1FA3AC",
+    fog: "#051112",
   },
-  citySilhouette: "#04060F",
-  lidar: "#4D8DFF",
-  wireframe: "#4D8DFF",
+  citySilhouette: "#030C0C",
+  lidar: "#81D1D0",
+  wireframe: "#81D1D0",
 };
 
 /**

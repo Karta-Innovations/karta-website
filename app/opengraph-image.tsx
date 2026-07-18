@@ -12,11 +12,11 @@ export const alt =
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const INK = "#070B18";
-const FG = "#F3F6FC";
-const MUTED = "#AEB9D4";
-const AZURE = "#4D8DFF";
-const CYAN = "#22D3EE";
+const INK = "#051112";
+const FG = "#F5F3EC";
+const MUTED = "#B7C6C3";
+const SAND = "#FBCA89";
+const AQUA = "#81D1D0";
 const EDGE = "rgba(255, 255, 255, 0.14)";
 
 const LOOP_PHASES = ["01", "02", "03", "04"];
@@ -33,7 +33,7 @@ export default function OpengraphImage() {
           justifyContent: "space-between",
           backgroundColor: INK,
           backgroundImage:
-            "radial-gradient(60% 80% at 10% 0%, rgba(21, 94, 239, 0.28), transparent 60%), radial-gradient(50% 70% at 90% 10%, rgba(6, 182, 212, 0.18), transparent 58%)",
+            "radial-gradient(60% 80% at 10% 0%, rgba(251, 202, 137, 0.22), transparent 60%), radial-gradient(50% 70% at 90% 10%, rgba(19, 115, 122, 0.34), transparent 58%)",
           padding: "64px 72px",
           color: FG,
         }}
@@ -45,7 +45,7 @@ export default function OpengraphImage() {
             alignItems: "center",
             fontSize: 22,
             letterSpacing: "0.22em",
-            color: AZURE,
+            color: SAND,
           }}
         >
           <span>KARTA INNOVATIONS</span>
@@ -99,8 +99,8 @@ export default function OpengraphImage() {
                     width: 54,
                     height: 54,
                     borderRadius: 27,
-                    border: `2px solid ${i === 3 ? CYAN : AZURE}`,
-                    color: i === 3 ? CYAN : AZURE,
+                    border: `2px solid ${i === 3 ? AQUA : SAND}`,
+                    color: i === 3 ? AQUA : SAND,
                     fontSize: 20,
                   }}
                 >
@@ -111,7 +111,7 @@ export default function OpengraphImage() {
                     style={{
                       width: 44,
                       height: 2,
-                      backgroundColor: AZURE,
+                      backgroundColor: SAND,
                     }}
                   />
                 ) : null}
