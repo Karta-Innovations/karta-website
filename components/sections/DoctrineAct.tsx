@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
-import { OperationalField } from "@/components/primitives/OperationalField";
 
 /**
  * ACT 4 - The Mission
@@ -12,9 +11,9 @@ import { OperationalField } from "@/components/primitives/OperationalField";
  * The mission act states why autonomous systems must be bounded, then makes
  * the four operating principles explicit on a bounded field.
  *
- * Eyebrow: "T+01:20:00 / THE MISSION"
+ * Eyebrow: "Our mission"
  * Headline: "Autonomous systems are arriving. They must be bounded."
- * The four operating principles (01-04), tightened to ≤2 lines each
+ * The four operating principles (01-04), stated in plain language
  * The Karta etymology moment now lives in the launch hero.
  */
 
@@ -29,19 +28,19 @@ const PRINCIPLES: Principle[] = [
     n: "01",
     title: "Bounded autonomy",
     body:
-      "Every autonomous action is constrained by an operator-approved doctrine. The system surfaces what it cannot do as clearly as what it can.",
+      "Autonomous behaviour is designed around operator-approved rules and limits. Uncertainty and restricted actions should be visible to the operator.",
   },
   {
     n: "02",
     title: "Integration discipline",
     body:
-      "Hardware, software, doctrine and sustainment are one product. We do not ship anything we cannot maintain in the envelope it will fly.",
+      "Hardware, software, operating rules and maintenance are designed together for the conditions in which the system will operate.",
   },
   {
     n: "03",
     title: "Audit by design",
     body:
-      "Every decision the system makes is logged at telemetry-frame granularity. After-action review is not a feature - it is the substrate.",
+      "Decisions and their authorising rules are designed to be reviewable together, so operators can trace what happened and why.",
   },
   {
     n: "04",
@@ -61,27 +60,25 @@ export function DoctrineAct() {
       ref={ref}
       className="relative isolate scroll-mt-24 overflow-hidden border-t border-boundary/30 px-6 py-24 md:px-10 md:py-32"
     >
-      <div aria-hidden className="section-field section-field--doctrine" />
-      <OperationalField variant="boundary" animated />
 
       <div className="relative z-10 mx-auto max-w-[1400px]">
         {/* Eyebrow and headline */}
         <div className="max-w-[90rem]">
-          <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-paper mb-6">
-            T+01:20:00 / THE MISSION
+          <p className="chapter-label mb-6">
+            Our mission
           </p>
 
-          <h2 className="max-w-[24ch] font-display-wide text-[clamp(2rem,4.4vw,4rem)] uppercase leading-[0.96] tracking-[0.01em] text-paper">
+          <h2 className="max-w-[24ch] font-display-wide text-[clamp(2rem,4.4vw,4rem)] uppercase leading-[0.96] tracking-[0.01em] text-fg">
             Autonomous systems are arriving.{" "}
-            <span className="text-flare">They must be bounded.</span>
+            <span className="text-boundary">They must be bounded.</span>
           </h2>
 
           <div className="mt-10 grid max-w-[76rem] gap-7 lg:grid-cols-2 lg:gap-16">
-            <p className="text-paper/85 text-[clamp(1.05rem,1.5vw,1.25rem)] leading-[1.65]">
-              Karta exists because the autonomous future is arriving whether we participate or not. The choice is not whether autonomous systems fly. It is whether they fly under doctrine that is auditable, constrained, and built for the field they will see.
+            <p className="text-fg-muted text-[clamp(1.05rem,1.5vw,1.25rem)] leading-[1.65]">
+              Operators need to know where a system can act, when it must ask for approval, and how its decisions can be reviewed. Those requirements guide how we build autonomy.
             </p>
-            <p className="text-paper/85 text-[clamp(1.05rem,1.5vw,1.25rem)] leading-[1.65]">
-              We are not building one category-leading vehicle. We are building the operational autonomy layer underneath autonomous systems, the navigation, decision and integration stack that turns hardware into a safe, auditable teammate.
+            <p className="text-fg-muted text-[clamp(1.05rem,1.5vw,1.25rem)] leading-[1.65]">
+              Karta brings navigation, mission planning and policy into one autonomy stack. Our aim is to help operators retain control as signals, conditions and mission demands change.
             </p>
           </div>
         </div>
@@ -103,7 +100,7 @@ export function DoctrineAct() {
             >
               <motion.span
                 aria-hidden
-                className="absolute inset-y-0 left-0 w-px origin-top bg-paper/22"
+                className="absolute inset-y-0 left-0 w-px origin-top bg-border"
                 initial={reduce ? false : { scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
                 viewport={{ once: true, margin: "0px 0px -80px 0px" }}
@@ -113,13 +110,13 @@ export function DoctrineAct() {
                   delay: reduce ? 0 : index * 0.055,
                 }}
               />
-              <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-paper">
+              <span className="font-mono text-[12px] tracking-[0.22em] uppercase text-fg">
                 {p.n}
               </span>
-              <h3 className="mt-3 font-display text-[clamp(1.75rem,3vw,2.5rem)] font-medium tracking-[-0.025em] text-paper">
+              <h3 className="mt-3 font-display text-[clamp(1.75rem,3vw,2.5rem)] font-medium tracking-[-0.025em] text-fg">
                 {p.title}
               </h3>
-              <p className="mt-3 text-paper/78 text-[15px] leading-[1.65] max-w-[48ch]">
+              <p className="mt-3 text-fg-muted text-[19px] leading-[1.65] max-w-[48ch]">
                 {p.body}
               </p>
             </motion.div>

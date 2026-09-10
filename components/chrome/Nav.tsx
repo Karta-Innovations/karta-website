@@ -19,12 +19,11 @@ const LINKS: NavLink[] = [
   { label: "Stack", href: "/#stack", detail: "SkyAnchor / TENERE / Kiksuya" },
   { label: "Field Notes", href: "/field-notes", detail: "Engineering essays" },
   { label: "Careers", href: "/careers", detail: "Open roles" },
+  { label: "Our mission", href: "/#mission", detail: "Bounded autonomy" },
 ];
 
 export function Nav() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotionSafe();
@@ -35,37 +34,10 @@ export function Nav() {
     !href.includes("#") && (pathname === href || pathname.startsWith(href + "/"));
 
   useEffect(() => {
-    let lastCommittedY = window.scrollY;
-    let frame = 0;
-
-    function updateChrome() {
-      frame = 0;
-      const y = window.scrollY;
-      const delta = y - lastCommittedY;
-
-      setScrolled(y > 24);
-
-      if (delta > 8 && y > 480) {
-        setHidden(true);
-        lastCommittedY = y;
-      } else if (delta < -8 || y <= 480) {
-        setHidden(false);
-        lastCommittedY = y;
-      }
-    }
-
-    function onScroll() {
-      if (frame === 0) {
-        frame = window.requestAnimationFrame(updateChrome);
-      }
-    }
-
-    updateChrome();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (frame !== 0) window.cancelAnimationFrame(frame);
-    };
+    const desktop = window.matchMedia("(min-width: 901px)");
+    const closeOnDesktop = () => { if (desktop.matches) setOpen(false); };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
   }, []);
 
   useEffect(() => {
@@ -134,126 +106,26 @@ export function Nav() {
 
   return (
     <>
-      {/*
-        Top-left brand mark - pulled out of the centered nav pill so the
-        company identity owns the page corner instead of competing with the
-        nav controls. Shares the same scroll-down compression timing as the
-        pill so the two read as one piece of chrome.
-      */}
-      <div
-        aria-hidden={open || undefined}
-        className={cn(
-          "fixed left-4 lg:left-8 z-50",
-          "transition-[transform,opacity] duration-[240ms] ease-[cubic-bezier(0.23,1,0.32,1)]",
-          "focus-within:translate-y-0 focus-within:opacity-100 focus-within:pointer-events-auto",
-          scrolled ? "top-3 lg:top-5" : "top-5 lg:top-8",
-          hidden && !open
-            ? "-translate-y-[180%] opacity-0 pointer-events-none"
-            : "pointer-events-auto",
-        )}
-      >
-        <Link
-          href="/"
-          aria-label="Karta Innovations - home"
-          tabIndex={open ? -1 : undefined}
-          className={cn(
-            "logo-chip inline-flex min-w-11 items-center justify-center gap-2 rounded-[4px]",
-            "px-2 py-2 ring-1 ring-edge",
-            "shadow-[0_18px_44px_-30px_rgba(0,0,0,0.65)]",
-            "pressable transition-[transform,background-color]",
-            "hover:-translate-y-0.5 hover:bg-paper",
-          )}
-        >
-          <span className="inline-flex items-center gap-2.5">
-            <Logo size={28} variant="mark" priority />
-            <Logo size={24} variant="wordmark" priority className="hidden sm:inline-flex" />
-          </span>
-        </Link>
-      </div>
-
-      <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 flex justify-start pl-[76px] pr-4 sm:pl-[158px] lg:justify-center lg:px-0",
-          "pointer-events-none transition-[transform,opacity] duration-[240ms] ease-[cubic-bezier(0.23,1,0.32,1)]",
-          "focus-within:translate-y-0 focus-within:opacity-100",
-          scrolled ? "pt-3" : "pt-5 lg:pt-6",
-          hidden && !open && "-translate-y-[180%] opacity-0",
-        )}
-      >
-        <nav
-          aria-label="Primary"
-          className={cn(
-            "pointer-events-auto inline-flex items-center gap-1 sm:gap-2",
-            "rounded-[4px] py-1.5 pl-3 pr-1.5",
-            // Dim ink glass backdrop (nav-pill in globals.css) with a faint
-            // fg ring and a true-black drop for floating depth on dark.
-            "nav-pill backdrop-blur-xl",
-            "ring-1 ring-fg/[0.08]",
-            "shadow-[0_18px_50px_-28px_rgba(0,0,0,0.55)]",
-            "transition-[background-color,box-shadow] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
-            scrolled && "ring-fg/[0.14]",
-          )}
-        >
-          <ul aria-hidden={open || undefined} className="hidden lg:flex items-center">
+      <header className="site-header">
+        <nav aria-label="Primary" className="site-header__inner page-width">
+          <Link href="/" aria-label="Karta Innovations - home" aria-hidden={open || undefined} tabIndex={open ? -1 : undefined} className="site-brand">
+            <Logo size={40} variant="mark" priority />
+            <Logo size={34} variant="wordmark" priority />
+          </Link>
+          <ul aria-hidden={open || undefined} className="site-header__links">
             {LINKS.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  tabIndex={open ? -1 : undefined}
-                  aria-current={isCurrent(link.href) ? "page" : undefined}
-                  className={cn(
-                    "px-3 py-2 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] hover:bg-glass transition-colors",
-                    isCurrent(link.href)
-                      ? "text-fg"
-                      : "text-fg-muted hover:text-fg",
-                  )}
-                >
-                  {link.label}
-                </Link>
+                <Link href={link.href} tabIndex={open ? -1 : undefined} aria-current={isCurrent(link.href) ? "page" : undefined}>{link.label}</Link>
               </li>
             ))}
           </ul>
-
-          <button
-            ref={menuButtonRef}
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls="nav-overlay"
-            aria-label={open ? "Close menu" : "Open menu"}
-            className="pressable relative inline-flex size-11 items-center justify-center hover:bg-glass"
-          >
-            <span className="sr-only">{open ? "Close" : "Menu"}</span>
-            <span
-              aria-hidden
-              className={cn(
-                "absolute h-px w-4 bg-fg transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
-                open ? "rotate-45 translate-y-0" : "-translate-y-[3px]",
-              )}
-            />
-            <span
-              aria-hidden
-              className={cn(
-                "absolute h-px w-4 bg-fg transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
-                open ? "-rotate-45 translate-y-0" : "translate-y-[3px]",
-              )}
-            />
-          </button>
-
-          <Link
-            href="/engage"
-            aria-label="Talk to engineering"
-            aria-hidden={open || undefined}
-            tabIndex={open ? -1 : undefined}
-            className={cn(
-              "ml-1 inline-flex min-h-11 min-w-11 items-center justify-center gap-2",
-              "px-3 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] sm:px-4",
-              "pressable bg-flare text-on-flare hover:bg-flare-hi",
-            )}
-          >
-            <span className="hidden sm:inline">Talk to engineering</span>
-            <ArrowRight size={12} weight="bold" aria-hidden />
-          </Link>
+          <div className="site-header__actions">
+            <Link href="/engage" className="header-contact" aria-hidden={open || undefined} tabIndex={open ? -1 : undefined}>Talk to engineering <ArrowRight size={16} aria-hidden /></Link>
+            <button ref={menuButtonRef} type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="nav-overlay" aria-label={open ? "Close menu" : "Open menu"} className="site-menu-button">
+              <span className={cn("site-menu-line", open && "site-menu-line--open")} aria-hidden />
+              <span className="sr-only">{open ? "Close" : "Menu"}</span>
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -275,7 +147,7 @@ export function Nav() {
               opacity: 0,
               transition: { duration: reduce ? 0 : 0.16, ease: [0.23, 1, 0.32, 1] },
             }}
-            className="fixed inset-0 z-40 bg-ink/96"
+            className="fixed inset-0 z-40 bg-ink"
           >
             <div className="absolute inset-0 px-6 pt-24 pb-10 overflow-y-auto">
               <div className="mx-auto max-w-[1200px] grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-24 pt-8">
@@ -347,7 +219,7 @@ export function Nav() {
                   <Link
                     href="/engage"
                     onClick={() => setOpen(false)}
-                    className="pressable inline-flex items-center gap-3 rounded-full bg-flare text-on-flare px-5 py-3 text-sm font-medium hover:bg-flare-hi"
+                    className="button-primary"
                   >
                     Talk to engineering
                     <ArrowRight size={14} weight="bold" aria-hidden />

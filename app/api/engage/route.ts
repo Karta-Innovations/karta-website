@@ -133,18 +133,15 @@ export async function POST(request: Request) {
   const to = process.env.ENGAGE_TO_EMAIL;
   const apiKey = process.env.RESEND_API_KEY;
 
-  // In dev / when Resend is not configured, log to stderr and acknowledge.
+  // Acknowledgement must mean delivery, including in local previews.
   if (!to || !apiKey) {
-    console.error(
-      JSON.stringify({
-        event: "engage.received.local",
-        intent: data.intent,
-        from: `${data.name} <${data.email}>`,
-        organisation: data.organisation,
-        messagePreview: data.message.slice(0, 200),
-      }),
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Your message was not sent. Please email info@kartainnovations.com directly.",
+      },
+      { status: 503 },
     );
-    return NextResponse.json({ success: true, mode: "local-log" });
   }
 
   // 1. Internal notification - the submission we must not lose.

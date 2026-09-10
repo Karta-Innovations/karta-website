@@ -7,7 +7,7 @@
  * hiding content from no-JS visitors - they never get the attribute, so
  * they never get the hidden state.
  *
- * The site is dark-only: `data-theme="dark"` is set statically on <html> in
+ * The site is light-only: `data-theme="light"` is set statically on <html> in
  * layout.tsx, so no theme logic runs here anymore.
  */
 const SCRIPT = `document.documentElement.setAttribute('data-js','');`;

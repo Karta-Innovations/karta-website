@@ -1,23 +1,22 @@
 import { ImageResponse } from "next/og";
 
 /**
- * Default Open Graph card. Dark ops register on purpose: social feeds are
- * where the "denied environment" framing has one second to land. Uses the
+ * Default Open Graph card, aligned with the daylight palette. Uses the
  * bundled sans (Satori default); brand fonts are not loaded here to keep
  * the route dependency-free.
  */
 
 export const alt =
-  "Karta Innovations - Autonomy that works where GPS does not";
+  "Karta Innovations - Command that survives uncertainty";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const INK = "#071008";
-const FG = "#DDE3DC";
-const MUTED = "#A0A4A0";
-const FLARE = "#C0392B";
-const RETURN = "#A0BA95";
-const EDGE = "rgba(221, 227, 220, 0.14)";
+const INK = "#F7F8FA";
+const FG = "#0B1020";
+const MUTED = "#515B6D";
+const FLARE = "#C8962E";
+const RETURN = "#765619";
+const EDGE = "rgba(11, 16, 32, 0.14)";
 
 const LOOP_PHASES = ["01", "02", "03", "04"];
 
@@ -32,8 +31,6 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           backgroundColor: INK,
-          backgroundImage:
-            "radial-gradient(60% 80% at 10% 0%, rgba(192, 57, 43, 0.18), transparent 60%), radial-gradient(50% 70% at 90% 10%, rgba(102, 120, 95, 0.42), transparent 58%), radial-gradient(42% 56% at 72% 100%, rgba(184, 154, 122, 0.16), transparent 64%)",
           padding: "64px 72px",
           color: FG,
         }}
@@ -70,7 +67,7 @@ export default function OpengraphImage() {
               maxWidth: 980,
             }}
           >
-            Autonomy that works where GPS does not.
+            Command that survives uncertainty.
           </div>
           <div style={{ fontSize: 28, color: MUTED, maxWidth: 900 }}>
             Navigation, decision and audit that keep working through GPS loss,

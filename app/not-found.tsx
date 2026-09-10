@@ -18,10 +18,9 @@ export default function NotFound() {
           This corridor is{" "}
           <span className="text-sand">not on the map</span>.
         </h1>
-        <p className="mt-8 text-fg-muted text-[17px] leading-[1.65] max-w-[58ch]">
-          The route you requested is not in Karta&apos;s published envelope. Try
-          the stack, the platforms, or talk to the engineering team - they may
-          know what you were looking for.
+        <p className="mt-8 text-fg-muted text-[19px] leading-[1.65] max-w-[58ch]">
+          We couldn&apos;t find that page. Explore the autonomy stack, read our field
+          notes, or contact the engineering team for help.
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
           <NestedCTA href="/">Return to home</NestedCTA>

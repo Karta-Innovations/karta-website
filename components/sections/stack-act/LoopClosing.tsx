@@ -9,7 +9,6 @@ import {
   type Variants,
 } from "framer-motion";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
-import { OperationalField } from "@/components/primitives/OperationalField";
 
 /**
  * THE LOOP CLOSES
@@ -39,8 +38,6 @@ export function LoopClosing() {
 
   return (
     <section className="relative isolate overflow-hidden bg-current-deep px-6 py-20 md:px-10 md:py-32">
-      <div aria-hidden className="section-field section-field--loop" />
-      <OperationalField variant="return" animated={false} />
       <div className="relative z-10 mx-auto max-w-[90rem]">
         {/* Heading */}
         <motion.div
@@ -51,13 +48,13 @@ export function LoopClosing() {
           className="mx-auto max-w-[70ch] text-center"
         >
           <h2 className="font-display text-[clamp(2rem,4.5vw,3.6rem)] font-medium leading-[1.1] tracking-[-0.04em] text-fg">
-            Intent goes down. Situation and record come back.
+            Human intent. One connected stack.
           </h2>
-          <p className="mt-6 text-[16px] leading-[1.65] text-fg-muted">
-            The autonomy loop is a four-step circuit. It begins when an operator
-            expresses intent. SkyAnchor surfaces the situation. TENERE adapts the
-            mission. Kiksuya records why each action was allowed. Then, audit
-            becomes the next intent - the loop runs again.
+          <p className="mt-6 text-[18px] leading-[1.65] text-fg-muted">
+            An operator approves the mission and its limits. SkyAnchor estimates
+            position. TENERE plans and adapts the mission within those limits.
+            Kiksuya keeps the rules and decision history available for review.
+            The operator uses that record to shape the next mission.
           </p>
         </motion.div>
 
@@ -104,11 +101,25 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
 
   return (
     <div ref={ref} className="mx-auto mt-12 max-w-[1100px]">
+      <ol className="loop-mobile" aria-label="How the autonomy stack works">
+        {[
+          ["Operator", "Approve the mission and its limits."],
+          ["SkyAnchor", "Estimate position and show confidence."],
+          ["TENERE", "Plan and adapt within approved limits."],
+          ["Kiksuya", "Connect decisions to their authorising rules."],
+        ].map(([name, description], index) => (
+          <li key={name}>
+            <span aria-hidden>{String(index + 1).padStart(2, "0")}</span>
+            <div><h3>{name}</h3><p>{description}</p></div>
+          </li>
+        ))}
+        <li className="loop-mobile__return"><span aria-hidden>↩</span><p>The operator reviews the record before the next mission.</p></li>
+      </ol>
       <svg
         viewBox="0 0 960 260"
-        className="h-auto w-full"
+        className="loop-desktop h-auto w-full"
         role="img"
-        aria-label="The autonomy loop: Intent enters at the operator, SkyAnchor surfaces position, TENERE adapts the mission, Kiksuya records the decision, and audit flows back as the next intent."
+        aria-label="The autonomy loop: the operator approves intent, SkyAnchor estimates position, TENERE adapts the mission, and Kiksuya records the decision. The operator reviews the record before planning the next mission."
       >
         {/* Forward segments: the route signal carries intent down. */}
         {[0, 1, 2].map((i) => {
@@ -135,7 +146,7 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
         })}
 
         {/* Return arc carries the audit back. */}
-        <g style={{ filter: "drop-shadow(0 0 7px color-mix(in oklab, var(--color-return) 45%, transparent))" }}>
+        <g>
           <ScrubbedPath
             d={returnPath}
             stroke="var(--color-return)"
@@ -158,7 +169,7 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
             cx={NODE_CX[0]}
             cy={NODE_CY}
             r={NODE_R}
-            fill="var(--color-return)"
+            fill="var(--color-surface)"
             stroke="var(--color-route)"
             strokeWidth={1.5}
           />
@@ -210,7 +221,7 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
             cx={NODE_CX[1]}
             cy={NODE_CY}
             r={NODE_R}
-            fill="var(--color-return)"
+            fill="var(--color-surface)"
             stroke="var(--color-route)"
             strokeWidth={1.5}
           />
@@ -262,7 +273,7 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
             cx={NODE_CX[2]}
             cy={NODE_CY}
             r={NODE_R}
-            fill="var(--color-return)"
+            fill="var(--color-surface)"
             stroke="var(--color-route)"
             strokeWidth={1.5}
           />
@@ -314,7 +325,7 @@ function LoopDiagram({ reduce }: { reduce: boolean }) {
             cx={NODE_CX[3]}
             cy={NODE_CY}
             r={NODE_R}
-            fill="var(--color-return)"
+            fill="var(--color-surface)"
             stroke="var(--color-return)"
             strokeWidth={1.5}
           />

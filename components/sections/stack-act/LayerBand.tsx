@@ -3,13 +3,8 @@
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
-import {
-  OperationalField,
-  type OperationalFieldVariant,
-} from "@/components/primitives/OperationalField";
 import { DURATION, EASING } from "@/lib/motion";
 import type { StackLayer } from "@/lib/catalog";
-import { AuditExcerpt } from "./AuditExcerpt";
 
 const LAYER_HEADLINES = [
   "It knows where it is, and how sure it is.",
@@ -19,22 +14,10 @@ const LAYER_HEADLINES = [
 
 const SURFACES = ["bg-current-deep", "bg-ink-2", "bg-surface-deep"];
 
-const FIELD_CLASSES = [
-  "section-field--orientation",
-  "section-field--command",
-  "section-field--theatre",
-];
-
-const FIELD_VARIANTS: OperationalFieldVariant[] = [
-  "corridor",
-  "boundary",
-  "return",
-];
-
 const IMAGE_ALTS = [
   "SkyAnchor on-vehicle positioning enclosure for navigation through sustained GNSS denial.",
-  "TENERE mission command interface showing an airfield operating picture and vehicle controls.",
-  "Kiksuya theatre mission intelligence dashboard with doctrine, audit, and cross-echelon coordination.",
+  "TENERE mission planning interface showing a waypoint route, geofence, and vehicle status over satellite imagery.",
+  "Shared mission command interface showing an airfield operating picture and vehicle controls.",
 ];
 
 const IMAGE_CLASSES = [
@@ -76,27 +59,19 @@ export function LayerBand({ layer, index }: LayerBandProps) {
   return (
     <section
       id={layer.slug}
-      className={`${SURFACES[index] ?? SURFACES[0]} relative isolate scroll-mt-24 overflow-hidden border-t border-edge px-6 py-20 md:px-10 md:py-24`}
+      className={`${SURFACES[index] ?? SURFACES[0]} relative isolate scroll-mt-24 overflow-hidden border-t border-edge px-5 py-20 md:px-8 md:py-24`}
     >
-      <div
-        aria-hidden
-        className={`section-field ${FIELD_CLASSES[index] ?? FIELD_CLASSES[0]}`}
-      />
-      <OperationalField
-        variant={FIELD_VARIANTS[index] ?? FIELD_VARIANTS[0]}
-        animated={false}
-      />
       <motion.div
         variants={reveal}
         initial={reduce ? false : "hidden"}
         whileInView="visible"
         viewport={{ once: true, margin: "0px 0px -90px 0px" }}
-        className="relative z-10 mx-auto grid max-w-[80rem] gap-12 lg:grid-cols-[minmax(18rem,0.78fr)_minmax(32rem,1.22fr)] lg:items-start lg:gap-16 xl:gap-24"
+        className="relative z-10 mx-auto grid max-w-[92rem] gap-12 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start lg:gap-12 xl:gap-14"
       >
         <div className="lg:sticky lg:top-28">
           <motion.p
             variants={item}
-            className="font-mono text-[10px] uppercase tracking-[0.22em] text-flare"
+            className="chapter-label"
           >
             {layer.number} / {layer.layer} layer
           </motion.p>
@@ -104,7 +79,7 @@ export function LayerBand({ layer, index }: LayerBandProps) {
           <div className="mt-5 overflow-hidden">
             <motion.h2
               variants={item}
-              className="font-display text-[16px] font-semibold uppercase leading-[1.2] tracking-[0.16em] text-return"
+              className="font-display text-[32px] font-medium leading-[1.2] tracking-[-0.04em] text-fg"
             >
               {layer.product}
             </motion.h2>
@@ -119,21 +94,21 @@ export function LayerBand({ layer, index }: LayerBandProps) {
 
           <motion.p
             variants={item}
-            className="mt-6 max-w-[54ch] text-[15px] leading-[1.7] text-fg-muted"
+            className="mt-6 max-w-[54ch] text-[19px] leading-[1.7] text-fg-muted"
           >
             {layer.approach}
           </motion.p>
 
           {layer.capabilities.length > 0 ? (
             <motion.div variants={item} className="mt-9 border-t border-edge pt-6">
-              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-fg-tertiary">
+              <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-fg-tertiary">
                 Capabilities
               </p>
               <ul className="mt-4 space-y-3">
                 {layer.capabilities.map((cap) => (
                   <li
                     key={cap}
-                    className="flex gap-3 text-[13px] leading-[1.5] text-fg-muted"
+                    className="flex gap-3 text-[17px] leading-[1.6] text-fg-muted"
                   >
                     <span
                       aria-hidden
@@ -147,7 +122,7 @@ export function LayerBand({ layer, index }: LayerBandProps) {
           ) : null}
         </div>
 
-        <div className="w-full max-w-[32rem] lg:ml-auto">
+        <div className="w-full lg:ml-auto">
           <motion.figure
             variants={item}
             initial={reduce ? false : { clipPath: "inset(0 0 100% 0)" }}
@@ -165,19 +140,14 @@ export function LayerBand({ layer, index }: LayerBandProps) {
               alt={IMAGE_ALTS[index] ?? `${layer.product} product visual.`}
               fill
               quality={82}
-              sizes="(max-width: 1024px) 100vw, 512px"
+              sizes="(max-width: 1023px) calc(100vw - 40px), (max-width: 1536px) 63vw, 920px"
               className={`${IMAGE_CLASSES[index] ?? IMAGE_CLASSES[0]} stack-media__image transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]`}
             />
-            <div aria-hidden className="stack-product-grade absolute inset-0" />
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-gradient-to-t from-ink/78 via-transparent to-ink/12"
-            />
-            <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-5 md:p-6">
-              <p className="max-w-[44ch] text-[12px] leading-[1.55] text-fg-muted">
+                        <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-5 md:p-6">
+              <p className="max-w-[44ch] text-[14px] leading-[1.55] text-fg-muted">
                 {layer.byline}
               </p>
-              <span className="stack-media__index shrink-0 font-mono text-[10px] uppercase tracking-[0.18em] text-return transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]">
+              <span className="stack-media__index shrink-0 font-mono text-[12px] uppercase tracking-[0.18em] text-return transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]">
                 0{index + 1}
               </span>
             </figcaption>
@@ -186,7 +156,7 @@ export function LayerBand({ layer, index }: LayerBandProps) {
           <motion.aside variants={item} className="mt-7 border-y border-edge py-6">
             {layer.posture.length > 0 ? (
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-return">
+                <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-return">
                   Operating posture
                 </p>
                 <dl className="mt-4 grid gap-x-8 sm:grid-cols-2">
@@ -195,13 +165,13 @@ export function LayerBand({ layer, index }: LayerBandProps) {
                       key={spec.label}
                       className="flex items-baseline justify-between gap-4 border-b border-edge py-3"
                     >
-                      <dt className="font-mono text-[9px] uppercase tracking-[0.14em] text-fg-tertiary">
+                      <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-tertiary">
                         {spec.label}
                       </dt>
-                      <dd className="text-right font-display text-[13px] font-medium text-fg">
+                      <dd className="text-right font-display text-[15px] font-medium text-fg">
                         {spec.value}
                         {spec.unit ? (
-                          <span className="ml-1 font-mono text-[10px] text-fg-muted">
+                          <span className="ml-1 font-mono text-[12px] text-fg-muted">
                             {spec.unit}
                           </span>
                         ) : null}
@@ -214,14 +184,14 @@ export function LayerBand({ layer, index }: LayerBandProps) {
 
             {layer.integrations.length > 0 ? (
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-fg-tertiary">
+                <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-fg-tertiary">
                   Integrations
                 </p>
                 <div className="flex max-w-[32rem] flex-wrap gap-x-5 gap-y-2 sm:justify-end">
                   {layer.integrations.map((integration) => (
                     <span
                       key={integration}
-                      className="font-mono text-[10px] text-fg-muted"
+                      className="font-mono text-[12px] text-fg-muted"
                     >
                       {integration}
                     </span>
@@ -230,7 +200,6 @@ export function LayerBand({ layer, index }: LayerBandProps) {
               </div>
             ) : null}
 
-            {layer.slug === "kiksuya" ? <AuditExcerpt /> : null}
           </motion.aside>
         </div>
       </motion.div>

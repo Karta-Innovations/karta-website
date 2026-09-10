@@ -7,36 +7,7 @@ interface DoppelrandCardProps {
   asChild?: boolean;
 }
 
-/**
- * Nested-architecture card. Outer shell + inner core with concentric radii.
- * Looks like a glass plate sitting in a machined aluminum tray.
- * Per high-end-visual-design: NEVER place premium cards flatly on the background.
- */
-export function DoppelrandCard({
-  children,
-  className,
-  innerClassName,
-}: DoppelrandCardProps) {
-  return (
-    <div
-      className={cn(
-        "rounded-[28px] p-[6px]",
-        "bg-glass ring-1 ring-edge",
-        "shadow-[0_26px_64px_-40px_rgba(0,0,0,0.5)]",
-        className,
-      )}
-    >
-      <div
-        className={cn(
-          "rounded-[22px] h-full w-full",
-          "bg-gradient-to-b from-indigo/70 to-ink-2",
-          "ring-1 ring-inset ring-edge",
-          "shadow-[inset_0_1px_0_rgba(255,255,255,0.10)]",
-          innerClassName,
-        )}
-      >
-        {children}
-      </div>
-    </div>
-  );
+/** Quiet content surface shared by the contact form. */
+export function DoppelrandCard({ children, className, innerClassName }: DoppelrandCardProps) {
+  return <div className={cn("border border-border bg-ink-2", className, innerClassName)}>{children}</div>;
 }

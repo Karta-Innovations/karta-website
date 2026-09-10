@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { NOTES } from "@/lib/content/notes";
 import { ROLES } from "@/lib/content/roles";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://karta.ai";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.kartainnovations.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

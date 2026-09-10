@@ -1,68 +1,56 @@
 @import "tailwindcss";
 
-/* ============================================================
-   KARTA - Design tokens
-   Operational autonomy. Field Atlas register.
-   ------------------------------------------------------------
-   Sage carries the operating environment, mineral gray carries
-   information, field tan carries physical context, orange carries
-   a live route, and brick-red marks human intent and constraint.
-
-   All authored colors use OKLCH. Historic token aliases remain
-   temporarily so secondary routes inherit the new system without
-   a brittle all-at-once class rename.
-   ============================================================ */
-
+/* Daylight palette. Legacy surface names remain aliases for shared components. */
 @theme {
-  /* ---- Surfaces: sage graphite, never pure black ---- */
-  --color-ink: oklch(0.16 0.022 145);
-  --color-ink-2: oklch(0.195 0.027 143);
-  --color-surface: oklch(0.235 0.033 140);
-  --color-surface-deep: oklch(0.115 0.014 150);
-  --color-raised: oklch(0.285 0.039 138);
-  --color-raised-hi: oklch(0.33 0.045 136);
-  --color-indigo: oklch(0.285 0.039 138);
-  --color-indigo-hi: oklch(0.33 0.045 136);
+  /* Light surfaces */
+  --color-ink: oklch(0.97893222 0.00286514 264.542074);
+  --color-ink-2: oklch(0.96047910 0.00455194 258.324758);
+  --color-surface: oklch(0.93724261 0.00835121 271.325306);
+  --color-surface-deep: oklch(0.96047910 0.00455194 258.324758);
+  --color-raised: oklch(0.93724261 0.00835121 271.325306);
+  --color-raised-hi: oklch(0.91509651 0.01168665 264.507717);
+  --color-indigo: oklch(0.27472371 0.07716327 268.650292);
+  --color-indigo-hi: oklch(0.34144794 0.08694766 267.079128);
 
-  --color-field: oklch(0.19 0.026 145);
-  --color-field-2: oklch(0.235 0.033 140);
-  --color-fog: oklch(0.215 0.03 142);
-  --color-fog-2: oklch(0.30 0.04 138);
+  --color-field: oklch(0.97893222 0.00286514 264.542074);
+  --color-field-2: oklch(0.96047910 0.00455194 258.324758);
+  --color-fog: oklch(0.93724261 0.00835121 271.325306);
+  --color-fog-2: oklch(0.91509651 0.01168665 264.507717);
 
-  /* ---- Text: mineral gray on sage graphite, never white ---- */
-  --color-fg: oklch(0.91 0.012 145);
-  --color-fg-muted: oklch(0.714251 0.007295 145.499); /* #A0A4A0 */
-  --color-fg-tertiary: oklch(0.60 0.012 145);
+  /* Ink typography */
+  --color-fg: oklch(0.17733426 0.03411340 269.558533);
+  --color-fg-muted: oklch(0.46940544 0.03185176 262.187369);
+  --color-fg-tertiary: var(--color-fg-muted);
 
   /* ---- Borders / hairlines ---- */
-  --color-border: oklch(0.32 0.035 140);
-  --color-border-strong: oklch(0.43 0.045 138);
-  --color-border-soft: oklch(0.91 0.012 145 / 0.07);
+  --color-border: oklch(0.88456790 0.01178787 264.505555);
+  --color-border-strong: oklch(0.75253491 0.02022778 262.985856);
+  --color-border-soft: oklch(0.17733426 0.03411340 269.558533 / 0.070588);
 
   /* ---- Edge + instrument fills ---- */
-  --color-edge: oklch(0.91 0.012 145 / 0.08);
-  --color-edge-strong: oklch(0.91 0.012 145 / 0.16);
-  --color-glass: oklch(0.91 0.012 145 / 0.04);
-  --color-glass-hi: oklch(0.91 0.012 145 / 0.08);
+  --color-edge: oklch(0.17733426 0.03411340 269.558533 / 0.101961);
+  --color-edge-strong: oklch(0.17733426 0.03411340 269.558533 / 0.200000);
+  --color-glass: oklch(0.17733426 0.03411340 269.558533 / 0.031373);
+  --color-glass-hi: oklch(0.17733426 0.03411340 269.558533 / 0.062745);
 
   /* ---- Supplied palette anchors ---- */
-  --color-sage: oklch(0.550647 0.043468 136.971);       /* #66785F */
-  --color-mineral: oklch(0.714251 0.007295 145.499);    /* #A0A4A0 */
-  --color-field-tan: oklch(0.705198 0.056921 68.506);   /* #B89A7A */
-  --color-route: oklch(0.695758 0.159641 55.544);       /* #E67E22 */
+  --color-sage: oklch(0.70331851 0.12955143 81.341766);
+  --color-mineral: oklch(0.52629176 0.02898149 263.197668);
+  --color-field-tan: oklch(0.75879836 0.12021313 80.613442);
+  --color-route: oklch(0.70331851 0.12955143 81.341766);
 
   /* ---- Brand roles ---- */
-  --color-violet: var(--color-sage);                    /* operating field */
-  --color-violet-hi: oklch(0.68 0.055 137);             /* sage lift */
-  --color-violet-deep: oklch(0.36 0.045 137);           /* pressed sage */
-  --color-flare: oklch(0.543346 0.174006 29.697); /* #C0392B brick-red action */
-  --color-flare-hi: oklch(0.49 0.16 29.697);      /* darker hover */
-  --color-flare-deep: oklch(0.43 0.15 29.697);    /* pressed / dim trace */
-  --color-boundary: oklch(0.47 0.14 29.697);      /* brick-red constraint */
-  --color-boundary-hi: oklch(0.70 0.13 29.697);   /* readable signal on dark */
-  --color-return: oklch(0.76 0.06 137);        /* confirmed return state */
-  --color-on-flare: oklch(0.95 0.012 75);      /* warm light text on #C0392B */
-  --color-on-sage: oklch(0.985 0.006 75);      /* AA text on exact #66785F */
+  --color-violet: oklch(0.27472371 0.07716327 268.650292);
+  --color-violet-hi: oklch(0.34144794 0.08694766 267.079128);
+  --color-violet-deep: oklch(0.17733426 0.03411340 269.558533);
+  --color-flare: var(--color-indigo);
+  --color-flare-hi: oklch(0.27472371 0.07716327 268.650292);
+  --color-flare-deep: oklch(0.27472371 0.07716327 268.650292);
+  --color-boundary: oklch(0.41680946 0.14461019 26.170351);
+  --color-boundary-hi: oklch(0.41680946 0.14461019 26.170351);
+  --color-return: oklch(0.47551453 0.08649145 79.487860);
+  --color-on-flare: oklch(0.97893222 0.00286514 264.542074);
+  --color-on-sage: oklch(0.17733426 0.03411340 269.558533);
 
   /* Historic class aliases. New homepage code uses the roles above. */
   --color-teal: var(--color-violet);
@@ -74,17 +62,17 @@
   --color-oxblood: var(--color-boundary);
   --color-oxblood-hi: var(--color-boundary-hi);
   --color-aqua: var(--color-return);
-  --color-amber: var(--color-flare);
-  --color-amber-hi: var(--color-flare-hi);
-  --color-amber-deep: var(--color-flare-deep);
-  --color-gold: var(--color-return);
+  --color-amber: oklch(0.70331851 0.12955143 81.341766);
+  --color-amber-hi: oklch(0.75879836 0.12021313 80.613442);
+  --color-amber-deep: oklch(0.47551453 0.08649145 79.487860);
+  --color-gold: oklch(0.75879836 0.12021313 80.613442);
 
   /* ---- Derived neutrals ---- */
-  --color-paper: oklch(0.90 0.025 75);
-  --color-night-ink: oklch(0.17 0.024 145);
-  --color-current-deep: oklch(0.14 0.02 148);
-  --color-pale-field: oklch(0.84 0.03 75);
-  --color-field-muted: oklch(0.70 0.025 90);
+  --color-paper: oklch(0.97893222 0.00286514 264.542074);
+  --color-night-ink: oklch(0.17733426 0.03411340 269.558533);
+  --color-current-deep: oklch(0.97893222 0.00286514 264.542074);
+  --color-pale-field: oklch(0.93724261 0.00835121 271.325306);
+  --color-field-muted: oklch(0.52629176 0.02898149 263.197668);
   --color-warm-paper: var(--color-paper);
   --color-warm-ink: var(--color-night-ink);
   --color-pale-tide: var(--color-pale-field);
@@ -93,25 +81,21 @@
   --color-signal: var(--color-flare);
   --color-signal-deep: var(--color-flare-deep);
   --color-alert: var(--color-boundary-hi);
-  --color-ok: var(--color-return);
+  --color-ok: oklch(0.44777503 0.05697184 170.392717);
   --color-warn: var(--color-route);
 
   /* Font families wired by next/font in layout.tsx.
-     Anek (Ek Type): variable weight + width; Azeret Mono: instrument data. */
-  --font-sans: var(--font-anek-latin), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+     Manrope: display and body; Azeret Mono: instrument data. */
+  --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --font-mono: var(--font-azeret-mono), "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   /* Etymology marker only - used sparingly per brand playbook. */
   --font-devanagari: var(--font-anek-devanagari), "Noto Serif Devanagari", "Mangal", serif;
-  --font-indic: var(--font-anek-devanagari), var(--font-anek-telugu),
-    var(--font-anek-tamil), var(--font-anek-kannada),
-    var(--font-anek-malayalam), var(--font-anek-gujarati),
-    var(--font-anek-gurmukhi), var(--font-anek-bangla),
-    var(--font-anek-odia), "Nirmala UI", "Noto Sans", sans-serif;
+  --font-indic: var(--font-anek-devanagari), "Nirmala UI", sans-serif;
 
   /* Type scale - fluid via clamp where used */
   --text-xs: 11px;
   --text-sm: 13px;
-  --text-base: 15px;
+  --text-base: 18px;
   --text-md: 17px;
   --text-lg: 20px;
   --text-xl: 24px;
@@ -150,7 +134,7 @@ html {
   scrollbar-gutter: stable;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -168,7 +152,7 @@ body {
   color: var(--color-on-flare);
 }
 
-/* Two-layer focus ring: brick-red inside, warm field paper outside. */
+/* Two-layer focus ring: ink against the light surface. */
 :focus-visible {
   outline: 2px solid var(--color-paper);
   outline-offset: 5px;
@@ -220,16 +204,17 @@ img, svg, video { display: block; max-width: 100%; }
   font-family: var(--font-sans);
   letter-spacing: -0.02em;
   line-height: 0.98;
-  font-weight: 560;
+  font-weight: 500;
   text-wrap: balance;
 }
 
 /* Controlled wide cut for display names and section anchors. */
 .font-display-wide {
-  font-variation-settings: "wdth" 108;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  line-height: 0.94;
+  font-variation-settings: normal;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
+  text-transform: none;
 }
 
 .font-mono-label {
@@ -289,424 +274,11 @@ img, svg, video { display: block; max-width: 100%; }
   border: 0;
 }
 
-/* ============================================================
-   Texture-masked display type ("texture-text")
-   ------------------------------------------------------------
-   Terrain lives inside the letterforms: the machine carries the
-   map within it. Adapted from the HyperFrames texture-mask-text
-   technique - background-clip:text with an owned terrain plate,
-   a legibility scrim inside the glyphs, and a contour drop
-   shadow on the element itself. The slow drift is a CSS
-   keyframe; the global reduced-motion block freezes it.
-   Fallback: browsers without background-clip:text render solid
-   field flare.
-   ============================================================ */
+/* Quiet surfaces shared by the secondary routes. */
+.bg-aurora, .bg-aurora-soft { background: var(--color-ink); }
+.grid-overlay { display: none; }
+.logo-chip { background: transparent; }
 
-.texture-text {
-  /* Dedicated label-free terrain crop for optional texture masks. */
-  --texture-url: url("/textures/terrain-mask.jpg");
-  --texture-size: 135% auto;
-  --texture-pos: 30% 45%;
-  background-image:
-    linear-gradient(
-      color-mix(in oklab, var(--color-ink) 18%, transparent),
-      color-mix(in oklab, var(--color-ink) 36%, transparent)
-    ),
-    var(--texture-url);
-  background-size: var(--texture-size);
-  background-position: var(--texture-pos);
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 2px 14px oklch(0.10 0.018 145 / 0.62));
-}
-
-@keyframes texture-drift {
-  from { background-position: 18% 35%; }
-  to { background-position: 42% 60%; }
-}
-.texture-text-drift {
-  animation: texture-drift 44s ease-in-out infinite alternate;
-}
-
-#launch[data-signal-active="false"] .texture-text-drift {
-  animation-play-state: paused;
-}
-
-@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
-  .texture-text {
-    background-image: none;
-    color: var(--color-flare);
-    filter: none;
-  }
-}
-
-/* ============================================================
-   Vibrancy helpers - gradients, glow, aurora
-   ============================================================ */
-
-.bg-aurora {
-  background-image:
-    radial-gradient(42% 56% at 14% 2%, color-mix(in oklab, var(--color-flare) 10%, transparent), transparent 68%),
-    radial-gradient(50% 68% at 92% 10%, color-mix(in oklab, var(--color-field-tan) 12%, transparent), transparent 64%),
-    radial-gradient(72% 90% at 60% 110%, color-mix(in oklab, var(--color-sage) 22%, transparent), transparent 70%);
-}
-.bg-aurora-soft {
-  background-image:
-    radial-gradient(44% 54% at 8% 0%, color-mix(in oklab, var(--color-flare) 7%, transparent), transparent 68%),
-    radial-gradient(54% 70% at 96% 6%, color-mix(in oklab, var(--color-sage) 18%, transparent), transparent 66%),
-    radial-gradient(42% 50% at 76% 72%, color-mix(in oklab, var(--color-field-tan) 9%, transparent), transparent 72%),
-    radial-gradient(34% 44% at 46% 14%, color-mix(in oklab, var(--color-route) 5%, transparent), transparent 74%);
-}
-
-.glow-accent {
-  box-shadow: 0 26px 70px -30px color-mix(in oklab, var(--color-flare) 55%, transparent);
-}
-
-.grid-overlay {
-  background-image:
-    linear-gradient(to right, color-mix(in srgb, var(--color-fg) 7%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--color-fg) 7%, transparent) 1px, transparent 1px);
-  background-size: 96px 96px;
-}
-
-.stack-product-grade {
-  background:
-    linear-gradient(120deg, color-mix(in oklab, var(--color-sage) 32%, transparent), transparent 62%),
-    linear-gradient(300deg, color-mix(in oklab, var(--color-field-tan) 13%, transparent), color-mix(in oklab, var(--color-route) 7%, transparent));
-  mix-blend-mode: color;
-  opacity: 0.28;
-  pointer-events: none;
-}
-
-/* Section-scale palette fields. Each act gets one authored composition so
-   gradients support the story instead of repeating the same ambient glow. */
-.section-field {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.section-field--brief {
-  background:
-    radial-gradient(62% 72% at 86% 14%, color-mix(in oklab, var(--color-sage) 30%, transparent), transparent 68%),
-    radial-gradient(46% 54% at 8% 92%, color-mix(in oklab, var(--color-field-tan) 11%, transparent), transparent 72%),
-    linear-gradient(135deg, var(--color-current-deep), color-mix(in oklab, var(--color-surface) 72%, var(--color-sage)) 56%, var(--color-current-deep));
-}
-
-.section-field--stack {
-  background:
-    radial-gradient(70% 86% at 0% 12%, color-mix(in oklab, var(--color-sage) 24%, transparent), transparent 66%),
-    radial-gradient(48% 60% at 100% 100%, color-mix(in oklab, var(--color-field-tan) 10%, transparent), transparent 70%),
-    linear-gradient(115deg, var(--color-surface), color-mix(in oklab, var(--color-surface) 82%, var(--color-sage)));
-}
-
-.section-field--orientation {
-  background:
-    radial-gradient(50% 70% at 100% 0%, color-mix(in oklab, var(--color-sage) 17%, transparent), transparent 68%),
-    linear-gradient(120deg, var(--color-current-deep), color-mix(in oklab, var(--color-current-deep) 86%, var(--color-sage)));
-}
-
-.section-field--command {
-  background:
-    radial-gradient(48% 64% at 92% 12%, color-mix(in oklab, var(--color-field-tan) 11%, transparent), transparent 68%),
-    radial-gradient(44% 58% at 0% 100%, color-mix(in oklab, var(--color-route) 5%, transparent), transparent 70%),
-    linear-gradient(120deg, var(--color-ink-2), color-mix(in oklab, var(--color-ink-2) 90%, var(--color-sage)));
-}
-
-.section-field--theatre {
-  background:
-    radial-gradient(54% 70% at 88% 88%, color-mix(in oklab, var(--color-return) 12%, transparent), transparent 70%),
-    radial-gradient(42% 58% at 2% 8%, color-mix(in oklab, var(--color-flare) 6%, transparent), transparent 72%),
-    linear-gradient(125deg, var(--color-surface-deep), color-mix(in oklab, var(--color-surface-deep) 86%, var(--color-sage)));
-}
-
-.section-field--loop {
-  background:
-    radial-gradient(58% 78% at 50% 38%, color-mix(in oklab, var(--color-sage) 15%, transparent), transparent 68%),
-    linear-gradient(180deg, var(--color-current-deep), color-mix(in oklab, var(--color-current-deep) 92%, var(--color-field-tan)));
-}
-
-.section-field--doctrine {
-  background:
-    radial-gradient(64% 82% at 92% 8%, color-mix(in oklab, var(--color-field-tan) 16%, transparent), transparent 66%),
-    radial-gradient(52% 72% at 8% 68%, color-mix(in oklab, var(--color-sage) 32%, transparent), transparent 70%),
-    linear-gradient(180deg, var(--color-violet-deep), color-mix(in oklab, var(--color-sage) 34%, var(--color-current-deep)) 54%, var(--color-ink));
-}
-
-.section-field--landing {
-  background:
-    radial-gradient(52% 70% at 50% 0%, color-mix(in oklab, var(--color-sage) 18%, transparent), transparent 70%),
-    radial-gradient(36% 48% at 88% 86%, color-mix(in oklab, var(--color-field-tan) 8%, transparent), transparent 72%),
-    var(--color-surface-deep);
-}
-
-/* One owned terrain plate becomes the signature physical texture. It is
-   intentionally static and section-local to avoid fixed blend-layer cost. */
-.terrain-field-texture {
-  background-image: url("/textures/terrain-mask.jpg");
-  background-position: 70% 48%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  mix-blend-mode: luminosity;
-  opacity: 0.075;
-  -webkit-mask-image: linear-gradient(to left, black 30%, transparent 88%);
-  mask-image: linear-gradient(to left, black 30%, transparent 88%);
-}
-
-/* Shared survey geometry. The SVG carries semantic route, boundary, and
-   return shapes; only its oversized group drifts, so motion stays composited. */
-.operational-field {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.operational-field svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.operational-field__drift {
-  transform-box: view-box;
-  transform-origin: center;
-}
-
-.operational-field__route {
-  stroke-dasharray: 34 15 4 13;
-}
-
-.operational-field__node {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.operational-field__word {
-  font-family: var(--font-sans);
-  font-variation-settings: "wdth" 110;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.operational-field--corridor {
-  opacity: 0.48;
-  -webkit-mask-image: linear-gradient(to left, black 42%, transparent 96%);
-  mask-image: linear-gradient(to left, black 42%, transparent 96%);
-}
-
-.operational-field--stack { opacity: 0.34; }
-.operational-field--boundary { opacity: 0.30; }
-.operational-field--return { opacity: 0.28; }
-
-.operational-field[data-active="true"] .operational-field__drift {
-  animation: operational-field-drift 24s var(--ease-in-out) infinite alternate;
-}
-
-.operational-field[data-active="true"] .operational-field__route {
-  animation: operational-field-route 18s linear infinite;
-}
-
-.operational-field[data-active="true"] .operational-field__node {
-  animation: operational-field-node 5.8s var(--ease-in-out) infinite;
-}
-
-@keyframes operational-field-drift {
-  from { transform: translate3d(0, -0.5%, 0) rotate(0deg); }
-  to { transform: translate3d(-1.2%, 1.1%, 0) rotate(-0.55deg); }
-}
-
-@keyframes operational-field-route {
-  to { stroke-dashoffset: -198; }
-}
-
-@keyframes operational-field-node {
-  0%, 100% { opacity: 0.46; transform: scale(0.96); }
-  50% { opacity: 0.94; transform: scale(1.04); }
-}
-
-/* ============================================================
-   Mission progress + hero signal field
-   ------------------------------------------------------------
-   One persistent motion language replaces scattered decoration:
-   the route advances with page scroll and the hero shows the
-   same closed-loop geometry before the story begins.
-   ============================================================ */
-
-.mission-progress {
-  position: fixed;
-  top: 7.5rem;
-  right: clamp(0.7rem, 1.8vw, 1.75rem);
-  bottom: 2rem;
-  z-index: 48;
-  width: 1px;
-  background: var(--color-edge-strong);
-  pointer-events: none;
-}
-
-.mission-progress::before,
-.mission-progress::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  border: 1px solid var(--color-fg-tertiary);
-  background: var(--color-ink);
-  transform: translateX(-50%);
-}
-
-.mission-progress::before { top: 0; }
-.mission-progress::after { bottom: 0; border-color: var(--color-return); }
-
-.mission-progress__fill {
-  position: absolute;
-  inset: 0;
-  transform: scaleY(0);
-  transform-origin: top;
-  background: linear-gradient(
-    to bottom,
-    var(--color-flare) 0%,
-    var(--color-route) 46%,
-    var(--color-return) 100%
-  );
-}
-
-@supports (animation-timeline: scroll()) {
-  .mission-progress__fill {
-    animation: mission-progress linear both;
-    animation-timeline: scroll(root block);
-  }
-}
-
-@keyframes mission-progress {
-  to { transform: scaleY(1); }
-}
-
-/* The Karta identity remains fixed while the shaped word moves through one
-   harmonized Indic type family. Every word occupies the same absolute slot,
-   so script changes never shift the supporting copy or the hero grid. */
-.hero-karta-cycle__viewport {
-  position: relative;
-  height: clamp(4rem, 9vw, 5.75rem);
-  overflow: hidden;
-}
-
-.hero-karta-cycle__item {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  color: var(--color-paper);
-  font-family: var(--font-indic);
-  font-size: clamp(2.65rem, 10vw, 4.6rem);
-  font-weight: 500;
-  font-feature-settings: "kern" 1;
-  letter-spacing: 0;
-  line-height: 0.9;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translate3d(0, 12%, 0);
-  animation: karta-script-cycle 45s var(--ease-in-out) infinite;
-}
-
-.hero-karta-cycle__item:nth-child(1) { animation-delay: -45s; }
-.hero-karta-cycle__item:nth-child(2) { animation-delay: -40s; }
-.hero-karta-cycle__item:nth-child(3) { animation-delay: -35s; }
-.hero-karta-cycle__item:nth-child(4) { animation-delay: -30s; }
-.hero-karta-cycle__item:nth-child(5) { animation-delay: -25s; }
-.hero-karta-cycle__item:nth-child(6) { animation-delay: -20s; }
-.hero-karta-cycle__item:nth-child(7) { animation-delay: -15s; }
-.hero-karta-cycle__item:nth-child(8) { animation-delay: -10s; }
-.hero-karta-cycle__item:nth-child(9) { animation-delay: -5s; }
-
-@keyframes karta-script-cycle {
-  0%, 8.7% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-  9.7% {
-    opacity: 0;
-    transform: translate3d(0, -12%, 0);
-  }
-  98.6% {
-    opacity: 0;
-    transform: translate3d(0, 12%, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.hero-signal-field {
-  position: absolute;
-  z-index: 1;
-  top: 14%;
-  right: max(-7rem, -6vw);
-  width: min(52vw, 46rem);
-  aspect-ratio: 1;
-  opacity: 0.40;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(to left, black 62%, transparent 98%);
-  mask-image: linear-gradient(to left, black 62%, transparent 98%);
-}
-
-.hero-signal-field svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.hero-signal__orbit-a,
-.hero-signal__orbit-b,
-.hero-signal__terrain {
-  transform-box: view-box;
-  transform-origin: center;
-}
-
-.hero-signal__orbit-a { animation: signal-orbit 48s linear infinite; }
-.hero-signal__orbit-b { animation: signal-orbit 72s linear infinite reverse; }
-.hero-signal__terrain { animation: signal-drift 28s var(--ease-in-out) infinite alternate; }
-.hero-signal__trace { animation: signal-trace 16s linear infinite; }
-.hero-signal__node {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: signal-breathe 5.6s var(--ease-in-out) infinite;
-}
-.hero-signal__node:nth-of-type(2) { animation-delay: -1.2s; }
-.hero-signal__node:nth-of-type(3) { animation-delay: -2.4s; }
-
-.hero-signal-field[data-active="false"] .hero-signal__orbit-a,
-.hero-signal-field[data-active="false"] .hero-signal__orbit-b,
-.hero-signal-field[data-active="false"] .hero-signal__terrain,
-.hero-signal-field[data-active="false"] .hero-signal__trace,
-.hero-signal-field[data-active="false"] .hero-signal__node {
-  animation-play-state: paused;
-}
-
-@keyframes signal-orbit {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes signal-trace {
-  to { stroke-dashoffset: -180; }
-}
-
-@keyframes signal-drift {
-  from { transform: translate3d(0, -1%, 0) rotate(0deg); }
-  to { transform: translate3d(-1.5%, 1.2%, 0) rotate(-0.7deg); }
-}
-
-@keyframes signal-breathe {
-  0%, 100% { opacity: 0.48; transform: scale(0.96); }
-  50% { opacity: 1; transform: scale(1.04); }
-}
-
-/* Press feedback is fast and property-specific. */
 .pressable {
   transition-property: transform, background-color, color, border-color, box-shadow;
   transition-duration: var(--dur-fast);
@@ -718,115 +290,6 @@ img, svg, video { display: block; max-width: 100%; }
 }
 
 /* Product media stays calm at rest, then responds only to a real hover. */
-@media (hover: hover) and (pointer: fine) {
-  .stack-media:hover .stack-media__image {
-    transform: scale(1.02);
-  }
-
-  .stack-media:hover .stack-media__index {
-    transform: translateX(4px);
-  }
-}
-
-@media (max-width: 64rem) {
-  .hero-signal-field {
-    right: -18rem;
-    width: 52rem;
-    opacity: 0.34;
-  }
-}
-
-@media (max-width: 47.999rem) {
-  .mission-progress { display: none; }
-  .hero-signal-field {
-    top: 16%;
-    right: -25rem;
-    opacity: 0.18;
-  }
-}
-
-/* ============================================================
-   Texture layers
-   ============================================================ */
-
-.grain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 60;
-  opacity: 0.022;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  background-size: 160px 160px;
-}
-
-.nav-pill {
-  max-width: calc(100vw - 1.5rem);
-  min-height: 2.75rem;
-  border: 1px solid var(--color-edge);
-  background-color: oklch(0.175 0.025 145 / 0.94);
-  isolation: isolate;
-}
-
-/* Brand chips hold the transparent PNG lockup on a warm field plate. */
-.logo-chip {
-  background-color: var(--color-paper);
-}
-
-/* Duotone tint for grayscale imagery - screens the field gradient into the
-   art so photography joins the sage/tan system instead of floating
-   outside it. */
-.duotone-tint {
-  background-image: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--color-field-tan) 70%, transparent),
-    color-mix(in oklab, var(--color-sage) 82%, transparent)
-  );
-  mix-blend-mode: screen;
-  opacity: 0.11;
-  pointer-events: none;
-}
-
-.scanlines {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 59;
-  background-image: repeating-linear-gradient(
-    0deg,
-    oklch(0.91 0.012 145 / 0.01) 0px,
-    oklch(0.91 0.012 145 / 0.01) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-}
-
-/* Coarse and compact screens keep the signal field static. This removes
-   perpetual texture and SVG trace work while preserving the composition. */
-@media (max-width: 47.999rem), (pointer: coarse) {
-  .hyderabad-media {
-    transform: none !important;
-  }
-
-  .texture-text-drift,
-  .hero-signal__orbit-a,
-  .hero-signal__orbit-b,
-  .hero-signal__terrain,
-  .hero-signal__trace,
-  .hero-signal__node,
-  .operational-field__drift,
-  .operational-field__route,
-  .operational-field__node {
-    animation-play-state: paused !important;
-    will-change: auto !important;
-  }
-
-  .grain,
-  .scanlines {
-    display: none;
-  }
-}
-
 /* ============================================================
    Boot choreography (anime.js entrance timelines)
    ------------------------------------------------------------
@@ -865,63 +328,144 @@ html:not([data-js]) main [style*="opacity:0"]:not([data-motion-decorative]) {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-
-  .hero-karta-cycle__item {
-    animation: none !important;
-    opacity: 0;
-    transform: none;
-  }
-
-  .hero-karta-cycle__item:first-child {
-    opacity: 1;
-  }
-
-  .mission-progress__fill {
-    animation: none !important;
-    transform: scaleY(1);
-  }
-
   main [style*="opacity:0"]:not([data-motion-decorative]) {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
   }
-
-  .hero-signal__orbit-a,
-  .hero-signal__orbit-b,
-  .hero-signal__terrain,
-  .hero-signal__trace,
-  .hero-signal__node,
-  .operational-field__drift,
-  .operational-field__route,
-  .operational-field__node {
-    animation: none !important;
-  }
 }
 
-@media (forced-colors: active) {
-  .hero-karta-cycle__item {
-    animation: none;
-    opacity: 0;
-    transform: none;
-  }
+/* Site structure */
+.page-width { width: min(100% - 64px, 1472px); margin-inline: auto; }
+.site-header { position: fixed; inset: 0 0 auto; z-index: 50; background: var(--color-ink); border-bottom: 1px solid var(--color-edge); }
+.site-header__inner { min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.site-brand { display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.site-brand { mix-blend-mode: multiply; }
+.site-header__links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
+.site-header__links a { display: block; padding: 16px 0; font-size: 15px; font-weight: 500; }
+.site-header__links a:hover, .site-header__links a[aria-current] { text-decoration: underline; text-decoration-color: var(--color-amber); text-underline-offset: 8px; }
+.site-header__actions { display: flex; align-items: center; gap: 16px; }
+.header-contact { display: inline-flex; min-height: 44px; align-items: center; gap: 28px; padding: 0 18px; border: 1px solid var(--color-border-strong); font-size: 14px; font-weight: 600; transition: background .2s, color .2s; }
+.header-contact:hover { background: var(--color-fg); color: var(--color-paper); }
+.site-menu-button { display: none; position: relative; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--color-border); cursor: pointer; }
+.site-menu-line, .site-menu-line::after { display: block; position: absolute; width: 18px; height: 1px; background: currentColor; transition: transform .2s; }
+.site-menu-line { transform: translateY(-3px); }
+.site-menu-line::after { content: ""; transform: translateY(6px); }
+.site-menu-line--open { transform: rotate(45deg); }
+.site-menu-line--open::after { transform: rotate(-90deg); }
+.button-primary { display: inline-flex; align-items: center; justify-content: space-between; gap: 32px; min-height: 50px; padding: 0 22px; font-size: 15px; font-weight: 600; background: var(--color-indigo); color: var(--color-paper); transition: background .2s, transform .2s; }
+.button-primary:hover { background: var(--color-indigo-hi); }
+.button-primary:hover svg { transform: translateX(3px); }
+.button-primary svg { transition: transform .2s; }
+.button-primary:active { transform: translateY(1px); }
 
-  .hero-karta-cycle__item:first-child {
-    color: CanvasText;
-    opacity: 1;
-  }
+/* A clear proposition, followed by the physical operating environment. */
+.launch { padding-top: 88px; }
+.launch__intro { display: grid; grid-template-columns: 1.55fr 1fr; align-items: end; gap: 7%; padding-block: clamp(52px,6vw,88px) 60px; }
+.launch__eyebrow { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; margin-bottom: 27px; }
+.launch__eyebrow > span { width: 7px; height: 7px; background: var(--color-amber); }
+.launch h1 { font-size: clamp(58px,7.7vw,112px); line-height: .99; letter-spacing: -.064em; font-weight: 500; }
+.launch__period { color: var(--color-amber); }
+.launch__statement { max-width: 430px; padding-bottom: 4px; }
+.launch__statement h2 { font-size: clamp(23px,2.3vw,32px); line-height: 1.22; font-weight: 500; letter-spacing: -.035em; }
+.launch__statement > p { font-size: 19px; line-height: 1.75; color: var(--color-fg-muted); margin-block: 20px 25px; max-width: 43ch; }
+main h1, main h2 { color: var(--color-indigo); }
+.launch-video__frame { position: relative; background: var(--color-fog); }
+.launch-video video { width: 100%; height: auto; }
+.launch-video__control { position: absolute; top: 20px; right: 24px; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; background: var(--color-indigo); color: var(--color-paper); cursor: pointer; font-size: 14px; font-weight: 600; }
+.launch-video__control:hover { background: var(--color-indigo-hi); }
+.launch__rail { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 128px; padding-block: 26px; border-bottom: 1px solid var(--color-border); }
+.launch__rail .font-devanagari { font-size: 48px; color: var(--color-return); padding-right: 28px; border-right: 1px solid var(--color-border); }
+/* Gold name and indigo meaning make the identity rail a distinct signature. */
+.launch__identity { display: flex; align-items: center; gap: 28px; }
+.launch__identity p { display: flex; flex-direction: column; gap: 2px; font-size: 15px; color: var(--color-fg-muted); }
+.launch__identity strong { color: var(--color-indigo); font-size: 17px; font-weight: 500; letter-spacing: -.02em; }
+.launch__location { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--color-fg-muted); }
+.launch__rail-dot { width: 6px; height: 6px; background: var(--color-amber); border-radius: 50%; }
 
-  .mission-progress,
-  .hero-signal-field,
-  .operational-field,
-  .terrain-field-texture,
-  .grain {
-    display: none;
-  }
+/* Reusable chapter treatments */
+.loop-mobile { display: none; }
+@media (max-width: 600px) {
+  .loop-desktop { display: none; }
+  .loop-mobile { display: block; }
+  .loop-mobile li { display: flex; gap: 18px; padding-block: 22px; border-top: 1px solid var(--color-border); }
+  .loop-mobile li > span { color: var(--color-return); font-family: var(--font-mono); font-size: 12px; padding-top: 4px; }
+  .loop-mobile h3 { color: var(--color-indigo); font-size: 18px; font-weight: 500; }
+  .loop-mobile p { color: var(--color-fg-muted); font-size: 18px; line-height: 1.65; margin-top: 5px; }
+  .loop-mobile__return p { margin-top: 0; }
+}
+main h2.font-display-wide { max-width: 20ch; letter-spacing: -.045em; line-height: 1.08; }
+.chapter-label { font-family: var(--font-sans); font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--color-fg-muted); }
+.stack-media { aspect-ratio: auto; border: 0; background: var(--color-surface); }
+.stack-media > img { position: relative !important; height: auto !important; aspect-ratio: 16 / 10; }
+.stack-media figcaption { position: relative; padding: 20px 0; background: var(--color-ink); border-bottom: 1px solid var(--color-border); }
+.stack-media figcaption p { font-size: 14px; color: var(--color-fg-muted); }
+.stack-media__image { filter: saturate(.55); }
+#tenere .stack-media > img { width: 100% !important; aspect-ratio: 1600 / 844; object-fit: contain; filter: none; }
+.stack-link:hover { background: var(--color-glass); }
+#mission { background: var(--color-surface); border-color: var(--color-border); }
+#mission h2 { max-width: 23ch; }
+/* Full-width Hyderabad skyline, with copy over the image. */
+.hyderabad-section { position: relative; isolation: isolate; overflow: hidden; background: var(--color-indigo); color: var(--color-paper); scroll-margin-top: 88px; }
+.hyderabad-layout { position: relative; display: flex; align-items: end; min-height: clamp(640px,80svh,860px); padding-block: 80px; }
+.hyderabad-image { position: absolute; inset: 0; }
+.hyderabad-image img { object-fit: cover; object-position: center; }
+.hyderabad-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(11 16 32 / 82%), rgb(24 36 77 / 26%) 80%), linear-gradient(0deg, rgb(11 16 32 / 94%), rgb(24 36 77 / 22%) 85%); }
+.hyderabad-copy { max-width: 540px; }
+.hyderabad-copy .chapter-label { color: var(--color-gold); }
+.hyderabad-copy h2 { color: var(--color-paper); font-size: clamp(44px,5.4vw,76px); line-height: 1.04; letter-spacing: -.045em; font-weight: 500; margin-block: 24px; }
+.hyderabad-copy > p:last-of-type { color: var(--color-fog); font-size: 19px; line-height: 1.8; max-width: 50ch; }
+.hyderabad-copy .text-link { border-color: rgb(247 248 250 / 50%); }
+.text-link { display: inline-flex; align-items: center; gap: 32px; padding-block: 12px; border-bottom: 1px solid var(--color-border-strong); font-size: 15px; font-weight: 600; }
+.text-link:hover { border-color: var(--color-amber); }
+.landing-section { padding-block: 100px 110px; border-top: 1px solid var(--color-border); background: var(--color-surface); }
+.landing-layout { display: flex; justify-content: space-between; align-items: end; gap: 48px; }
+.landing-section h2 { font-size: clamp(40px,5.4vw,76px); line-height: 1.06; letter-spacing: -.05em; font-weight: 500; margin-top: 24px; max-width: 15ch; }
+.landing-actions { display: flex; flex-direction: column; align-items: start; gap: 22px; }
+.landing-actions p { font-size: 19px; color: var(--color-fg-muted); max-width: 32ch; }
 
-  .texture-text {
-    background: none;
-    color: CanvasText;
-    filter: none;
-  }
+@media (max-width: 1050px) {
+  .site-header__links { gap: 20px; }
+  .site-header__links a { font-size: 14px; }
+  .site-header__inner { gap: 24px; }
+  .header-contact { gap: 12px; }
+}
+@media (max-width: 900px) {
+  .page-width { width: calc(100% - 48px); }
+  .site-header__inner { min-height: 76px; }
+  .site-header__links { display: none; }
+  .site-menu-button { display: flex; }
+  .launch { padding-top: 76px; }
+  .launch__intro { gap: 36px; grid-template-columns: 1.3fr 1fr; padding-block: 56px 48px; }
+  .launch h1 { font-size: clamp(48px,7.8vw,70px); }
+  .launch__statement h2 { font-size: 23px; }
+  .launch__statement > p { font-size: 18px; }
+  .launch__eyebrow { margin-bottom: 24px; }
+  .launch__rail { flex-wrap: wrap; gap: 12px; padding-block: 20px; }
+}
+@media (max-width: 600px) {
+  .page-width { width: calc(100% - 40px); }
+  .site-header__inner { min-height: 72px; gap: 16px; }
+  .site-brand { gap: 9px; }
+  .site-header__actions { gap: 10px; }
+  .header-contact { display: none; }
+  .header-contact svg { display: none; }
+  .launch { padding-top: 72px; }
+  .launch__intro { grid-template-columns: 1fr; align-items: start; gap: 32px; padding-block: 40px; }
+  .launch h1 { font-size: clamp(48px,12.4vw,74px); }
+  .launch__statement { max-width: 420px; }
+  .launch__statement h2 br { display: none; }
+  .launch__statement h2 { font-size: 23px; max-width: 25ch; }
+  .launch__statement > p { font-size: 18px; margin-block: 14px 22px; }
+  .launch-video__control { top: 8px; right: 10px; padding-inline: 12px; }
+  .launch__rail { min-height: 144px; gap: 20px; padding-block: 28px; }
+  .launch__rail .font-devanagari { font-size: 42px; padding-right: 20px; }
+  .launch__identity { gap: 20px; }
+  .launch__identity strong { font-size: 16px; }
+  .landing-section { padding-block: 64px; }
+  .hyderabad-section { scroll-margin-top: 72px; }
+  .hyderabad-layout { min-height: 640px; padding-block: 52px; }
+  .hyderabad-image img { object-position: 44% center; }
+  .hyderabad-copy > p:last-of-type { font-size: 18px; }
+  .landing-layout { flex-direction: column; align-items: start; gap: 36px; }
 }

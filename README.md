@@ -55,34 +55,21 @@ karta-web/
 
 | Route | Purpose |
 |---|---|
-| `/` | The One Sortie - one long page: `#launch` hero → `#brief` unified operating reality (`#denial` compatibility anchor) → `#stack` (`#skyanchor` / `#tenere` / `#kiksuya`) → `#mission` → `#hyderabad` → `#landing` |
+| `/` | The One Sortie - one long page: `#launch` hero → `#stack` (`#skyanchor` / `#tenere` / `#kiksuya`) → `#mission` → `#hyderabad` → `#landing` |
 | `/field-notes` + `/field-notes/[slug]` | Engineering essays - the public evidence layer |
 | `/careers` + `/careers/[slug]` | Open roles |
 | `/engage` + `/api/engage` | Talk to engineering |
 | `/stack`, `/mission`, `/vehicles*` | Redirects into the long page (`next.config.ts`, temporary during QA) |
 
-## Design tokens
+## Design system
 
-Brand colors, type scale, motion easing, and radii are defined in `app/globals.css` under the Tailwind v4 `@theme` directive and surfaced as CSS custom properties.
+The site uses a light palette: Field White `#F7F8FA`, Fog Grey `#E8EAF0`, Midnight Ink `#0B1020`, and restrained Signal Amber `#C8962E`. Deep Indigo is used for action hover, and Controlled Red is reserved for error states. Tokens live in `app/globals.css`; see `DESIGN.md` for component and typography rules.
 
-| Token | Value | Role |
-|---|---|---|
-| `bg-ink` | `oklch(0.16 0.022 145)` | Page baseline - sage graphite `#071008` |
-| `bg-sage` | `oklch(0.550647 0.043468 136.971)` | Supplied sage `#66785F`; terrain and operating context |
-| `text-mineral` | `oklch(0.714251 0.007295 145.499)` | Supplied mineral gray `#A0A4A0`; supporting information |
-| `bg-field-tan` | `oklch(0.705198 0.056921 68.506)` | Supplied field tan `#B89A7A`; physical context |
-| `text-route` | `oklch(0.695758 0.159641 55.544)` | Supplied orange `#E67E22`; narrow live route signal |
-| `bg-flare` | `oklch(0.543346 0.174006 29.697)` | Supplied brick red `#C0392B`; human action and constraint |
-| `text-return` | `oklch(0.76 0.06 137)` | Lifted sage returned state and audit lines |
-| `text-fg` | `oklch(0.91 0.012 145)` | Mineral-tinted primary text `#DDE3DC` |
-
-Derived neutrals carry text on colored fields - see `DESIGN.md` for checked contrast pairs. Legacy hue utilities remain compatibility aliases while new work uses semantic field roles.
-
-Fonts: Anek Latin plus the Anek Devanagari, Telugu, Tamil, Kannada, Malayalam, Gujarati, Gurmukhi, Bangla, and Odia cuts (Ek Type), with Azeret Mono for instrument data. All are self-hosted via `next/font/google`; there is no runtime font CDN dependency.
+Manrope provides display and body typography. Anek Devanagari carries the Karta identity, and Azeret Mono carries technical data. Fonts are served through `next/font/google`.
 
 ## Engage form
 
-The contact form at `/engage` posts to `/api/engage`. The route validates with Zod and forwards to [Resend](https://resend.com) when configured. Without `RESEND_API_KEY` and `ENGAGE_TO_EMAIL`, the route still validates payloads and acknowledges submissions; it just logs them locally instead of delivering.
+The contact form at `/engage` posts to `/api/engage`. The route validates with Zod and forwards to [Resend](https://resend.com) when configured. If either `RESEND_API_KEY` or `ENGAGE_TO_EMAIL` is missing, the route returns 503 and directs the visitor to email the team. It never acknowledges an undelivered enquiry as sent. Run `node scripts/check-engage-delivery.mjs` to verify the missing-configuration behavior without sending email.
 
 ## Adding content
 

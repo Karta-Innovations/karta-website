@@ -3,29 +3,36 @@ import { PageHeader } from "@/components/primitives/PageHeader";
 import { EngageForm } from "@/components/forms/EngageForm";
 import { DoppelrandCard } from "@/components/primitives/DoppelrandCard";
 
+const description =
+  "Direct line to Karta engineering. Procurement, partnership, integration - talk to the team that ships the code.";
+
 export const metadata: Metadata = {
   title: "Talk to engineering",
-  description:
-    "Direct line to Karta engineering. Procurement, partnership, integration - talk to the team that ships the code.",
+  description,
+  alternates: { canonical: "/engage" },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Karta Innovations",
+    url: "/engage",
+    title: "Talk to engineering - Karta Innovations",
+    description,
+    images: ["/opengraph-image"],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function EngagePage() {
   return (
     <>
       <PageHeader
-        index="07 · DIRECT LINE"
-        eyebrow="Engineering channel · open"
-        title={
-          <>
-            Talk to <span className="text-sand">engineering</span>, not sales.
-          </>
-        }
+        eyebrow="Start a conversation"
+        title="Talk to engineering."
         intro={
           <p>
-            Tell us about the envelope you fly and what you are trying to integrate.
+            Tell us about your platform, operating conditions, and what you need to integrate.
           </p>
         }
-        coord={{ center: "CHANNEL · OPEN", right: "FIRST REPLY · 48H" }}
       />
 
       <section className="px-6 md:px-10 pb-32 md:pb-48">
@@ -36,7 +43,7 @@ export default function EngagePage() {
 
           <aside className="space-y-10 lg:pt-2">
             <section>
-              <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand mb-5">
+              <h2 className="font-mono text-[12px] tracking-[0.22em] uppercase text-sand mb-5">
                 Direct contacts
               </h2>
               <ul className="space-y-5">
@@ -47,12 +54,12 @@ export default function EngagePage() {
                   },
                 ].map((row) => (
                   <li key={row.k} className="pb-4 border-b border-border">
-                    <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-fg-tertiary mb-1.5">
+                    <div className="font-mono text-[12px] tracking-[0.22em] uppercase text-fg-tertiary mb-1.5">
                       {row.k}
                     </div>
                     <a
                       href={`mailto:${row.v}`}
-                      className="font-mono text-[13px] text-fg hover:text-sand transition-colors break-all"
+                      className="font-mono text-[15px] text-fg hover:text-sand transition-colors break-all"
                     >
                       {row.v}
                     </a>
@@ -62,15 +69,15 @@ export default function EngagePage() {
             </section>
 
             <section>
-              <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand mb-5">
-                Engineering station
+              <h2 className="font-mono text-[12px] tracking-[0.22em] uppercase text-sand mb-5">
+                Location
               </h2>
-              <p className="text-fg text-[15px] leading-[1.65]">
+              <p className="text-fg text-[19px] leading-[1.65]">
                 Karta Innovations
                 <br />
-                17.454 · 78.500  
+                Hyderabad, India
               </p>
-              <p className="font-mono text-fg-tertiary text-[11px] tracking-[0.22em] uppercase mt-3">
+              <p className="font-mono text-fg-tertiary text-[12px] tracking-[0.22em] uppercase mt-3">
                 Wellington Rd, Hyderabad, Telangana, India
               </p>
             </section>

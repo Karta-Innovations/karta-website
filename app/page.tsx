@@ -1,25 +1,29 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
-import { OperationalReality } from "@/components/sections/OperationalReality";
 import { StackAct } from "@/components/sections/StackAct";
 import { DoctrineAct } from "@/components/sections/DoctrineAct";
 import { Hyderabad } from "@/components/sections/Hyderabad";
 import { LandingAct } from "@/components/sections/LandingAct";
 
-// The One Sortie - the whole site is one mission, told in acts. The scroll
-// is the flight; a mission clock runs from launch to wheels-down:
-//   #launch   T-00:00  Hero - texture-masked AUTONOMY, the hook, the deck
-//   #brief              Plan and denied reality, told as one operating problem
-//   #stack    T+01:08  The answer - mnemonic band + three layers + the loop
-//   #mission            The mission - why autonomous systems must be bounded
-//   #hyderabad         Ground truth - built close to the work
-//   #landing  T+01:42  Wheels down - record sealed, the asks
-// Field Notes and Careers are libraries on separate routes; /stack and
-// /mission redirect into their acts here.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Karta Innovations",
+    url: "/",
+    title: "Karta Innovations - Operational autonomy",
+    description:
+      "Karta builds the operational autonomy layer that helps unmanned systems stay oriented, act within human-approved intent, and return a reviewable record as operating conditions degrade.",
+    images: ["/opengraph-image"],
+  },
+  twitter: { card: "summary_large_image" },
+};
+
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <OperationalReality />
       <StackAct />
       <DoctrineAct />
       <Hyderabad />

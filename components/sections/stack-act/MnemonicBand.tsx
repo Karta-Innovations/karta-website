@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
-import { OperationalField } from "@/components/primitives/OperationalField";
 import { DURATION, EASING } from "@/lib/motion";
 
 const RESPONSIBILITIES = [
@@ -50,24 +49,21 @@ export function MnemonicBand() {
   };
 
   return (
-    <section className="relative isolate overflow-hidden bg-surface px-6 py-20 md:px-10 md:py-28">
-      <div aria-hidden className="section-field section-field--stack" />
-      <div aria-hidden className="grid-overlay absolute inset-0 opacity-[0.08]" />
-      <OperationalField variant="stack" animated={false} />
-      <div className="relative z-10 mx-auto grid max-w-[80rem] gap-14 lg:grid-cols-[minmax(18rem,0.78fr)_minmax(32rem,1.22fr)] lg:gap-20">
+    <section className="relative isolate overflow-hidden bg-surface px-5 py-20 md:px-8 md:py-28">
+      <div className="relative z-10 mx-auto grid max-w-[92rem] gap-14 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-12">
         <motion.div
           variants={reveal}
           initial={reduce ? false : "hidden"}
           whileInView="visible"
           viewport={{ once: true, margin: "0px 0px -70px 0px" }}
         >
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-flare">
-            Product / operational stack
+          <p className="chapter-label">
+            The Karta stack
           </p>
           <h2 className="mt-5 max-w-[13ch] font-display-wide text-[clamp(2rem,4.4vw,3.5rem)] uppercase leading-[0.96] tracking-[0.01em] text-fg">
             One stack. Three responsibilities.
           </h2>
-          <p className="mt-7 max-w-[42ch] text-[15px] leading-[1.7] text-fg-muted">
+          <p className="mt-7 max-w-[42ch] text-[19px] leading-[1.7] text-fg-muted">
             Position with uncertainty. Adapt decisions within approved intent.
             Return a record that shows why. Each layer is useful alone and
             stronger as part of one accountable system.
@@ -111,18 +107,18 @@ function Statement({ item, index }: StatementProps) {
         href={`/#${item.anchor}`}
         className="stack-link group grid gap-5 py-7 sm:grid-cols-[3.5rem_1fr_auto] sm:items-center sm:gap-7"
       >
-        <span className="font-mono text-[10px] tracking-[0.18em] text-flare">
+        <span className="font-mono text-[12px] tracking-[0.18em] text-flare">
           0{index + 1}
         </span>
         <span>
           <span className="block font-display text-[clamp(1.4rem,2.5vw,2rem)] font-medium leading-[1.08] text-fg transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1">
             {item.statement}
           </span>
-          <span className="mt-2 block text-[13px] text-fg-tertiary">
+          <span className="mt-2 block text-[15px] text-fg-tertiary">
             {item.product}
           </span>
         </span>
-        <span className="flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.18em] text-return">
+        <span className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-return">
           {item.layer}
           <span
             aria-hidden

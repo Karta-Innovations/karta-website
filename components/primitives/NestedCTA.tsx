@@ -27,8 +27,7 @@ interface NestedCTAButtonProps extends NestedCTABaseProps {
 type NestedCTAProps = NestedCTALinkProps | NestedCTAButtonProps;
 
 /**
- * Pill CTA with a nested circular icon affordance.
- * Per the high-end-visual-design skill: the trailing icon NEVER sits naked.
+ * Shared directional action for content and career routes.
  */
 export function NestedCTA({
   children,
@@ -40,11 +39,11 @@ export function NestedCTA({
   className,
 }: NestedCTAProps) {
   const base = cn(
-    "group/cta inline-flex items-center gap-3 rounded-full pl-6 pr-2 py-2",
+    "group/cta inline-flex items-center gap-7 rounded-none px-5 py-3 min-h-12",
     "font-medium text-[14px] tracking-[-0.005em]",
     "pressable",
     variant === "primary" &&
-      "bg-flare text-on-flare ring-1 ring-flare-deep/40 hover:bg-flare-hi shadow-[inset_0_1px_0_var(--color-edge-strong)]",
+      "bg-flare text-on-flare hover:bg-flare-hi",
     variant === "ghost" &&
       "bg-glass text-fg ring-1 ring-edge-strong hover:bg-glass-hi hover:ring-edge-strong",
     variant === "minimal" && "text-fg hover:text-flare pr-6",
@@ -52,11 +51,11 @@ export function NestedCTA({
   );
 
   const iconWrapper = cn(
-    "size-9 rounded-full inline-flex items-center justify-center",
+    "size-6 inline-flex items-center justify-center",
     "transition-[transform,background-color,color] duration-[160ms] ease-[cubic-bezier(0.23,1,0.32,1)]",
     "group-hover/cta:translate-x-[2px] group-hover/cta:-translate-y-[1px]",
-    variant === "primary" && "bg-ink/15",
-    variant === "ghost" && "bg-glass-hi group-hover/cta:bg-flare group-hover/cta:text-on-flare",
+
+
     variant === "minimal" && "hidden",
   );
 

@@ -19,30 +19,27 @@ interface LogoProps {
 
 const LOGOS: Record<
   LogoVariant,
-  { src: string; width: number; height: number; alt: string }
+  { src: string; width: number; height: number; x: number; y: number; cropWidth: number; cropHeight: number; alt: string }
 > = {
   mark: {
-    src: "/brand/karta-icon-cropped.png",
-    width: 442,
-    height: 554,
+    src: "/brand/karta-icon-original.png",
+    width: 1080, height: 1080, x: 325, y: 269, cropWidth: 430, cropHeight: 542,
     alt: "Karta Innovations",
   },
   wordmark: {
-    src: "/brand/karta-innovations-wordmark-cropped.png",
-    width: 435,
-    height: 146,
+    src: "/brand/karta-wordmark-original.png",
+    width: 1080, height: 1080, x: 329, y: 475, cropWidth: 423, cropHeight: 133,
     alt: "Karta Innovations",
   },
   full: {
-    src: "/brand/karta-innovations-full-logo-cropped.png",
-    width: 454,
-    height: 624,
+    src: "/brand/karta-full-original.png",
+    width: 519, height: 690, x: 40, y: 38, cropWidth: 442, cropHeight: 612,
     alt: "Karta Innovations",
   },
 };
 
 /**
- * Supplied Karta Innovations brand assets, trimmed for responsive web chrome.
+ * Original brand assets; the viewport hides excess white margins without altering the artwork.
  */
 export function Logo({
   className,
@@ -52,18 +49,19 @@ export function Logo({
   priority = false,
 }: LogoProps) {
   const asset = LOGOS[variant ?? (showWordmark ? "wordmark" : "mark")];
-  const width = Math.round(size * (asset.width / asset.height));
+  const scale = size / asset.cropHeight;
+  const width = asset.cropWidth * scale;
 
   return (
-    <span className={cn("inline-flex items-center", className)}>
+    <span className={cn("relative inline-block shrink-0 overflow-hidden", className)} style={{ width, height: size, mixBlendMode: "multiply" }}>
       <Image
         src={asset.src}
         alt={asset.alt}
-        width={width}
-        height={size}
+        width={asset.width}
+        height={asset.height}
         loading={priority ? "eager" : undefined}
         className="block h-auto w-auto shrink-0 select-none"
-        style={{ height: size, width }}
+        style={{ position: "absolute", maxWidth: "none", width: asset.width * scale, height: asset.height * scale, left: -asset.x * scale, top: -asset.y * scale }}
       />
     </span>
   );

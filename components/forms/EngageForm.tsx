@@ -86,7 +86,7 @@ export function EngageForm() {
       </div>
 
       <fieldset>
-        <legend className="font-mono text-[11px] tracking-[0.22em] uppercase text-flare mb-5">
+        <legend className="font-sans text-[14px] font-semibold text-flare mb-5">
           Intent
         </legend>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -99,7 +99,7 @@ export function EngageForm() {
                 onClick={() => update("intent", it.id)}
                 aria-pressed={active}
                 className={cn(
-                  "pressable text-left rounded-2xl p-5 ring-1",
+                  "pressable text-left rounded-none p-5 ring-1",
                   active
                     ? "bg-flare/10 ring-flare/40"
                     : "bg-glass ring-edge hover:bg-glass hover:ring-edge-strong",
@@ -108,7 +108,7 @@ export function EngageForm() {
                 <div className="flex items-center justify-between mb-3">
                   <span
                     className={cn(
-                      "font-mono text-[11px] tracking-[0.22em] uppercase",
+                      "font-sans text-[14px] font-semibold",
                       active ? "text-flare" : "text-fg-tertiary",
                     )}
                   >
@@ -121,7 +121,7 @@ export function EngageForm() {
                     )}
                   />
                 </div>
-                <p className="text-fg text-[13px] leading-[1.45]">{it.detail}</p>
+                <p className="text-fg text-[15px] leading-[1.45]">{it.detail}</p>
               </button>
             );
           })}
@@ -164,7 +164,7 @@ export function EngageForm() {
             onChange={(v) => update("message", v)}
             required
             rows={6}
-            placeholder="Briefly describe the engagement, the envelope, and any constraints relevant to your programme."
+            placeholder="Tell us about your platform, operating conditions, and what you need help with."
           />
         </div>
       </div>
@@ -174,8 +174,8 @@ export function EngageForm() {
           type="submit"
           disabled={state === "submitting" || state === "success"}
           className={cn(
-            "inline-flex items-center gap-3 rounded-full pl-6 pr-2 py-2",
-            "font-medium text-[14px] tracking-[-0.005em]",
+            "inline-flex items-center gap-7 rounded-none px-5 py-3 min-h-12",
+            "font-medium text-[16px] tracking-[-0.005em]",
             "pressable bg-flare text-on-flare",
             "hover:bg-flare-hi",
             "disabled:opacity-60 disabled:cursor-not-allowed",
@@ -188,11 +188,11 @@ export function EngageForm() {
                 ? "Sent"
                 : "Send to engineering"}
           </span>
-          <span className="size-9 inline-flex items-center justify-center rounded-full bg-warm-ink/15">
+          <span className="size-6 inline-flex items-center justify-center">
             <span
               aria-hidden
               className={cn(
-                "block size-2 rounded-full bg-warm-ink/80",
+                "block size-2 rounded-full bg-on-flare",
                 state === "submitting" && "animate-pulse",
               )}
             />
@@ -200,7 +200,7 @@ export function EngageForm() {
         </button>
 
         <div aria-live="polite" role="status" className="sr-only">
-          {state === "success" ? "Message sent successfully. Expect a reply from the engineering team within 48 hours." : null}
+          {state === "success" ? "Message sent successfully. The engineering team will reply by email." : null}
           {state === "error" && error ? `Error: ${error}` : null}
         </div>
 
@@ -210,7 +210,7 @@ export function EngageForm() {
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="font-mono text-[11px] tracking-[0.18em] uppercase text-ok"
+              className="font-sans text-[15px] text-ok"
             >
               Received · expect a reply from the engineering team
             </motion.p>
@@ -220,7 +220,7 @@ export function EngageForm() {
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="font-mono text-[11px] tracking-[0.18em] uppercase text-alert"
+              className="font-sans text-[15px] text-alert"
             >
               {error}
             </motion.p>
@@ -244,7 +244,7 @@ interface FieldProps {
 function Field({ label, name, value, onChange, type = "text", required, autoComplete }: FieldProps) {
   return (
     <label className="block">
-      <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary mb-2 block">
+      <span className="font-sans text-[14px] font-semibold text-fg-tertiary mb-2 block">
         {label}
       </span>
       <input
@@ -253,9 +253,10 @@ function Field({ label, name, value, onChange, type = "text", required, autoComp
         value={value}
         required={required}
         autoComplete={autoComplete}
+        maxLength={name === "name" ? 120 : 180}
         onChange={(e) => onChange(e.target.value)}
         className={cn(
-          "w-full rounded-md bg-glass ring-1 ring-edge",
+          "w-full rounded-none bg-ink ring-1 ring-border",
           "px-4 py-3 text-fg placeholder:text-fg-tertiary",
           "focus:ring-flare focus:ring-1 focus:bg-glass outline-none transition-[background-color,box-shadow] duration-200",
         )}
@@ -272,7 +273,7 @@ interface TextAreaProps extends Omit<FieldProps, "type"> {
 function TextArea({ label, name, value, onChange, required, rows = 4, placeholder }: TextAreaProps) {
   return (
     <label className="block">
-      <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary mb-2 block">
+      <span className="font-sans text-[14px] font-semibold text-fg-tertiary mb-2 block">
         {label}
       </span>
       <textarea
@@ -280,10 +281,12 @@ function TextArea({ label, name, value, onChange, required, rows = 4, placeholde
         value={value}
         required={required}
         rows={rows}
+        minLength={10}
+        maxLength={4000}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         className={cn(
-          "w-full rounded-md bg-glass ring-1 ring-edge",
+          "w-full rounded-none bg-ink ring-1 ring-border",
           "px-4 py-3 text-fg placeholder:text-fg-tertiary leading-[1.55]",
           "focus:ring-flare focus:ring-1 focus:bg-glass outline-none transition-[background-color,box-shadow] duration-200 resize-none",
         )}

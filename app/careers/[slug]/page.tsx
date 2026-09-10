@@ -20,6 +20,17 @@ export async function generateMetadata({ params }: RolePageProps): Promise<Metad
   return {
     title: `${role.title} · Careers`,
     description: role.summary,
+    alternates: { canonical: `/careers/${role.slug}` },
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      siteName: "Karta Innovations",
+      url: `/careers/${role.slug}`,
+      title: `${role.title} · Careers - Karta Innovations`,
+      description: role.summary,
+      images: ["/opengraph-image"],
+    },
+    twitter: { card: "summary_large_image" },
   };
 }
 
@@ -40,7 +51,7 @@ export default async function RolePage({ params }: RolePageProps) {
             <p className="text-fg text-[19px] leading-[1.55] max-w-[58ch] font-medium">
               {role.summary}
             </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-[11px] tracking-[0.18em] uppercase text-fg-tertiary mt-4">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-[12px] tracking-[0.18em] uppercase text-fg-tertiary mt-4">
               <span>{role.seniority}</span>
               <span>{role.status === "open" ? "Hiring now" : "Closed"}</span>
             </div>
@@ -55,7 +66,7 @@ export default async function RolePage({ params }: RolePageProps) {
               {role.doYou.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-4 text-fg text-[16px] leading-[1.65] py-3 border-b border-border last:border-b-0"
+                  className="flex items-start gap-4 text-fg text-[18px] leading-[1.65] py-3 border-b border-border last:border-b-0"
                 >
                   <span className="mt-2.5 size-1.5 rounded-full bg-sand shrink-0" />
                   {item}
@@ -69,7 +80,7 @@ export default async function RolePage({ params }: RolePageProps) {
               {role.responsibilities.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-4 text-fg text-[16px] leading-[1.65] py-3 border-b border-border last:border-b-0"
+                  className="flex items-start gap-4 text-fg text-[18px] leading-[1.65] py-3 border-b border-border last:border-b-0"
                 >
                   <span className="mt-2.5 size-1.5 rounded-full bg-sand shrink-0" />
                   {item}
@@ -81,23 +92,24 @@ export default async function RolePage({ params }: RolePageProps) {
           <Section title="Nice to have">
             <ul className="space-y-2.5 mt-4">
               {role.niceToHave.map((item) => (
-                <li key={item} className="text-fg-muted text-[15px] leading-[1.6]">
+                <li key={item} className="text-fg-muted text-[19px] leading-[1.6]">
                   · {item}
                 </li>
               ))}
             </ul>
           </Section>
 
-          <div className="rounded-2xl bg-glass ring-1 ring-edge p-8">
+          <div className="bg-glass ring-1 ring-edge p-6 sm:p-8">
             <h2 className="font-display text-2xl font-medium tracking-[-0.02em] text-fg mb-3">
               How to apply
             </h2>
-            <p className="text-fg-muted text-[15px] leading-[1.65] mb-6 max-w-[55ch]">
+            <p className="text-fg-muted text-[19px] leading-[1.65] mb-6 max-w-[55ch]">
               Send a short note about what you have shipped that you are proud of -
               and what you would want to ship at Karta. Resume optional. Field
               notes, GitHub, or published work strongly welcomed.
             </p>
-            <NestedCTA href={mailto}>Apply · {role.contact}</NestedCTA>
+            <NestedCTA href={mailto}>Apply by email</NestedCTA>
+            <p className="mt-4 break-words text-[15px] text-fg-muted">{role.contact}</p>
           </div>
         </div>
       </article>
@@ -106,7 +118,7 @@ export default async function RolePage({ params }: RolePageProps) {
         <div className="mx-auto max-w-[820px]">
           <Link
             href="/careers"
-            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-fg-muted hover:text-sand transition-colors"
+            className="inline-flex items-center gap-2 font-mono text-[12px] tracking-[0.22em] uppercase text-fg-muted hover:text-sand transition-colors"
           >
             ← All open roles
           </Link>
@@ -124,7 +136,7 @@ interface SectionProps {
 function Section({ title, children }: SectionProps) {
   return (
     <section>
-      <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-sand">
+      <h2 className="font-mono text-[12px] tracking-[0.22em] uppercase text-sand">
         {title}
       </h2>
       {children}

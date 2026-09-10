@@ -36,12 +36,12 @@ export const STACK_LAYERS: StackLayer[] = [
     altitude: "On-vehicle · deterministic loop",
     byline: "Positioning designed for GNSS denial. Terrain-relative, visual-inertial, sealed.",
     description:
-      "SkyAnchor is the on-vehicle positioning system. It fuses visual-inertial odometry, terrain-relative navigation, and barometric integration into a single posed estimate with calibrated uncertainty - designed to hold a usable estimate through sustained GNSS denial.",
+      "SkyAnchor is the on-vehicle positioning system. It fuses visual-inertial odometry, terrain-relative navigation, and barometric integration into a single position estimate with calibrated uncertainty - designed to hold a usable estimate through sustained GNSS denial.",
     image: "/imagery/skyanchor.jpeg",
     problem:
       "GNSS is the single most fragile dependency in the autonomy stack. Jamming, urban canyons, and high-latitude operation all silence it. Without a substitute, the vehicle stops being useful.",
     approach:
-      "SkyAnchor runs as a single deterministic process on-vehicle. There is no cloud, no model download, no online learning. The fusion is exposed as a service with explicit confidence intervals, so downstream consumers can reason about pose uncertainty instead of pretending it doesn't exist.",
+      "SkyAnchor runs on the vehicle and combines onboard sensing with terrain maps to estimate position when satellite navigation is degraded. It reports both the estimate and its uncertainty, so mission software can account for how much confidence to place in the position.",
     capabilities: [
       "Visual-inertial odometry with multi-camera support",
       "Terrain-relative navigation against on-board map tiles",
@@ -69,11 +69,11 @@ export const STACK_LAYERS: StackLayer[] = [
     byline: "Mission composer. Prioritises the next action across vehicles.",
     description:
       "TENERE is the operator's mission composer. It turns intent - a goal, a geometry, a set of bounds - into a sortie graph executable across one or many vehicles. It is designed to make one operator viable beyond a single aircraft.",
-    image: "/imagery/tenere.jpg",
+    image: "/imagery/tenere-mission-planning.jpeg",
     problem:
       "Operator cognitive bandwidth is finite. Naively, a fleet just multiplies the operator's workload. The solution is not to remove the operator. It is to compose mission intent at a higher level of abstraction and surface only the decisions that need a human.",
     approach:
-      "TENERE is a constraint solver wrapped in an editor. Operators express what they want as bounded intent; TENERE deconflicts, plans, and runs the sortie graph. Every action is reversible. Every decision the operator did not see was provably out-of-scope of what they asked.",
+      "TENERE helps operators plan and coordinate missions across vehicles. Operators define goals, routes and approved limits; the planning interface helps them review plans, identify conflicts and adapt missions within those bounds.",
     capabilities: [
       "Mission graph composition with explicit bounds",
       "Multi-vehicle deconfliction at composition time",
@@ -90,7 +90,6 @@ export const STACK_LAYERS: StackLayer[] = [
       { label: "Operator scaling", value: "Multi-vehicle by design" },
       { label: "Doctrine encoding", value: "Kiksuya policy" },
       { label: "After-action audit", value: "Structured, per decision" },
-      { label: "Latency budget", value: "200", unit: "ms" },
     ],
   },
   {
@@ -102,11 +101,11 @@ export const STACK_LAYERS: StackLayer[] = [
     byline: "The memory layer. Doctrine, audit and cross-echelon coordination.",
     description:
       "Kiksuya is the doctrine and memory runtime. It is where rules of engagement, geometry constraints, and authority gates live as first-class code - auditable, versioned, signed, and remembered across sorties and echelons. The name is borrowed from a word meaning to remember.",
-    image: "/imagery/kiksuya.jpg",
+    image: "/imagery/tenere.jpg",
     problem:
       "Doctrine in most autonomy stacks is a slide deck. It is not enforced by the code, it is not versioned, and it cannot be audited after the fact. That gap is where bad outcomes happen. The same goes for institutional memory across sorties - most stacks forget.",
     approach:
-      "Kiksuya is a runtime that takes operator intent and a published doctrine, and produces an executable plan annotated with which doctrine clauses authorise which step. The annotation is logged alongside the telemetry stream, federated across echelons, and survives the sortie. Doctrine becomes a property of the running plan, not a checkbox on a slide.",
+      "Kiksuya connects mission plans with the rules and approvals that govern them. It is designed to show which rule authorises each planned action and retain that context alongside the mission record, so operators can review what happened and why.",
     capabilities: [
       "Doctrine encoded as versioned, signed policy",
       "Per-action authority audit trail",
