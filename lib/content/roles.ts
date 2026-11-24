@@ -62,7 +62,7 @@ export const ROLES: Role[] = [
     responsibilities: [
       "Architect TENERE's mission graph + constraint solver",
       "Define the after-action audit surface from telemetry to PDF and inspection tools",
-      "Partner with Edge and Doctrine teams on integration contracts",
+      "Partner with the navigation and autonomy teams on integration contracts",
       "Ride along on field deployments to ground designs in operating reality",
     ],
     niceToHave: [

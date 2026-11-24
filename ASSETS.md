@@ -1,48 +1,63 @@
-# Karta - Assets
+# Karta · assets
 
-Asset inventory and punch list for the One Sortie redesign (`redesign/v3-operational-autonomy`). Vehicles left the public site; the asset policy follows `DESIGN.md` (terrain, field surfaces, approved artifacts) with one sanctioned exception: the two founder-supplied mission plates, always labeled `REPRESENTATIVE SORTIE · ILLUSTRATIVE`.
+Everything the site ships is derived from the marketing package of November 2026, less what Karta may not or will not show: other people's aircraft, and anything that gives away how SkyAnchor navigates. Masters stay in the founders' archive; the web copies below can be regenerated with the two scripts in `scripts/`.
 
-## In place
+## Footage (`public/media/`)
 
-| File | Used for | Status |
+| File | Source | Treatment | Used in |
+|---|---|---|---|
+| `tenere-mission.mp4` | `tenere_quad2.mp4` | first 38 s at 1.25×, desktop bar cropped, 2.1 MB | TENERE |
+
+It has a `-poster.jpg`.
+
+
+```
+FFMPEG=/path/to/ffmpeg scripts/encode-media.sh "<package>"            # everything
+FFMPEG=/path/to/ffmpeg scripts/encode-media.sh "<package>" tenere-mission   # one clip
+```
+
+Not used, and why:
+
+- `PXL_20261104_111929730.mp4` (the take-off at Pokhran): the aircraft belongs to a vendor, and its footage is not Karta's to use. The hero holds the brand plate until Karta supplies a film; `HERO_FILM` in `components/sections/Hero.tsx` is the slot for it.
+- `skyanchor-intro-film.mp4`, `skyanchor-pulicat-35km-flight-test.mp4`, `skyanchor-spoofer-flight-test.mp4`, `skyanchor-expo-film*.mp4`, `skyanchor-9km-flight-test.mp4`, `skyanchor_spoofer_test.mp4`: they show how SkyAnchor sees the ground, which the founders treat as proprietary.
+- `tenere long.mp4`, `tenere_quad.mp4`: longer or duplicate takes of the TENERE recording.
+
+## Imagery (`public/imagery/`)
+
+| File | What | Used in |
 |---|---|---|
-| `public/imagery/sortie-plan-v2.jpg` | One Sortie clear-condition corridor plate | Active - generated editorial scenario image, illustrative |
-| `public/imagery/sortie-field-v2.jpg` | Matching corridor under degraded weather and visibility | Active - derived from the same locked-camera scene, illustrative |
-| `public/textures/terrain-mask.jpg` | Reserved `.texture-text` terrain fill, currently unused | OK |
-| `public/textures/terrain-brief.jpg` / `public/imagery/mission-corridor.jpg` | Previous annotated and isometric mission plates | Retained as source references, no longer rendered |
-| `public/imagery/hyderabad.jpg` | Act 5 GROUND TRUTH skyline (teal dusk wash applied in code) | OK |
-| `public/imagery/skyanchor.jpeg` / `tenere-gcs.jpeg` / `forest.jpg` | Stack layer stills (if wired) | Placeholder quality |
-| `public/brand/*` | Logo lockups + PWA icons | OK |
-| Root `terrain.png`, `terrain 2.png` | Source plates (masters for the optimized copies) | Keep as masters; not shipped |
+| `skyanchor-module.png` | The module, cut out with its contact shadow (a frame of `skyanchor-expo-film-4k.mp4`) | SkyAnchor |
+| `field/site-dusk-violet.jpg` | Test site at dusk, violet sky | Hero |
+| `field/site-golden-hour-quad.jpg` | Golden hour, quadcopter in the air | Company tile |
+| `field/site-dusk-aircraft-wide.jpg` | Karta's fixed-wing aircraft on its stand at dusk | Full-width band |
+| `field/site-sunset.jpg` | Sunset over the site | Behind the closing invitation |
 
-## Wanted next (priority order)
+The field pictures are WhatsApp copies from `/home/sarath/Pictures/field_pictures` (1280 to 1600 px wide); originals would be sharper. Pictures that are not used, including the two with team members in them, are deliberately not in `public/`.
 
-1. **Real product artifacts** (credibility contract in `PRODUCT.md`): an approved position/confidence trace for SkyAnchor, a TENERE mission-graph screenshot with a visible human gate, a redacted Kiksuya policy excerpt with clause attribution. These replace the illustrative audit excerpt the moment engineering approves them.
-2. **Layer band imagery** - 2400×1350 stills per stack layer: on-vehicle compute board (SkyAnchor), operator console (TENERE), doctrine/audit visual (Kiksuya). Dark-graded, no vehicle-led composition.
-3. **Team + facility photography** (`public/imagery/team/`) - integration bay, field deployment, facility. Real, not stock; vehicle-free framing preferred.
-4. **Field note covers** (`public/imagery/notes/<slug>-cover.jpg`, 1600×900) - optional per note.
-5. **Per-route OG cards** - `app/<route>/opengraph-image.tsx` via `next/og`, teal-black base, sand accent line, Azeret coordinate strip.
+## Brand (`public/brand/`, `app/icon.svg`, `app/apple-icon.png`, `app/favicon.ico`)
+
+Only the app icons ship with the site, written by `scripts/build-brand-assets.mjs` from the outlines in `components/brand/`. The full set of marks and lockups, with the brand guide, is in the kit at `/home/sarath/Videos/website/branding`.
+
+## Wanted next
+
+1. A film of Karta's own aircraft for the hero: steady, 16:9, ten seconds or so, with room for the headline in the lower left.
+2. A 3D source or turntable render of the module, for a scrubbable product shot.
+3. Per-route social cards.
+4. A decision on publishing the offline replays themselves; today they are offered on request.
 
 ## Sourcing rules
 
-- Photography: cinematic, deep contrast, controlled palette on the teal-black base (`--color-ink #051112`). No blown-out skies, no stock unmanned-vehicle footage.
-- Every scenario visual ships with the `REPRESENTATIVE SORTIE · ILLUSTRATIVE` label; every real artifact ships with source, conditions, date, and boundary in adjacent text.
-- Ship JPG (q 85-92) or AVIF; PNG only for transparent logos. Textures for `.texture-text` stay under ~600 KB.
-
-## Content surfaces
-
-| Surface | Source | Route |
-|---|---|---|
-| Field note | `lib/content/notes.ts` (typed blocks) | `/field-notes/<slug>` |
-| Career role | `lib/content/roles.ts` | `/careers/<slug>` |
-| Stack layer copy/specs | `lib/catalog.ts` (`STACK_LAYERS`) | `/#skyanchor` `/#tenere` `/#kiksuya` |
+- Every figure comes from a field report and sits beside what it was measured against.
+- Map imagery appears only inside TENERE's own screen recording.
+- Loops are H.264, faststart, no audio, under 5 MB.
+- No footage of anyone else's aircraft, and nothing that shows how SkyAnchor navigates.
 
 ## Environment
 
 ```
-NEXT_PUBLIC_SITE_URL=https://karta.ai   # sitemap/robots absolute URLs
-RESEND_API_KEY=re_...                   # engage form delivery
+NEXT_PUBLIC_SITE_URL=https://www.kartainnovations.com   # absolute URLs in metadata, sitemap and robots
+RESEND_API_KEY=re_...                                   # engage form delivery
 ENGAGE_TO_EMAIL=info@kartainnovations.com
 ```
 
-See `env.example` for comments. Without the Resend vars the engage route validates and logs locally.
+See `env.example`. Without the Resend variables the engage route answers 503 and points the visitor to email.

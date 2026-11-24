@@ -1,22 +1,18 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { PageHeader } from "@/components/primitives/PageHeader";
 import { NOTES, getNote, type NoteBlock } from "@/lib/content/notes";
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 interface NotePageProps {
   params: Promise<{ slug: string }>;
 }
 
-const DATE_FMT = new Intl.DateTimeFormat("en-GB", {
-  day: "2-digit",
-  month: "long",
-  year: "numeric",
-});
+const DATE = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "long", year: "numeric" });
 
 export async function generateStaticParams() {
-  return NOTES.map((n) => ({ slug: n.slug }));
+  return NOTES.map((note) => ({ slug: note.slug }));
 }
 
 export async function generateMetadata({ params }: NotePageProps): Promise<Metadata> {
@@ -30,16 +26,12 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
     alternates: { canonical: `/field-notes/${note.slug}` },
     openGraph: {
       type: "article",
-      locale: "en_US",
-      siteName: "Karta Innovations",
       url: `/field-notes/${note.slug}`,
-      title: `${note.title} - Karta Innovations`,
+      title: `${note.title} · Karta Innovations`,
       description: note.summary,
       publishedTime: note.date,
       authors: [note.author],
-      images: ["/opengraph-image"],
     },
-    twitter: { card: "summary_large_image" },
   };
 }
 
@@ -48,64 +40,78 @@ export default async function NotePage({ params }: NotePageProps) {
   const note = getNote(slug);
   if (!note) notFound();
 
-  const others = NOTES.filter((n) => n.slug !== note.slug).slice(0, 2);
+  const others = NOTES.filter((item) => item.slug !== note.slug).slice(0, 2);
 
   return (
     <>
       <PageHeader
-        eyebrow={`${note.author} · ${note.role}`}
+        compact
+        eyebrow={`Field note · ${DATE.format(new Date(note.date))}`}
         title={note.title}
         intro={
           <>
-            <p className="text-fg text-[19px] leading-[1.55] max-w-[58ch] font-medium">
-              {note.summary}
-            </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-[12px] tracking-[0.18em] uppercase text-fg-tertiary mt-4">
-              <span>{DATE_FMT.format(new Date(note.date))}</span>
-              <span>{note.readingMinutes} min read</span>
-              <span>{note.tags.map((t) => t.toLowerCase()).join(" · ")}</span>
-            </div>
+            <p className="lede">{note.summary}</p>
+            <ul className="row__tags">
+              <li className="tag">
+                {note.author} · {note.role}
+              </li>
+              <li className="tag">{note.readingMinutes} min read</li>
+            </ul>
           </>
         }
       />
 
-      <article className="px-6 md:px-10 pb-32 md:pb-40">
-        <div className="mx-auto max-w-[760px] space-y-7">
-          {note.body.map((block, i) => (
-            <RenderBlock key={i} block={block} />
-          ))}
+      <article className="section" data-tone="cream">
+        <div className="wrap article">
+          <aside className="article__aside">
+            <Link href="/field-notes" className="link muted">
+              <ArrowLeft size={14} weight="bold" aria-hidden /> All notes
+            </Link>
+            <dl>
+              <div>
+                <dt className="label">Author</dt>
+                <dd>{note.author}</dd>
+              </div>
+              <div>
+                <dt className="label">Published</dt>
+                <dd>{DATE.format(new Date(note.date))}</dd>
+              </div>
+              <div>
+                <dt className="label">Filed under</dt>
+                <dd>{note.tags.join(", ")}</dd>
+              </div>
+            </dl>
+          </aside>
+          <div className="prose">
+            {note.body.map((block, index) => (
+              <Block key={index} block={block} />
+            ))}
+          </div>
         </div>
       </article>
 
       {others.length > 0 ? (
-        <section className="px-6 md:px-10 py-24 md:py-32 border-t border-border">
-          <div className="mx-auto max-w-[1100px]">
-            <h2 className="font-mono text-[12px] tracking-[0.22em] uppercase text-fg-tertiary mb-10">
-              Continue reading
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
-              {others.map((o) => (
-                <Link
-                  key={o.slug}
-                  href={`/field-notes/${o.slug}`}
-                  className="group block rounded-2xl ring-1 ring-edge hover:ring-flare/40 transition-[box-shadow,background-color] duration-200 p-7"
-                >
-                  <div className="font-mono text-[12px] tracking-[0.22em] uppercase text-sand mb-3">
-                    {DATE_FMT.format(new Date(o.date))}
-                  </div>
-                  <h3 className="font-display text-xl font-medium tracking-[-0.02em] text-fg group-hover:text-sand transition-colors mb-3">
-                    {o.title}
-                  </h3>
-                  <p className="text-fg-muted text-sm leading-[1.6] max-w-[42ch]">
-                    {o.summary}
-                  </p>
-                  <span className="mt-5 inline-flex items-center gap-2 font-mono text-[12px] tracking-[0.22em] uppercase text-fg-muted group-hover:text-sand transition-colors">
-                    Read note
-                    <ArrowUpRight size={14} weight="bold" />
-                  </span>
-                </Link>
+        <section className="section section--flush-top" data-tone="cream">
+          <div className="wrap">
+            <p className="label rows__count">Continue reading</p>
+            <ol className="rows">
+              {others.map((other) => (
+                <li key={other.slug}>
+                  <Link href={`/field-notes/${other.slug}`} className="row">
+                    <div className="row__index">
+                      <time dateTime={other.date}>{DATE.format(new Date(other.date))}</time>
+                    </div>
+                    <div className="row__main">
+                      <h2 className="t-3">{other.title}</h2>
+                      <p>{other.summary}</p>
+                    </div>
+                    <span className="row__go" aria-hidden>
+                      <ArrowUpRight size={22} />
+                    </span>
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </section>
       ) : null}
@@ -113,61 +119,38 @@ export default async function NotePage({ params }: NotePageProps) {
   );
 }
 
-function RenderBlock({ block }: { block: NoteBlock }) {
+function Block({ block }: { block: NoteBlock }) {
   switch (block.type) {
     case "p":
-      return <p className="text-fg text-[19px] leading-[1.7]">{block.text}</p>;
+      return <p>{block.text}</p>;
     case "h2":
-      return (
-        <h2 className="font-display text-[clamp(1.5rem,3vw,2rem)] font-medium tracking-[-0.025em] text-fg pt-8 leading-[1.15]">
-          {block.text}
-        </h2>
-      );
+      return <h2>{block.text}</h2>;
     case "h3":
-      return (
-        <h3 className="font-display text-xl font-medium tracking-[-0.02em] text-fg pt-4">
-          {block.text}
-        </h3>
-      );
+      return <h3>{block.text}</h3>;
     case "ul":
       return (
-        <ul className="space-y-3 pl-1">
-          {block.items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 text-fg text-[19px] leading-[1.65]">
-              <span className="mt-3 size-1 rounded-full bg-sand shrink-0" />
-              {item}
-            </li>
+        <ul>
+          {block.items.map((item, index) => (
+            <li key={index}>{item}</li>
           ))}
         </ul>
       );
     case "quote":
       return (
-        <blockquote className="border-l-2 border-sand pl-6 py-2">
-          <p className="font-display text-[clamp(1.4rem,2.6vw,1.875rem)] font-medium tracking-[-0.02em] leading-[1.25] text-fg">
-            {block.text}
-          </p>
-          {block.cite ? (
-            <cite className="block mt-3 font-mono text-[12px] tracking-[0.22em] uppercase text-fg-tertiary not-italic">
-              - {block.cite}
-            </cite>
-          ) : null}
+        <blockquote>
+          <p>{block.text}</p>
+          {block.cite ? <cite>{block.cite}</cite> : null}
         </blockquote>
       );
     case "spec":
       return (
-        <div className="rounded-xl bg-glass ring-1 ring-edge p-6">
-          {block.title ? (
-            <div className="font-mono text-[12px] tracking-[0.22em] uppercase text-fg-tertiary mb-3">
-              {block.title}
-            </div>
-          ) : null}
-          <dl className="divide-y divide-border-soft">
-            {block.rows.map((r) => (
-              <div key={r.k} className="grid grid-cols-[1fr_auto] py-2 gap-6">
-                <dt className="font-mono text-[12px] tracking-[0.22em] uppercase text-fg-tertiary">
-                  {r.k}
-                </dt>
-                <dd className="font-mono text-[15px] text-fg">{r.v}</dd>
+        <div className="spec">
+          {block.title ? <h3 className="spec__title">{block.title}</h3> : null}
+          <dl>
+            {block.rows.map((row) => (
+              <div key={row.k}>
+                <dt>{row.k}</dt>
+                <dd>{row.v}</dd>
               </div>
             ))}
           </dl>
@@ -175,7 +158,7 @@ function RenderBlock({ block }: { block: NoteBlock }) {
       );
     case "code":
       return (
-        <pre className="rounded-md bg-surface-deep ring-1 ring-edge overflow-x-auto p-5 font-mono text-[15px] leading-[1.55] text-fg">
+        <pre>
           <code>{block.content}</code>
         </pre>
       );

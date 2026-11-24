@@ -1,107 +1,94 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { CSSProperties } from "react";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { PageHeader } from "@/components/primitives/PageHeader";
 import { ROLES } from "@/lib/content/roles";
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { SITE } from "@/lib/site";
 
 const description =
-  "Open engineering roles at Karta. Build the operational autonomy layer for autonomous systems.";
+  "Open engineering roles at Karta in Hyderabad. Build the autonomy stack for unmanned systems, from the first line of code to the test site.";
 
 export const metadata: Metadata = {
   title: "Careers",
   description,
   alternates: { canonical: "/careers" },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "Karta Innovations",
-    url: "/careers",
-    title: "Careers - Karta Innovations",
-    description,
-    images: ["/opengraph-image"],
-  },
-  twitter: { card: "summary_large_image" },
+  openGraph: { type: "website", url: "/careers", title: "Careers · Karta Innovations", description },
 };
 
+const WORK = [
+  { title: "Navigation without GPS", body: "Knowing where the aircraft is when GPS is jammed or spoofed, and how sure to be." },
+  { title: "Perception", body: "What is around the aircraft, on embedded compute, in real light." },
+  { title: "Mission autonomy", body: "Planning and deconfliction inside limits an operator sets." },
+  { title: "Flight test", body: "Integration, instrumentation and the evidence that comes back." },
+];
+
 export default function CareersPage() {
-  const open = ROLES.filter((r) => r.status === "open");
+  const open = ROLES.filter((role) => role.status === "open");
 
   return (
     <>
       <PageHeader
-        eyebrow="Engineering team · operational autonomy"
-        title="Build command that survives uncertainty."
+        eyebrow="Careers · Hyderabad, India"
+        title="Build the brain for unmanned systems."
         intro={
-          <>
-            <p>
-              The work spans degraded sensing and confidence, constraint solving
-              and mission interfaces, policy systems, testing and field deployment.
-            </p>
-          </>
+          <p className="lede">
+            The work runs from visual navigation and perception to mission autonomy and ground control, and it
+            ends at a test site, not a slide. The team that writes the code flies it.
+          </p>
         }
       />
 
-      <section className="px-6 md:px-10 pb-24 md:pb-32">
-        <div className="mx-auto max-w-[1100px]">
-          <h2 className="font-mono text-[12px] tracking-[0.22em] uppercase text-sand mb-10">
-            Open roles
-          </h2>
-          <ol>
-            {open.map((role, i) => (
-              <li
-                key={role.slug}
-                className="border-t border-border last:border-b"
-              >
-                <Link
-                  href={`/careers/${role.slug}`}
-                  className="group block py-10 lg:py-12 grid grid-cols-1 lg:grid-cols-[120px_1fr_auto] gap-6 lg:gap-12 items-baseline"
-                >
-                  <div>
-                    <div className="font-mono text-[12px] tracking-[0.22em] uppercase text-sand">
-                      0{i + 1}
-                    </div>
-                    <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-fg-tertiary mt-1">
-                      {role.team}
-                    </div>
+      <section className="section" data-tone="cream">
+        <div className="wrap">
+          <ul className="quads">
+            {WORK.map((item, index) => (
+              <li key={item.title} data-reveal style={{ "--d": `${index * 80}ms` } as CSSProperties}>
+                <span className="label accent">{String(index + 1).padStart(2, "0")}</span>
+                <h2 className="t-4">{item.title}</h2>
+                <p>{item.body}</p>
+              </li>
+            ))}
+          </ul>
+
+          <p className="label rows__count rows__count--spaced">
+            {String(open.length).padStart(2, "0")} open {open.length === 1 ? "role" : "roles"}
+          </p>
+          <ol className="rows">
+            {open.map((role, index) => (
+              <li key={role.slug} data-reveal style={{ "--d": `${index * 80}ms` } as CSSProperties}>
+                <Link href={`/careers/${role.slug}`} className="row">
+                  <div className="row__index">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span>{role.team}</span>
                   </div>
-                  <div>
-                    <h3 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-medium tracking-[-0.025em] leading-[1.05] text-fg group-hover:text-sand transition-colors">
-                      {role.title}
-                    </h3>
-                    <p className="mt-3 text-fg-muted text-[19px] leading-[1.6] max-w-[60ch]">
-                      {role.summary}
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[12px] tracking-[0.18em] uppercase text-fg-tertiary">
-                      <span>{role.location}</span>
-                      <span>{role.seniority}</span>
-                    </div>
+                  <div className="row__main">
+                    <h2 className="t-3">{role.title}</h2>
+                    <p>{role.summary}</p>
+                    <ul className="row__tags">
+                      <li className="tag">{role.location}</li>
+                      <li className="tag">{role.seniority}</li>
+                    </ul>
                   </div>
-                  <div className="lg:flex items-center gap-2 text-fg-muted group-hover:text-sand transition-colors hidden">
-                    <span className="font-mono text-[12px] tracking-[0.22em] uppercase">
-                      Read role
-                    </span>
-                    <ArrowUpRight size={14} weight="bold" />
-                  </div>
+                  <span className="row__go" aria-hidden>
+                    <ArrowUpRight size={22} />
+                  </span>
                 </Link>
               </li>
             ))}
           </ol>
 
-          <div className="mt-16 rounded-2xl bg-glass ring-1 ring-edge p-8">
-            <h3 className="font-display text-2xl font-medium tracking-[-0.02em] text-fg mb-3">
-              Don&apos;t see your role?
-            </h3>
-            <p className="text-fg-muted text-[19px] leading-[1.65] max-w-[55ch]">
-              We hire opportunistically for engineers who would clearly raise
-              the bar. Write to{" "}
-              <a
-                href="mailto:info@kartainnovations.com"
-                className="text-sand hover:underline underline-offset-4 decoration-sand/40"
-              >
-                info@kartainnovations.com
-              </a>{" "}
-              with what you have built and what you want to build.
-            </p>
+          <div className="note-card" data-reveal>
+            <div>
+              <h2 className="t-3">Don’t see your role?</h2>
+              <p>
+                We hire for engineers who would clearly raise the bar. Write to us with what you have built and
+                what you want to build.
+              </p>
+            </div>
+            <a href={`mailto:${SITE.email}`} className="btn">
+              {SITE.email} <ArrowUpRight size={16} weight="bold" aria-hidden />
+            </a>
           </div>
         </div>
       </section>

@@ -1,0 +1,753 @@
+/* ==========================================================================
+   Karta brand system v3
+   Three colours: indigo, Indian red and cream. Two typefaces: a display serif
+   that speaks and a grotesk that measures. The rules are in DESIGN.md.
+
+   This file: tokens, base, type, layout, controls, motion.
+   styles/chrome.css  header, menu, footer
+   styles/home.css    the homepage sections
+   styles/pages.css   product, notes, careers, contact, not found
+   ========================================================================== */
+
+:root {
+  /* Colour */
+  --cream: #f4f0e8;
+  --sand: #ebe5d9;
+  --sand-2: #dfd7c8;
+  --paper: #fbf9f5;
+  --indigo: #1a2259;
+  --indigo-2: #242d6c;
+  --indigo-deep: #121840;
+  --night: #0b0f2e;
+  --ink: #0e1338;
+  --red: #f26a21;
+  --red-deep: #b4480f;
+  --red-bright: #f26a21;
+
+  /* Type */
+  --font-serif: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-instrument), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-deva: var(--font-tiro), "Noto Serif Devanagari", serif;
+
+  /* Space */
+  --m: clamp(1.25rem, 3.6vw, 4.75rem);
+  --gap: clamp(1rem, 1.7vw, 1.5rem);
+  --section: clamp(5.5rem, 11vw, 11.5rem);
+  --nav-h: 4.5rem;
+
+  /* Motion */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* A tone is a ground and the inks that sit on it. Every band of the page sets one. */
+[data-tone="cream"],
+[data-tone="sand"] {
+  --bg: var(--cream);
+  --fg: var(--ink);
+  --fg-2: rgb(20 26 71 / 0.68);
+  --fg-3: rgb(20 26 71 / 0.44);
+  --line: rgb(20 26 71 / 0.14);
+  --line-2: rgb(20 26 71 / 0.3);
+  --wash: rgb(20 26 71 / 0.045);
+  --accent: var(--red);
+  --accent-ink: var(--red-deep);
+  --solid: var(--night);
+  --on-solid: var(--cream);
+}
+
+[data-tone="sand"] {
+  --bg: var(--sand);
+}
+
+:root,
+[data-tone="night"],
+[data-tone="indigo"] {
+  --bg: var(--night);
+  --fg: var(--cream);
+  --fg-2: rgb(244 240 232 / 0.72);
+  --fg-3: rgb(244 240 232 / 0.46);
+  --line: rgb(244 240 232 / 0.16);
+  --line-2: rgb(244 240 232 / 0.36);
+  --wash: rgb(244 240 232 / 0.05);
+  --accent: var(--red-bright);
+  --accent-ink: var(--red-bright);
+  --solid: var(--red);
+  --on-solid: var(--night);
+}
+
+[data-tone="indigo"] {
+  --bg: var(--indigo);
+}
+
+[data-tone] {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+html {
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 0;
+  background: var(--night);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: -0.006em;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--red);
+  color: var(--cream);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+strong {
+  font-weight: 600;
+}
+
+.skip-link {
+  position: fixed;
+  left: var(--m);
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.7rem 1rem;
+  background: var(--indigo);
+  color: var(--cream);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transform: translateY(-250%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Type
+   The serif carries what Karta says. The grotesk carries what it measures.
+   -------------------------------------------------------------------------- */
+
+.t-hero,
+.t-1,
+.t-2,
+.t-3 {
+  font-family: var(--font-serif);
+  font-stretch: 112%;
+  font-weight: 650;
+  text-transform: uppercase;
+  text-wrap: balance;
+  font-variant-numeric: lining-nums proportional-nums;
+}
+
+.t-hero {
+  font-size: clamp(2.2rem, 5.7vw, 6.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.018em;
+}
+
+.t-1 {
+  font-size: clamp(1.75rem, 3.6vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.014em;
+}
+
+.t-2 {
+  font-size: clamp(1.4rem, 2.45vw, 2.75rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+}
+
+.t-3 {
+  font-size: clamp(1.1rem, 1.45vw, 1.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.004em;
+}
+
+.t-4 {
+  font-size: clamp(1.0625rem, 1.32vw, 1.3125rem);
+  line-height: 1.28;
+  font-weight: 500;
+  letter-spacing: -0.016em;
+}
+
+.lede {
+  font-size: clamp(1.125rem, 1.42vw, 1.4375rem);
+  line-height: 1.42;
+  letter-spacing: -0.014em;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+
+.body {
+  font-size: clamp(1rem, 1.18vw, 1.1875rem);
+  line-height: 1.5;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+
+.small {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+
+.label {
+  font-size: 0.75rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.label--soft {
+  color: var(--fg-3);
+}
+
+.muted {
+  color: var(--fg-3);
+}
+
+.accent {
+  color: var(--accent-ink);
+}
+
+.deva {
+  font-family: var(--font-deva);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* Figures: large, light, in the serif. The unit rides beside in the grotesk. */
+.fig {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.14em;
+  font-family: var(--font-serif);
+  font-stretch: 112%;
+  font-weight: 300;
+  font-variant-numeric: lining-nums proportional-nums;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  white-space: nowrap;
+}
+
+.fig__unit {
+  font-family: var(--font-sans);
+  font-size: 0.24em;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  transform: translateY(-0.1em);
+}
+
+.fig__x {
+  margin-inline: 0.32em;
+  font-family: var(--font-sans);
+  font-size: 0.5em;
+  font-weight: 400;
+  letter-spacing: 0;
+  opacity: 0.6;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   A twelve-column sheet. Labels hang on the left edge, statements start at
+   the centre line.
+   -------------------------------------------------------------------------- */
+
+.wrap {
+  width: 100%;
+  max-width: 120rem;
+  margin-inline: auto;
+  padding-inline: var(--m);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+}
+
+.section {
+  padding-block: var(--section);
+}
+
+.section--tight {
+  padding-block: calc(var(--section) * 0.62);
+}
+
+.head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: 1.75rem;
+  align-items: start;
+}
+
+.head__label {
+  grid-column: 1 / span 5;
+  padding-top: 0.6rem;
+}
+
+.head__title {
+  grid-column: 7 / -1;
+}
+
+.head__body {
+  grid-column: 7 / span 5;
+}
+
+.head--wide .head__title {
+  grid-column: 4 / -1;
+}
+
+.head + * {
+  margin-top: clamp(3rem, 6vw, 6.5rem);
+}
+
+@media (max-width: 900px) {
+  .head__label,
+  .head__title,
+  .head__body,
+  .head--wide .head__title {
+    grid-column: 1 / -1;
+  }
+
+  .head__label {
+    padding-top: 0;
+  }
+}
+
+/* A hairline that draws itself. */
+.rule {
+  position: relative;
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: none;
+}
+
+.rule::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--line-2);
+  transform-origin: left center;
+}
+
+.rule--soft::after {
+  background: var(--line);
+}
+
+/* --------------------------------------------------------------------------
+   Controls
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.75rem;
+  min-height: 3.25rem;
+  padding: 0 1.25rem 0 1.375rem;
+  border: 1px solid var(--solid);
+  background: var(--solid);
+  color: var(--on-solid);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition:
+    background-color 0.5s var(--ease),
+    border-color 0.5s var(--ease),
+    color 0.5s var(--ease);
+}
+
+.btn svg {
+  flex: none;
+  transition: transform 0.6s var(--ease);
+}
+
+.btn:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--night);
+}
+
+:is([data-tone="night"], [data-tone="indigo"]) .btn:not(.btn--line):hover {
+  background: var(--cream);
+  border-color: var(--cream);
+}
+
+.btn:hover svg {
+  transform: translateX(4px);
+}
+
+.btn--line {
+  background: transparent;
+  border-color: var(--line-2);
+  color: var(--fg);
+}
+
+.btn--line:hover {
+  background: var(--solid);
+  border-color: var(--solid);
+  color: var(--on-solid);
+}
+
+/* The house link: a short rule, then the words. The rule grows toward you. */
+.rule-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.45rem 0;
+  border: 0;
+  background: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rule-link::before {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  background: currentColor;
+  transform-origin: left center;
+  transition:
+    width 0.7s var(--ease),
+    background-color 0.4s var(--ease);
+}
+
+.rule-link:hover::before,
+.rule-link:focus-visible::before {
+  width: 4rem;
+  background: var(--accent);
+}
+
+.rule-link__note {
+  font-weight: 500;
+  color: var(--fg-3);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  padding-bottom: 0.15em;
+  transition:
+    background-size 0.6s var(--ease),
+    color 0.4s var(--ease);
+}
+
+.link:hover {
+  color: var(--accent-ink);
+  background-size: 0% 1px;
+  background-position: 100% 100%;
+}
+
+/* State: said in words, marked by a dot. Filled means it has flown. */
+.state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.71875rem;
+  font-weight: 600;
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.state::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  flex: none;
+}
+
+.state--now {
+  color: var(--fg);
+}
+
+.state--now::before {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.state--next {
+  color: var(--fg-3);
+}
+
+/* --------------------------------------------------------------------------
+   Media
+   Footage and pictures are set square to the sheet: no radius, no shadow.
+   -------------------------------------------------------------------------- */
+
+.media {
+  position: relative;
+  overflow: hidden;
+  background: var(--indigo-deep);
+}
+
+.media video,
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media__control {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  border: 0;
+  background: rgb(18 24 64 / 0.55);
+  color: var(--cream);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+.media:hover .media__control,
+.media__control:focus-visible {
+  opacity: 1;
+}
+
+.media__control--top {
+  top: 1rem;
+  bottom: auto;
+}
+
+@media (hover: none) {
+  .media__control {
+    opacity: 1;
+  }
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  margin-top: 0.9rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--fg-3);
+}
+
+.caption strong {
+  font-weight: 500;
+  color: var(--fg-2);
+}
+
+/* --------------------------------------------------------------------------
+   Motion
+   Things arrive once, slowly, and stay. Reveals are armed only when script
+   is running (html[data-js]) and release themselves if hydration never comes.
+   -------------------------------------------------------------------------- */
+
+html[data-js] [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 1.75rem, 0);
+  transition:
+    opacity 1.1s var(--ease),
+    transform 1.3s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+
+html[data-js] [data-reveal][data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+html[data-js] [data-reveal="fade"] {
+  transform: none;
+}
+
+/* Words rise from behind their own baseline. */
+.words__w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.1em 0.06em 0.2em;
+  margin: -0.1em -0.06em -0.2em;
+}
+
+.words__w > span {
+  display: inline-block;
+}
+
+.words__line {
+  display: block;
+}
+
+html[data-js] [data-reveal="words"] {
+  opacity: 1;
+  transform: none;
+}
+
+html[data-js] [data-reveal="words"] .words__w > span {
+  transform: translate3d(0, 112%, 0);
+  transition: transform 1.35s var(--ease);
+  transition-delay: calc(var(--d, 0ms) + var(--i, 0) * 45ms);
+}
+
+html[data-js] [data-reveal="words"][data-in] .words__w > span {
+  transform: none;
+}
+
+/* Pictures open like a shutter while the image inside settles back. */
+.frame__clip {
+  overflow: hidden;
+}
+
+html[data-js] [data-reveal="frame"] {
+  opacity: 1;
+  transform: none;
+}
+
+html[data-js] [data-reveal="frame"] > .frame__clip {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.6s var(--ease) var(--d, 0ms);
+}
+
+html[data-js] [data-reveal="frame"] > .frame__clip > * {
+  transform: scale(1.16);
+  transition: transform 2.2s var(--ease) var(--d, 0ms);
+}
+
+html[data-js] [data-reveal="frame"][data-in] > .frame__clip {
+  clip-path: inset(0 0 0 0);
+}
+
+html[data-js] [data-reveal="frame"][data-in] > .frame__clip > * {
+  transform: none;
+}
+
+/* Hairlines draw from the left. */
+html[data-js] .rule[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+html[data-js] .rule[data-reveal]::after {
+  transform: scaleX(0);
+  transition: transform 1.5s var(--ease) var(--d, 0ms);
+}
+
+html[data-js] .rule[data-reveal][data-in]::after {
+  transform: none;
+}
+
+@keyframes reveal-release {
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+}
+
+html[data-js]:not([data-hydrated]) [data-reveal],
+html[data-js]:not([data-hydrated]) [data-reveal] .words__w > span,
+html[data-js]:not([data-hydrated]) [data-reveal] > .frame__clip,
+html[data-js]:not([data-hydrated]) [data-reveal] > .frame__clip > *,
+html[data-js]:not([data-hydrated]) .rule[data-reveal]::after {
+  animation: reveal-release 0.01s 3s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-js] [data-reveal],
+  html[data-js] [data-reveal] .words__w > span,
+  html[data-js] [data-reveal] > .frame__clip,
+  html[data-js] [data-reveal] > .frame__clip > *,
+  html[data-js] .rule[data-reveal]::after {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .btn,
+  .btn svg,
+  .rule-link::before,
+  .link {
+    transition: none;
+  }
+}
+

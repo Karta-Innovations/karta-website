@@ -1,251 +1,143 @@
-# Product
+# Product and message
 
 ## Register
 
 brand
 
-## Current direction
+## Positioning · November 2026
 
-This branch redesigns Karta around one category and one memorable promise:
+This follows the November 2026 company introduction, which supersedes the "operational autonomy" framing of the earlier site.
 
-- **Category:** operational autonomy
-- **Memory hook:** command that survives uncertainty
-- **Plain definition:** Karta builds the autonomy layer that helps systems stay oriented, act within human-approved intent, and return a reviewable record as operating conditions degrade.
-- **Stack mnemonic:** know where you are; know what to do next; know why it was allowed.
-- **Retell test:** Karta builds operational autonomy that preserves human command when signals and conditions become uncertain.
+- **Line:** The brain for unmanned systems.
+- **Category:** India's autonomy stack.
+- **Plain definition:** Karta builds the intelligence layer that lets unmanned systems navigate, perceive and decide for themselves. It starts with knowing where you are when GPS is jammed or spoofed.
+- **Proof in one breath:** With the aircraft's own GPS dragged up to 27.1 km away, or jammed for 96 % of a flight, the autopilot flew on SkyAnchor.
+- **Name:** कर्ता. The one who acts. And answers for it.
 
-This is a proposal for public messaging. Capability language remains draft until engineering, legal, and programme owners approve the mechanism, evidence, operating conditions, and boundary behind each claim.
+## The frame: three questions
+
+An unmanned system has to answer three questions by itself. The whole site hangs on them, and each carries its status.
+
+| | Question | Status | Carried by |
+| --- | --- | --- | --- |
+| 01 | Where am I? | Demonstrated | SkyAnchor |
+| 02 | What is around me? | Next phase | 360 degree perception; obstacle avoidance and object tracking in development |
+| 03 | What should I do? | Next phase | Mission autonomy in TENERE today; collaborative swarms and autonomous copilots in development |
+
+Never present a "next phase" capability as available.
+
+## What exists today
+
+Two systems in production.
+
+**SkyAnchor**, visual navigation module (P/N KA-SEN-2604-A). End-to-end operation without GPS: take-off, flight and landing inside jammed and spoofed airspace. One sealed module, sensor and compute, feeding the autopilot over MAVLink. 100 × 114 × 51 mm, 280 g, 12 V. PX4 and ArduPilot. How it navigates is proprietary and is not described on the site (see "What the site does not show").
+
+**TENERE**, swarm-native ground control station. Operators set goals and limits; TENERE plans, deconflicts vehicles and adapts within them, on any MAVLink-enabled vehicle. Modules: swarm engine, Indian grid system, 3D map generation, terminal guidance, object detection and tracking.
+
+Karta sits above the customer's autopilot. They keep their platform. The seam is MAVLink.
 
 ## Users
 
-Three audiences use the site, in this order:
+1. **Defence customers, UAV manufacturers and government evaluators.** They need the category in five seconds, then mechanisms, results and limits. They should never have to guess whether a statement is a result, a specification or a plan.
+2. **Engineers and technical talent.** They need to see hard problems and a team that flies what it writes.
+3. **Press, investors and general visitors.** They need a story they can repeat accurately after one scroll.
 
-1. **Defense customers and government evaluators.** They need to understand the category quickly, then inspect mechanisms, doctrine, limits, and evidence. They should never have to infer whether a statement is a product claim, a design goal, or a published result.
-2. **Engineers and technical talent.** They need to see hard problems, real system boundaries, and the relationship between code, field testing, human authority, and accountability.
-3. **Press and general visitors.** They need a plain-language explanation within one viewport and a story they can repeat accurately after one scroll.
+## Page narrative
 
-The page opens in plain language and earns technical depth. Product names appear only after their operational responsibility has been made clear.
+The homepage is short: who Karta is and what it ships. Flights have a page of their own.
 
-## Product purpose
+**Home (`/`)**
 
-Karta Innovations builds an operational autonomy layer for unmanned systems. The public story is organized around three responsibilities that form one closed loop:
+1. **Claim.** The line, set on the brand plate until Karta's own film takes its place.
+2. **What we build.** One sentence, then the two systems in production.
+3. **Frame.** The three questions, with what has flown and what has not.
+4. **SkyAnchor.** The object and four figures.
+5. **TENERE.** The ground control station, working.
+6. **Integration.** Karta sits above your autopilot.
+7. **Company.** कर्ता, and who is behind it.
+8. **Action.** Let’s fly it on your platform.
 
-1. **Orientation:** know where the system is and how much confidence to place in that estimate. SkyAnchor carries this responsibility.
-2. **Bounded action:** translate human intent, geometry, and constraints into an editable mission plan. TENERE carries this responsibility.
-3. **Accountability:** connect policy, authority, and the operational record so actions can be reviewed in context. Kiksuya carries this responsibility.
+**SkyAnchor (`/skyanchor`)**: the product, what it means on the aircraft, and the specification.
 
-The website no longer presents vehicles as a product pillar or as proof of the autonomy stack. Vehicle names, catalog pages, specifications, galleries, 3D models, and vehicle-led imagery leave the public experience. Generic references to unmanned systems remain only when they are required to explain what operational autonomy controls.
+Anchors on home: `#questions`, `#skyanchor`, `#tenere`, `#stack`, `#company`, `#contact`.
 
-The homepage absorbs the current landing, stack, and mission content into one long narrative. Field Notes and Careers remain separate destinations. Talk to Engineering remains the conversion endpoint.
+Other routes: `/field-notes`, `/field-notes/[slug]`, `/careers`, `/careers/[slug]`, `/engage`. `/stack`, `/mission`, `/vehicles`, `/evidence` and `/products` redirect.
 
-## The sticky idea
+## What the site does not show
 
-The story uses Chip Heath and Dan Heath's SUCCESs framework from *Made to Stick*. The framework describes memorable ideas as Simple, Unexpected, Concrete, Credible, Emotional, and carried through Stories. Simplicity here means prioritization, not merely shorter copy. The [official SUCCESs model](https://heathbrothers.com/wp-content/uploads/resources/mts-made-to-stick-model.pdf) is the editorial source of truth.
+Decided by the founders on 23 November 2026.
 
-| Principle | Karta application |
-| --- | --- |
-| Simple | One category and one promise: operational autonomy preserves human command under uncertainty. The three products are responsibilities inside one loop, not separate pitches. |
-| Unexpected | Challenge the assumption that autonomy means removing the operator. Useful autonomy preserves command when conditions degrade. |
-| Concrete | Show one operation from approved intent through degraded positioning and communications to a reviewable record. Show route state, confidence, bounds, gates, and decisions. |
-| Credible | Present each claim as claim, mechanism, visible artifact, test conditions, and known boundary. Let visitors inspect a trace instead of asking them to trust an adjective. |
-| Emotional | Make the operator's need for clarity and accountability the human stake. Avoid fear, spectacle, and war imagery. |
-| Stories | Build the homepage as one challenge story. The operator is the protagonist, compound uncertainty is the antagonist, and the stack enables bounded action. |
-
-## Narrative roles
-
-- **Protagonist:** the human who sets intent and remains accountable.
-- **Antagonist:** uncertainty that compounds across position, communications, workload, and environment.
-- **Enabler:** the operational autonomy loop.
-- **Guide:** Karta, expressed through mechanisms, boundaries, and engineering evidence.
-- **Resolution:** not completion at any cost. The resolution is bounded behavior, visible uncertainty, retained human authority, and an inspectable record.
-
-## Information architecture
-
-### Primary routes
-
-- `/`: one long page containing Autonomy, Operation, Stack, Proof, Mission, and the closing action.
-- `/field-notes`: the public evidence layer for engineering findings and operational reports.
-- `/field-notes/[slug]`: a structured technical note.
-- `/careers`: hard problems, working principles, and open roles.
-- `/careers/[slug]`: role detail and application route.
-- `/engage`: the technical conversation form.
-
-### Homepage anchors
-
-- `#autonomy`
-- `#operation`
-- `#stack`
-- `#proof`
-- `#mission`
-- `#contact`
-
-### Legacy route behavior
-
-- `/stack` redirects to `/#stack`.
-- `/mission` redirects to `/#mission`.
-- `/vehicles` and `/vehicles/[slug]` redirect to `/#autonomy`.
-- Legacy routes are removed from the sitemap, navigation, footer, internal links, and structured metadata.
-
-## Scope boundary: no vehicle-led story
-
-Remove from the public website:
-
-- vehicle and airframe names
-- the Apis family category
-- vehicle routes and route metadata
-- vehicle specifications and galleries
-- vehicle photography, silhouettes, icons, and 3D models
-- airframes as evidence for the autonomy stack
-- vehicle-first language in careers and corporate messaging
-
-Allowed when technically necessary:
-
-- the phrases `unmanned system`, `autonomous system`, or `platform integration`
-- a generic system state in a diagram, represented by a route cursor, node, or trace rather than an aircraft silhouette
-- a technical note that discusses a platform dependency when the dependency is essential to the finding
-
-## Message hierarchy
-
-### Level 1: category
-
-**Operational autonomy**
-
-This phrase owns the hero, metadata, navigation language, and retell test.
-
-### Level 2: memorable promise
-
-**Command that survives uncertainty.**
-
-This is the short memory hook. It describes the design intent of the system, not an unconditional performance guarantee.
-
-### Level 3: unexpected reframe
-
-**Autonomy is not the absence of command. It is command that persists as conditions change.**
-
-### Level 4: stack mnemonic
-
-- Know where you are, and how sure you are.
-- Know what to do next, within approved intent.
-- Know why an action was allowed.
-
-### Level 5: product names
-
-- SkyAnchor: orientation and confidence
-- TENERE: bounded mission planning
-- Kiksuya: policy, authority, and record
-
-## Voice
-
-The voice is calm, exact, field-grounded, and accountable.
-
-### Write like this
-
-- Start with the plain-language job, then introduce the technical term.
-- Use short declarative sentences for claims.
-- Name the mechanism and the boundary beside the claim.
-- Describe a human action, a system state, or an inspectable artifact.
-- Use numbers only with source, conditions, date, and scope.
-- State uncertainty directly.
-- Prefer `Talk to engineering` and `Read the technical note` to generic discovery language.
-
-### Do not write like this
-
-- AI-powered
-- next-generation
-- seamless
-- game-changing
-- autonomous teammate
-- works anywhere
-- works without GPS or communications
-- mission completes anyway
-- every decision is logged
-- one operator runs twelve systems
-- safe, secure, reliable, failsafe, field-proven, or procurement-grade without a named standard and evidence
-- targeting, kill-chain, weapon-effect, or fear-led language
+- **How SkyAnchor navigates.** It is proprietary. The site says what SkyAnchor does (navigation without GPS, by sight) and what it has flown, never how: no description of the method, no footage of what it sees, no diagram of its pipeline, and no specification row that gives the method away. The charts show where the aircraft went, not how that was worked out, and the flight data shipped with the site carries no record of it.
+- **The roadmap.** No levels, dates, phases or planned layers. The stack diagram lists only what flies today. The three questions keep their status ("Demonstrated", "Next phase") because the public introduction states it.
+- **Flights.** Taken off the site entirely on 24 November 2026. The page, replays, figures and data are archived at `/home/sarath/Videos/website/flights` with notes on putting them back.
+- **The brand page.** Removed for launch on 24 November 2026; the brand kit lives at `/home/sarath/Videos/website/branding`.
+- **Other people's aircraft.** The VTOL in the Pokhran footage belongs to a vendor, and its footage is not Karta's to use. None of it is on the site. The hero holds the brand plate until Karta supplies a film of its own.
+- **The marketing films.** The brand film and the two flight-test films are not on the site: they show how SkyAnchor sees the ground.
 
 ## Credibility contract
 
-Every public capability follows this sequence:
+Every public result follows this order:
 
-> Claim -> mechanism -> visible artifact -> test conditions -> known boundary
+> What was flown → the number → what it was measured against → where it stops being true
 
-Minimum proof requirements:
+- Numbers come only from the field reports and replays. The source of truth for the site is `lib/evidence.ts`; each figure there carries its `basis`, and each flight its `boundary`.
+- GPS1 is the aircraft's own GNSS receiver. Define it on first use.
+- Where no independent truth existed, say so. The 0.4 m touchdown is SkyAnchor's own figure and is labelled that way.
+- Print the uncomfortable facts beside the good ones: the manual landing on the aided-start flight, the first-attack median that includes the climb.
+- The flight of 4 November is described as SkyAnchor navigating with its GPS input cut, checked against the aircraft's own GPS. Do not describe the autopilot as flying on SkyAnchor in that flight.
+- Specifications are the published ones (`lib/skyanchor.ts`), less the rows that describe the method.
 
-| Claim family | Required public evidence |
-| --- | --- |
-| Position without continuous GNSS | Test route and duration, ground-truth method, error distribution, drift, environment, compute, and failure conditions. |
-| Confidence-bounded position | Calibration or coverage plot, a representative confidence trace, and demonstrated behavior as confidence degrades. |
-| Multi-system operator scaling | Mission type, training level, workload measure, intervention rate, automation level, and system count. |
-| Mission composition and conflict resolution | Example intent and constraints, generated graph, violation case, reversibility, and human authority gates. |
-| Doctrine and audit | Redacted policy version, clause attribution, timestamping method, record scope, retention, and replay or export artifact. |
-| Intermittent communications | Defined outage profile, local behavior, reconnection behavior, reconciliation, and prohibited actions during loss. |
-| Deterministic runtime | A scoped architecture statement that names the deterministic process, fixed model versions, and what falls outside that guarantee. |
-| Integration | Supported compute, interfaces, maturity status, environmental range, and security posture. |
-| External validation | Named programme, customer, evaluator, certification, or partner only with written permission and exact scope. |
+## Voice
 
-Until evidence is approved, use design-intent language such as `designed for`, `intended to`, or `surfaces`, and place a clear boundary beside it.
+Calm, exact and from the field. Short sentences that a person would say.
 
-Hyderabad is identity and operating context. It becomes credibility only when paired with approved facts about facilities, test capability, deployments, or team expertise.
+Write:
+
+- Start with what was flown, then say what it means.
+- One idea to a sentence. "GPS falls 450 metres in one second." "None of it happened."
+- On the homepage, say "its own GPS". On the flights page, where the reports are quoted, GPS1 is defined once and used.
+- Name things exactly: SkyAnchor, TENERE.
+- "Talk to engineering" is the action. "See the flights", "Replay every flight" and "Request a replay and report" are the secondary ones.
+
+Do not write:
+
+- AI-powered, next-generation, seamless, game-changing.
+- Unjammable, spoof-proof, works anywhere, mission completes anyway.
+- A number without a flight, a date and a reference.
+- A plan written as if it had already flown.
+- Fear, spectacle or weapon-effect language.
+- Em dashes, and headings that restate the heading above.
+
+## Decisions made for the public site
+
+These follow from what the public one-page introduction chose to say, and are easy to reverse.
+
+- **No named team.** The site uses the introduction's line about the team. Founder and team names appear only in the confidential deck, so they are not on the site.
+- **No vehicle catalogue.**
+- **Kiksuya is not presented.** The November introduction lists two systems in production.
+- **No seed-round material.** Nothing from the confidential deck's funding slides is used.
+- **The mark is flat, the fix is bronze.** The site sets the chevron and stem of the official outlines in one flat ink. The fix keeps the bronze of the logo files, redrawn as vector (the founders chose this over a red fix on 23 November 2026).
+- **Full replays stay on request.** The site replays each flight from a reduced copy of its log, in local metres with no coordinates. The offline replay and the one-page report are offered to evaluators by email.
 
 ## Calls to action
 
-1. **Commercial:** Talk to engineering.
-2. **Narrative:** See autonomy in operation, scrolling to `#operation`.
-3. **Technical trust:** Read Field Notes.
-4. **Talent:** Build it with us.
+1. Commercial: Talk to engineering.
+2. Evidence: See the flights; replay every flight; request a replay and report.
+3. Talent: Open roles in Hyderabad.
 
-Use one solid action in any viewport. Avoid `Learn more`, `Explore`, and `Engage` as visible labels.
-
-## Separate page roles
-
-### Field Notes
-
-Field Notes is the public evidence layer, not a company blog. Each note should follow:
-
-> question -> conditions -> observation -> boundary -> implication
-
-Suggested categories:
-
-- position under uncertainty
-- bounded mission planning
-- doctrine as code
-- operational testing
-- human factors and interface design
-
-Open each note with the finding. Do not bury the boundary at the end.
-
-### Careers
-
-Careers opens with: **Build command that survives uncertainty.**
-
-Show the actual work:
-
-- degraded sensing and confidence calibration
-- constraint solving and mission planning
-- auditable command interfaces
-- policy systems and reviewable records
-- integration, testing, and field deployment
-
-Culture statements must be supported by concrete working practices.
+One solid action in any view.
 
 ## Success criteria
 
-- A five-second visitor can say, `Karta builds operational autonomy.`
-- A one-scroll visitor can retell the plain definition without product jargon.
-- The operator remains the protagonist.
-- Every fold advances a distinct story beat.
-- Every technical term receives a plain-language anchor first.
-- Every number names its source and conditions.
-- Every capability includes a visible boundary.
-- No vehicle name, catalog, gallery, model, specification, or airframe-as-proof remains.
-- The primary action is unmistakably `Talk to engineering`.
-- The page never implies mission completion at any cost.
+- A five-second visitor can say what Karta does and that it has been flown under jamming and spoofing.
+- A one-scroll visitor can repeat the three questions.
+- Every number names what it was measured against.
+- Nothing "next phase" reads as available.
+- The primary action is unmistakably Talk to engineering.
 
 ## Accessibility and inclusion
 
-- Body text meets WCAG AA contrast against every surface.
-- Information is never encoded by color alone.
-- The long homepage remains fully readable without motion, WebGL, or smooth scrolling.
-- `prefers-reduced-motion`, forced-colors, keyboard navigation, and visible focus are first-class states.
-- Masked display text remains real text with a solid-color fallback.
-- Technical diagrams include adjacent text summaries and do not depend on hover.
+- Body text meets WCAG AA on both themes.
+- State is never carried by colour alone: every chip and readout has words.
+- The page is readable without motion, canvas or smooth scrolling.
+- Reduced motion, keyboard navigation and visible focus are first-class states.

@@ -1,23 +1,10 @@
 /**
- * Pre-paint boot script.
- *
- * Renders an inline <script> in <head> that runs BEFORE React hydration and
- * before the first paint. It marks <html data-js> so CSS can hide the
- * anime.js boot-choreography targets (.boot-scope [data-boot]) without ever
- * hiding content from no-JS visitors - they never get the attribute, so
- * they never get the hidden state.
- *
- * The site is light-only: `data-theme="light"` is set statically on <html> in
- * layout.tsx, so no theme logic runs here anymore.
+ * Runs before first paint, ahead of hydration. `data-js` lets the stylesheet
+ * hold scroll reveals back only when script is actually running, so nothing
+ * stays hidden without it.
  */
 const SCRIPT = `document.documentElement.setAttribute('data-js','');`;
 
 export function BootScript() {
-  return (
-    <script
-      dangerouslySetInnerHTML={{ __html: SCRIPT }}
-      // Avoid Next's hydration tracking for inline scripts.
-      suppressHydrationWarning
-    />
-  );
+  return <script dangerouslySetInnerHTML={{ __html: SCRIPT }} suppressHydrationWarning />;
 }

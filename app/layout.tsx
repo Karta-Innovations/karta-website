@@ -1,82 +1,79 @@
-import type { Metadata } from "next";
-import { Manrope, Anek_Devanagari, Azeret_Mono } from "next/font/google";
-import { Nav } from "@/components/chrome/Nav";
-import { Footer } from "@/components/chrome/Footer";
+import type { Metadata, Viewport } from "next";
+import { Archivo, Instrument_Sans, Tiro_Devanagari_Sanskrit } from "next/font/google";
 import { BootScript } from "@/components/chrome/BootScript";
+import { Footer } from "@/components/chrome/Footer";
+import { Nav } from "@/components/chrome/Nav";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { RevealObserver } from "@/components/motion/RevealObserver";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { SITE } from "@/lib/site";
 import "./globals.css";
 
-// Manrope keeps display and body typography clear; Anek preserves the name's roots.
-const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], display: "swap" });
-const azeretMono = Azeret_Mono({ variable: "--font-azeret-mono", subsets: ["latin"], display: "swap" });
-const anekDevanagari = Anek_Devanagari({ variable: "--font-anek-devanagari", subsets: ["devanagari"], weight: "500", display: "swap", preload: false });
+// Headlines: an expanded grotesk, set in capitals.
+const display = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo", display: "swap" });
+// The grotesk carries everything that is measured, labelled or pressed.
+const sans = Instrument_Sans({ subsets: ["latin"], axes: ["wdth"], variable: "--font-instrument", display: "swap" });
+// कर्ता is a Sanskrit word, so it is set in a Sanskrit face.
+const deva = Tiro_Devanagari_Sanskrit({
+  weight: "400",
+  subsets: ["devanagari"],
+  variable: "--font-tiro",
+  display: "swap",
+  preload: false,
+});
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.kartainnovations.com";
-const SITE_NAME = "Karta Innovations";
-const SITE_DESCRIPTION =
-  "Karta builds the operational autonomy layer that helps unmanned systems stay oriented, act within human-approved intent, and return a reviewable record as operating conditions degrade.";
+const TITLE = `${SITE.name} · The brain for unmanned systems`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: `${SITE_NAME} - Operational autonomy`,
-    template: `%s - ${SITE_NAME}`,
-  },
-  description: SITE_DESCRIPTION,
-  applicationName: SITE_NAME,
-  authors: [{ name: "Karta Innovations" }],
+  metadataBase: new URL(SITE.url),
+  title: { default: TITLE, template: `%s · ${SITE.name}` },
+  description: SITE.description,
+  applicationName: SITE.name,
+  authors: [{ name: SITE.name }],
   keywords: [
-    "operational autonomy",
-    "autonomous systems",
-    "situational intelligence",
     "GPS-denied navigation",
-    "robotics",
-    "defense autonomy",
-    "deeptech",
-    "autonomous systems autonomy stack",
+    "visual navigation",
+    "GNSS jamming",
+    "GNSS spoofing",
+    "autonomy stack",
+    "unmanned systems",
+    "UAV autonomy",
+    "swarm ground control",
+    "SkyAnchor",
+    "TENERE",
   ],
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: SITE_URL,
-    siteName: SITE_NAME,
-    title: `${SITE_NAME} - Command that survives uncertainty`,
-    description: SITE_DESCRIPTION,
+    locale: "en_IN",
+    url: SITE.url,
+    siteName: SITE.name,
+    title: TITLE,
+    description: SITE.description,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: `${SITE_NAME} - Operational autonomy`,
-    description: SITE_DESCRIPTION,
-  },
+  twitter: { card: "summary_large_image", title: TITLE, description: SITE.description },
   robots: { index: true, follow: true },
 };
 
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
+export const viewport: Viewport = {
+  themeColor: "#0b0f2e",
+  colorScheme: "dark",
+};
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      // The site uses a single daylight palette.
-      data-theme="light"
-      className={`${manrope.variable} ${azeretMono.variable} ${anekDevanagari.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={`${display.variable} ${sans.variable} ${deva.variable}`} suppressHydrationWarning>
       <head>
-        {/* Pre-paint boot flag - lets CSS gate entrance choreography on JS */}
         <BootScript />
       </head>
-      <body className="min-h-dvh bg-ink text-fg">
+      <body data-tone="night">
         <MotionProvider>
+          <SmoothScroll />
+          <RevealObserver />
           <a href="#content" className="skip-link">
             Skip to content
           </a>
           <Nav />
-          <main id="content" className="relative">
-            {children}
-          </main>
+          <main id="content">{children}</main>
           <Footer />
         </MotionProvider>
       </body>

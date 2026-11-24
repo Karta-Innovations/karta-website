@@ -2,230 +2,205 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@/lib/cn";
-import { Logo } from "@/components/chrome/Logo";
-import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight } from "@phosphor-icons/react";
+import { Mark } from "@/components/brand/Mark";
+import { Wordmark } from "@/components/brand/Wordmark";
+import { lockScroll, scrollToTarget } from "@/lib/scroll";
+import { MENU_LINKS, NAV_LINKS, SITE } from "@/lib/site";
 
-interface NavLink {
-  label: string;
-  href: string;
-  detail: string;
-}
+const EASE = [0.16, 1, 0.3, 1] as const;
 
-const LINKS: NavLink[] = [
-  { label: "Stack", href: "/#stack", detail: "SkyAnchor / TENERE / Kiksuya" },
-  { label: "Field Notes", href: "/field-notes", detail: "Engineering essays" },
-  { label: "Careers", href: "/careers", detail: "Open roles" },
-  { label: "Our mission", href: "/#mission", detail: "Bounded autonomy" },
-];
-
+/**
+ * The header. It takes the tone of whatever band of the page sits under it,
+ * steps out of the way on the way down and returns on the way up. Below
+ * 1024 px the links move into a full-screen menu.
+ */
 export function Nav() {
-  const [open, setOpen] = useState(false);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotionSafe();
   const pathname = usePathname();
-
-  // aria-current for routed pages; homepage hash links never match a route.
-  const isCurrent = (href: string) =>
-    !href.includes("#") && (pathname === href || pathname.startsWith(href + "/"));
-
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 901px)");
-    const closeOnDesktop = () => { if (desktop.matches) setOpen(false); };
-    desktop.addEventListener("change", closeOnDesktop);
-    return () => desktop.removeEventListener("change", closeOnDesktop);
-  }, []);
+  const headerRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (!open) return;
+    const header = headerRef.current;
+    if (!header) return;
+    let last = window.scrollY;
+    let frame = 0;
 
-    const overlay = overlayRef.current;
-    const trigger = menuButtonRef.current;
-    const background = Array.from(
-      document.querySelectorAll<HTMLElement>("main, footer"),
-    );
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      header.toggleAttribute("data-scrolled", y > 16);
+      if (y < 140 || y < last - 2) header.removeAttribute("data-hidden");
+      else if (y > last + 2) header.setAttribute("data-hidden", "");
+      last = y;
 
-    background.forEach((element) => {
-      element.inert = true;
-    });
-
-    const getFocusable = () => {
-      const overlayItems = overlay
-        ? Array.from(
-            overlay.querySelectorAll<HTMLElement>(
-              'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-            ),
-          )
-        : [];
-      return [trigger, ...overlayItems].filter(
-        (item): item is HTMLElement => Boolean(item),
-      );
+      // Take the tone of the band under the bar.
+      let tone = "night";
+      for (const element of document.elementsFromPoint(window.innerWidth / 2, Math.max(header.offsetHeight / 2, 8))) {
+        if (header.contains(element) || element.closest("#site-menu, dialog")) continue;
+        const band = element.closest<HTMLElement>("[data-tone]");
+        if (band) {
+          tone = band.dataset.tone ?? "night";
+          break;
+        }
+      }
+      if (header.dataset.tone !== tone) header.dataset.tone = tone;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
     };
 
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        e.preventDefault();
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
+
+  // The menu owns the page while it is open.
+  useEffect(() => {
+    if (!open) return;
+    const outside = Array.from(document.querySelectorAll<HTMLElement>("main, footer"));
+    outside.forEach((element) => element.setAttribute("inert", ""));
+    lockScroll(true);
+    const focusables = () =>
+      Array.from(menuRef.current?.querySelectorAll<HTMLElement>("a[href], button") ?? []).concat(
+        toggleRef.current ? [toggleRef.current] : [],
+      );
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
         setOpen(false);
+        toggleRef.current?.focus();
         return;
       }
-
-      if (e.key !== "Tab") return;
-      const focusable = getFocusable();
-      if (focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
+      if (event.key !== "Tab") return;
+      const items = focusables();
+      if (items.length === 0) return;
+      const first = items[0];
+      const lastItem = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        lastItem.focus();
+      } else if (!event.shiftKey && document.activeElement === lastItem) {
+        event.preventDefault();
         first.focus();
       }
-    }
-
-    const focusFrame = requestAnimationFrame(() => {
-      getFocusable()[1]?.focus();
-    });
-
+    };
     document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
+    const wide = window.matchMedia("(min-width: 1024px)");
+    const onWide = () => {
+      if (wide.matches) setOpen(false);
+    };
+    wide.addEventListener("change", onWide);
     return () => {
-      cancelAnimationFrame(focusFrame);
+      outside.forEach((element) => element.removeAttribute("inert"));
+      lockScroll(false);
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-      background.forEach((element) => {
-        element.inert = false;
-      });
-      trigger?.focus();
+      wide.removeEventListener("change", onWide);
     };
   }, [open]);
 
+  function follow(event: MouseEvent<HTMLAnchorElement>, href: string) {
+    setOpen(false);
+    if (pathname !== "/" || !href.startsWith("/#")) return;
+    const target = document.querySelector<HTMLElement>(href.slice(1));
+    if (!target) return;
+    event.preventDefault();
+    window.history.replaceState(null, "", href);
+    // Let the menu release the scroll lock before gliding.
+    requestAnimationFrame(() => scrollToTarget(target));
+  }
+
+  const current = (href: string) => (!href.startsWith("/#") && pathname.startsWith(href) ? "page" : undefined);
+
   return (
     <>
-      <header className="site-header">
-        <nav aria-label="Primary" className="site-header__inner page-width">
-          <Link href="/" aria-label="Karta Innovations - home" aria-hidden={open || undefined} tabIndex={open ? -1 : undefined} className="site-brand">
-            <Logo size={40} variant="mark" priority />
-            <Logo size={34} variant="wordmark" priority />
+      <header ref={headerRef} className="nav" data-tone="night" data-open={open ? "" : undefined}>
+        <div className="wrap nav__bar">
+          <Link href="/" className="lockup" aria-label={`${SITE.name}, home`} onClick={() => setOpen(false)}>
+            <Mark size={30} />
+            <Wordmark size={12.5} />
           </Link>
-          <ul aria-hidden={open || undefined} className="site-header__links">
-            {LINKS.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} tabIndex={open ? -1 : undefined} aria-current={isCurrent(link.href) ? "page" : undefined}>{link.label}</Link>
-              </li>
+
+          <nav className="nav__links" aria-label="Primary">
+            {NAV_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} aria-current={current(link.href)} onClick={(event) => follow(event, link.href)}>
+                {link.label}
+              </Link>
             ))}
-          </ul>
-          <div className="site-header__actions">
-            <Link href="/engage" className="header-contact" aria-hidden={open || undefined} tabIndex={open ? -1 : undefined}>Talk to engineering <ArrowRight size={16} aria-hidden /></Link>
-            <button ref={menuButtonRef} type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="nav-overlay" aria-label={open ? "Close menu" : "Open menu"} className="site-menu-button">
-              <span className={cn("site-menu-line", open && "site-menu-line--open")} aria-hidden />
-              <span className="sr-only">{open ? "Close" : "Menu"}</span>
-            </button>
-          </div>
-        </nav>
+          </nav>
+
+          <Link href="/engage" className="nav__cta" aria-current={current("/engage")}>
+            <span>Talk to engineering</span>
+            <ArrowRight size={15} weight="bold" aria-hidden />
+          </Link>
+
+          <button
+            ref={toggleRef}
+            type="button"
+            className="nav__toggle"
+            aria-expanded={open}
+            aria-controls="site-menu"
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span>{open ? "Close" : "Menu"}</span>
+            <span className="nav__toggle-mark" aria-hidden />
+          </button>
+        </div>
       </header>
 
       <AnimatePresence>
         {open ? (
           <motion.div
-            ref={overlayRef}
-            key="overlay"
-            id="nav-overlay"
+            ref={menuRef}
+            id="site-menu"
+            className="menu"
+            data-tone="night"
             role="dialog"
             aria-modal="true"
-            aria-label="Site navigation"
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{
-              opacity: 1,
-              transition: { duration: reduce ? 0 : 0.22, ease: [0.23, 1, 0.32, 1] },
-            }}
-            exit={{
-              opacity: 0,
-              transition: { duration: reduce ? 0 : 0.16, ease: [0.23, 1, 0.32, 1] },
-            }}
-            className="fixed inset-0 z-40 bg-ink"
+            aria-label="Menu"
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.75, ease: EASE }}
           >
-            <div className="absolute inset-0 px-6 pt-24 pb-10 overflow-y-auto">
-              <div className="mx-auto max-w-[1200px] grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-24 pt-8">
-                <ol className="space-y-2">
-                  {LINKS.map((link, i) => (
-                    <motion.li
-                      key={link.href}
-                      initial={
-                        reduce
-                          ? { opacity: 0 }
-                          : { opacity: 0, y: 24, filter: "blur(6px)" }
-                      }
-                      animate={
-                        reduce
-                          ? { opacity: 1 }
-                          : { opacity: 1, y: 0, filter: "blur(0px)" }
-                      }
-                      transition={
-                        reduce
-                          ? { duration: 0 }
-                          : {
-                              duration: 0.3,
-                              delay: 0.06 + i * 0.04,
-                              ease: [0.23, 1, 0.32, 1],
-                            }
-                      }
-                      className="border-b border-edge"
-                    >
-                      <Link
-                        href={link.href}
-                        aria-current={isCurrent(link.href) ? "page" : undefined}
-                        onClick={() => setOpen(false)}
-                        className="group flex items-baseline justify-between py-5 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:translate-x-2"
-                      >
-                        <span className="flex items-baseline gap-5">
-                          <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary group-hover:text-flare transition-colors">
-                            0{i + 1}
-                          </span>
-                          <span className="font-display text-[clamp(2rem,4vw,3.25rem)] font-medium tracking-[-0.03em] leading-[0.95] text-fg group-hover:text-flare transition-colors">
-                            {link.label}
-                          </span>
-                        </span>
-                        <span className="hidden sm:block font-mono text-[11px] tracking-[0.18em] uppercase text-fg-tertiary group-hover:text-fg-muted transition-colors">
-                          {link.detail}
-                        </span>
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ol>
-
-                <motion.aside
-                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
-                  animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                  transition={
-                    reduce
-                      ? { duration: 0 }
-                      : { duration: 0.32, delay: 0.22, ease: [0.23, 1, 0.32, 1] }
-                  }
-                  className="space-y-10"
-                >
-                  <div>
-                    <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fg-tertiary">
-                      17.454 deg N 78.500 deg E
-                    </span>
-                    <p className="mt-3 text-fg-muted leading-relaxed max-w-[28ch]">
-                      Engineered close to the field.
-                    </p>
-                  </div>
-                  <Link
-                    href="/engage"
-                    onClick={() => setOpen(false)}
-                    className="button-primary"
+            <div className="wrap menu__inner">
+              <nav className="menu__links" aria-label="Menu">
+                {MENU_LINKS.map((link, index) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, y: 28 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, ease: EASE, delay: 0.16 + index * 0.055 }}
                   >
-                    Talk to engineering
-                    <ArrowRight size={14} weight="bold" aria-hidden />
-                  </Link>
-                </motion.aside>
-              </div>
+                    <Link href={link.href} className="menu__link" aria-current={current(link.href)} onClick={(event) => follow(event, link.href)}>
+                      <span className="menu__label">{link.label}</span>
+                      <span className="menu__detail">{link.detail}</span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+              <motion.div
+                className="menu__foot"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              >
+                <Link href="/engage" className="btn" onClick={() => setOpen(false)}>
+                  <span>Talk to engineering</span>
+                  <ArrowRight size={16} weight="bold" aria-hidden />
+                </Link>
+                <a href={`mailto:${SITE.email}`} className="link">
+                  {SITE.email}
+                </a>
+              </motion.div>
             </div>
           </motion.div>
         ) : null}

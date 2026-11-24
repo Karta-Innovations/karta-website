@@ -1,34 +1,54 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { setScroller } from "@/lib/scroll";
 
+/**
+ * Inertial scrolling for pointer devices. Touch keeps the platform's own
+ * scroll, and reduced-motion visitors get none of it.
+ */
 export function SmoothScroll() {
+  const pathname = usePathname();
+
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduce.matches) return;
 
     const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t: number) => 1 - Math.pow(1 - t, 4),
-      smoothWheel: true,
+      lerp: 0.105,
       wheelMultiplier: 1,
-      touchMultiplier: 1.6,
+      smoothWheel: true,
+      syncTouch: false,
     });
+    setScroller(lenis);
 
-    let rafId = 0;
-    function raf(time: number) {
+    let frame = 0;
+    const tick = (time: number) => {
       lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+
+    const onMotionChange = () => {
+      if (reduce.matches) lenis.destroy();
+    };
+    reduce.addEventListener("change", onMotionChange);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(frame);
+      reduce.removeEventListener("change", onMotionChange);
       lenis.destroy();
+      setScroller(null);
     };
   }, []);
+
+  // A new route starts at the top unless it targets an anchor.
+  useEffect(() => {
+    if (window.location.hash) return;
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return null;
 }

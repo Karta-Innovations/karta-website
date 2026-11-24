@@ -12,28 +12,14 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["@phosphor-icons/react", "framer-motion"],
   },
   redirects: async () => [
-    // One-sortie redesign: fold /stack, /mission, /vehicles into homepage acts.
-    // QA phase: permanent: false. Flip to true at launch.
-    {
-      source: "/stack",
-      destination: "/#stack",
-      permanent: false,
-    },
-    {
-      source: "/mission",
-      destination: "/#mission",
-      permanent: false,
-    },
-    {
-      source: "/vehicles",
-      destination: "/",
-      permanent: false,
-    },
-    {
-      source: "/vehicles/:slug",
-      destination: "/",
-      permanent: false,
-    },
+    // Earlier site structures, folded into the homepage or the two detail pages.
+    { source: "/evidence", destination: "/", permanent: false },
+    { source: "/flights", destination: "/", permanent: false },
+    { source: "/products", destination: "/skyanchor", permanent: false },
+    { source: "/stack", destination: "/#stack", permanent: false },
+    { source: "/mission", destination: "/#company", permanent: false },
+    { source: "/vehicles", destination: "/", permanent: false },
+    { source: "/vehicles/:slug", destination: "/", permanent: false },
   ],
 };
 

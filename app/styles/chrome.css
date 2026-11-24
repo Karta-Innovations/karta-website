@@ -1,0 +1,421 @@
+/* ==========================================================================
+   Chrome: header, menu, closing invitation, footer
+   ========================================================================== */
+
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex: none;
+}
+
+.lockup--full {
+  gap: 1.1rem;
+}
+
+.lockup__words {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  transition:
+    transform 0.75s var(--ease),
+    background-color 0.5s var(--ease),
+    color 0.5s var(--ease);
+}
+
+.nav::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: var(--line);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+
+.nav[data-scrolled]::after {
+  opacity: 1;
+}
+
+.nav:not([data-scrolled]):not([data-open]) {
+  background: transparent;
+}
+
+.nav[data-hidden]:not([data-open]) {
+  transform: translate3d(0, -101%, 0);
+}
+
+.nav[data-open] {
+  --fg: var(--cream);
+  --fg-3: rgb(244 240 232 / 0.46);
+  --line: rgb(244 240 232 / 0.16);
+  --accent: var(--red-bright);
+  background: var(--night);
+  color: var(--cream);
+}
+
+.nav[data-open]::after {
+  opacity: 0;
+}
+
+.nav__bar {
+  display: flex;
+  align-items: center;
+  height: var(--nav-h);
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.4vw, 2.5rem);
+  margin-left: auto;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.014em;
+}
+
+.nav__links a {
+  position: relative;
+  padding: 0.4rem 0;
+}
+
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0.15rem 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.6s var(--ease);
+}
+
+.nav__links a:hover::after,
+.nav__links a[aria-current="page"]::after {
+  transform: none;
+  transform-origin: left center;
+}
+
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: clamp(1.75rem, 4vw, 4.5rem);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid currentColor;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.014em;
+  transition:
+    color 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+
+.nav__cta svg {
+  transition: transform 0.6s var(--ease);
+}
+
+.nav__cta:hover {
+  color: var(--accent-ink);
+}
+
+.nav__cta:hover svg {
+  transform: translateX(4px);
+}
+
+.nav__toggle {
+  display: none;
+  align-items: center;
+  gap: 0.8rem;
+  margin-left: auto;
+  padding: 0.6rem 0;
+  border: 0;
+  background: none;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.014em;
+}
+
+.nav__toggle-mark {
+  position: relative;
+  width: 1.5rem;
+  height: 0.5rem;
+}
+
+.nav__toggle-mark::before,
+.nav__toggle-mark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.6s var(--ease);
+}
+
+.nav__toggle-mark::before {
+  top: 0;
+}
+
+.nav__toggle-mark::after {
+  bottom: 0;
+}
+
+.nav[data-open] .nav__toggle-mark::before {
+  transform: translateY(0.2rem) rotate(30deg);
+}
+
+.nav[data-open] .nav__toggle-mark::after {
+  transform: translateY(-0.2rem) rotate(-30deg);
+}
+
+@media (max-width: 1023px) {
+  .nav__links,
+  .nav__cta {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: inline-flex;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Menu
+   -------------------------------------------------------------------------- */
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  padding-top: var(--nav-h);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.menu__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.5rem;
+  min-height: calc(100svh - var(--nav-h));
+  padding-block: clamp(1rem, 4vh, 2.5rem) 2rem;
+}
+
+.menu__link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.8rem 0 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.menu__label {
+  font-family: var(--font-serif);
+  font-size: clamp(2.1rem, 9.5vw, 3.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.menu__detail {
+  max-width: 11rem;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  text-align: right;
+  color: var(--fg-3);
+}
+
+.menu__link[aria-current="page"] .menu__label {
+  color: var(--accent);
+}
+
+.menu__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   Closing invitation
+   -------------------------------------------------------------------------- */
+
+.cta {
+  position: relative;
+  padding-bottom: calc(var(--section) * 0.8);
+  overflow: hidden;
+}
+
+.cta__picture {
+  object-fit: cover;
+  object-position: 50% 38%;
+}
+
+.cta__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgb(11 15 46 / 0.93), rgb(11 15 46 / 0.74) 55%, rgb(11 15 46 / 0.6)), linear-gradient(to top, rgb(11 15 46 / 0.9), rgb(11 15 46 / 0) 40%);
+}
+
+.cta__inner {
+  position: relative;
+}
+
+.cta__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: 3.5rem;
+  padding-top: clamp(2rem, 3.2vw, 3rem);
+}
+
+.cta__lead {
+  grid-column: 1 / span 7;
+}
+
+.cta__title {
+  margin-top: clamp(1.75rem, 3.5vw, 3.25rem);
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 2.25rem;
+  margin-top: clamp(2.25rem, 4.5vw, 4rem);
+}
+
+.cta__ways {
+  grid-column: 9 / -1;
+  align-self: end;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cta__ways li {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  padding: 1.35rem 0 1.5rem;
+  border-top: 1px solid var(--line-2);
+}
+
+.cta__ways li:last-child {
+  border-bottom: 1px solid var(--line-2);
+}
+
+.cta__ways .label {
+  padding-top: 0.3rem;
+}
+
+.cta__ways p {
+  margin-top: 0.45rem;
+}
+
+@media (max-width: 900px) {
+  .cta__lead,
+  .cta__ways {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.footer {
+  padding-block: clamp(3.5rem, 6vw, 6rem) 1.75rem;
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: 3rem;
+}
+
+.footer__brand {
+  grid-column: 1 / span 6;
+}
+
+.footer__line {
+  max-width: 13ch;
+  margin-top: 2rem;
+  color: var(--fg-2);
+}
+
+.footer__col {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  font-style: normal;
+  color: var(--fg-2);
+}
+
+.footer__col .label {
+  margin-bottom: 0.7rem;
+}
+
+.footer__col a {
+  color: var(--fg);
+  transition: color 0.4s var(--ease);
+}
+
+.footer__col a:hover {
+  color: var(--accent-ink);
+}
+
+.footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.6rem 2rem;
+  margin-top: clamp(3.5rem, 7vw, 7.5rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line-2);
+  font-size: 0.8125rem;
+  color: var(--fg-2);
+}
+
+.footer__motto .deva {
+  font-size: 1.2em;
+  color: var(--fg);
+}
+
+@media (max-width: 900px) {
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer__col {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer__col {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav,
+  .nav__links a::after {
+    transition: none;
+  }
+}

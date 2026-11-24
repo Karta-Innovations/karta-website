@@ -1,58 +1,29 @@
-import { CoordinateStrip } from "@/components/primitives/CoordinateStrip";
-import { cn } from "@/lib/cn";
+import type { CSSProperties, ReactNode } from "react";
+import { Words } from "@/components/motion/Words";
 
 interface PageHeaderProps {
   eyebrow: string;
-  title: React.ReactNode;
-  intro?: React.ReactNode;
-  /** Optional mono section marker shown above the eyebrow, e.g. "07 · ENGAGE". */
-  index?: string;
-  /** Optional coordinate strip shown at the bottom of the header. */
-  coord?: { left?: string; center?: string; right?: string };
-  className?: string;
+  title: string;
+  intro?: ReactNode;
+  /** Smaller title for long headlines such as article and role names. */
+  compact?: boolean;
 }
 
-export function PageHeader({
-  eyebrow,
-  title,
-  intro,
-  index,
-  coord,
-  className,
-}: PageHeaderProps) {
+/** Opens every secondary route: a label, the title in the serif, and a short introduction. */
+export function PageHeader({ eyebrow, title, intro, compact }: PageHeaderProps) {
   return (
-    <header className={cn("relative pt-32 md:pt-40 pb-20 md:pb-28 px-6 md:px-10", className)}>
-      <div className="mx-auto max-w-[1400px]">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] lg:items-end gap-10 lg:gap-20">
-          <div>
-            {index ? (
-              <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.22em] text-fg-tertiary">
-                {index}
-              </p>
-            ) : null}
-            <p className="chapter-label mb-6">{eyebrow}</p>
-            <h1 className="font-display text-[clamp(2.5rem,5vw,4.5rem)] font-medium tracking-[-0.04em] leading-[1.08] text-fg">
-              {title}
-            </h1>
-          </div>
-          {intro ? (
-            <div className="lg:pt-6">
-              <div className="text-fg-muted text-[19px] leading-[1.65] max-w-[58ch] space-y-5">
-                {intro}
-              </div>
-            </div>
-          ) : null}
-        </div>
-
-        {coord ? (
-          <div className="mt-12 border-t border-edge pt-5 md:mt-16">
-            <CoordinateStrip
-              left={coord.left}
-              center={coord.center}
-              right={coord.right}
-            />
+    <header className="page-head" data-tone="cream">
+      <div className="wrap">
+        <p className="label page-head__label" data-reveal style={{ "--d": "60ms" } as CSSProperties}>
+          {eyebrow}
+        </p>
+        <Words as="h1" className={compact ? "t-1 page-head__title" : "t-hero page-head__title"} text={title} delay={140} />
+        {intro ? (
+          <div className="page-head__intro" data-reveal style={{ "--d": "360ms" } as CSSProperties}>
+            {intro}
           </div>
         ) : null}
+        <div className="rule" data-reveal style={{ "--d": "420ms" } as CSSProperties} />
       </div>
     </header>
   );
